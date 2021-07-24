@@ -409,73 +409,6 @@ public void cleanDiskCache() {
 
 
 
-    <article id="post-Android应用防止被截图或者录屏" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/06/17/Android应用防止被截图或者录屏/">Android应用防止被截图或者录屏</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/06/17/Android应用防止被截图或者录屏/">
-            <time datetime="2016-06-17T12:31:28.000Z" itemprop="datePublished">2016-06-17</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/glide/">glide</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p> Activity创建时设置WindowManager.LayoutParams.FLAG_SECURE属性，该属性能防止屏幕被截图和录制。以下为修复代码示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class DemoActivity extends Activity &#123;</span><br><span class="line">       @Override</span><br><span class="line">       public void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">           super.onCreate(savedInstanceState);</span><br><span class="line">           getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);</span><br><span class="line">           setContentView(R.layout.main);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>即在Activity onCreate方法中，setContenView调用前设置getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);若是所有Activity需要设置该属性，那么可以在BaseActivity中设置，然后其他Activity继承即可</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2016/06/17/Android应用防止被截图或者录屏/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <article id="post-Android之Glide缓存" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -615,6 +548,73 @@ public void cleanDiskCache() {
             
     
         <a href="http://b.nearby.ren/2016/06/17/Android之Glide缓存/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-Android应用防止被截图或者录屏" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/06/17/Android应用防止被截图或者录屏/">Android应用防止被截图或者录屏</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/06/17/Android应用防止被截图或者录屏/">
+            <time datetime="2016-06-17T12:31:28.000Z" itemprop="datePublished">2016-06-17</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/glide/">glide</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p> Activity创建时设置WindowManager.LayoutParams.FLAG_SECURE属性，该属性能防止屏幕被截图和录制。以下为修复代码示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class DemoActivity extends Activity &#123;</span><br><span class="line">       @Override</span><br><span class="line">       public void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">           super.onCreate(savedInstanceState);</span><br><span class="line">           getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);</span><br><span class="line">           setContentView(R.layout.main);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>即在Activity onCreate方法中，setContenView调用前设置getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);若是所有Activity需要设置该属性，那么可以在BaseActivity中设置，然后其他Activity继承即可</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2016/06/17/Android应用防止被截图或者录屏/#comments" class="article-comment-link">评论</a>
     
 
         </footer>

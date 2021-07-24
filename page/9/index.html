@@ -212,7 +212,7 @@
 
             
             <section id="main">
-    <article id="post-android断点调试" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-androidmvp架构模式" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -220,7 +220,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/31/android断点调试/">android断点调试</a>
+            <a class="article-title" href="/2016/10/31/androidmvp架构模式/">androidMVP架构模式</a>
         </h1>
     
 
@@ -229,7 +229,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/10/31/android断点调试/">
+        <a href="/2016/10/31/androidmvp架构模式/">
             <time datetime="2016-10-31T01:47:42.000Z" itemprop="datePublished">2016-10-31</time>
         </a>
     </div>
@@ -255,10 +255,16 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p> Android Studio包含一个debugger程序,可以帮助你在模拟器和真机上调试你的android应用.通过Android Studio的debugger,你可以:</p>
-<p>1.选择你想调试的设备.<br>2.在代码上设置断点.<br>3.在运行时去检查变量和表达式的值.<br>可能平时大家调试代码都是通过打印log的形式,今天带大家走进断点调试的世界.</p>
-<p>断点调试-基础篇<br>设置断点<br>设置断点的方法: 左键在需要调试的代码所处的侧边栏处单击.如下图所示: </p>
-<p><img src="/2016/10/31/android断点调试/../../../../images/20160628204032573.png" alt="Alt text"><br>开始调试<br>点击红色箭头指向的按钮,即可进行代码调试,如下图所示:<br><img src="/2016/10/31/android断点调试/../../../../images/20160628204300199.png" alt="Alt text"><br>调试界面如下所示:<br><img src="/2016/10/31/android断点调试/../../../../images/20160628204824333.png" alt="Alt text"><br>单步调试<br>Step Over(F6)<br>代表程序直接执行当前行代码.(ps:如果该行是函数调用,则直接执行完函数的全部代码)<br><img src="/2016/10/31/android断点调试/../../../../images/20160628205544518.png" alt="Alt text"><br>Step Into(F5)<br>代表程序执行当前行代码(ps:如果该行有自定义方法,则运行进入自定义方法,不会进入官方类库的方法)<br><img src="/2016/10/31/android断点调试/../../../../images/20160628210031943.png" alt="Alt text"><br>具体效果如下:<br><img src="/2016/10/31/android断点调试/../../../../images/20160628210222255.png" alt="Alt text"><br>Step Out(F7)<br>跳出Step Into进入的方法.例如我们感觉进入的方法没有问题,不需要执行后续代码,就可以通过Step Out跳出当前进入的代码.<br><img src="/2016/10/31/android断点调试/../../../../images/20160628210902909.png" alt="Alt text"></p>
+            <p>android MVP模式在Android项目中的使用</p>
+<p>在开发当中我们会涉及到一些架构模式，对于初级程序员来说是很陌生，但是对于中级过渡高级的程序员来说是非常重要需要了解的模式。首先我们先了解有哪些架构模式：不管都前端，移动端，后端都会涉及到这三种：MVC、MVP、MVVM。<br>概念：什么是MVP<br>MVP是模型(Model)、视图(View)、主持人(Presenter)的缩写,分别代表项目中3个不同的模块。<br>模型(Model):负责处理数据的加载或者存储，比如从网络或者本地数据库获取数据等；<br>视图(View):负责界面数据的展示，与用户进行交互；<br>主持人(Presenter):相当于协调者，是模型与视图之间的桥梁，将模型与视图分离开来。</p>
+<p>如下图所示，View与Model并不直接交互，而是使用Presenter作为View与Model之间的桥梁。其中Presenter中同时持有View层以及Model层的Interface的引用，而View层持有Presenter层Ineterface的引用。当View层某个界面需要展示展示某些数据的时候，首先会调用Presenter层的某个接口，然后Presneter层会调用Model层请求数据，当Model层数据加载成功之后会调用Presenter层的回调方法通知Presenter层数据加载完毕，最后Presneter层再调用View层的接口将加载后的数据展示给用户。这就是Mvp模式的整个核心过程。<br><img src="http://images2015.cnblogs.com/blog/420264/201512/420264-20151223222959015-298327306.png" alt="此处输入图片的描述"></p>
+<p>这样分层的好处就是大大减少了Model与View层之间的耦合度。一方面可以使得View层和Model层单独开发与测试，互不依赖。另一方面Model层可以封装复用，可以极大的减少代码量。当然，Mvp还有其他的一些优点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.View层</span><br><span class="line">  View层首页数据展示模块的组件是Activity，里面有一个RecycleView 布局如下：  </span><br><span class="line"></span><br><span class="line">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">   &lt;android.support.v7.widget.RecyclerView</span><br><span class="line">          xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">          xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">          android:id=&quot;@+id/recycle_view&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">          android:scrollbars=&quot;vertical&quot;</span><br><span class="line">          app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;</span><br><span class="line">          android:paddingTop=&quot;@dimen/card_margin&quot;&gt;</span><br><span class="line">      &lt;/android.support.v7.widget.RecyclerView&gt;</span><br></pre></td></tr></table></figure>
+<p>首页列表模块主要展示从网络获取的首页列表信息，view层的接口大概需要如下方法：<br>(1)请求数据的过程中需要提示‘正在加载’的反馈信息给用户<br>(2)加载数据成功后，将加载得到的数据填充到RecycleView展示给用户<br>(3)加载数据成功后，将提示‘正在加载’反馈信息取消掉<br>(4)若加载数据失败，如网络连接、则需要给用户提示信息。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//业务接口</span><br><span class="line">   public interface HomeContract &#123;</span><br><span class="line">       interface View &#123;</span><br><span class="line">          void onLoading();</span><br><span class="line">          void onError(String error);</span><br><span class="line">          void updateUI(XXX xxx);</span><br><span class="line">          void ToastMessage(String message);</span><br><span class="line">       &#125;</span><br><span class="line">       interface Action extends IPresenter &#123;</span><br><span class="line">           void requestHome(XXX... xxx);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //业务处理请求</span><br><span class="line">   public class HomePresenter implements HomeContract.Action&#123;</span><br><span class="line">           HomeContract.view view;</span><br><span class="line">           public HomePresenter(HomeContract.view view)&#123;</span><br><span class="line">                   this.view =view;</span><br><span class="line">           &#125;</span><br><span class="line">           @Override</span><br><span class="line">           pubublic void requestHome(XXX... xxx)&#123;</span><br><span class="line">                   //请求网络数据处理业务层 </span><br><span class="line">                   view.onLoading();</span><br><span class="line">                   view.onError();</span><br><span class="line">                   view.updateUI();</span><br><span class="line">                   view.ToastMessage();</span><br><span class="line">           &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>首页列表Activity中实现上述接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class HomeActivity extends AppCompatActivity implements HomeContract.view &#123;</span><br><span class="line">      HomeContract.Action action;</span><br><span class="line">        @Override</span><br><span class="line">        public void onLoading()&#123;</span><br><span class="line">                //提示加载信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onError(String error)&#123;</span><br><span class="line">                //加载错误ui</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void updateUI(XXX xxx)&#123;</span><br><span class="line">                //更新UI数据</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void ToastMessage(String message)&#123;</span><br><span class="line">               //网络请求结束提示信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onCreate(@Nullable Bundle savedInstanceState)&#123;</span><br><span class="line">            super.onCreate(savedInstanceState);</span><br><span class="line">            action = new HomePresenter(this);</span><br><span class="line">            action.requestHome(xx);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>当用户打开首页界面时，就请求网络获取数据，初始化Presenter引用实例，调用Presenter层的requestHome接口，业务处理完毕后，调用相应的onLoading()、onError()、updateUI()、ToastMessage()方法处理不同逻辑。</p>
 
         
         </div>
@@ -271,7 +277,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2016/10/31/android断点调试/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2016/10/31/androidmvp架构模式/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
