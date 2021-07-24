@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    
+    <title>分享常用的GoLang包工具 | nearby.ren</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="包名                                                    链接地址                                                        备注machinery异步队列                                        https://github.com/RichardKnop/">
+<meta name="keywords" content="go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分享常用的GoLang包工具">
+<meta property="og:url" content="http://b.nearby.ren/2018/03/31/分享常用的GoLang包工具/index.html">
+<meta property="og:site_name" content="nearby.ren">
+<meta property="og:description" content="包名                                                    链接地址                                                        备注machinery异步队列                                        https://github.com/RichardKnop/">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-06-03T14:06:33.203Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分享常用的GoLang包工具">
+<meta name="twitter:description" content="包名                                                    链接地址                                                        备注machinery异步队列                                        https://github.com/RichardKnop/">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="nearby.ren" type="application/atom+xml">
+    
+
+    
+        <link rel="icon" href="/css/images/super.png# path to favicon">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">nearby.ren</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">目录</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">目录</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png">
+            <h2 id="name">lr</h2>
+            <h3 id="title">Android server web Go</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>china, Hainan</span>
+            <a id="follow" target="_blank" href="https://github.com/nearbyren">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                84
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                36
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://gitee.com/mccapp" target="_blank" title="github">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/" target="_blank" title="twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/" target="_blank" title="facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://dribbble.com/" target="_blank" title="dribbble">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-分享常用的GoLang包工具" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            分享常用的GoLang包工具
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/03/31/分享常用的GoLang包工具/">
+            <time datetime="2018-03-31T10:53:55.000Z" itemprop="datePublished">2018-03-31</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/go/">go</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/go/">go</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>包名                                                    链接地址                                                        备注<br>machinery异步队列                                        <a href="https://github.com/RichardKnop/machinery" target="_blank" rel="noopener">https://github.com/RichardKnop/machinery</a><br>Mqtt通信                                                <a href="https://github.com/eclipse/paho.mqtt.golang" target="_blank" rel="noopener">https://github.com/eclipse/paho.mqtt.golang</a>                    go文档<a href="http://www.eclipse.org/paho/clients/golang/" target="_blank" rel="noopener">http://www.eclipse.org/paho/clients/golang/</a><br>微信开发                                                <a href="https://github.com/chanxuehong/wechat" target="_blank" rel="noopener">https://github.com/chanxuehong/wechat</a><br>fasthttp包                                            <a href="https://github.com/valyala/fasthttp" target="_blank" rel="noopener">https://github.com/valyala/fasthttp</a><br>数据库操作包                                            <a href="https://github.com/gocraft/dbr" target="_blank" rel="noopener">https://github.com/gocraft/dbr</a><br>mysql db链式操作                                        <a href="https://github.com/gohouse/gorose" target="_blank" rel="noopener">https://github.com/gohouse/gorose</a><br>glide包管理工具                                        <a href="https://zhuanlan.zhihu.com/p/27994151" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/27994151</a><br>文件配置包                                            <a href="https://github.com/spf13/viper" target="_blank" rel="noopener">https://github.com/spf13/viper</a><br>cli应用执行程序包                                        <a href="https://github.com/spf13/cobra" target="_blank" rel="noopener">https://github.com/spf13/cobra</a><br>redis包 命令式操作                                    <a href="https://github.com/garyburd/redigo/redis" target="_blank" rel="noopener">https://github.com/garyburd/redigo/redis</a><br>redis包 便捷操作                                        <a href="https://github.com/go-redis/redis" target="_blank" rel="noopener">https://github.com/go-redis/redis</a><br>日志包                                                <a href="https://www.jianshu.com/p/5fac8bed4505" target="_blank" rel="noopener">https://www.jianshu.com/p/5fac8bed4505</a><br>日志包                                                <a href="https://github.com/zbindenren/logrus_mail" target="_blank" rel="noopener">https://github.com/zbindenren/logrus_mail</a>                    邮件通知logrus的hooks<br>日志包                                               <a href="https://go.uber.org/zap" target="_blank" rel="noopener">https://go.uber.org/zap</a>     <a href="https://go.uber.org/zap/zapcore" target="_blank" rel="noopener">https://go.uber.org/zap/zapcore</a>     <a href="https://gopkg.in/natefinch/lumberjack.v2" target="_blank" rel="noopener">https://gopkg.in/natefinch/lumberjack.v2</a><br>gin Api文档包                                        <a href="https://github.com/swaggo/gin-swagger" target="_blank" rel="noopener">https://github.com/swaggo/gin-swagger</a><br>govalidator 参数验证器                                <a href="https://github.com/asaskevich/govalidator" target="_blank" rel="noopener">https://github.com/asaskevich/govalidator</a><br>json编解码库                                            <a href="https://github.com/json-iterator/go" target="_blank" rel="noopener">https://github.com/json-iterator/go</a><br>json web token                                        <a href="https://github.com/dgrijalva/jwt-go" target="_blank" rel="noopener">https://github.com/dgrijalva/jwt-go</a><br>类型转换                                                <a href="https://github.com/Unknwon/com" target="_blank" rel="noopener">https://github.com/Unknwon/com</a><br>优雅的重启Http服务                                    <a href="https://github.com/fvbock/endless" target="_blank" rel="noopener">https://github.com/fvbock/endless</a>                            目前只支持linux环境下使用，零时间重启。<br>权限控制                                                <a href="https://github.com/mikespook/gorbac" target="_blank" rel="noopener">https://github.com/mikespook/gorbac</a><br>WebSocket包                                            <a href="https://github.com/gorilla/websocket" target="_blank" rel="noopener">https://github.com/gorilla/websocket</a><br>定时任务包                                            <a href="https://github.com/robfig/cron" target="_blank" rel="noopener">https://github.com/robfig/cron</a><br>CloudXNS-DDNS                                        <a href="https://github.com/zwh8800/cloudxns-ddns" target="_blank" rel="noopener">https://github.com/zwh8800/cloudxns-ddns</a>                    动态域名客户端 docker 镜像<br>Restful和gprc相互转换                                    <a href="https://github.com/grpc-ecosystem/grpc-gateway" target="_blank" rel="noopener">https://github.com/grpc-ecosystem/grpc-gateway</a>                example =&gt; <a href="https://github.com/go-up/go-example" target="_blank" rel="noopener">https://github.com/go-up/go-example</a><br>proto构建Go代码工具                                    <a href="https://github.com/tuneinc/truss" target="_blank" rel="noopener">https://github.com/tuneinc/truss</a>                            用于RPC协议文档生成<br>Api网关                                                <a href="https://github.com/fagongzi/gateway" target="_blank" rel="noopener">https://github.com/fagongzi/gateway</a><br>GO直播服务器                                            <a href="https://github.com/gwuhaolin/livego" target="_blank" rel="noopener">https://github.com/gwuhaolin/livego</a><br>RabbitMQ包                                            <a href="https://github.com/streadway/amqp" target="_blank" rel="noopener">https://github.com/streadway/amqp</a><br>gin中文文档                                            <a href="https://github.com/skybebe/gin-doc-cn" target="_blank" rel="noopener">https://github.com/skybebe/gin-doc-cn</a><br>http限流                                                <a href="https://github.com/didip/tollbooth" target="_blank" rel="noopener">https://github.com/didip/tollbooth</a><br>ORM包                                                <a href="https://github.com/go-sql-driver/mysql" target="_blank" rel="noopener">https://github.com/go-sql-driver/mysql</a><br>TCP网络编程框架                                        <a href="https://github.com/leesper/holmes" target="_blank" rel="noopener">https://github.com/leesper/holmes</a>    <a href="https://github.com/leesper/tao" target="_blank" rel="noopener">https://github.com/leesper/tao</a><br>web框架                                                <a href="https://github.com/gin-gonic/gin" target="_blank" rel="noopener">https://github.com/gin-gonic/gin</a><br>数据结构的可视化                                        <a href="https://github.com/Arafatk/DataViz" target="_blank" rel="noopener">https://github.com/Arafatk/DataViz</a><br>生成图                                                <a href="https://github.com/awalterschulze/gographviz" target="_blank" rel="noopener">https://github.com/awalterschulze/gographviz</a><br>与任何json交互                                        <a href="https://github.com/bitly/go-simplejson" target="_blank" rel="noopener">https://github.com/bitly/go-simplejson</a><br>现代文本索引Go库，类似于lucene。                        <a href="https://github.com/blevesearch/bleve" target="_blank" rel="noopener">https://github.com/blevesearch/bleve</a><br>Google 的一个开源图(Graph)数据库，                        <a href="https://github.com/cayleygraph/cayleygraph" target="_blank" rel="noopener">https://github.com/cayleygraph/cayleygraph</a>                     其灵感来自于 Freebase 和 Google 的 Knowledge Graph 背后的图数据库。<br>top工具                                                <a href="https://github.com/cjbassi/gotop" target="_blank" rel="noopener">https://github.com/cjbassi/gotop</a>                            golang重写的top工具，界面简洁、功能强大<br>缓存库                                                 <a href="https://github.com/coocood/freecache" target="_blank" rel="noopener">https://github.com/coocood/freecache</a>                        无额外的 GC 负荷。数百万对象的垃圾收集延迟仅在数百毫秒特性：<em> 可存储数以百万计条</em> 零垃圾收集负荷<em> 高并发而且线程安全的访问</em> 近乎 LRU 的算法* 严格限制内存使用<br>高可用的分布式key-value存储，                            <a href="https://github.com/coreos/etcd" target="_blank" rel="noopener">https://github.com/coreos/etcd</a>    可以用于配置共享和服务发现；类似于zookeeper和consul；提供restful的http接口，使用简单；基于raft算法的强一致性、高可用的服务存储目录。<br>可视化工具                                            <a href="https://github.com/davecheney/httpstat" target="_blank" rel="noopener">https://github.com/davecheney/httpstat</a>                        可以测试http状态的可视化工具，通过这个工具可以看出来http响应信息。包括dns解析、tcp连接等信息,httpstat一共有golang版本和python版本。<br>调试工具                                                <a href="https://github.com/derekparker/delve" target="_blank" rel="noopener">https://github.com/derekparker/delve</a>                        Devle是一个非常棒的golang 调试工具，支持多种调试方式，直接运行调试，或者attach到一个正在运行中的golang程序，进行调试。<br>基本数据结构与算法的实现。                                <a href="https://github.com/floyernick/Data-Structures-and-Algorithms" target="_blank" rel="noopener">https://github.com/floyernick/Data-Structures-and-Algorithms</a><br>将ASCII图转换成手绘图。                                <a href="https://github.com/esimov/diagram" target="_blank" rel="noopener">https://github.com/esimov/diagram</a><br>模拟鼠标键盘事件、截屏等                                <a href="https://github.com/go-vgo/robotgo" target="_blank" rel="noopener">https://github.com/go-vgo/robotgo</a><br>packr 方便的潜入静态资源文件到golang 二进制文件中            <a href="https://github.com/gobuffalo/packr" target="_blank" rel="noopener">https://github.com/gobuffalo/packr</a><br>git服务器。                                            <a href="https://github.com/gogits/gogs" target="_blank" rel="noopener">https://github.com/gogits/gogs</a><br>从源码中提取json结构。                                 <a href="https://github.com/newhook/go-symbols" target="_blank" rel="noopener">https://github.com/newhook/go-symbols</a><br>go源码编写vim工具。                                    <a href="https://github.com/mdempsky/gocode" target="_blank" rel="noopener">https://github.com/mdempsky/gocode</a><br>消息队列。                                            <a href="https://github.com/nsqio/nsq" target="_blank" rel="noopener">https://github.com/nsqio/nsq</a><br>golang对于es操作库。                                     <a href="https://github.com/olivere/elastic" target="_blank" rel="noopener">https://github.com/olivere/elastic</a><br>支持类似于jQuery的功能。                                 <a href="https://github.com/PuerkitoBio/goquery" target="_blank" rel="noopener">https://github.com/PuerkitoBio/goquery</a><br>javascript解析器。                                     <a href="https://github.com/robertkrimen/otto" target="_blank" rel="noopener">https://github.com/robertkrimen/otto</a><br>从go源码中查找符号表信息。                                 <a href="https://github.com/rogpeppe/godef" target="_blank" rel="noopener">https://github.com/rogpeppe/godef</a><br>嵌入式数据库sqlite相关go操作。                             <a href="https://github.com/rqlite/rqlite" target="_blank" rel="noopener">https://github.com/rqlite/rqlite</a><br>从源码生成uml图，支持C++, Java, Python, Ruby and C#。     <a href="https://github.com/ruben2020/tags2uml" target="_blank" rel="noopener">https://github.com/ruben2020/tags2uml</a><br>Zookeeper Golang客户端                                <a href="https://github.com/samuel/go-zookeeper" target="_blank" rel="noopener">https://github.com/samuel/go-zookeeper</a><br>golang调试、测试使用，可以用来打印任何结构。                 <a href="https://github.com/sanity-io/litter" target="_blank" rel="noopener">https://github.com/sanity-io/litter</a><br>机器基本信息仪表盘。                                     <a href="https://github.com/senorprogrammer/wtf" target="_blank" rel="noopener">https://github.com/senorprogrammer/wtf</a><br>golang操作kafka库。                                     <a href="https://github.com/Shopify/sarama" target="_blank" rel="noopener">https://github.com/Shopify/sarama</a><br>日志框架。                                             <a href="https://github.com/Sirupsen/logrus" target="_blank" rel="noopener">https://github.com/Sirupsen/logrus</a><br>CLI命令行                                              <a href="https://github.com/spf13/cobra" target="_blank" rel="noopener">https://github.com/spf13/cobra</a>            Cobra既是一个用来创建强大的现代CLI命令行的golang库，也是一个生成程序应用和命令行文件的程序。<br>Hugo是由Go语言实现的静态网站生成器。                        <a href="https://github.com/spf13/hugo" target="_blank" rel="noopener">https://github.com/spf13/hugo</a>             简单、易用、高效、易扩展、快速部署。<br>配置文件操作库。                                         <a href="https://github.com/spf13/viper" target="_blank" rel="noopener">https://github.com/spf13/viper</a><br>多机器之间的同步工具。                                     <a href="https://github.com/syncthing/syncthing" target="_blank" rel="noopener">https://github.com/syncthing/syncthing</a><br>golang操作leveldb，一个本地数据库，高效kv。             <a href="https://github.com/syndtr/goleveldb" target="_blank" rel="noopener">https://github.com/syndtr/goleveldb</a>     Leveldb是一个google实现的非常高效的kv数据库，目前的版本1.2能够支持billion级别的数据量了。LevelDB 只是一个 C/C++ 编程语言的库, 不包含网络服务封装。<br>生成golang调用关系图。                                 <a href="https://github.com/TrueFurby/go-callvis" target="_blank" rel="noopener">https://github.com/TrueFurby/go-callvis</a><br>web框架。                                             <a href="https://github.com/urfave/negroni" target="_blank" rel="noopener">https://github.com/urfave/negroni</a><br>生成图表库。                                            <a href="https://github.com/vdobler/chart" target="_blank" rel="noopener">https://github.com/vdobler/chart</a><br>序列化反序列化工具，类似于pb。                             <a href="https://github.com/vmihailenco/msgpack" target="_blank" rel="noopener">https://github.com/vmihailenco/msgpack</a><br>生成图表库。                                             <a href="https://github.com/wcharczuk/go-chart" target="_blank" rel="noopener">https://github.com/wcharczuk/go-chart</a><br>access Kafka metadata in Zookeeper                     <a href="https://github.com/wvanbergen/kazoo-go" target="_blank" rel="noopener">https://github.com/wvanbergen/kazoo-go</a><br>补充返回值。                                            <a href="https://github.com/sqs/goreturns" target="_blank" rel="noopener">https://github.com/sqs/goreturns</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2018/03/31/分享常用的GoLang包工具/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    adorid仅有一个设备，如何做好屏幕适配
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/03/05/Flutter Widget 之旅/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Flutter Widget 之旅</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/linxu/">linxu</a></p>
+                            <p class="item-title"><a href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/" class="title">Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程</a></p>
+                            <p class="item-date"><time datetime="2020-02-23T07:10:55.000Z" itemprop="datePublished">2020-02-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/02/22/linxu安装python3/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/linxu/">linxu</a></p>
+                            <p class="item-title"><a href="/2020/02/22/linxu安装python3/" class="title">linxu安装python3</a></p>
+                            <p class="item-date"><time datetime="2020-02-22T15:53:55.000Z" itemprop="datePublished">2020-02-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/22/MAC文件夹权限问题/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/mac/">mac</a></p>
+                            <p class="item-title"><a href="/2019/03/22/MAC文件夹权限问题/" class="title">MAC /usr/local 文件夹权限问题</a></p>
+                            <p class="item-date"><time datetime="2019-03-22T04:28:11.000Z" itemprop="datePublished">2019-03-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/03/GoToken学习/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/go/">go</a></p>
+                            <p class="item-title"><a href="/2019/03/03/GoToken学习/" class="title">GoToken学习</a></p>
+                            <p class="item-date"><time datetime="2019-03-03T10:53:55.000Z" itemprop="datePublished">2019-03-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/12/31/TPS和QPS区别/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/软件/">软件</a></p>
+                            <p class="item-title"><a href="/2018/12/31/TPS和QPS区别/" class="title">什么是TPS，什么是QPS，区别是什么？</a></p>
+                            <p class="item-date"><time datetime="2018-12-31T05:55:20.000Z" itemprop="datePublished">2018-12-31</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">33</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 13.33px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 13.33px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2021 阿荣<br>
+            <!-- <a href="http://github.com/ppoffice">ppoffice</a>     
+            主题 - <a href="http://hexo.io/" target="_blank">Hexo</a> -->  
+             <a href="#" target="_blank">人生如逆旅  &phi; 我亦是行人 </a>
+             <div class="copyright" style="margin-top: 10px;">
+ 			ICP备案号： <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备16067940号</a><br>
+		</div>	
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2119666"></script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

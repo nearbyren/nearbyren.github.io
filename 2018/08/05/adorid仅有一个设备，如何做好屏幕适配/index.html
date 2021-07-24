@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    
+    <title>adorid仅有一个设备，如何做好屏幕适配 | nearby.ren</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="当你只有一个设备的时候，如何做好屏幕适配一、多机型 UI 适配在 Android 开发的工作日常中，UI 适配是一件比较重要的事情。一般开发新的功能，有新的页面，最终开发完成发布之前，都需要让设计师来审 UI 效果。而有时候，明明我们已经在一款标准的 3 倍手机上，做到了让设计师小姐姐满意的效果，但是当换了另外一台手机的时候，效果又不那么如意。传统的做法是，拿到效果不对的手机，单独适配看看是不是哪">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="adorid仅有一个设备，如何做好屏幕适配">
+<meta property="og:url" content="http://b.nearby.ren/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/index.html">
+<meta property="og:site_name" content="nearby.ren">
+<meta property="og:description" content="当你只有一个设备的时候，如何做好屏幕适配一、多机型 UI 适配在 Android 开发的工作日常中，UI 适配是一件比较重要的事情。一般开发新的功能，有新的页面，最终开发完成发布之前，都需要让设计师来审 UI 效果。而有时候，明明我们已经在一款标准的 3 倍手机上，做到了让设计师小姐姐满意的效果，但是当换了另外一台手机的时候，效果又不那么如意。传统的做法是，拿到效果不对的手机，单独适配看看是不是哪">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://b.nearby.ren/images/546cb579732ab928a9881116afb0620a.png">
+<meta property="og:image" content="http://b.nearby.ren/images/115c9845792770231d1887dccc729b14.png">
+<meta property="og:image" content="http://b.nearby.ren/images/de4e9814474a80f897a4472dd0ca6caf.png">
+<meta property="og:image" content="http://b.nearby.ren/images/c40f5d17c0beebcf7b6925261894e011.png">
+<meta property="og:image" content="http://b.nearby.ren/images/c7e8c5ecba72fa24afbc5dcc3a96396e.png">
+<meta property="og:image" content="http://b.nearby.ren/images/4de09af6a9a3652b6e8f0119f4081a11.png">
+<meta property="og:image" content="http://b.nearby.ren/images/0a35b30a772d849ea369dc7d290939e8.png">
+<meta property="og:image" content="http://b.nearby.ren/images/ac8043060a15905189e061599ffd23f9.png">
+<meta property="og:updated_time" content="2019-07-20T10:19:55.682Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="adorid仅有一个设备，如何做好屏幕适配">
+<meta name="twitter:description" content="当你只有一个设备的时候，如何做好屏幕适配一、多机型 UI 适配在 Android 开发的工作日常中，UI 适配是一件比较重要的事情。一般开发新的功能，有新的页面，最终开发完成发布之前，都需要让设计师来审 UI 效果。而有时候，明明我们已经在一款标准的 3 倍手机上，做到了让设计师小姐姐满意的效果，但是当换了另外一台手机的时候，效果又不那么如意。传统的做法是，拿到效果不对的手机，单独适配看看是不是哪">
+<meta name="twitter:image" content="http://b.nearby.ren/images/546cb579732ab928a9881116afb0620a.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="nearby.ren" type="application/atom+xml">
+    
+
+    
+        <link rel="icon" href="/css/images/super.png# path to favicon">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">nearby.ren</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">目录</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">目录</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png">
+            <h2 id="name">lr</h2>
+            <h3 id="title">Android server web Go</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>china, Hainan</span>
+            <a id="follow" target="_blank" href="https://github.com/nearbyren">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                84
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                36
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://gitee.com/mccapp" target="_blank" title="github">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/" target="_blank" title="twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/" target="_blank" title="facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://dribbble.com/" target="_blank" title="dribbble">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-adorid仅有一个设备，如何做好屏幕适配" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            adorid仅有一个设备，如何做好屏幕适配
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/">
+            <time datetime="2018-08-05T05:30:12.000Z" itemprop="datePublished">2018-08-05</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/适配/">适配</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="当你只有一个设备的时候，如何做好屏幕适配"><a href="#当你只有一个设备的时候，如何做好屏幕适配" class="headerlink" title="当你只有一个设备的时候，如何做好屏幕适配"></a>当你只有一个设备的时候，如何做好屏幕适配</h1><h2 id="一、多机型-UI-适配"><a href="#一、多机型-UI-适配" class="headerlink" title="一、多机型 UI 适配"></a>一、多机型 UI 适配</h2><p>在 Android 开发的工作日常中，UI 适配是一件比较重要的事情。一般开发新的功能，有新的页面，最终开发完成发布之前，都需要让设计师来审 UI 效果。<br>而有时候，明明我们已经在一款标准的 3 倍手机上，做到了让设计师小姐姐满意的效果，但是当换了另外一台手机的时候，效果又不那么如意。<br>传统的做法是，拿到效果不对的手机，单独适配看看是不是哪里布局写的不对导致效果不正确，然后改正它。但是总能碰到我们拿不到真实设备的情况。<br>本文就介绍一个命令，可以修改你当前设备的参数，来模拟出目标设备的显示效果，让你独立就把多机型 UI 效果确认的事情给做了。</p>
+<h1 id="二、WM-命令"><a href="#二、WM-命令" class="headerlink" title="二、WM 命令"></a>二、WM 命令</h1><h3 id="2-1-什么是-WM-命令"><a href="#2-1-什么是-WM-命令" class="headerlink" title="2.1 什么是 WM 命令"></a>2.1 什么是 WM 命令</h3><p>说的这么厉害，实际上需要使用的就是一行 wm 命令，可以通过 adb shell 来操作它。</p>
+<p>wm 命令主要用来帮助我们修改一些屏幕的参数，先来看看它的文档。使用 adb shell wm 命令，可以方便的查看 wm 的文档描述</p>
+<p><img src="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/../../../../images/546cb579732ab928a9881116afb0620a.png" alt="Alt text"></p>
+<p>可以看到，wm 命令可以帮助我们修改当前设备的 size 、 density 等参数，而这两个参数就是决定了当前设备的显示效果。<br><a id="more"></a> </p>
+<h2 id="2-2-WM-的命令"><a href="#2-2-WM-的命令" class="headerlink" title="2.2 WM 的命令"></a>2.2 WM 的命令</h2><p>从上面的文档可以看出，它其实支持的命令还是挺多的，但是有一些根本用不上，是需要系统权限的，所以正常来说我们是无法使用的。那么，还是介绍几个比较实用的命令。</p>
+<blockquote>
+<p>以下例子都是在一款标准 density 为 3 的设备上运行的，屏幕像素为 1080px * 1920px。</p>
+</blockquote>
+<h3 id="1、wm-size"><a href="#1、wm-size" class="headerlink" title="1、wm size"></a>1、wm size</h3><p>wm size 命令，可以用来查询和修改当前设备的尺寸，如果想要修改尺寸，可以使用 px 或者 dp 为单位（默认为 px），使用 x 进行连接，这个其实看看 wm size 的输出，你就清楚了。</p>
+<p><img src="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/../../../../images/115c9845792770231d1887dccc729b14.png" alt="Alt text"></p>
+<p>在这里的例子中，做了几件事情：</p>
+<p>1.使用 wm size 命令查看当前设备的尺寸。<br>2.使用 wm size 命令将当前尺寸修改成了 1000x2000。<br>3.再次使用 wm size 命令查看当前设备的尺寸。<br>4.最后使用 wm size reset 命令，将屏幕尺寸还原。<br>5.再用 wm size 命令，查看还原后的尺寸。</p>
+<p>这几个步骤就已经涵盖了 wm size 命令的所有使用步骤，可以使用它查看当前屏幕尺寸，并且修改屏幕尺寸和还原它。</p>
+<h3 id="2、wm-density"><a href="#2、wm-density" class="headerlink" title="2、wm density"></a>2、wm density</h3><p>wm density 命令，可以用来查看和修改当前设备的 density 参数。</p>
+<p>使用起来很简单，直接上命令了。</p>
+<p><img src="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/../../../../images/de4e9814474a80f897a4472dd0ca6caf.png" alt="Alt text"></p>
+<p>在这个例子中，我做了几件事情：</p>
+<p>1.使用 wm density 查看当前设备的 density。<br>2.在使用 wm density 命令，修改当前设备的 density 为 420。<br>3.然后再使用 wm density 查看修改后的参数。<br>4.最后使用 wm density reset 将设备的 density 还原。<br>5.最后再查看一下还原后的值。</p>
+<h3 id="3、wm-overscan"><a href="#3、wm-overscan" class="headerlink" title="3、wm overscan"></a>3、wm overscan</h3><p>wm overscan 命令，可以修改当前设备的屏幕内边距。其实我觉得这个命令没什么用处，但是还是演示一下如何使用。</p>
+<p><img src="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/../../../../images/c40f5d17c0beebcf7b6925261894e011.png" alt="Alt text"></p>
+<p>在这个例子中，做了几件事情：</p>
+<p>1.使用 wm overscan 修改边距为 20 。<br>2.然后使用 wm overscan reset 将其还原。</p>
+<h2 id="2-3-WM-命令的原理"><a href="#2-3-WM-命令的原理" class="headerlink" title="2.3 WM 命令的原理"></a>2.3 WM 命令的原理</h2><p>wm 命令的逻辑非常的简单，它实际上是和 WindowManagerService 进行交互，通过 WMS 来修改屏幕相关的一些参数。<br>这里就不介绍完整的 wm 源码了，就以一个方法举例来看看 wm 的逻辑。这里就以 wm size 命令举例好了。<br>首先，看看 wm 命令的入口。</p>
+<p><img src="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/../../../../images/c7e8c5ecba72fa24afbc5dcc3a96396e.png" alt="Alt text"></p>
+<p>这里会初始化 mWm ，并且根据输入的参数，调用不同的方法，如果输入的是 size ，则会调用 runDisplaySize() 方法。</p>
+<p><img src="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/../../../../images/4de09af6a9a3652b6e8f0119f4081a11.png" alt="Alt text"></p>
+<p>在 runDisplaySize() 方法中，会先判断 size 命令后面有没有跟其它参数，如果没有，则认为是一次查询操作，会将查询到的结果输出。<br>而如果是 reset 方法的话，就将 w 、h 这两个代表宽高的值，设置为 -1，最终会通过 mWm.clearForcedDisplaySize() 方法，将屏幕的 size 还原。<br>否者就从输入的参数中，通过 x 进行分割，拿到我们输入的宽高。最终通过 mWm.setForcedDisplaySize() 方法，将当前屏幕的 size 修改成我们输入的结果。<br>在设置size 的时候，还会通过 parseDimens() 方法，重新计算一下输入的尺寸。</p>
+<p><img src="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/../../../../images/0a35b30a772d849ea369dc7d290939e8.png" alt="Alt text"></p>
+<p>从这里可以看出，它支持两个尺寸，px 和 dp ，如果如果不指定尺寸，则默认认为是 px 。</p>
+<p>到这里就完成了一次通过 wm size 命令，修改设备屏幕参数的全过程，跟多细节可以自行查阅源码。</p>
+<p>源码的在线地址：<a href="http://androidxref.com/7.1.1_r6/xref/frameworks/base/cmds/wm/src/com/android/commands/wm/Wm.java" target="_blank" rel="noopener">http://androidxref.com/7.1.1_r6/xref/frameworks/base/cmds/wm/src/com/android/commands/wm/Wm.java</a></p>
+<h1 id="三、实施修改设备参数"><a href="#三、实施修改设备参数" class="headerlink" title="三、实施修改设备参数"></a>三、实施修改设备参数</h1><p>既然已经讲清楚 wm 命令的所有细节了，那么我们只需要拿到我们需要适配的设备的 size 和 density。就可以在我们自己的设备上模拟出对应的效果。<br>我这里收集了一些比较常用的设备参数，可以供大家参考一下。</p>
+<p>魅族MX3：440，1080x1800<br>一加5：420，1080x1920<br>红米NOTE，320，720x1280<br>华为MATE7，480，1080x1812<br>MOTO-G5，480，1080x1920<br>Moto-tx1095，432，1080x1790<br>Nexus5x，420，1080x1794<br>Nexus6p，560，1440x2392<br>奇酷360，460，1080x1920<br>VivoX5，320，720x1280</p>
+<blockquote>
+<p>当然，最重要的是拿到公司各种 CEO、CTO、CxO 正在使用的手机参数，进行一波适配，哈哈。</p>
+</blockquote>
+<p>下面，我们随便挑两个设备的参数进行修改，然后看看运行后的效果。</p>
+<p>命令如下:</p>
+<blockquote>
+<p>// 修改成 一加5<br>adb shell wm density 420<br>adb shell wm size 1080x1920<br>// 修改成 Moto-tx1095<br>adb shell wm density 432<br>adb shell wm size 1080x1790</p>
+</blockquote>
+<p>下面，从做到右，分别是原本的尺寸、一加5、Moto-tx1095。</p>
+<p><img src="/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/../../../../images/ac8043060a15905189e061599ffd23f9.png" alt="Alt text"></p>
+<p>其实看着差异不大，只能说桌面布局写的挺好的，所以说，如果布局写的好的话，是可以避免在不同设备上看着很明显的不同的问题 ，就像现在这样。</p>
+<h1 id="四、题外话"><a href="#四、题外话" class="headerlink" title="四、题外话"></a>四、题外话</h1><p>实际上 wm 命令，也是有一些其它问题的，例如有时候通过 wm 命令修改 UI 的的时候，刷新会不及时，会卡顿，所以选择一个性能比较好的手机是一个缓解的办法。或者修改参数之后，退出 App 重新进也是一个不错的办法。<br>如果调整到一个太特殊的参数，例如 200x1000 这种，可能渲染起来会很奇怪。但是如果只是做一些常规设备参数的修改，只要修改值在合理的范围内，一般都是可以的。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2018/08/05/adorid仅有一个设备，如何做好屏幕适配/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/09/05/mac android studio 无线调试/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    mac android studio 无线调试
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2018/03/31/分享常用的GoLang包工具/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">分享常用的GoLang包工具</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/linxu/">linxu</a></p>
+                            <p class="item-title"><a href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/" class="title">Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程</a></p>
+                            <p class="item-date"><time datetime="2020-02-23T07:10:55.000Z" itemprop="datePublished">2020-02-23</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/02/22/linxu安装python3/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/linxu/">linxu</a></p>
+                            <p class="item-title"><a href="/2020/02/22/linxu安装python3/" class="title">linxu安装python3</a></p>
+                            <p class="item-date"><time datetime="2020-02-22T15:53:55.000Z" itemprop="datePublished">2020-02-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/22/MAC文件夹权限问题/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/mac/">mac</a></p>
+                            <p class="item-title"><a href="/2019/03/22/MAC文件夹权限问题/" class="title">MAC /usr/local 文件夹权限问题</a></p>
+                            <p class="item-date"><time datetime="2019-03-22T04:28:11.000Z" itemprop="datePublished">2019-03-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/03/03/GoToken学习/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/go/">go</a></p>
+                            <p class="item-title"><a href="/2019/03/03/GoToken学习/" class="title">GoToken学习</a></p>
+                            <p class="item-date"><time datetime="2019-03-03T10:53:55.000Z" itemprop="datePublished">2019-03-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/12/31/TPS和QPS区别/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/软件/">软件</a></p>
+                            <p class="item-title"><a href="/2018/12/31/TPS和QPS区别/" class="title">什么是TPS，什么是QPS，区别是什么？</a></p>
+                            <p class="item-date"><time datetime="2018-12-31T05:55:20.000Z" itemprop="datePublished">2018-12-31</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">33</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 13.33px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 13.33px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2021 阿荣<br>
+            <!-- <a href="http://github.com/ppoffice">ppoffice</a>     
+            主题 - <a href="http://hexo.io/" target="_blank">Hexo</a> -->  
+             <a href="#" target="_blank">人生如逆旅  &phi; 我亦是行人 </a>
+             <div class="copyright" style="margin-top: 10px;">
+ 			ICP备案号： <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备16067940号</a><br>
+		</div>	
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2119666"></script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
