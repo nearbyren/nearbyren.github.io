@@ -379,88 +379,6 @@
 
 
 
-    <article id="post-sync.WaitGroup使用说明的副本" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/10/06/sync.WaitGroup使用说明的副本/">Go语言中 new()和make()的区别详解</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/10/06/sync.WaitGroup使用说明的副本/">
-            <time datetime="2018-10-06T10:30:12.000Z" itemprop="datePublished">2018-10-06</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/go/">go</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/go/">go</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>#概述<br>Go语言中的new和make 一直是新手比较容易混淆的东西，咋一看很相似，接下来我们来分析两者的区别</p>
-<p>#new的主要特性</p>
-<p>首先new是内建函数，你可以从  <a href="http://golang.org/pkg/builtin/#new" target="_blank" rel="noopener">http://golang.org/pkg/builtin/#new</a>  这儿看到它，它的定义也很简单：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func new(Type) *Type</span><br></pre></td></tr></table></figure>
-<p>官方文档对于它的描述是：</p>
-<p>内建函数new用来分配内存，它的第一个参数是类型，不是一个值，它的返回值是一个指向新分配类型零值的指针</p>
-<p>根据这段描述，我们可以自己实现一个类似的new的功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func newInt() *Int&#123;</span><br><span class="line">	var i int</span><br><span class="line">	return &amp;i	</span><br><span class="line">&#125;</span><br><span class="line">someint :=newInt()</span><br></pre></td></tr></table></figure></p>
-<p>这个函数的功能跟 someInt :=new(int) 一摸一样，所以在我们自定义new开头的函数时，出于约定应该返回类型的指针。</p>
-<p>#make的主要特性</p>
-<p>make也是内建函数，你可以从<a href="http://golang.org/pkg/builtin/#make" target="_blank" rel="noopener">http://golang.org/pkg/builtin/#make</a> 这儿看到它，它的定义比 new 多了一个参数，返回值也不同：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func make(Type,size INtergerType)Type</span><br></pre></td></tr></table></figure>
-<p>官方文档对于它的描述是：</p>
-<p>内建函数make用来为slie ，map 或 chan 类型分配内存和初始化一个对象(注意：只能用在这三种类型上)，跟new类似，第一个参数也是一个类型而不是一个值，<br>跟new不同的是，make返回的类型的引用而不是指针，而返回值也依赖于具体传入的类型，具体说明如下：</p>
-<p>代码如下：</p>
-<p>Slice ：第二个参数size指定了它的长度，它的容易和长度相同。<br>你可以传入第三个参数来指定不同的容量值，但必须不能长度值小。<br>比如 make([]int,0,10)<br>Map:根据size大小来初始化分配内存，不过分配后的map长度为0，如果size被忽略了，那么会在初始化分配内存时分配一个小尺寸的内存<br>Channel：管道缓冲区依据缓冲区容量被初始化。如果容量为0或者忽略容量。管道是没有缓冲区的</p>
-<p>总结</p>
-<p>new 的作用是初始化一个指向类型的指针(*T)，make 的作用是为 slice，map 或 chan 初始化并返回引用(T)。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2018/10/06/sync.WaitGroup使用说明的副本/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <article id="post-Go语言中 new()和make()的区别详解" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -543,7 +461,7 @@
 
 
 
-    <article id="post-Go sync包 WaitGroup使用" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-sync.WaitGroup使用说明的副本" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -551,7 +469,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2018/10/05/Go sync包 WaitGroup使用/">Go sync包 WaitGroup使用</a>
+            <a class="article-title" href="/2018/10/06/sync.WaitGroup使用说明的副本/">Go语言中 new()和make()的区别详解</a>
         </h1>
     
 
@@ -560,7 +478,89 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2018/10/05/Go sync包 WaitGroup使用/">
+        <a href="/2018/10/06/sync.WaitGroup使用说明的副本/">
+            <time datetime="2018-10-06T10:30:12.000Z" itemprop="datePublished">2018-10-06</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/go/">go</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/go/">go</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>#概述<br>Go语言中的new和make 一直是新手比较容易混淆的东西，咋一看很相似，接下来我们来分析两者的区别</p>
+<p>#new的主要特性</p>
+<p>首先new是内建函数，你可以从  <a href="http://golang.org/pkg/builtin/#new" target="_blank" rel="noopener">http://golang.org/pkg/builtin/#new</a>  这儿看到它，它的定义也很简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func new(Type) *Type</span><br></pre></td></tr></table></figure>
+<p>官方文档对于它的描述是：</p>
+<p>内建函数new用来分配内存，它的第一个参数是类型，不是一个值，它的返回值是一个指向新分配类型零值的指针</p>
+<p>根据这段描述，我们可以自己实现一个类似的new的功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func newInt() *Int&#123;</span><br><span class="line">	var i int</span><br><span class="line">	return &amp;i	</span><br><span class="line">&#125;</span><br><span class="line">someint :=newInt()</span><br></pre></td></tr></table></figure></p>
+<p>这个函数的功能跟 someInt :=new(int) 一摸一样，所以在我们自定义new开头的函数时，出于约定应该返回类型的指针。</p>
+<p>#make的主要特性</p>
+<p>make也是内建函数，你可以从<a href="http://golang.org/pkg/builtin/#make" target="_blank" rel="noopener">http://golang.org/pkg/builtin/#make</a> 这儿看到它，它的定义比 new 多了一个参数，返回值也不同：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func make(Type,size INtergerType)Type</span><br></pre></td></tr></table></figure>
+<p>官方文档对于它的描述是：</p>
+<p>内建函数make用来为slie ，map 或 chan 类型分配内存和初始化一个对象(注意：只能用在这三种类型上)，跟new类似，第一个参数也是一个类型而不是一个值，<br>跟new不同的是，make返回的类型的引用而不是指针，而返回值也依赖于具体传入的类型，具体说明如下：</p>
+<p>代码如下：</p>
+<p>Slice ：第二个参数size指定了它的长度，它的容易和长度相同。<br>你可以传入第三个参数来指定不同的容量值，但必须不能长度值小。<br>比如 make([]int,0,10)<br>Map:根据size大小来初始化分配内存，不过分配后的map长度为0，如果size被忽略了，那么会在初始化分配内存时分配一个小尺寸的内存<br>Channel：管道缓冲区依据缓冲区容量被初始化。如果容量为0或者忽略容量。管道是没有缓冲区的</p>
+<p>总结</p>
+<p>new 的作用是初始化一个指向类型的指针(*T)，make 的作用是为 slice，map 或 chan 初始化并返回引用(T)。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2018/10/06/sync.WaitGroup使用说明的副本/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-sync.WaitGroup使用说明" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/10/05/sync.WaitGroup使用说明/">Go sync包 WaitGroup使用</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/10/05/sync.WaitGroup使用说明/">
             <time datetime="2018-10-05T08:30:12.000Z" itemprop="datePublished">2018-10-05</time>
         </a>
     </div>
@@ -602,7 +602,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2018/10/05/Go sync包 WaitGroup使用/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2018/10/05/sync.WaitGroup使用说明/#comments" class="article-comment-link">评论</a>
     
 
         </footer>

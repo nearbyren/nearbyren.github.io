@@ -212,7 +212,7 @@
 
             
             <section id="main">
-    <article id="post-resume1" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-ANDROID SUPPORT兼容包详解" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -220,7 +220,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2015/06/08/resume1/">resume1</a>
+            <a class="article-title" href="/2015/06/08/ANDROID SUPPORT兼容包详解/">ANDROID SUPPORT兼容包详解</a>
         </h1>
     
 
@@ -229,7 +229,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2015/06/08/resume1/">
+        <a href="/2015/06/08/ANDROID SUPPORT兼容包详解/">
             <time datetime="2015-06-08T01:19:18.000Z" itemprop="datePublished">2015-06-08</time>
         </a>
     </div>
@@ -255,35 +255,20 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>姓名<br>Phone：170 7777 7777　　　　　　　　  Email：xxx@gmail.com</p>
-<p>GitHub：github.com/xx　　　　　　　　　Blog：www.xx.com</p>
-<p><strong>个人经历</strong></p>
-<pre><code>■    20xx/xx—至今                    codeKK2 公司                Android 资深开发
-</code></pre><p>带领移动团队负责 xx，取得了什么成绩</p>
-<pre><code>■    20xx/xx—20xx/xx                codeKK1 公司                 Android 高级开发
-</code></pre><p>负责 xx 产品，取得了什么成绩</p>
-<pre><code>■    20xx/xx—20xx/xx                XX 学校                    本科
-</code></pre><p><strong>xx 专业</strong><br><strong>专业排名：x/xxx                GPA：</strong></p>
-<p><strong>专业技能</strong></p>
-<ul>
-<li>x 年团队管理经验，x 年开发经验，x 年移动开发经验</li>
-<li>开源 xx 项目，用于 xx，多少 Star，多少 Contributors</li>
-<li>博客主要分享 xx xx</li>
-<li>熟悉 Android 应用框架设计，熟悉 Android 高性能编程及调优</li>
-<li>熟悉 xx 技术点，xx 技术点，xx 技术点</li>
-</ul>
-<p><strong>项目经历</strong></p>
-<pre><code>■    20xx/xx—至今                XX 项目                        codeKK2 公司
-</code></pre><p><strong>项目简介：</strong><br><strong>职责：</strong></p>
-<pre><code>■    20xx/xx—20xx/xx             XX 项目                        codeKK2 公司
-</code></pre><p><strong>项目简介：</strong><br><strong>职责：</strong></p>
-<pre><code>■    20xx/xx—20xx/xx             XX 项目                        codeKK2 公司
-</code></pre><p><strong>项目简介：</strong><br><strong>职责：</strong></p>
-<pre><code>■    20xx/xx—20xx/xx                 XX 项目                        codeKK1 公司
-</code></pre><p><strong>项目简介：</strong><br><strong>职责：</strong></p>
-<pre><code>■    20xx/xx—20xx/xx                 XX 项目                        codeKK1 公司
-</code></pre><p><strong>项目简介：<br>职责</strong>：</p>
-<p><strong>在校经历</strong><br>●    XX 比赛 XX 奖<br>●    XX 系统设计、开发<br>●    XXX 奖学金<br>各大互联网公司 Android 内推到 <a href="http://j.codekk.com/" target="_blank" rel="noopener">http://j.codekk.com/</a></p>
+            <p> Support Library</p>
+<p>我们都知道Android一些SDK比较分裂，为此google官方提供了Android Support Library package 系列的包来保证高版本sdk开发的向下兼容性, 所以你可能经常看到v4，v7，v13这些数字，首先我们就来理清楚这些数字的含义，以及它们之间的区别。</p>
+<p>support-v4<br>用在API lever 4(即Android 1.6)或者更高版本之上。它包含了相对更多的内容，而且用的更为广泛，例如：Fragment，NotificationCompat，LoadBroadcastManager，ViewPager，PageTabStrip，Loader，FileProvider 等</p>
+<p>Gradle引用方法：</p>
+<p>compile ‘com.android.support:support-v4:21.0.3’</p>
+<p>support-v7<br>这个包是为了考虑API level 7(即Android 2.1)及以上版本而设计的，但是v7是要依赖v4这个包的，v7支持了Action Bar以及一些Theme的兼容。</p>
+<p>Gradle引用方法:</p>
+<p>compile ‘com.android.support:appcompat-v7:21.0.3’<br>support-v13<br>这个包的设计是为了API level 13(即Android 3.2)及更高版本的，一般我们都不常用，平板开发中能用到，这里就不过多介绍了。</p>
+<p>Theme</p>
+<p>回到知乎上的这个问题，我们来介绍下各种Theme的概念。</p>
+<p>Hoho Theme<br>在4.0之前Android可以说是没有设计可言的，在4.0之后推出了Android Design，从此Android在设计上有了很大的改善，而在程序实现上相应的就是Holo风格，所以你看到有类似 Theme.Holo.Light、 Theme.Holo.Light.DarkActionBar 就是4.0的设计风格，但是为了让4.0之前的版本也能有这种风格怎么办呢？这个时候就不得不引用v7包了，所以对应的就有 Theme.AppCompat.Light、 Theme.AppCompat.Light.DarkActionBar，如果你的程序最小支持的版本是4.0，那么可以不用考虑v7的兼容。</p>
+<p>Material Design Theme<br>今年的5.0版本，Android推出了Material Design的概念，这是在设计上Android的又一大突破。对应的程序实现上就有 Theme.Material.Light、 Theme.Material.Light.DarkActionBar等，但是这种风格只能应用在在5.0版本的手机，如果在5.0之前应用Material Design该怎么办呢？同样的引用appcompat-v7包，这个时候的Theme.AppCompat.Light、 Theme.AppCompat.Light.DarkActionBar就是相对应兼容的Material Design的Theme。</p>
+<p>注意事项</p>
+<p>gradle引用appcompat-v7包的时候就不需要引用v4了，因为v7里默认包含了v4包；<br>compile ‘com.android.support:appcompat-v7:21.0.3’ 中的21代表API level 21推出的兼容包，所以如果你引用的是21之前的版本，则默认这些Theme.AppCompat.Light是Holo风格的，从21开始的版本默认是Material风格<br>使用appcompat之后，你的所有的Activity应该继承自ActionBarActivity，而ActionBarActivity继承自FragmentActivity，所以放心的使用Fragment；</p>
 
         
         </div>
@@ -296,7 +281,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2015/06/08/resume1/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2015/06/08/ANDROID SUPPORT兼容包详解/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
