@@ -159,11 +159,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                84
+                86
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                36
+                37
                 <span>标签</span>
             </div>
         </div>
@@ -212,7 +212,7 @@
 
             
             <section id="main">
-    <article id="post-androidmvp架构模式" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-为你的JAVA代码配上类模块注释模板" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -220,7 +220,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/31/androidmvp架构模式/">androidMVP架构模式</a>
+            <a class="article-title" href="/2016/12/05/为你的JAVA代码配上类模块注释模板/">为你的JAVA代码配上类模块注释模板</a>
         </h1>
     
 
@@ -229,8 +229,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/10/31/androidmvp架构模式/">
-            <time datetime="2016-10-31T01:47:42.000Z" itemprop="datePublished">2016-10-31</time>
+        <a href="/2016/12/05/为你的JAVA代码配上类模块注释模板/">
+            <time datetime="2016-12-05T05:30:12.000Z" itemprop="datePublished">2016-12-05</time>
         </a>
     </div>
 
@@ -238,13 +238,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
+        <a class="article-category-link" href="/categories/android-studio/">android studio</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/mvp/">mvp</a>
+        <a class="tag-link" href="/tags/android-studio/">android studio</a>
     </div>
 
                     </div>
@@ -255,188 +255,113 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>android MVP模式在Android项目中的使用</p>
-<p>在开发当中我们会涉及到一些架构模式，对于初级程序员来说是很陌生，但是对于中级过渡高级的程序员来说是非常重要需要了解的模式。首先我们先了解有哪些架构模式：不管都前端，移动端，后端都会涉及到这三种：MVC、MVP、MVVM。<br>概念：什么是MVP<br>MVP是模型(Model)、视图(View)、主持人(Presenter)的缩写,分别代表项目中3个不同的模块。<br>模型(Model):负责处理数据的加载或者存储，比如从网络或者本地数据库获取数据等；<br>视图(View):负责界面数据的展示，与用户进行交互；<br>主持人(Presenter):相当于协调者，是模型与视图之间的桥梁，将模型与视图分离开来。</p>
-<p>如下图所示，View与Model并不直接交互，而是使用Presenter作为View与Model之间的桥梁。其中Presenter中同时持有View层以及Model层的Interface的引用，而View层持有Presenter层Ineterface的引用。当View层某个界面需要展示展示某些数据的时候，首先会调用Presenter层的某个接口，然后Presneter层会调用Model层请求数据，当Model层数据加载成功之后会调用Presenter层的回调方法通知Presenter层数据加载完毕，最后Presneter层再调用View层的接口将加载后的数据展示给用户。这就是Mvp模式的整个核心过程。<br><img src="http://images2015.cnblogs.com/blog/420264/201512/420264-20151223222959015-298327306.png" alt="此处输入图片的描述"></p>
-<p>这样分层的好处就是大大减少了Model与View层之间的耦合度。一方面可以使得View层和Model层单独开发与测试，互不依赖。另一方面Model层可以封装复用，可以极大的减少代码量。当然，Mvp还有其他的一些优点。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.View层</span><br><span class="line">  View层首页数据展示模块的组件是Activity，里面有一个RecycleView 布局如下：  </span><br><span class="line"></span><br><span class="line">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">   &lt;android.support.v7.widget.RecyclerView</span><br><span class="line">          xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">          xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">          android:id=&quot;@+id/recycle_view&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">          android:scrollbars=&quot;vertical&quot;</span><br><span class="line">          app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;</span><br><span class="line">          android:paddingTop=&quot;@dimen/card_margin&quot;&gt;</span><br><span class="line">      &lt;/android.support.v7.widget.RecyclerView&gt;</span><br></pre></td></tr></table></figure>
-<p>首页列表模块主要展示从网络获取的首页列表信息，view层的接口大概需要如下方法：<br>(1)请求数据的过程中需要提示‘正在加载’的反馈信息给用户<br>(2)加载数据成功后，将加载得到的数据填充到RecycleView展示给用户<br>(3)加载数据成功后，将提示‘正在加载’反馈信息取消掉<br>(4)若加载数据失败，如网络连接、则需要给用户提示信息。 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//业务接口</span><br><span class="line">   public interface HomeContract &#123;</span><br><span class="line">       interface View &#123;</span><br><span class="line">          void onLoading();</span><br><span class="line">          void onError(String error);</span><br><span class="line">          void updateUI(XXX xxx);</span><br><span class="line">          void ToastMessage(String message);</span><br><span class="line">       &#125;</span><br><span class="line">       interface Action extends IPresenter &#123;</span><br><span class="line">           void requestHome(XXX... xxx);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //业务处理请求</span><br><span class="line">   public class HomePresenter implements HomeContract.Action&#123;</span><br><span class="line">           HomeContract.view view;</span><br><span class="line">           public HomePresenter(HomeContract.view view)&#123;</span><br><span class="line">                   this.view =view;</span><br><span class="line">           &#125;</span><br><span class="line">           @Override</span><br><span class="line">           pubublic void requestHome(XXX... xxx)&#123;</span><br><span class="line">                   //请求网络数据处理业务层 </span><br><span class="line">                   view.onLoading();</span><br><span class="line">                   view.onError();</span><br><span class="line">                   view.updateUI();</span><br><span class="line">                   view.ToastMessage();</span><br><span class="line">           &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>首页列表Activity中实现上述接口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class HomeActivity extends AppCompatActivity implements HomeContract.view &#123;</span><br><span class="line">      HomeContract.Action action;</span><br><span class="line">        @Override</span><br><span class="line">        public void onLoading()&#123;</span><br><span class="line">                //提示加载信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onError(String error)&#123;</span><br><span class="line">                //加载错误ui</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void updateUI(XXX xxx)&#123;</span><br><span class="line">                //更新UI数据</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void ToastMessage(String message)&#123;</span><br><span class="line">               //网络请求结束提示信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onCreate(@Nullable Bundle savedInstanceState)&#123;</span><br><span class="line">            super.onCreate(savedInstanceState);</span><br><span class="line">            action = new HomePresenter(this);</span><br><span class="line">            action.requestHome(xx);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>当用户打开首页界面时，就请求网络获取数据，初始化Presenter引用实例，调用Presenter层的requestHome接口，业务处理完毕后，调用相应的onLoading()、onError()、updateUI()、ToastMessage()方法处理不同逻辑。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2016/10/31/androidmvp架构模式/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-dagger2学习" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/28/dagger2学习/">dagger2学习</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/10/28/dagger2学习/">
-            <time datetime="2016-10-28T06:54:43.000Z" itemprop="datePublished">2016-10-28</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/dagger2/">dagger2</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/dagger2/">dagger2</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="为什么使用依赖注入"><a href="#为什么使用依赖注入" class="headerlink" title="为什么使用依赖注入"></a>为什么使用依赖注入</h1><p><strong>使用依赖注入的可以带来以下好处：</strong></p>
-<ol>
-<li>依赖的注入和配置独立于组件之处。</li>
-<li>因为对象是在一个独立、不耦合的地方初始化，所以当注入抽象方法的时候，我们只需要修改对象的实现方式，而不是用大改代码库。</li>
-<li>以来可以注入到一个组件中：我们可以注入这些依赖的模拟实现，这样使得测试更加简单。<br><img src="http://www.jcodecraeer.com/uploads/20150519/1431999088123888.png" alt="此处输入图片的描述"></li>
-</ol>
-<h1 id="基本特点"><a href="#基本特点" class="headerlink" title="基本特点"></a>基本特点</h1><ol>
-<li>多个注入点:依赖，通过injected</li>
-<li>多种绑定方法:以来，通过provided</li>
-<li>多个modules:实现某种功能的绑定集合</li>
-<li>多个对象图:实现一个范围的modules集合</li>
-</ol>
-<h1 id="区别点"><a href="#区别点" class="headerlink" title="区别点"></a>区别点</h1><ol>
-<li>再也没有使用反射:图的验证、配置和预先设置都在编译的时候执行。</li>
-<li>容易调试和可跟踪:完全具体地调用提供和创建的堆栈。</li>
-<li>更过的性能:谷歌声称他们提高了13%的处理性能</li>
-<li>代码混淆:使用派遣方法，就如同自己写的代码一样<br>当然素偶有这些很棒的特点都需要付出一个代价，那就是缺乏灵活性，例如：dagger2没用反射所有没有动态机制。</li>
-</ol>
-<h1 id="概念与注入"><a href="#概念与注入" class="headerlink" title="概念与注入"></a>概念与注入</h1><ol>
-<li>@Inject：通常在需要依赖的地方使用这个注解.换句话说，你用它告诉Dagger这个类或者字段需要依赖注入。这样，Dagger就会构造一个这个类的实例并满足他们的依赖。</li>
-<li>@Module：Modules类里面的方法专门提供依赖，所以我们定义一个类，用@Module注解，这样dagger在构造类的实例的时候，就知道从哪里去找到需要的依赖。modules的一个重要的特征它们设计分区并组合在一起(比如说，在我们的app中可以有多个组成在一起的modules)。</li>
-<li>@Provide：再modules中，我们定义的方法是用这哥注解，以此告诉dagger我们想要构造对象并提供这些依赖。</li>
-<li>@Component:Components从根本上说就是一个注入器，也可以说是@Inject和@Modules的桥梁，它的主要作用就是连接这两个部分。Components可以提供所有定义了的类型的实例，比如：我们必须用@Componets注解一个借口然后列出所有的@Modules组成该组件，如果缺失了任何一块都在编译的时候报错。所有的组件都可以通过它的modules知道依赖的范围。</li>
-<li>@Scope:Scope可是非常的有用，dagger2可以通过自定义注解限定注解的作用域。</li>
-<li>@Qualifier:当类的类型不足以鉴别一个依赖的时候，我们就可以使用这个注解表示。</li>
-</ol>
-<h1 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">app-&gt;build.gradle</span><br><span class="line"></span><br><span class="line">    apply plugin: &apos;com.neenbedankt.android-apt&apos;</span><br><span class="line">     </span><br><span class="line">    buildscript &#123;</span><br><span class="line">      repositories &#123;</span><br><span class="line">        jcenter()</span><br><span class="line">      &#125;</span><br><span class="line">      dependencies &#123;</span><br><span class="line">        classpath &apos;com.neenbedankt.gradle.plugins:android-apt:1.4&apos;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    android &#123;</span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    dependencies &#123;</span><br><span class="line">      apt &apos;com.google.dagger:dagger-compiler:2.0&apos;</span><br><span class="line">      compile &apos;com.google.dagger:dagger:2.0&apos;</span><br><span class="line">     </span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>如上所示，我们添加了编译和运行库，还有必不可少的apt插件，没有这插件，dagger可能不会正常工作，特别是在Android studio中。</p>
-<h1 id="dagger2注解的使用方式"><a href="#dagger2注解的使用方式" class="headerlink" title="dagger2注解的使用方式"></a>dagger2注解的使用方式</h1><ol>
-<li>构造方法注入：在类的构造方法前面注入@Inject</li>
-<li>成员变量注入：在类的成员变量(非私有)前面注解@Inject</li>
-<li>函数方法注入：在函数前面注解@Inject</li>
-</ol>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2016/10/28/dagger2学习/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-android基于HLS和TRMP协议的第三方SDK选择" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/28/android基于HLS和TRMP协议的第三方SDK选择/">android基于HLS和TRMP协议的第三方SDK选择</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/10/28/android基于HLS和TRMP协议的第三方SDK选择/">
-            <time datetime="2016-10-28T01:29:49.000Z" itemprop="datePublished">2016-10-28</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/直播/">直播</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>协议的详解网上资料都太多了，我就不赘述了。Android上3.0开始支持hls，但在4.0以后就支持的不太好了。而对rtmp来说，Android是默认不支持的。网上有一些第三方库支持这两种协议，下面就我找到的第三方库列出并做出比较。</p>
+            <p>模板1：</p>
+<p>/<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em>*</em></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></p>
 <ul>
-<li>提到流播放就不得不提到 Vitamio .协议支持全面，嵌入项目简单，对个人开发者免费。项目地址:<br><a href="https://github.com/yixia/VitamioBundle" target="_blank" rel="noopener">https://github.com/yixia/VitamioBundle</a>.</li>
-<li>B站开源出来的 ijkplayer<br>.项目维护及时，许多大公司都在用。网易云音乐，斗鱼TV，火猫TV等等，影响力可见一斑。支持RTMP，HLS。项目地址:<a href="https://github.com/Bilibili/ijkplayer" target="_blank" rel="noopener">https://github.com/Bilibili/ijkplayer</a>.<br>七牛开源出来的 PLDroidPlayer. 这个是基于B站的 ijkplayer<br>进行二次开发的。项目维护也很及时，你去上边提issue，很快就会有人回复你。同样支持RTMP,HLS。继承步骤简单，有wiki，我现在用的就是这个;)<br>,但以后收不收费就不一定了。项目地址:<a href="https://github.com/pili-engineering/PLDroidPlayer" target="_blank" rel="noopener">https://github.com/pili-engineering/PLDroidPlayer</a>.</li>
-<li>大牛直播出品的 SmarterStreaming.<br>个人使用免费，项目地址:<a href="https://github.com/daniulive/SmarterStreaming" target="_blank" rel="noopener">https://github.com/daniulive/SmarterStreaming</a>.</li>
-<li><p>新浪开源出来的 sinavideo_playersdk.<br>完全免费，你甚至可以修改备注。不过只支持hls协议，定制简单。项目地址:<a href="https://github.com/SinaVDDeveloper/sinavideo_playersdk" target="_blank" rel="noopener">https://github.com/SinaVDDeveloper/sinavideo_playersdk</a>.</p>
-<p><a href="http://isunxu.xyz/android/between-rtmp-and-hls-third-party-choice/" target="_blank" rel="noopener">原文地址</a></p>
-</li>
+<li>类描述：<br>*</li>
+<li>@author: ${user}</li>
+<li>@date： ${date} ${time}</li>
+<li>${tags}</li>
+<li>@version 1.0<br><em>
+</em></li>
+<li>Version    Date       ModifiedBy                 Content</li>
 </ul>
+<hr>
+<ul>
+<li>1.0      ${date}       ${user}                             </li>
+</ul>
+<hr>
+<p> */</p>
+<hr>
+<p>模板1效果：</p>
+<p>/**</p>
+<hr>
+<ul>
+<li>类描述：<br>*</li>
+<li>@author: 逍遥梦</li>
+<li>@date： 2014-2-22 上午10:38:41</li>
+<li>@version 1.0<br><em>
+</em></li>
+<li>Version    Date                ModifiedBy                 Content</li>
+</ul>
+<hr>
+<ul>
+<li>1.0             2014-2-22         逍遥梦                             </li>
+</ul>
+<hr>
+<p> */</p>
+<hr>
+<p>模板2（个人比较喜欢）：</p>
+<p>/**   </p>
+<ul>
+<li>Simple to Introduction  </li>
+<li>@ProjectName:  [${project_name}] </li>
+<li>@Package:      [${package_name}]  </li>
+<li>@ClassName:    [${type_name}]   </li>
+<li>@Description:  [一句话描述该类的功能]   </li>
+<li>@Author:       [${user}]   </li>
+<li>@CreateDate:   [${date} ${time}]   </li>
+<li>@UpdateUser:   [${user}]   </li>
+<li>@UpdateDate:   [${date} ${time}]   </li>
+<li>@UpdateRemark: [说明本次修改内容]  </li>
+<li>@Version:      [v1.0] </li>
+<li>*/</li>
+</ul>
+<hr>
+<p>模板2效果：<br>/**</p>
+<ul>
+<li></li>
+<li></li>
+<li>Simple to Introduction  </li>
+<li>@ProjectName:  [EmpMis] </li>
+<li>@Package:      [cn.xym.empmis.service.impl]  </li>
+<li>@ClassName:    [BussinessServiceImpl]   </li>
+<li>@Description:  [一句话描述该类的功能]   </li>
+<li>@Author:       [Administrator]   </li>
+<li>@CreateDate:   [2014-2-22 上午10:56:16]   </li>
+<li>@UpdateUser:   [Administrator]   </li>
+<li>@UpdateDate:   [2014-2-22 上午10:56:16]   </li>
+<li>@UpdateRemark: [说明本次修改内容]  </li>
+<li>@Version:      [v1.0]<br><em>
+</em>/</li>
+</ul>
+<hr>
+<p>模板3：</p>
+<p> /**   </p>
+<ul>
+<li></li>
+<li>Simple To Introduction</li>
+<li>项目名称:  [${project_name}]</li>
+<li>包:        [${package_name}]    </li>
+<li>类名称:    [${type_name}]  </li>
+<li>类描述:    [一句话描述该类的功能]</li>
+<li>创建人:    [${user}]   </li>
+<li>创建时间:  [${date} ${time}]   </li>
+<li>修改人:    [${user}]   </li>
+<li>修改时间:  [${date} ${time}]   </li>
+<li>修改备注:  [说明本次修改内容]  </li>
+<li>版本:      [v1.0]   </li>
+<li>*/</li>
+</ul>
+<hr>
+<p>模板3效果：</p>
+<p>/**</p>
+<ul>
+<li></li>
+<li>Simple To Introduction</li>
+<li>项目名称:  [EmpMis]</li>
+<li>包:       [cn.xym.empmis.service.impl]    </li>
+<li>类名称:    [BussinessServiceImpl]  </li>
+<li>类描述:    [一句话描述该类的功能]</li>
+<li>创建人:    [Administrator]   </li>
+<li>创建时间:  [2014-2-22 上午10:58:49]   </li>
+<li>修改人:    [Administrator]   </li>
+<li>修改时间:  [2014-2-22 上午10:58:49]   </li>
+<li>修改备注:  [说明本次修改内容]  </li>
+<li>版本:     [v1.0]<br><em>
+</em>/</li>
+</ul>
+<hr>
 
         
         </div>
@@ -449,7 +374,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2016/10/28/android基于HLS和TRMP协议的第三方SDK选择/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2016/12/05/为你的JAVA代码配上类模块注释模板/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -459,7 +384,7 @@
 
 
 
-    <article id="post-Android视频播放总结" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-android开发要避免的那些坑" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -467,7 +392,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/27/Android视频播放总结/">android视频播放总结</a>
+            <a class="article-title" href="/2016/11/07/android开发要避免的那些坑/">android开发要避免的那些坑</a>
         </h1>
     
 
@@ -476,8 +401,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/10/27/Android视频播放总结/">
-            <time datetime="2016-10-27T07:06:29.000Z" itemprop="datePublished">2016-10-27</time>
+        <a href="/2016/11/07/android开发要避免的那些坑/">
+            <time datetime="2016-11-07T07:21:19.000Z" itemprop="datePublished">2016-11-07</time>
         </a>
     </div>
 
@@ -502,100 +427,7 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <blockquote>
-<p>[Android] Android 视频播放总结</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VideoView</span><br></pre></td></tr></table></figure>
-<p>VideoView 的使用非常简单，播放视频的步骤：</p>
-<ol>
-<li>在界面布局文件中定义VideoView组件，或在程序中创建VideoView组件</li>
-<li>调用VideoView的如下两个方法来加载指定的视频：</li>
-</ol>
-<ul>
-<li>setVideoPath(String path);加载path文件代表的视频</li>
-<li>setVideoURL(Uri uri);加载uri所对应的视频</li>
-</ul>
-<ol>
-<li>调用VideoView的start()、stop()、psuse()方法控制视频的播放<br><strong>Exoplayer</strong><br><a href="https://github.com/google/ExoPlayer.git" target="_blank" rel="noopener">ExoPlayer Git 地址</a></li>
-</ol>
-<p><strong>用法</strong><br>ExoPlayer开源项目包含了libray和示例：</p>
-<ul>
-<li>ExoPlayer library - 这部分是核心的库</li>
-<li><p>Demo app - 这部分是演示怎么使用ExoPlayer<br>ExoPlayer库的核心类是ExoPlayer类。该类维护了播放器的全局状态。比如如何获取媒体数据，如何缓冲以及是怎样编码格式。</p>
-<p>ExoPlayer基于MediaCodec和AudioTrack提供了默认的音视频的TrackRenderer实现。所有的renderers都需要SampleSource对象，Exoplayer从SampleSource获得media samples用于播放。下图展示了Exoplayer是如何配置组合这些组件用于播放音视频的。<br><img src="http://blog.qiji.tech/wp-content/uploads/2016/03/standard-model.png" alt="此处输入图片的描述"><br>ExoPlayer库提供了一些不同类型的SampleSource实例：</p>
-<ul>
-<li>ExtractorSampleSource – 用于 MP3，M4A，WebM，MPEG-TS 和 AAC；</li>
-<li>ChunkSampleSource – 用于 DASH 和平滑流的播放；</li>
-<li>HlsSampleSource – 用于 HLS 播放；</li>
-</ul>
-</li>
-</ul>
-<p> 在 ExoPlayer 的 Dome 中使用 DemoPlayer 对 ExoPlayer 进行了封装，并提供了使用上述几种 SampleSource 构建 TrackRenderer 的 Builder。</p>
-<ul>
-<li>SmoothStreamingRendererBuilder</li>
-<li>DashRendererBuilder</li>
-<li>ExtractorRendererBuilder<br>在使用的时候我们根据不同的需求创建对应的 RendererBuilder，然后将 RendererBuilder 传递给 DemoPlayer 然后调用 DemoPlayer 的 setPlayWhenReady 方法。</li>
-</ul>
-<p>优缺点</p>
-<p>ExoPlayer 相较于 MediaPlayer 有很多很多的优点：</p>
-<ul>
-<li>支持动态的自适应流 HTTP (DASH) 和 平滑流，任何目前 MediaPlayer </li>
-<li>支持的视频格式（同时它还支持 HTTP</li>
-<li>直播(HLS)，MP4，MP3，WebM，M4A，MPEG-TS 和 AAC）。 支持高级的 HLS 特性，例如正确处理EXT-X-DISCONTINUITY 标签； </li>
-<li>支持自定义和扩治你的使用场景。ExoPlayer 专门为此设计；</li>
-<li>便于随着 App的升级而升级。因为 ExoPlayer是一个包含在你的应用中的库，对于你使用哪个版本有完全的控制权，并且你可以简单的跟随应用的升级而升级； </li>
-<li>更少的适配性问题。</li>
-</ul>
-<p>ExoPlayer 的缺点：</p>
-<ul>
-<li>ExoPlayer 的音频和视频组件依赖 Android 的 MediaCodec 接口，该接口发布于 Android4.1（API 等级<br>16）。因此它不能工作于之前的Android 版本。</li>
-</ul>
-<p><strong>Vitamio</strong></p>
-<p><a href="https://github.com/yixia/VitamioBundle.git" target="_blank" rel="noopener">Vitamio demo 地址</a></p>
-<p><strong>用法</strong><br>Vitamio的使用步骤：  </p>
-<ol>
-<li>下载Vitamio库，并作为工程依赖。</li>
-<li>在Activity的onCreate方法中添加如下代码，初始化Vitamio的解码器<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Override public void onCreate(Bundle icicle)&#123;</span><br><span class="line">    super.onCreate(icicle)</span><br><span class="line">    if(!LibsChecker.checkVitamioLibs(this))</span><br><span class="line">    return ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol>
-<li>在AndroidMainfest.xml中声明InitActivity</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity android:name=&quot;io.vov.vitamio.activity.InitActivity&quot; android:configChanges=&quot;orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden&quot;</span><br><span class="line">    android:launchMode=&quot;singleTop&quot; android:theme=&quot;@android:style/Theme.NoTitleBar&quot;</span><br><span class="line">    android:windowSoftInputMode=&quot;stateAlwaysHidden&quot;/&gt;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>其余步骤和使用 Android 原生的 VideoView 是一样的。</li>
-</ol>
-<p><strong>优点</strong></p>
-<ul>
-<li>强大、支持超多格式视频和网络视频播放</li>
-<li>使用简单。调用非常简单，方便使用。</li>
-</ul>
-<p><strong>ijkplayer</strong> 【哔哔哩开源】<br><a href="https://github.com/Bilibili/ijkplayer.git" target="_blank" rel="noopener">ijkplayer 项目地址</a></p>
-<p><strong>用法</strong><br>1.clone ijkplayer 项目到本地</p>
-<p>2.编译 ijkplayer</p>
-<p>下面是我的编译环境</p>
-<ul>
-<li>编译环境 Mac OS X 10.10.5</li>
-<li>Android</li>
-<li>NDK — android-ndk-r10e</li>
-<li>Android Studio 1.3.1</li>
-<li><p>Gradle 2.4<br>编译之前要安装 homebrew, git, yasm。</p>
-<p> ruby -e “$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install" target="_blank" rel="noopener">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)”<br>brew install git<br>brew install yasm</p>
-</li>
-</ul>
-<p>配置 NDK</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># add these lines to your ~/.bash_profile or ~/.profile</span><br><span class="line"># export ANDROID_SDK=&lt;your sdk path&gt;</span><br><span class="line"># export ANDROID_NDK=&lt;your ndk path&gt;</span><br><span class="line"></span><br><span class="line">clone 项目</span><br><span class="line"></span><br><span class="line">git clone https://github.com/Bilibili/ijkplayer.git ijkplayer-android</span><br></pre></td></tr></table></figure>
-<p>编译 ffmpeg    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd ijkplayer-android </span><br><span class="line">./init-android.sh </span><br><span class="line">cd config</span><br><span class="line">rm module.sh</span><br><span class="line">ln -s module-default.sh module.sh</span><br><span class="line">cd android/contrib</span><br><span class="line">./compile-ffmpeg.sh clean</span><br><span class="line">./compile-ffmpeg.sh all</span><br></pre></td></tr></table></figure>
-<p>ffmpeg 编译通过后，编译 ijkplayer </p>
-<pre><code>cd ..
-./compile-ijk.sh all
-</code></pre><p>编译通过后在 android 目录下有 ijkplayer 文件夹，这个是 ijkplayer 的 demo。导入 Android Studio 即可。ijkplayer 的 demo 中提供了 IjkVideoView 类，它封装了 Android 原生的 MediaPlayer 、ExoPlayer 和 IjkMediaPlayer。可根据需要选择。</p>
-<p><strong>优缺点</strong></p>
-<ul>
-<li>ijkplayer 最大的优点就是可以根据需要编译需要的解码器。在编译的时候通过 ln -s module-default.shmodule.sh 选择要编译的解码器。ijkplayer 在 config目录下提供了三种 module.sh 。也可自己修改module.sh 。</li>
-<li>ijkplayer 的缺点是库太大。加入项目后会大大增加你的 APP 的大小。</li>
-</ul>
+            <p><a href="http://blog.csdn.net/zhangke3016/article/details/51831122" target="_blank" rel="noopener">android开发要避免的那些坑</a></p>
 
         
         </div>
@@ -608,7 +440,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2016/10/27/Android视频播放总结/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2016/11/07/android开发要避免的那些坑/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -618,7 +450,7 @@
 
 
 
-    <article id="post-Android开发职位分类" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-rxjava操作符" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -626,7 +458,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/10/24/Android开发职位分类/">Android开发职位分类</a>
+            <a class="article-title" href="/2016/11/02/rxjava操作符/">rxjava操作符</a>
         </h1>
     
 
@@ -635,8 +467,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/10/24/Android开发职位分类/">
-            <time datetime="2016-10-24T05:46:08.000Z" itemprop="datePublished">2016-10-24</time>
+        <a href="/2016/11/02/rxjava操作符/">
+            <time datetime="2016-11-02T02:53:49.000Z" itemprop="datePublished">2016-11-02</time>
         </a>
     </div>
 
@@ -644,7 +476,75 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
+        <a class="article-category-link" href="/categories/rxjava/">rxjava</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/rxandroid/">rxandroid</a>, <a class="tag-link" href="/tags/rxjava/">rxjava</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p></p><p>操作符决策树</p>
+<p>直接创建一个Observable（创建操作） 组合多个Observable（组合操作） 对Observable发射的数据执行变换操作（变换操作） 从Observable发射的数据中取特定的值（过滤操作） 转发Observable的部分值（条件/布尔/过滤操作） 对Observable发射的数据序列求值（算术/聚合操作）<br>创建操作<br></p><p></p>
+            <p class="article-more-link">
+                <a href="/2016/11/02/rxjava操作符/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2016/11/02/rxjava操作符/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-Tinker[微信]热更新" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/11/02/Tinker[微信]热更新/">Tinker[微信]热更新</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/11/02/Tinker[微信]热更新/">
+            <time datetime="2016-11-02T02:53:49.000Z" itemprop="datePublished">2016-11-02</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/tinker/">tinker</a>
     </div>
 
                         
@@ -661,31 +561,7 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p><strong>Android开发职位分类</strong></p>
-<blockquote>
-<p>Android开发分三类：</p>
-</blockquote>
-<ol>
-<li>驱动开发：需要熟悉Linux和C语言，了解嵌入式开发相关知识，最好有驱动开发经验；待遇普遍比后两类高。</li>
-<li>Android系统开发：基于Android系统的源码进行修改，修复bug或者对系统进行深度定制，重新设计并实现用户交互，主要是修改Android java层框架和Android系统自带的应用。需要应聘者熟练掌握JAVA语言，有移动开发经验或者J2ME开发经验。</li>
-<li>Android应用开发。<br>  前两类的工作一般是手机硬件制造商或者手机设计公司提供这些职位，如华为、中兴、魅族、联想Lephone；华为、中兴大多是做运营商定制，基本很少对系统层进行深度定制，主要是修改bug(Android系统每个版本都有大量的bug），做这一块不但积累对Android系统层的经验，而且也积累分析问题、解决问题的经验。<br>  Android应用开发这个职位，大部分PC软件或互联网公司已经或正在做Android平台的支持。<br>  对于没有JAVA经验的人，首先掌握J2SE，然后再学Android的应用开发。无论看书、看视频、上培训班最重要的都是练习。<br>  Android应用开发书籍推荐《Google Android开发入门与实战》、《Google Android SDK开发范例大全》这两本书。</li>
-</ol>
-<p>知识体系图<br><img src="http://s11.sinaimg.cn/mw690/001OQFNvgy6I1dfhI4Wea&amp;690" alt="知识体系图"><img src="http://s11.sinaimg.cn/mw690/001OQFNvgy6I1dfhI4Wea&amp;690" alt="Android 知识图谱"></p>
-<blockquote>
-<p>软件码工的修炼之路</p>
-</blockquote>
-<ol>
-<li>一门语言的语法，SDK的常用API，算法与数据结构；有了上面的知识，再加上一点实践，再从网上找一些笔试题做几套，基本可以过笔试这一关。</li>
-<li>编码规范、高性能编码经验技巧；要成为一个职业化的、专业化的程序员，首先要养成良好的习惯，良好的习惯从规范化的点滴日常工作开始。</li>
-<li>熟练掌握IDE、常用</li>
-<li>编程设计的原则；重点掌握面向对象的原则，如单一职责原则SRP、开放－封闭原则、替换原则LSP、依赖倒置原则DIP等。这些原则对后面内容理解的深入有很大帮助。不了解这些原则而去学设计模式会有空中楼阁、头重脚轻的感觉。</li>
-<li>重构：重构是在不改变软件功能的前提下改善代码的设计以提高可维护性。修改代码或者优化代码都需要用到重构技术。</li>
-<li>设计模式：基于一些常用的模式来学习如何使用设计模式。设计模式对于做框架开发的程序员比较有帮助。</li>
-<li>代码重构的艺术：最重要、最难，看上去却最简单的功夫。修改别人的代码开始是功夫，优化就是艺术。</li>
-<li>架构设计：这是步入殿堂必不可少的部分。</li>
-<li>软件工程：从CMM到敏捷的转变，个人是比较推崇敏捷开发的。</li>
-<li>质量管理：越往后越偏向管理了，开始是个人修炼，后面是站在组织、站在公司的角度来看软件。质量管理中有很多很好的理论和工具，不只可以应用到软件开发上，生活中也很有用的。</li>
-</ol>
+            <p>现在市面上有很多热更新的开源比如：Tinker、QZone、Andfix、Robust<br>比较<br><img src="/2016/11/02/Tinker[微信]热更新/../../../../images/20180426104055.png" alt="Alt text"><br> <a href="https://blog.csdn.net/hao_m582/article/details/78694439" target="_blank" rel="noopener">https://blog.csdn.net/hao_m582/article/details/78694439</a></p>
 
         
         </div>
@@ -698,7 +574,85 @@
 
             
     
-        <a href="http://b.nearby.ren/2016/10/24/Android开发职位分类/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2016/11/02/Tinker[微信]热更新/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-android常用的算法" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/11/01/android常用的算法/">android常用的算法</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/11/01/android常用的算法/">
+            <time datetime="2016-11-01T08:20:48.000Z" itemprop="datePublished">2016-11-01</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/算法/">算法</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="1-插入排序算法"><a href="#1-插入排序算法" class="headerlink" title="1.插入排序算法"></a>1.插入排序算法</h1><p> 插入排序的基本思想是在遍历数组的过程中，假设在序号 i 之前的元素即 [0..i-1] 都已经排好序，本趟需要找到 i 对应的元素 x 的正确位置 k ，并且在寻找这个位置 k 的过程中逐个将比较过的元素往后移一位，为元素 x “腾位置”，最后将 k 对应的元素值赋为 x ，一般情况下，插入排序的时间复杂度和空间复杂度分别为 O(n2 ) 和 O(1)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public int []  sortInsert(int[] array)&#123;</span><br><span class="line">        for(int i = 1 ; i &lt; array.length; i++)&#123;</span><br><span class="line">            int temp = array[i];</span><br><span class="line">            int j ;</span><br><span class="line">            for ( j = i - 1; j &gt;= 0 &amp;&amp; temp &lt; array[j] ; j--)&#123;</span><br><span class="line">                array[ j + 1 ] = array[j];   </span><br><span class="line">            &#125;</span><br><span class="line">            array[ j + i ] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        return array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-选择排序算法"><a href="#2-选择排序算法" class="headerlink" title="2.选择排序算法"></a>2.选择排序算法</h1><p>选择排序的基本思想是遍历数组的过程中，以 i 代表当前需要排序的序号，则需要在剩余的 [i…n-1] 中找出其中的最小值，然后将找到的最小值与 i 指向的值进行交换。因为每一趟确定元素的过程中都会有一个选择最大值的子流程，所以人们形象地称之为选择排序。选择排序的时间复杂度和空间复杂度分别为 O(n2 ) 和 O(1) 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">    public int[] sortSelect(int[] arr)&#123;</span><br><span class="line">      for (int i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">            int miniPost = i;</span><br><span class="line">            for (int m = i + 1; m &lt; arr.length; m++) &#123;</span><br><span class="line">                  if (arr[m] &lt; arr[miniPost]) &#123;</span><br><span class="line">                        miniPost = m;</span><br><span class="line">                  &#125;</span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            if (arr[i] &gt; arr[miniPost]) &#123;</span><br><span class="line">                  int temp;</span><br><span class="line">                  temp = arr[i];</span><br><span class="line">                  arr[i] = arr[miniPost];</span><br><span class="line">                  arr[miniPost] = temp;</span><br><span class="line">           &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return arr;</span><br><span class="line"> &#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"># 3.冒泡排序算法</span><br><span class="line"></span><br><span class="line">## 冒泡排序是將比較大的數字沉在最下面，较小的浮在上面</span><br><span class="line"></span><br><span class="line">```    </span><br><span class="line">    public int[] sortBubble(int[] array)&#123;</span><br><span class="line">     int temp;</span><br><span class="line">     // 第一层循环:表明比较的次数, 比如 length 个元素,比较次数为 length-1 次（肯定不需和自己比）</span><br><span class="line">     for(int i=0;i&lt;array.length-1;i++)&#123;</span><br><span class="line">          for (int j = array.length - 1; j &gt; i; j--) &#123;</span><br><span class="line">                if (array[j] &lt; array[j - 1]) &#123;</span><br><span class="line">                     temp = array[j];</span><br><span class="line">                     array[j] = array[j - 1];</span><br><span class="line">                     array[j - 1] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">          &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     return array;</span><br></pre></td></tr></table></figure></p>
+<h1 id="4-快速排序算法"><a href="#4-快速排序算法" class="headerlink" title="4.快速排序算法"></a>4.快速排序算法</h1><p>通过一趟排序将待排记录分割成独立的两部分,其中一部分记录的关键字均比另一部分的关键字小,则可以分别对这两部分记录继续进行排序,已达到整个序列有序的目的，本质就是,找一个基位(枢轴,分水岭,作用是左边的都比它小,右边的都比它大.可随机,取名base，首先从序列最右边开始找比base小的,如果小,换位置,从而base移到刚才右边(比较时比base小)的位置(记为临时的high位),这样base右边的都比base大。然后,从序列的最左边开始找比base大的，如果大,换位置,从而base移动到刚才左边(比较时比base大)的位置(记为临时的low位),这样base左边的都比base小，循环以上两步,直到 low == heigh, 这使才真正的找到了枢轴,分水岭. 返回这个位置,分水岭左边和右边的序列,分别再来递归。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public int[] sortQuick(int[] array)&#123;</span><br><span class="line">    </span><br><span class="line">     return quickSort(array, 0, array.length-1);</span><br><span class="line">     </span><br><span class="line">    &#125;</span><br><span class="line">    private int[] quickSort(int[] arr, int low, int heigh) &#123;</span><br><span class="line">      if (low &lt; heigh) &#123;</span><br><span class="line">           int division = partition(arr, low, heigh);</span><br><span class="line">           quickSort(arr, low, division - 1);</span><br><span class="line">           quickSort(arr, division + 1, heigh);</span><br><span class="line">      &#125;</span><br><span class="line">      return arr;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>分水岭,基位,左边的都比这个位置小,右边的都大  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">private int partition(int[] arr, int low, int heigh) &#123;</span><br><span class="line">      int base = arr[low]; //用子表的第一个记录做枢轴(分水岭)记录</span><br><span class="line">      while (low &lt; heigh) &#123; //从表的两端交替向中间扫描</span><br><span class="line">            while (low &lt; heigh &amp;&amp; arr[heigh] &gt;= base) &#123;</span><br><span class="line">                 heigh--;</span><br><span class="line">            &#125;</span><br><span class="line">            // base 赋值给 当前 heigh 位,base 挪到(互换)到了这里,heigh位右边的都比base大</span><br><span class="line">            swap(arr, heigh, low);</span><br><span class="line">            while (low &lt; heigh &amp;&amp; arr[low] &lt;= base) &#123;</span><br><span class="line">                  low++;</span><br><span class="line">            &#125;</span><br><span class="line">            // 遇到左边比base值大的了,换位置</span><br><span class="line">            swap(arr, heigh, low);</span><br><span class="line">      &#125;</span><br><span class="line">      // now low = heigh;</span><br><span class="line">      return low;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">private void swap(int[] arr, int a, int b) &#123;</span><br><span class="line">      		int temp;</span><br><span class="line">      		temp = arr[a];</span><br><span class="line">      		arr[a] = arr[b];</span><br><span class="line">      		arr[b] = temp;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="5-合并排序算法"><a href="#5-合并排序算法" class="headerlink" title="5.合并排序算法"></a>5.合并排序算法</h1><p>##归并排序采用的是递归来实现，属于“分而治之”，将目标数组从中间一分为二，之后分别对这两个数组进行排序，排序完毕之后再将排好序的两个数组“归并”到一起，归并排序最重要的也就是这个“归并”的过程，归并的过程中需要额外的跟需要归并的两个数组长度一致的空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">private int[] sort(int[] nums, int low, int high) &#123;</span><br><span class="line">      int mid = (low + high) / 2;</span><br><span class="line">      if (low &lt; high) &#123;</span><br><span class="line">          // 左边</span><br><span class="line">          sort(nums, low, mid);</span><br><span class="line">          // 右边</span><br><span class="line">          sort(nums, mid + 1, high);</span><br><span class="line">          // 左右归并</span><br><span class="line">          merge(nums, low, mid, high);</span><br><span class="line">     &#125;</span><br><span class="line">     return nums;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private void merge(int[] nums, int low, int mid, int high) &#123;</span><br><span class="line">          int[] temp = new int[high - low + 1];</span><br><span class="line">          int i = low;// 左指针</span><br><span class="line">          int j = mid + 1;// 右指针</span><br><span class="line">          int k = 0;</span><br><span class="line">          // 把较小的数先移到新数组中</span><br><span class="line">          while (i &lt;= mid &amp;&amp; j &lt;= high) &#123;</span><br><span class="line">              if (nums[i] &lt; nums[j]) &#123;</span><br><span class="line">                   temp[k++] = nums[i++];</span><br><span class="line">              &#125; else &#123;</span><br><span class="line">                   temp[k++] = nums[j++];</span><br><span class="line">              &#125;</span><br><span class="line">          &#125;</span><br><span class="line">      	// 把左边剩余的数移入数组</span><br><span class="line">      	while (i &lt;= mid) &#123;</span><br><span class="line">        	   temp[k++] = nums[i++];</span><br><span class="line">      	&#125;</span><br><span class="line">      	// 把右边边剩余的数移入数组</span><br><span class="line">      	while (j &lt;= high) &#123;</span><br><span class="line">        	   temp[k++] = nums[j++];</span><br><span class="line">      	&#125;</span><br><span class="line">      	// 把新数组中的数覆盖nums数组</span><br><span class="line">          for (int k2 = 0; k2 &lt; temp.length; k2++) &#123;</span><br><span class="line">               nums[k2 + low] = temp[k2];</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      public int[] sortMerge(int[] array) &#123;</span><br><span class="line">     		return sort(array, 0, array.length - 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="6-希尔排序算法"><a href="#6-希尔排序算法" class="headerlink" title="6.希尔排序算法"></a>6.希尔排序算法</h1><p>希尔排序的诞生是由于插入排序在处理大规模数组的时候会遇到需要移动太多元素的问题。希尔排序的思想是将一个大的数组“分而治之”，划分为若干个小的数组，以 gap 来划分，比如数组 [1, 2, 3, 4, 5, 6, 7, 8] ，如果以 gap = 2 来划分，可以分为 [1, 3, 5, 7] 和 [2, 4, 6, 8] 两个数组（对应的，如 gap = 3 ， 则划分的数组为： [1, 4, 7] 、 [2, 5, 8] 、 [3, 6] ）然后分别对划分出来的数组进行插入排序，待各个子数组排序完毕之后再减小 gap 值重复进行之前的步骤，直至 gap = 1 ，即对整个数组进行插入排序，此时的数组已经基本上快排好序了，所以需要移动的元素会很小很小，解决了插入排序在处理大规模数组时较多移动次数的问题，</p>
+<p>希尔排序是插入排序的改进版，在数据量大的时候对效率的提升帮助很大，数据量小的时候建议直接使用插入排序就好了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public int[] sortShell(int[] array) &#123;</span><br><span class="line">     // 取增量</span><br><span class="line">     int step = array.length / 2;</span><br><span class="line">     while (step &gt;= 1) &#123;</span><br><span class="line">          for (int i = step; i &lt; array.length; i++) &#123;</span><br><span class="line">               int temp = array[i];</span><br><span class="line">               int j = 0;</span><br><span class="line">               // 跟插入排序的区别就在这里</span><br><span class="line">               for (j = i - step; j &gt;= 0 &amp;&amp; temp &lt; array[j]; j -= step) &#123;</span><br><span class="line">                     array[j + step] = array[j];</span><br><span class="line">               &#125;</span><br><span class="line">               array[j + step] = temp;</span><br><span class="line">          &#125;</span><br><span class="line">          step /= 2;</span><br><span class="line">     	&#125;</span><br><span class="line">     	return array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="7-堆排序算法"><a href="#7-堆排序算法" class="headerlink" title="7.堆排序算法"></a>7.堆排序算法</h1><p>本质就是先构造一个大顶堆,parent比children大,root节点就是最大的节点 把最大的节点(root)与尾节点(最后一个节点,比较小)位置互换，剩下最后的尾节点,现在最大,其余的,从第一个元素开始到尾节点前一位,构造大顶堆递归。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public int[] sortHeap(int[] array) &#123;</span><br><span class="line">     buildHeap(array);// 构建堆</span><br><span class="line">     int n = array.length;</span><br><span class="line">     int i = 0;</span><br><span class="line">     for (i = n - 1; i &gt;= 1; i--) &#123;</span><br><span class="line">          swap(array, 0, i);</span><br><span class="line">          heapify(array, 0, i);</span><br><span class="line">     &#125;</span><br><span class="line">     return array;</span><br><span class="line">     &#125;</span><br><span class="line">private void buildHeap(int[] array) &#123;</span><br><span class="line">         int n = array.length;// 数组中元素的个数</span><br><span class="line">            for (int i = n / 2 - 1; i &gt;= 0; i--)</span><br><span class="line">              heapify(array, i, n);</span><br><span class="line">&#125;</span><br><span class="line">private void heapify(int[] A, int idx, int max) &#123;</span><br><span class="line">          int left = 2 * idx + 1;// 左孩子的下标（如果存在的话）</span><br><span class="line">          int right = 2 * idx + 2;// 左孩子的下标（如果存在的话）</span><br><span class="line">          int largest = 0;// 寻找3个节点中最大值节点的下标</span><br><span class="line">          if (left &lt; max &amp;&amp; A[left] &gt; A[idx])</span><br><span class="line">                largest = left;</span><br><span class="line">          else</span><br><span class="line">                largest = idx;</span><br><span class="line">          if (right &lt; max &amp;&amp; A[right] &gt; A[largest])</span><br><span class="line">                largest = right;</span><br><span class="line">                if (largest != idx) &#123;</span><br><span class="line">                      swap(A, largest, idx);</span><br><span class="line">                      heapify(A, largest, max);</span><br><span class="line">                &#125;</span><br><span class="line">          &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>建堆函数，认为【s，m】中只有 s<br>对应的关键字未满足大顶堆定义，通过调整使【s，m】成为大顶堆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public static void heapAdjust(int[] array, int s, int m) &#123;</span><br><span class="line">          // 用0下标元素作为暂存单元</span><br><span class="line">          array[0] = array[s];</span><br><span class="line">          // 沿孩子较大的结点向下筛选</span><br><span class="line">          for (int j = 2 * s; j &lt;= m; j *= 2) &#123;</span><br><span class="line">                // 保证j为较大孩子结点的下标，j &lt; m 保证 j+1 &lt;= m ，不越界</span><br><span class="line">                if (j &lt; m &amp;&amp; array[j] &lt; array[j + 1]) &#123;</span><br><span class="line">                       j++;</span><br><span class="line">                &#125;</span><br><span class="line">                if (!(array[0] &lt; array[j])) &#123;</span><br><span class="line">                       break;</span><br><span class="line">                &#125;</span><br><span class="line">                // 若S位较小，应将较大孩子上移</span><br><span class="line">                array[s] = array[j];</span><br><span class="line">                // 较大孩子的值变成S位的较小值，可能引起顶堆的不平衡，故对其所在的堆进行筛选</span><br><span class="line">                s = j;</span><br><span class="line">          &#125;</span><br><span class="line">// 若S位较大，则值不变；否则，S位向下移动至2*s、4*s、。。。</span><br><span class="line">array[s] = array[0];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2016/11/01/android常用的算法/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -709,7 +663,7 @@
 
 
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/8/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/10/">下一页 &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/8/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/10/">下一页 &raquo;</a>
     </nav>
 </section>
             
@@ -720,6 +674,25 @@
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/30/View绘制主要要讲什么/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2020/12/30/View绘制主要要讲什么/" class="title">View绘制主要要讲什么</a></p>
+                            <p class="item-date"><time datetime="2020-12-30T04:50:25.000Z" itemprop="datePublished">2020-12-30</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -762,7 +735,7 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2019/03/22/MAC文件夹权限问题/" class="thumbnail">
+                            <a href="/2019/09/30/什么是Handler的同步屏障机制/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -772,16 +745,16 @@
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/mac/">mac</a></p>
-                            <p class="item-title"><a href="/2019/03/22/MAC文件夹权限问题/" class="title">MAC /usr/local 文件夹权限问题</a></p>
-                            <p class="item-date"><time datetime="2019-03-22T04:28:11.000Z" itemprop="datePublished">2019-03-22</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/09/30/什么是Handler的同步屏障机制/" class="title">Handler的同步屏障机制</a></p>
+                            <p class="item-date"><time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2019/03/03/GoToken学习/" class="thumbnail">
+                            <a href="/2019/09/17/Leakcanary原理浅析/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -791,28 +764,9 @@
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/go/">go</a></p>
-                            <p class="item-title"><a href="/2019/03/03/GoToken学习/" class="title">GoToken学习</a></p>
-                            <p class="item-date"><time datetime="2019-03-03T10:53:55.000Z" itemprop="datePublished">2019-03-03</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2018/12/31/TPS和QPS区别/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/软件/">软件</a></p>
-                            <p class="item-title"><a href="/2018/12/31/TPS和QPS区别/" class="title">什么是TPS，什么是QPS，区别是什么？</a></p>
-                            <p class="item-date"><time datetime="2018-12-31T05:55:20.000Z" itemprop="datePublished">2018-12-31</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/09/17/Leakcanary原理浅析/" class="title">Leakcanary原理浅析</a></p>
+                            <p class="item-date"><time datetime="2019-09-17T12:31:28.000Z" itemprop="datePublished">2019-09-17</time></p>
                         </div>
                     </li>
                 
@@ -825,7 +779,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">28</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -834,7 +788,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -843,7 +797,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">33</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">37</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -852,7 +806,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 13.33px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 13.33px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+            <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
         </div>
     </div>
 

@@ -159,11 +159,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                84
+                86
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                36
+                37
                 <span>标签</span>
             </div>
         </div>
@@ -212,7 +212,7 @@
 
             
             <section id="main">
-    <article id="post-Flex布局教程链接" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Java面向对象16种设计原则" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -220,7 +220,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/03/09/Flex布局教程链接/">Flex布局教程链接</a>
+            <a class="article-title" href="/2016/07/12/Java面向对象16种设计原则/">Java面向对象16种设计原则</a>
         </h1>
     
 
@@ -229,74 +229,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/03/09/Flex布局教程链接/">
-            <time datetime="2016-03-09T08:03:12.000Z" itemprop="datePublished">2016-03-09</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/web/">web</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/h5/">h5</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="Flex布局教程链接"><a href="#Flex布局教程链接" class="headerlink" title="Flex布局教程链接"></a>Flex布局教程链接</h1><p>[语法篇]<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?^%$" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html?^%$</a><br>[实例篇]<a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2015/07/flex-examples.html</a></p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2016/03/09/Flex布局教程链接/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-设计模式中类的关系" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/02/24/设计模式中类的关系/">设计模式中类的关系</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/02/24/设计模式中类的关系/">
-            <time datetime="2016-02-24T07:28:13.000Z" itemprop="datePublished">2016-02-24</time>
+        <a href="/2016/07/12/Java面向对象16种设计原则/">
+            <time datetime="2016-07-12T08:51:40.000Z" itemprop="datePublished">2016-07-12</time>
         </a>
     </div>
 
@@ -321,36 +255,346 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>在Java以及其他的面向对象设计模式中，类与类之间主要有6种关系，他们分别是：依赖、关联、聚合、组合、继承、实现。他们的耦合度依次增强。</p>
+            <blockquote>
+<p>一   类的设计原则</p>
+</blockquote>
+<p>1　依赖倒置原则－Dependency Inversion Principle (DIP)<br>2　里氏替换原则－Liskov Substitution Principle (LSP)<br>3　接口分隔原则－Interface Segregation Principle (ISP)<br>4　单一职责原则－Single Responsibility Principle (SRP)<br>5　开闭原则－The Open-Closed Principle (OCP)</p>
+<blockquote>
+<p>二  包的设计原则</p>
+</blockquote>
+<p>6　重用发布等价原则－Release ReuseEquivalency Principle (REP)<br>7　无环依赖原则－The AcyclicDependencies Principle (ADP)<br>8　稳定依赖原则－The StableDependencies Principle (SDP)<br>9　稳定抽象等价原则－The StableAbstractions Principle (SAP)<br>10　共同封闭原则－The CommonClosure Principle (CCP)<br>11　全部重用原则－The Common Reuse Principle (CRP)</p>
+<blockquote>
+<p>三  扩展原则</p>
+</blockquote>
+<p>12  迪米特法则 －Least Knowledge Principle (LKP)<br>13  黑盒原则－ BBP(Black Box Principle)<br>14  缺省抽象原则 －DAP(Default Abstraction Principle)<br>15  接口设计原则 －IDP(Interface Design Principle)<br>16  不要构造具体的超类原则 －DCSP(Don’t Concrete SupperclassPrinciple)</p>
+<blockquote>
+<ol>
+<li>Dependency Inversion Principle (DIP) - 依赖倒置原则</li>
+</ol>
+</blockquote>
+<p>依赖：在程序设计中，如果一个模块a使用或调用了另一个模块b，我们称模块a依赖模块b。<br>高层模块与低层模块：往往在一个应用程序中，我们有一些低层次的类，这些类实现了一些基本的或初级的操作，我们称之为低层模块；另外有一些高层次的类，这些类封装了某些复杂的逻辑，并且依赖于低层次的类，这些类我们称之为高层模块。</p>
+<blockquote>
+<p>依赖倒置原则的2个重要方针：</p>
+</blockquote>
+<ol>
+<li>高层模块不应该依赖于低层模块，二者都应该依赖于抽象</li>
+<li>抽象不应该依赖于细节，细节应该依赖于抽象</li>
+</ol>
+<blockquote>
+<p>为什么叫做依赖倒置（Dependency Inversion）呢？</p>
+</blockquote>
+<p>面向对象程序设计相对于面向过程（结构化）程序设计而言，依赖关系被倒置了。因为传统的结构化程序设计中，高层模块总是依赖于低层模块。</p>
+<p>问题的提出：</p>
+<p>Robert C. Martin在原文中给出了“Bad Design”的定义：</p>
+<ol>
+<li>系统很难改变，因为每个改变都会影响其他很多部分。</li>
+<li>当你对某地方做一修改，系统的看似无关的其他部分都不工作了。</li>
+<li>系统很难被另外一个应用重用，因为你很难将要重用的部分从系统中分离开来。</li>
+</ol>
+<p>导致“Bad Design”的很大原因是“高层模块”过分依赖“低层模块”。一个良好的设计应该是系统的每一部分都是可替换的。如果“高层模块”过分依赖“低层模块”，一方面一旦“低层模块”需要替换或者修改，“高层模块”将受到影响；另一方面，高层模块很难可以重用。</p>
+<p>比如，一个Copy模块，需要把来自Keyboard的输入复制到Print，即使对Keyboard和Print的封装已经做得非常好，但如果Copy模块里直接使用Keyboard与Print，Copy任很难被其他应用环境（比如需要输出到磁盘时）重用。</p>
+<blockquote>
+<p>问题的解决：</p>
+</blockquote>
+<p>为了解决上述问题，Robert C. Martin提出了OO设计的Dependency Inversion Principle (DIP) 原则。<br>DIP给出了一个解决方案：在高层模块与低层模块之间，引入一个抽象接口层。<br>High Level Classes（高层模块） –&gt; Abstraction Layer（抽象接口层） –&gt; Low Level Classes（低层模块）<br>抽象接口是对低层模块的抽象，低层模块继承或实现该抽象接口。<br>这样，高层模块不直接依赖低层模块，高层模块与低层模块都依赖抽象接口层。<br>当然，抽象也不依赖低层模块的实现细节，低层模块依赖（继承或实现）抽象定义。</p>
+<blockquote>
+<p>Robert C. Martin给出的DIP方案的类的结构图：</p>
+</blockquote>
+<p>PolicyLayer–&gt;MechanismInterface(abstract)–MechanismLayer–&gt;UtilityInterface(abstract)–UtilityLayer<br>类与类之间都通过Abstract Layer来组合关系。</p>
+<ol>
+<li>Liskov Substitution Principle (LSP) - 里氏替换原则</li>
+</ol>
+<p>所有引用基类的地方必须能透明地使用其子类的对象。也就是说，只有满足以下2个条件的OO设计才可被认为是满足了LSP原则：<br>A  不应该在代码中出现if/else之类对子类类型进行判断的条件。以下代码就违反LSP定义。</p>
+<pre><code>if (obj typeof Class1) {
+     do something
+} else if (obj typeof Class2) {
+     do something else
+}
+</code></pre><p>B  子类应当可以替换父类并出现在父类能够出现的任何地方，或者说如果我们把代码中使用基类的地方用它的子类所代替，代码还能正常工作。</p>
+<blockquote>
+<p>里氏替换原则LSP是使代码符合开闭原则的一个重要保证。同时LSP体现了：</p>
+</blockquote>
+<p>1） 类的继承原则：如果一个继承类的对象可能会在基类出现地方出现运行错误，则该子类不应该从该基类继承，或者说，应该重新设计它们之间的关系。<br>2）动作正确性保证：从另一个侧面上保证了符合LSP设计原则的类的扩展不会给已有的系统引入新的错误。</p>
+<blockquote>
+<p>类的继承原则：</p>
+</blockquote>
+<p>Robert C. Martin举了Rectangle和Square的例子。这里沿用这个例子，但用Java语言对其加以重写，并忽略了某些细节只列出下面的精要部分来说明 里氏替换原则 对类的继承上的约束。</p>
+<pre><code>class Rectangle {   
+    double width;   
+    double height;   
+
+    public double getHeight() {   
+        return height;   
+     }   
+    public void setHeight(double height) {   
+        this.height = height;   
+     }   
+    public double getWidth() {   
+        return width;   
+     }   
+    public void setWidth(double width) {   
+        this.width = width;   
+     }      
+}   
+
+class Square extends Rectangle {   
+    public void setHeight(double height) {   
+        super.setHeight(height);   
+        super.setWidth(height);   
+     }   
+
+    public void setWidth(double width) {   
+        super.setHeight(width);   
+        super.setWidth(width);   
+     }   
+}  
+class Rectangle {
+      double width;
+      double height;
+
+
+      public double getHeight() {
+          return height;
+      }
+      public void setHeight(double height) {
+          this.height = height;
+      }
+      public double getWidth() {
+          return width;
+      }
+      public void setWidth(double width) {
+          this.width = width;
+      }    
+}
+
+class Square extends Rectangle {
+      public void setHeight(double height) {
+          super.setHeight(height);
+          super.setWidth(height);
+      }
+
+      public void setWidth(double width) {
+          super.setHeight(width);
+          super.setWidth(width);
+      }
+}
+</code></pre><blockquote>
+<p>这里Rectangle是基类，Square从Rectangle继承。这种继承关系有什么问题吗？</p>
+</blockquote>
+<p>假如已有的系统中存在以下既有的业务逻辑代码：</p>
+<pre><code>void g(Rectangle r) {
+     r.setWidth(5);
+     r.setHeight(4);
+     if (r.getWidth() * r.getHeight() != 20) {
+         throw new RuntimeException();
+     }
+}
+</code></pre><p>则对应于扩展类Square，在调用既有业务逻辑时：<br>         Rectangle square = new Square();<br>         g(square);<br>时会抛出一个RuntimeException异常。这显然违反了LSP原则。</p>
+<blockquote>
+<p>动作正确性保证：</p>
+</blockquote>
+<p>因为LSP对子类的约束，所以为已存在的类做扩展构造一个新的子类时，根据LSP的定义，不会给已有的系统引入新的错误。<br>Design by Contract<br>         根据Bertrand Meyer提出的Design by Contract（DBC：基于合同的设计）概念的描述，对于类的一个方法，都有一个前提条件以及一个后续条件，前提条件说明方法接受什么样的参数数据等，只有前提条件得到满足时，这个方法才能被调用；同时后续条件用来说明这个方法完成时的状态，如果一个方法的执行会导致这个方法的后续条件不成立，那么此方法也不应该正常返回。<br>         现在把前提条件以及后续条件应用到继承子类中，子类方法应该满足：<br>１）前提条件不强于基类．<br>２）后续条件不弱于基类．<br>        换句话说，通过基类的接口调用一个对象时，用户只知道基类前提条件以及后续条件。因此继承类不得要求用户提供比基类方法要求的更强的前提条件，亦即，继承类方法必须接受任何基类方法能接受的任何条件（参数）。同样，继承类必须顺从基类的所有后续条件，亦即，继承类方法的行为和输出不得违反由基类建立起来的任何约束，不能让用户对继承类方法的输出感到困惑。这样，我们就有了基于合同的LSP，基于合同的LSP是LSP的一种强化。</p>
+<p>在很多情况下，在设计初期我们类之间的关系不是很明确，LSP则给了我们一个判断和设计类之间关系的基准：需不需要继承，以及怎样设计继承关系。</p>
+<blockquote>
+<ol>
+<li>Interface Segregation Principle (ISP) - 接口分隔原则</li>
+</ol>
+</blockquote>
+<p>不能强迫用户去依赖那些他们不使用的接口。换句话说，使用多个专门的接口比使用单一的总接口总要好。它包含了2层意思：<br>1）接口的设计原则：接口的设计应该遵循最小接口原则，不要把用户不使用的方法塞进同一个接口里。<br>   如果一个接口的方法没有被使用到，则说明该接口过胖，应该将其分割成几个功能专一的接口。<br>2）接口的依赖（继承）原则：如果一个接口a依赖（继承）另一个接口b，则接口a相当于继承了接口b的方法，那么继承了接口b后的接口a也应该遵循上述原则：不应该包含用户不使用的方法。   反之，则说明接口a被b给污染了，应该重新设计它们的关系。</p>
+<p>如果用户被迫依赖他们不使用的接口，当接口发生改变时，他们也不得不跟着改变。换而言之，一个用户依赖了未使用但被其他用户使用的接口，当其他用户修改该接口时，依赖该接口的所有用户都将受到影响。这显然违反了开闭原则，也不是我们所期望的。</p>
+<p>下面我们举例说明怎么设计接口或类之间的关系，使其不违反ISP原则。<br>假如有一个Door，有lock，unlock功能，另外，可以在Door上安装一个Alarm而使其具有报警功能。用户可以选择一般的Door，也可以选择具有报警功能的Door。</p>
+<blockquote>
+<p>有以下几种设计方法： ISP原则的违反例：</p>
+</blockquote>
+<p><strong>方法一：</strong><br>在Door接口里定义所有的方法。图：<br>但这样一来，依赖Door接口的CommonDoor却不得不实现未使用的alarm()方法。违反了ISP原则。</p>
+<p><strong>方法二：</strong><br>在Alarm接口定义alarm方法，在Door接口定义lock，unlock方法，Door接口继承Alarm接口。</p>
+<p>跟方法一一样，依赖Door接口的CommonDoor却不得不实现未使用的alarm()方法。违反了ISP原则。<br>遵循ISP原则的例：</p>
+<p><strong>方法三：通过多重继承实现</strong><br>Adapter设计模式的实现。<br>第2）种方案更具有实用性。<br>这种设计遵循了ISP设计原则。</p>
+<p><strong>方法四：通过委托实现</strong><br>在Alarm接口定义alarm方法，在Door接口定义lock，unlock方法。接口之间无继承关系。CommonDoor实现Door接口，<br>AlarmDoor有2种实现方案：<br>1）同时实现Door和Alarm接口。<br>2）继承CommonDoor，并实现Alarm接口。该方案是继承方式的<br>小结<br>Interface Segregation Principle (ISP)从对接口的使用上为我们对接口抽象的颗粒度建立了判断基准：在为系统设计接口的时候，使用多个专门的接口代替单一的胖接口。</p>
+<blockquote>
+<ol>
+<li>Single Responsibility Principle (SRP) - 单一职责原则</li>
+</ol>
+</blockquote>
+<p>永远不要让一个类存在多个改变的理由。换句话说，如果一个类需要改变，改变它的理由永远只有一个。如果存在多个改变它的理由，就需要重新设计该类。</p>
+<p>SRP（Single Responsibility Principle）原则的核心含意是：只能让一个类有且仅有一个职责。这也是单一职责原则的命名含义。</p>
+<blockquote>
+<p>为什么一个类不能有多于一个以上的职责呢？</p>
+</blockquote>
+<p>如果一个类具有一个以上的职责，那么就会有多个不同的原因引起该类变化，而这种变化将影响到该类不同职责的使用者（不同用户）：<br>1，一方面，如果一个职责使用了外部类库，则使用另外一个职责的用户却也不得不包含这个未被使用的外部类库。<br>2，另一方面，某个用户由于某原因需要修改其中一个职责，另外一个职责的用户也将受到影响，他将不得不重新编译和配置。这违反了设计的开闭原则，也不是我们所期望的。</p>
+<p>职责的划分<br>既然一个类不能有多个职责，那么怎么划分职责呢？<br>Robert.C Martin给出了一个著名的定义：所谓一个类的一个职责是指引起该类变化的一个原因。如果你能想到一个类存在多个使其改变的原因，那么这个类就存在多个职责。</p>
+<p>Single Responsibility Principle (SRP)的原文里举了一个Modem的例子来说明怎么样进行职责的划分，这里我们也沿用这个例子来说明一下：</p>
+<p>SRP违反例：</p>
+<pre><code>Modem.java
+interface Modem {
+     public void dial(String pno);     //拨号
+     public void hangup();         //挂断
+     public void send(char c);     //发送数据
+     public char recv();         //接收数据
+}
+</code></pre><p>咋一看，这是一个没有任何问题的接口设计。但事实上，这个接口包含了2个职责：第一个是连接管理（dial, hangup）；另一个是数据通信（send, recv）。很多情况下，这2个职责没有任何共通的部分，它们因为不同的理由而改变，被不同部分的程序调用。<br>所以它违反了SRP原则。</p>
+<p>下面的类图将它的2个不同职责分成2个不同的接口，这样至少可以让客户端应用程序使用具有单一职责的接口：<br>让ModemImplementation实现这两个接口。我们注意到，ModemImplementation又组合了2个职责，这不是我们希望的，但有时这又是必须的。通常由于某些原因，迫使我们不得不绑定多个职责到一个类中，但我们至少可以通过接口的分割来分离应用程序关心的概念。<br>事实上，这个例子一个更好的设计应该是这样的，如图：<br>小结<br>Single Responsibility Principle (SRP)从职责（改变理由）的侧面上为我们对类（接口）的抽象的颗粒度建立了判断基准：在为系统设计类（接口）的时候应该保证它们的单一职责性。</p>
+<blockquote>
+<ol>
+<li>The Open-Closed Principle (OCP) - 开闭原则</li>
+</ol>
+</blockquote>
+<p>开闭原则（OCP：Open-Closed Principle）是指在进行面向对象设计（OOD：Object Oriented Design）中，设计类或其他程序单位时，应该遵循：</p>
 <ul>
-<li>依赖（Dependence）<a href="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml1.gif" target="_blank" rel="noopener"><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml1.gif" alt=""></a><br><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml2.gif" alt=""><br>依赖关系的定义为：对于两个相对独立的对象，当一个对象负责构造另一个对象的实例，或者依赖另一个对象的服务时，这两个对象之间主要体现为依赖关系。定义比较晦涩难懂，但在java中的表现还是比较直观的：类A当中使用了类B，其中类B是作为类A的方法参数、方法中的局部变量、或者静态方法调用。类上面的图例中：People类依赖于Book类和Food类，Book类和Food类是作为类中方法的参数形式出现在People类中的。</li>
+<li>对扩展开放（open）</li>
+<li>对修改关闭（closed）</li>
 </ul>
-<p><strong>代码样例：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(Book book)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	System.out.println(<span class="string">"读的书是"</span>+book.getName());</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开闭原则是判断面向对象设计是否正确的最基本的原理之一。 根据开闭原则，在设计一个软件系统模块（类，方法）的时候，应该可以在不修改原有的模块（修改关闭）的基础上，能扩展其功能（扩展开放）。<br>A  扩展开放：某模块的功能是可扩展的，则该模块是扩展开放的。软件系统的功能上的可扩展性要求模块是扩展开放的。<br> B 修改关闭：某模块被其他模块调用，如果该模块的源代码不允许修改，则该模块修改关闭的。软件系统的功能上的稳定性，持续性要求是修改关闭的。</p>
+<p>这也是系统设计需要遵循开闭原则的原因：<br>1）稳定性。开闭原则要求扩展功能不修改原来的代码，这可以让软件系统在变化中保持稳定。<br>2）扩展性。开闭原则要求对扩展开放，通过扩展提供新的或改变原有的功能，让软件系统具有灵活的可扩展性。<br>遵循开闭原则的系统设计，可以让软件系统可复用，并且易于维护。</p>
+<p>开闭原则的实现方法<br>为了满足开闭原则的 对修改关闭（closed for modification） 原则以及扩展开放（open for extension） 原则，应该对软件系统中的不变的部分加以抽象，在面向对象的设计中，<br>A 可以把这些不变的部分加以抽象成不变的接口，这些不变的接口可以应对未来的扩展；<br>B 接口的最小功能设计原则。根据这个原则，原有的接口要么可以应对未来的扩展；不足的部分可以通过定义新的接口来实现；<br>C 模块之间的调用通过抽象接口进行，这样即使实现层发生变化，也无需修改调用方的代码。</p>
+<p>接口可以被复用，但接口的实现却不一定能被复用。接口是稳定的，关闭的，但接口的实现是可变的，开放的。可以通过对接口的不同实现以及类的继承行为等为系统增加新的或改变系统原来的功能，实现软件系统的柔软扩展。</p>
+<pre><code>简单地说，软件系统是否有良好的接口（抽象）设计是判断软件系统是否满足开闭原则的一种重要的判断基准。现在多把开闭原则等同于面向接口的软件设计。
+</code></pre><p>开闭原则的相对性<br>软件系统的构建是一个需要不断重构的过程，在这个过程中，模块的功能抽象，模块与模块间的关系，都不会从一开始就非常清晰明了，所以构建100%满足开闭原则的软件系统是相当困难的，这就是开闭原则的相对性。但在设计过程中，通过对模块功能的抽象（接口定义），模块之间的关系的抽象（通过接口调用），抽象与实现的分离（面向接口的程序设计）等，可以尽量接近满足开闭原则。</p>
+<blockquote>
+<ol>
+<li>Release Reuse Equivalency Principle (REP) - 重用发布等价原则</li>
+</ol>
+</blockquote>
+<p>包的内部关系方面（聚合性）的原则，重用粒度等价于发布粒度。重用主要是从用户的观点来看的。对用户来说，使用某个发布单位（组件，类，类群等），如果作者因为某种原因对其作了修改而发布了一个新的版本，用户会期望在升级为新版本之后，不会影响到原系统的正常运作。<br>也就是说，对于一个可重用（能供其它用户或系统使用）的元素（组件，类，类群等），作者应该承诺新版本能够兼容旧版本。否则，用户将拒绝使用该元素。</p>
+<blockquote>
+<p>Robert C. Martin给出的对重用的定义：</p>
+</blockquote>
+<p>代码可以看作为可重用的代码，当且仅当：</p>
 <ul>
-<li>关联（Association）<img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml3.gif" alt=""><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml4.gif" alt=""><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml5.gif" alt=""><br><strong>单项关联：</strong><br><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml6.gif" alt=""><br><strong>双向关联：</strong><br><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml7.gif" alt=""></li>
+<li>它的使用者（下称用户）无需看它的源代码</li>
+<li>用户只需联结静态库或包含动态库</li>
+<li>当库发生改变（错误纠正，功能增强）时，用户只需要得到一个新的版本便能集成到原有的系统</li>
 </ul>
-<p>对于两个相对独立的对象，当一个对象的实例与另一个对象的一些特定实例存在固定的对应关系时，这两个对象之间为关联关系。关联关系分为单向关联和双向关联。在java中，单向关联表现为：类A当中使用了类B，其中类B是作为类A的成员变量。双向关联表现为：类A当中使用了类B作为成员变量；同时类B中也使用了类A作为成员变量。</p>
-<p><strong>代码样例：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Son</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Father father = <span class="keyword">new</span> Father();</span><br><span class="line"></span><br><span class="line">	System.out.println(<span class="string">"从"</span>+father.getName()+<span class="string">"获得礼物"</span>);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Father</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	Son son = <span class="keyword">new</span> Son();</span><br><span class="line"></span><br><span class="line">	System.out.println(<span class="string">"从"</span>+son.getName()+<span class="string">"获得礼物"</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>怎么做到重用呢？<br>一个组件要做到能够重用，它必须有一个得到良好设计的结构，它所包含所有元素必须也是可以重用的。<br>因为如果一个为重用而设计的发布单位里，包含了不可重用的元素，当不可重用的元素发生改变时，用户也不得不改变原有系统以适应新的版本。这显然违反了重用的定义规则。<br>也就是说，一个为重用目的而设计的发布单位里，不能包含不可重用的元素；如果包含了不可重用的元素，它将变得不可重用。</p>
+<p>发布单位<br>当用户使用的重用组件被作者修改后，用户希望得到通知，然后决定是否升级或升级的时机。为了能使升级后的系统也能正常运作，用户也希望作者有一个规范的发布，包括版本号，类库的说明等等。<br>一旦用户决定升级新版本，不管这些修改是否影响到用户，用户也不得不包含新版本所包含的所有类库。</p>
+<p>REP规定重用粒度不能小于发布粒度，所有重用元素也必须被一起发布。</p>
+<p>发布粒度可以为包（组件）或类等实体，但一个应用往往包含了很多类，所以，具有更大的尺度的包（组件）更加适合作为发布粒度。</p>
+<p>重用发布等价原则为我们指明了包的设计方针：一个包中的元素（类）要么都可重用，要么都不可重用。</p>
+<p>小结<br>重用发布等价原则（REP）从用户观点的角度上为我们规范了包设计的原则：在设计包时，包中应该包含的元素要么都可以重用，要么都不可以重用。</p>
+<blockquote>
+<ol>
+<li>The Acyclic Dependencies Principle (ADP) - 无环依赖原则</li>
+</ol>
+</blockquote>
+<p>包之间的依赖结构必须是一个直接的无环图形（DAG）。也就是说，在依赖结构中不允许出现环（循环依赖）。换成另一个说法是： 包间依赖不能是一个环状形式。包间关系方面（耦合性）的原则</p>
+<p>包的依赖<br>如果一个包A 中的类引用了包B中的类，我们称包A依赖包B。<br>“依赖”在具体的程序语言中表现为，如果A依赖B，C/C++语言则在A包的文件/类中通过#include语句包含B包中的文件/类；Java语言则A包的类中通过import语句引入B包中的类。</p>
+<p>图1（包A依赖包B）<br>虚线表示一种依赖关系，箭头表示依赖的方向，箭头所在的一侧就是被依赖的包。</p>
+<p>包的循环依赖<br>我们上面讨论了并用图形表示了包之间的依赖关系。如果存在2个或2个以上的包，它们之间的依赖关系图出现了环状，我们就称包之间存在循环依赖关系。<br>也就是说它们的依赖结构图根据箭头的方向形成了一个环状的闭合图形。如图：<br>图2：包的循环依赖<br>如图：A依赖B，B依赖C，C依赖A，形成了一个环状依赖。<br>包的非循环依赖原则<br>包是一个比较合适的发布粒度，当修改了包中的代码（类，模块等）并发布新的版本时，我们需要把该包以及它所依赖的其它包一起发布。发布之后，还需要验证系统是否能在新发布的版本下正常运作。<br>如果多个包之间形成了循环依赖，比如如图2，A依赖B，B依赖C，C依赖A，我们修改了B并需要发布B的一个新的版本，因为B依赖C，所以发布时应该包含C，但C同时又依赖A，所以又应该把A也包含进发布版本里。也就是说，依赖结构中，出现在环内的所有包都不得不一起发布。它们形成了一个高耦合体，当项目的规模大到一定程度，包的数目变多时，包与包之间的关系便变得错综复杂，各种测试也将变得非常困难，常常会因为某个不相关的包中的错误而使得测试无法继续。而发布也变得复杂，需要把所有的包一起发布，无疑增加了发布后的验证难度。</p>
+<p>循环依赖的打破方法<br>如果包的依赖形成了环状结构，怎么样打破这种循环依赖呢？<br>有2种方法可以打破这种循环依赖关系：第一种方法是创建新的包，第二种方法是使用DIP（依赖倒置原则）和ISP（接口分隔原则）设计原则。</p>
+<p>方法一：创建新的包<br>比如对于图2这种依赖结构：</p>
+<p>图2：包的循环依赖</p>
+<p>包C要依赖包A，必定A中包含有A，C共通使用的类，把这些共同类抽出来放在一个新的包D里。这样就把C依赖A变成了C依赖D以及A依赖D，从而打破了循环依赖关系。如图：</p>
+<p>这样，包的依赖关系就从A-&gt;B-&gt;C-&gt;A变成了：<br>A-&gt;B-&gt;C-&gt;D<br>A-&gt;D</p>
+<p>方法二：DIP与ISP设计原则<br>ISP（接口分隔原则）可以剔除美用到的接口。DIP（依赖倒置原则）在类的调用之间引入抽象层。</p>
+<p>如图,，包A依赖包B（因为包A中的类U使用了包B中的类X）；反过来，包B又依赖包A（因为包B中的类Y使用了包A中的类V）</p>
+<p>包A，包B之间就形成了一种循环依赖。</p>
+<p>我们使用DIP设计原则为V抽象一个接口IVforY，并把该接口放在B包中。<br>这样就把Y对V的调用转化为：<br>V继承IVforY<br>Y调用IVforY<br>如图：</p>
+<p>这样一来，包B中的类就不依赖任何包A中的类了。<br>小结<br>无环依赖原则（ADP）为我们解决包之间的关系耦合问题。在设计包结构时，不能有循环依赖。</p>
+<blockquote>
+<ol>
+<li>The Stable Dependencies Principle (SDP) - 稳定依赖原则</li>
+</ol>
+</blockquote>
+<p>一个设计中的包之间的依赖应该朝着稳定的方向进行。一个包只应该依赖那些比自己更稳定的包。换成另一个说法是： 朝着稳定的方向进行依赖。包之间的关系方面（耦合性）的原则。</p>
+<p>包的依赖<br>如果一个包A 中的类引用了包B中的类，我们称包A依赖包B。<br>“依赖”在具体的程序语言中表现为，如果A依赖B，C/C++语言则在A包的文件/类中通过#include语句包含B包中的文件/类；Java语言则A包的类中通过import语句引入B包中的类。<br>图1（包A依赖包B）<br>虚线表示一种依赖关系，箭头表示依赖的方向，箭头所在的一侧就是被依赖的包。</p>
+<p>包的稳定依赖原则<br>包应该依赖比自己更稳定的包。因为如果依赖一个不稳定的包，那么当这个不稳定的包发生变化时，本身稳定的包也不得不发生变化，变得不稳定了。</p>
+<p>所谓稳定，在现实生活中是指一个物体具有稳固不变的属性使它很难发生变化。应用到软件概念上，我们认为一个软件是稳定的，是因为这个软件很难发生改变，或更确切地说，是不需要发生改变。一个设计良好，能应对各种变化不需要修改的软件当然是稳定的了，但事实上，往往一个软件常常需要对应某个事先没有预测到的用户需求而不得不发生改变，当这种改变发生时，能把修改控制在最小的范围之内，并能稳定的工作（包括软件本身以及依赖它的其它软件实体等），我们也会认为该软件是相对稳定的。</p>
+<p>怎么样让一个软件足够稳定呢？一个确切的方法是，让大量其它软件的包依赖它。一个包被很多其他包依赖是非常稳定的，这是因为被依赖的包为了协调其他包必须做很多的工作来对应各种变化（责任的负担者）。<br>图1：稳定的包X<br>我们认为X是稳定的，因为：</p>
 <ul>
-<li>聚合（Aggregation）<img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml8.gif" alt=""><br><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml9.gif" alt=""></li>
+<li>X被很多其他包依赖。相当于责任担当着。</li>
+<li>X没有依赖别的包，它是独立的。</li>
 </ul>
-<p>聚合关系是关联关系的一种，耦合度强于关联，他们的代码表现是相同的，仅仅是在语义上有所区别：关联关系的对象间是相互独立的，而聚合关系的对象之间存在着包容关系，他们之间是“整体-个体”的相互关系。</p>
-<p><strong>代码样例：</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	Car car;</span><br><span class="line"></span><br><span class="line">	House house;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCar</span><span class="params">(Car car)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">this</span>.car = car;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHouse</span><span class="params">(House house)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">this</span>.house = house;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">driver</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">			System.out.println(<span class="string">"车型号:"</span>+car.getType());</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">			System.out.println(<span class="string">"我在房子里睡觉:"</span>+house.getAddress());</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>相反，下面列出了一个非常不稳定的包Y，如图：</p>
+<p>图2：不稳定的包Y<br>我们认为Y是不稳定的，因为：</p>
 <ul>
-<li>组合（Composition）<img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml10.gif" alt=""><br><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml11.gif" alt=""></li>
+<li>Y没有被其他的包所依赖。不是责任的担当着。</li>
+<li>Y依赖很多别的包。<br>包的稳定性的判断原则<br>可以通过下面的方法来判断一个包的稳定系数：<br>Ca：Afferent Coupling。向心耦合。依赖该包（包含的类）的外部包（类）的数目（i.e. incoming dependencies）。<br>Ce： Efferent Coupling。离心耦合。被该包依赖的外部包的数目（i.e. outgoing dependencies）。<br>I： Instability。不稳定性。I=Ce/(Ce+Ca)。它的值处于[0，1]之间。<br>如图1，X的Ce=0，所以不稳定性I=0，它是稳定的。相反，如图2，Y的Ce=3，Ca=0，所以它的不稳定性I=1，它是不稳定的。</li>
 </ul>
-<p>相比于聚合，组合是一种耦合度更强的关联关系。存在组合关系的类表示“整体-部分”的关联关系，“整体”负责“部分”的生命周期，他们之间是共生共死的；并且“部分”单独存在时没有任何意义。在下图的例子中，People与Soul、Body之间是组合关系，当人的生命周期开始时，必须同时有灵魂和肉体；当人的生命周期结束时，灵魂肉体随之消亡；无论是灵魂还是肉体，都不能单独存在，他们必须作为人的组成部分存在。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">People</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	Soul soul;</span><br><span class="line"></span><br><span class="line">	Body body;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">People</span><span class="params">(Soul soul,Body body)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">this</span>.soul = soul;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">this</span>.body = body;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">			System.out.println(<span class="string">"学习要灵魂:"</span>+soul.getName());</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">			System.out.println(<span class="string">"吃饭需要身体:"</span>+body.getName());</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>SDP要求一个包的不稳定性I要大于它所依赖的包的不稳定性。换句话说，沿着依赖的方向，包的不稳定性应该逐渐降低，稳定性应该逐渐升高。</p>
+<p>稳定依赖原则（SDP）为我们解决包之间的关系耦合问题。在设计包结构时，包应该只依赖比自己更稳定的包。</p>
+<blockquote>
+<ol>
+<li>The Stable AbstractionsPrinciple (SAP) - 稳定抽象等价原则</li>
+</ol>
+</blockquote>
+<p>最稳定的包应该是最抽象的包。不稳定的包应该是具体的包。包的抽象程度跟它的稳定性成正比。稳定的包应该是抽象的包。</p>
+<p>包的稳定抽象等价原则</p>
+<p>我们在The Stable Dependencies Principle (SDP) - OO设计的稳定依赖原则 一文中谈到了包的稳定性：不容易改变的包应该具有更好的稳定性。</p>
+<p>一个包的抽象程度越高，它的稳定性就越高。反之，它的稳定性就越低。一个稳定的包必须是抽象的，反之，不稳定的包必须是具体的。<br>稳定的包的构成<br>抽象类或接口通过子类继承扩展行为，这表示抽象类或接口比它们的子类更具有稳定性。总之，为了构成稳定的包，应该提高包内的抽象类或接口的比率；它们的子类可以放在另一个不稳定的包内，该包依赖上述稳定的包，从而遵循了稳定依赖原则（SDP）。</p>
+<p>理想的体系结构应该是：<br>不稳定的（容易改变的）包处于上层</p>
 <ul>
-<li>继承（GeneraliZation）<img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml12.gif" alt=""><br><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml13.gif" alt=""></li>
+<li>它们是具体的包实现<br>稳定的（不容易改变的）包处于下层</li>
+<li>不容易改变，但容易扩展</li>
+<li>接口比实现（具体的运行代码）在内在特性上更具有稳定性<br>图1：遵循稳定依赖原则（SDP）的理想的体系结构</li>
 </ul>
-<p>继承表示类与类（或者接口与接口）之间的父子关系。在java中，用关键字extends表示继承关系。UML图例中，继承关系用实线+空心箭头表示，箭头指向父类。</p>
-<ul>
-<li>实现（Implementation）<img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml14.gif" alt=""><br><img src="https://github.com/mccappcom/DesignPattern/raw/master/assets/uml15.gif" alt=""></li>
-</ul>
-<p>表示一个类实现一个或多个接口的方法。接口定义好操作的集合，由实现类去完成接口的具体操作。在java中使用implements表示。UML图例中，实现关系用虚线+空心箭头表示，箭头指向接口。</p>
+<p>小结<br>稳定抽象等价原则（SAP）为我们解决包之间的关系耦合问题。在设计包结构时，稳定的包应该是抽象的（由抽象类或接口构成），不稳定的包应该是具体的（由具体的实现类构成）。</p>
+<blockquote>
+<ol>
+<li>The Common ClosurePrinciple (CCP) - 共同封闭原则</li>
+</ol>
+</blockquote>
+<p>一个包中所有的类应该对同一种类型的变化关闭。一个变化影响一个包，便影响了包中所有的类。一个更简短的说法是：一起修改的类，应该组合在一起（同一个包里）。包的内部关系方面（聚合性）的原则</p>
+<p>如果必须修改应用程序里的代码，我们希望所有的修改都发生在一个包里（修改关闭），而不是遍布在很多包里。<br>CCP原则就是把因为某个同样的原因而需要修改的所有类组合进一个包里。如果2个类从物理上或者从概念上联系得非常紧密，它们通常一起发生改变，那么它们应该属于同一个包。</p>
+<p>CCP跟开闭原则（OCP: Open Closed Principle） 有着很深的渊源关系，CCP的“关闭”（closure）就是OCP所提倡的：classes should be closed for modification but open for extension. 类应该对修改关闭，对扩展开放。但我们知道，100%的“关闭”是不现实的，我们在设计系统时，只能尽量地保持对大多数可预见的修改关闭。<br>CCP延伸了OCP的“关闭”概念，当因为某个原因需要修改时，把需要修改的范围限制在一个最小范围内的包里。CCP原则帮助我们决定哪些类应该被放到同一个包里。</p>
+<p>小结<br>共同封闭原则（CCP）从软件功能的角度上为我们规范了包设计的一个原则：在设计包时，相互之间紧密关联的类应该放在同一包里。</p>
+<blockquote>
+<ol>
+<li>The Common Reuse Principle (CRP) - 全部重用原则</li>
+</ol>
+</blockquote>
+<p>包的所有类被一起重用。如果你重用了其中的一个类，就重用全部。换成另一个比较浅显易懂的说法：没有被一起重用的类不应该被组合在一起。CRP原则帮助我们决定哪些类应该被放到同一个包里。包的内部关系方面（聚合性）的原则</p>
+<p>依赖一个包就是依赖这个包所包含的一切。当一个包发生了改变，并发布新的版本，使用这个包的所有用户都必须在新的包环境下验证他们的工作，即使被他们使用的部分没有发生任何改变。<br>因为如果包中包含有未被使用的类，即使用户不关心该类是否改变，但用户还是不得不升级该包并对原来的功能加以重新测试。</p>
+<p>“不能强迫用户去依赖那些他们不使用的接口”，把这个概念应用到更广范围的包上，就是CRP的基本理念：不要把用户不使用的类一起组合进包里。</p>
+<p>CRP与REP一样，都是从方便用户重用的角度去设计包，重用者是他们的受益者，CCP则让系统的维护者受益。CCP让包尽可能大（CCP原则加入功能相关的类），CRP则让包尽可能小（CRP原则剔除不使用的类）。它们的出发点不一样，但不相互冲突。CRP保证了包的内部具有很高的聚合性。</p>
+<p>全部重用原则（CRP）从用户的角度上为我们规范了包设计的一个原则：在设计包时，相互之间没有紧密关联的类不应该放在同一包里。</p>
+<blockquote>
+<ol>
+<li>Least Knowledge Principle (LKP) -迪米特法则</li>
+</ol>
+</blockquote>
+<p>迪米特法则（Law of Demeter，LoD）也称为最少知识原则（Least Knowledge Principle，LKP）。<br>一个对象应该对其他对象有最少的了解。通俗地讲，一个类应该对自己需要耦合或调用的类知道得最少，你（被耦合或调用的类）的内部是如何复杂都和我没关系，那是你的事情，我就知道你提供的public方法，我就调用这么多，其他的一概不关心。</p>
+<p>含义：<br>只和朋友交流<br>朋友类的定义是这样的：出现在成员变量、方法的输入输出参数中的类称为成员朋友类，而出现在方法体内部的类不属于朋友类。下面的代码在方法体内部依赖了其他类，这严重违反迪米特法则</p>
+<pre><code>public class Teacher {
+    public void commond(GroupLeader groupLeader) {
+        List&lt;Girl&gt; listGirls = new ArrayList&lt;Girl&gt;();
+        for (int i = 0; i &lt; 20; i++) {
+            listGirls.add(new Girl());
+        }
+        groupLeader.countGirls(listGirls);
+    }
+}
+</code></pre><p>方法是类的一个行为，类竟然不知道自己的行为与其他类产生了依赖关系，这是不允许的。<br>正确的做法是：</p>
+<pre><code>public class Teacher {
+    public void commond(GroupLeader groupLeader) {
+        groupLeader.countGirls();
+    }
+}
+public class GroupLeader {
+    private List&lt;Girl&gt; listGirls;
+    public GroupLeader(List&lt;Girl&gt; _listGirls) {
+        this.listGirls = _listGirls;
+    }
+    public void countGirls() {
+        System.out.println(&quot;女生数量是：&quot; + listGirls.size());
+    }
+}
+</code></pre><p>注意：一个类只和朋友交流，不与陌生类交流，不要出现getA().getB().getC().getD()这种情况（在一种极端情况下允许出现这种访问，即每一个点号后面的返回类型都相同），类与类之间的关系是建立在类间的，而不是方法间，因此一个方法尽量不引入一个类中不存在的对象，当然，JDK API提供的类除外。<br>朋友间也是有距离的<br>一个类公开的public属性或方法越多，修改时涉及的面也就越大，变更引起的风险扩散也就越大。因此，为了保持朋友类间的距离，在设计时需要反复衡量：是否还可以再减少public方法和属性，是否可以修改为private、package-private（包类型，在类、方法、变量前不加访问权限，则默认为包类型）、protected等访问权限，是否可以加上final关键字等。<br>注意：迪米特法则要求类“羞涩”一点，尽量不要对外公布太多的public方法和非静态的public变量，尽量内敛，多使用private、package-private、protected等访问权限。</p>
+<p>是自己的就是自己的<br>如果一个方法放在本类中，既不增加类间关系，也对本类不产生负面影响，就放置在本类中。</p>
+<p>谨慎使用Serializable</p>
+<p>最后，迪米特法则的核心观念就是类间解耦，弱耦合，只有弱耦合了以后，类的复用率才可以提高。</p>
+<blockquote>
+<p>  Principle –纵览</p>
+</blockquote>
+<pre><code>----类原则 ----
+</code></pre><p>1.单一职责原则 -Single Responsibility Principle(SRP)<br>就一个类而言，应该仅有一个引起它变化的原因。<br>(职责即为“变化的原因”。)<br>2.开放-封闭原则 - OpenClose Principle(OCP)<br>软件实体（类、模块、函数等）应该是可以扩展的，但是不可修改。<br>(对于扩展是开放的,对于更改是封闭的.<br>关键是抽象.将一个功能的通用部分和实现细节部分清晰的分离开来.<br>开发人员应该仅仅对程序中呈现出频繁变化的那些部分作出抽象.<br>拒绝不成熟的抽象和抽象本身一样重要. )<br>3.里氏替换原则 -Liskov Substitution Principle(LSP)<br>子类型(subclass)必须能够替换掉它们的基类型(superclass)。<br>4.依赖倒置原则(IoCP) 或 依赖注入原则 -Dependence Inversion Principle(DIP)<br>抽象不应该依赖于细节。细节应该依赖于抽象。<br>(Hollywood原则: “Don’t call us, we’ll call you”.<br>程序中所有的依赖关系都应该终止于抽象类和接口。<br>针对接口而非实现编程。<br>任何变量都不应该持有一个指向具体类的指针或引用。<br>任何类都不应该从具体类派生。<br>任何方法都不应该覆写他的任何基类中的已经实现了的方法。)<br>5.接口隔离原则(ISP)<br>不应该强迫客户依赖于它们不用的方法。<br>接口属于客户，不属于它所在的类层次结构。<br>(多个面向特定用户的接口胜于一个通用接口。)</p>
+<blockquote>
+<p>—-包内聚原则 —-</p>
+</blockquote>
+<p>6.重用发布等价原则(REP)<br>重用的粒度就是发布的粒度。<br>7.共同封闭原则(CCP)<br>包中的所有类对于同一类性质的变化应该是共同封闭的。<br>一个变化若对一个包产生影响，<br>则将对该包中的所有类产生影响，<br>而对于其他的包不造成任何影响。<br>8.共同重用原则(CRP)<br>一个包中的所有类应该是共同重用的。<br>如果重用了包中的一个类，<br>那么就要重用包中的所有类。<br>(相互之间没有紧密联系的类不应该在同一个包中。)<br>—-包耦合原则<br>9.无环依赖原则(ADP)<br>在包的依赖关系图中不允许存在环。<br>10.稳定依赖原则(SDP)<br>朝着稳定的方向进行依赖。<br>应该把封装系统高层设计的软件（比如抽象类）放进稳定的包中，<br>不稳定的包中应该只包含那些很可能会改变的软件（比如具体类）。<br>11.稳定抽象原则(SAP)<br>包的抽象程度应该和其稳定程度一致。<br>(一个稳定的包应该也是抽象的，一个不稳定的包应该是抽象的. )</p>
+<blockquote>
+<p>—-其它扩展原则—-</p>
+</blockquote>
+<p>12.BBP(Black Box Principle)黑盒原则<br>多用类的聚合，少用类的继承。<br>13.DAP(Default Abstraction Principle)缺省抽象原则<br>在接口和实现接口的类之间引入一个抽象类,这个类实现了接口的大部分操作.<br>14.IDP(Interface Design Principle)接口设计原则<br>规划一个接口而不是实现一个接口。<br>15.DCSP(Don’t Concrete Supperclass Principle)不要构造具体的超类原则<br>避免维护具体的超类。<br>16.迪米特法则<br>一个类只依赖其触手可得的类。</p>
 
         
         </div>
@@ -363,7 +607,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2016/02/24/设计模式中类的关系/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2016/07/12/Java面向对象16种设计原则/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -373,7 +617,7 @@
 
 
 
-    <article id="post-淘汰" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-ANDROID SUPPORT兼容包详解" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -381,7 +625,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2015/12/17/淘汰/">淘汰</a>
+            <a class="article-title" href="/2016/07/08/ANDROID SUPPORT兼容包详解/">ANDROID SUPPORT兼容包详解</a>
         </h1>
     
 
@@ -390,8 +634,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2015/12/17/淘汰/">
-            <time datetime="2015-12-17T01:24:27.000Z" itemprop="datePublished">2015-12-17</time>
+        <a href="/2016/07/08/ANDROID SUPPORT兼容包详解/">
+            <time datetime="2016-07-08T01:19:18.000Z" itemprop="datePublished">2016-07-08</time>
         </a>
     </div>
 
@@ -399,13 +643,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/文字/">文字</a>
+        <a class="article-category-link" href="/categories/android/">android</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/歌曲/">歌曲</a>
+        <a class="tag-link" href="/tags/android/">android</a>
     </div>
 
                     </div>
@@ -416,13 +660,20 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>陈奕迅 - 淘汰<br>曲 : 周杰伦 词：周杰伦</p>
-<p>我说了 所有的谎<br>你全都相信<br>简单的 我爱你<br>你却老不信<br>你书里的剧情<br>我不想上演<br>因为我喜欢 喜剧收尾</p>
-<p>我试过 完美放弃<br>的确很踏实<br>醒来了<br>梦散了<br>你我都走散了<br>情歌歌词何必押韵<br>就算我是K歌之王<br>也不见得把 爱情唱得完美</p>
-<p>只能说我输了<br>也许是你怕了<br>我们的回忆 没有皱褶<br>你却用离开烫下句点<br>只能说我认了<br>你的不安赢得你信任<br>我却得到你 安慰的淘汰</p>
-<p>我试过完美放弃<br>的确很踏实<br>醒来了<br>梦散了<br>你我都走散了<br>情歌歌词何必押韵<br>就算我是K歌之王<br>也不见得把 爱情唱得完美</p>
-<p>只能说我输了<br>也许是你怕了<br>我们的回忆 没有皱褶<br>你却用离开烫下句点<br>只能说我认了<br>你的不安赢得你信任<br>我却得到你 安慰的淘汰</p>
-<p>只能说我输了<br>也许是你怕了<br>我们的回忆 没有皱褶<br>你却用离开烫下句点<br>只能说我认了<br>你的不安赢得你信任<br>我却得到你 安慰的淘汰</p>
+            <p> Support Library</p>
+<p>我们都知道Android一些SDK比较分裂，为此google官方提供了Android Support Library package 系列的包来保证高版本sdk开发的向下兼容性, 所以你可能经常看到v4，v7，v13这些数字，首先我们就来理清楚这些数字的含义，以及它们之间的区别。</p>
+<p>support-v4<br>用在API lever 4(即Android 1.6)或者更高版本之上。它包含了相对更多的内容，而且用的更为广泛，例如：Fragment，NotificationCompat，LoadBroadcastManager，ViewPager，PageTabStrip，Loader，FileProvider 等</p>
+<p>Gradle引用方法：</p>
+<p>compile ‘com.android.support:support-v4:21.0.3’</p>
+<p>support-v7<br>这个包是为了考虑API level 7(即Android 2.1)及以上版本而设计的，但是v7是要依赖v4这个包的，v7支持了Action Bar以及一些Theme的兼容。</p>
+<p>Gradle引用方法:</p>
+<p>compile ‘com.android.support:appcompat-v7:21.0.3’<br>support-v13<br>这个包的设计是为了API level 13(即Android 3.2)及更高版本的，一般我们都不常用，平板开发中能用到，这里就不过多介绍了。</p>
+<p>Theme</p>
+<p>回到知乎上的这个问题，我们来介绍下各种Theme的概念。</p>
+<p>Hoho Theme<br>在4.0之前Android可以说是没有设计可言的，在4.0之后推出了Android Design，从此Android在设计上有了很大的改善，而在程序实现上相应的就是Holo风格，所以你看到有类似 Theme.Holo.Light、 Theme.Holo.Light.DarkActionBar 就是4.0的设计风格，但是为了让4.0之前的版本也能有这种风格怎么办呢？这个时候就不得不引用v7包了，所以对应的就有 Theme.AppCompat.Light、 Theme.AppCompat.Light.DarkActionBar，如果你的程序最小支持的版本是4.0，那么可以不用考虑v7的兼容。</p>
+<p>Material Design Theme<br>今年的5.0版本，Android推出了Material Design的概念，这是在设计上Android的又一大突破。对应的程序实现上就有 Theme.Material.Light、 Theme.Material.Light.DarkActionBar等，但是这种风格只能应用在在5.0版本的手机，如果在5.0之前应用Material Design该怎么办呢？同样的引用appcompat-v7包，这个时候的Theme.AppCompat.Light、 Theme.AppCompat.Light.DarkActionBar就是相对应兼容的Material Design的Theme。</p>
+<p>注意事项</p>
+<p>gradle引用appcompat-v7包的时候就不需要引用v4了，因为v7里默认包含了v4包；<br>compile ‘com.android.support:appcompat-v7:21.0.3’ 中的21代表API level 21推出的兼容包，所以如果你引用的是21之前的版本，则默认这些Theme.AppCompat.Light是Holo风格的，从21开始的版本默认是Material风格<br>使用appcompat之后，你的所有的Activity应该继承自ActionBarActivity，而ActionBarActivity继承自FragmentActivity，所以放心的使用Fragment；</p>
 
         
         </div>
@@ -435,7 +686,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2015/12/17/淘汰/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2016/07/08/ANDROID SUPPORT兼容包详解/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -445,7 +696,7 @@
 
 
 
-    <article id="post-offce001" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Android之Lru算法" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -453,7 +704,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2015/12/14/offce001/">offce 001</a>
+            <a class="article-title" href="/2016/06/18/Android之Lru算法/">Android之Lru算法</a>
         </h1>
     
 
@@ -462,8 +713,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2015/12/14/offce001/">
-            <time datetime="2015-12-14T04:12:55.000Z" itemprop="datePublished">2015-12-14</time>
+        <a href="/2016/06/18/Android之Lru算法/">
+            <time datetime="2016-06-18T12:45:21.000Z" itemprop="datePublished">2016-06-18</time>
         </a>
     </div>
 
@@ -471,13 +722,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/offce/">offce</a>
+        <a class="article-category-link" href="/categories/android/">android</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/offce/">offce</a>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/glide/">glide</a>
     </div>
 
                     </div>
@@ -488,177 +739,138 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>View的绘制流程、Activity、Window、View的关系<br>Activity启动时创建Window、ViewRoot并建立关联，流程如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class ActivityThread &#123;</span><br><span class="line">  // startActivity最终会调用到这里</span><br><span class="line">  fun handleLaunchActivity()&#123;</span><br><span class="line">	// 1. performLaunchActivity() 创建activity</span><br><span class="line">    // 2. activity.attach() 内部创建了PhoneWindow</span><br><span class="line">    // 3. activity.onCreate() -&gt; setContentView，实际调用window的对应方法，创建DecorView </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  fun handleResumeActivity()&#123;</span><br><span class="line">    // 1. activity.onResume()</span><br><span class="line">    // 2. 获取activity的window对象，添加DecorView到WindowManagerGlobal中</span><br><span class="line">    // 3. WindowManagerGlobal.addView(DecorView)时，创建了ViewRootImpl，所有view绘制的工作都是</span><br><span class="line">    //		ViewRootImpl来调度，在这里才建立了ViewRootImpl和View的关联</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class ViewRoot &#123;</span><br><span class="line">// ViewRoot添加view后，会执行ViewRoot.requestLayout</span><br><span class="line">// scheduleTraversals -&gt; 在消息队列中插入一个同步消息屏障,保证UI优先绘制 </span><br><span class="line">//  -&gt; 通过choreographer提交绘制任务，同时向底层请求sync信号，</span><br><span class="line">//  -&gt; 在下一次信号到来时JNI回调doTraversal，并移除屏障消息</span><br><span class="line">//  -&gt; doTraversal中调用了performMeasure、performLayout和performDraw进行测量、布局和绘制流程</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>MeasureSpec是一个32位int值，高2位表示测量模式，后30位表示在该模式下的测量值，一个view的MeasureSpec由自己的LayoutParams和父View的MeasureSpec共同决定。测量过程实际是递归的测量子view后再设置自己的尺寸。</p>
-<p>#onCreate、onResume中能否获取到View的宽高，为什么？<br>由于View的measure过程和Activity的生命周期方法不是同步执行的，如果View还没有测量完毕，那么获得的宽/高就是0。所以在onCreate、onStart、onResume中均无法正确得到某个View的宽高信息。<br>解决方式如下：</p>
-<p>1.view.post(runnable)，注意这里handler.post(runnable)是不行的，View.post会先判断attachInfo是否为空，如果为空就放到一个等待执行的队列中，等待View被添加（dispatchAttachedToWindow）之后才执行，这时测量已经完毕了，如果不为空，表示View已经被添加，就调用attachInfo中的Handler来post任务，所以是一定能获取到的。注意api23以下和以上的逻辑不一样：</p>
-<p>Api23以下：调用的ViewRootImpl.getRunQueue().post()，执行时机是doTraversa()中，这个方法又是在下一个同步信号来的时候调用的，参考屏幕刷新机制。</p>
-<p>Api23以上：调用的是getRunQueue().post() ，它的执行时机是View被添加之后执行，如果View只是创建出来没有被添加，那将一直得不到执行。</p>
-<p>2.使用ViewTreeObserver</p>
-<p>#卡顿原理、屏幕刷新机制、卡顿监控</p>
-<p>#卡顿的根本原因：view在16ms内不能完成绘制造成掉帧，常见造成掉帧的原因又有：</p>
-<p>1.主线程有耗时操作（合理使用线程来执行耗时任务）<br>2.View本身太复杂、嵌套过多导致绘制超过16ms（优化View的层级、合理使用include、ViewStub标签）<br>3.内存抖动造成频繁GC，例如循环内部创建对象，onDraw中创建对象等。（优化内存泄漏、对一些需要频繁创建的对象采用对象池技术）</p>
-<p>#屏幕刷新机制：</p>
-<p>1.基于handler消息队列，如BlockCanary，handler分发消息前后都会打印日志，可以自定义Printer，计算Looper两次获取消息的时间差，如果时间太长就说明Handler处理时间过长，直接把堆栈信息打印出来，就可以定位到耗时代码<br>2.代码插桩，在方法的前后插入计时代码来监控执行时间，缺点是包增大，无法监控系统方法，并且需要过滤简单方法<br>3.循环插入空消息到消息队列，监控这个消息的处理时间，例如每隔1秒插入一条空消息，如果这条消息处理时间间隔大于一定时间，则认为发生了卡顿</p>
-<p>#RxJava的原理<br>Rxjava每个操作符会生成一个新的Observable,同时持有上游事件源和下游Observer，最终在subscribeActual中实现自己的操作逻辑，并连接上下游。<br>Rxjava有点像观察者模式和责任链模式的结合，普通的观察者模式一般是被观察者通知多个观察者，而Rxjava则是被观察者通知第一个Obsever,接下来Observer依次通知下一个节点的Observer，形成一个“观察链”，将观察者模式进行了一种类似链式的变换，每个节点又会执行它不同的“职责”。</p>
-<p>1.SubscribeOn节点在订阅的时候，将它的上游节点的subscribe操作，以runnable的形式交给调度器在执行，在io调度器就是一个线程池，他影响的是事件源的发射行为，如果多次subscribeOn相当后一次subscribeOn把上一次subscribeOn行为在线程池里执行了一次，最终就只有最上边的一个起作用；<br>2.observeOn会将它下游的Observer放到切换的线程中执行，因此observeOn影响的是它的下游，多次调用影响的是这次到下一次observeOn之间的代码；</p>
-<p>#Rxjava中调度器<br>Schedulers.io()：无边界线程池作为支撑的一个Scheduler，线程可以无限增长，它适用于非CPU密集的I/O工作，比如访问文件系统、执行网络调用、访问数据库等<br>Schedulers.computation()：用于执行CPU密集的工作，比如处理大规模的数据集、图像处理等等。它由一个有界的线程池作为支撑，线程的最大数量就是可用的处理器数量<br>Schedulers.newThread()：这个Scheduler 每次都会创建一个全新的线程来完成一组工作<br><strong>Schedulers.single()：</strong>只有一个线程作为支撑，只能按照有序的方式执行任务<br><strong>Schedulers.from(Executor executor)</strong>我们可以使用它创建自定义的Scheduler<br>AndroidSchedulers.mainThread()：Android主线程调度器</p>
-<p>#事件分发机制<br>事件传递的顺序：Activity-&gt;Window-&gt;DecorView</p>
-<p>dispatchTouchEvent中：</p>
-<p>1.判断是否需要拦截事件的标记intercepted<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 如果是down事件或者mFirstTouchTarget不为空</span><br><span class="line">if (actionMasked == MotionEvent.ACTION_DOWN || mFirstTouchTarget != null) &#123;</span><br><span class="line">  final boolean disallowIntercept = (mGroupFlags &amp; FLAG_DISALLOW_INTERCEPT) != 0;</span><br><span class="line">  if (!disallowIntercept) &#123;</span><br><span class="line">    // 判断disallowIntercept标记</span><br><span class="line">    // 如果允许拦截则调用onInterceptTouchEvent</span><br><span class="line">    intercepted = onInterceptTouchEvent(ev);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // 有disallowIntercept标记，不拦截</span><br><span class="line">    intercepted = false;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  // 已有mFirstTouchTarget或者不是down时间，直接拦截</span><br><span class="line">  intercepted = true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>2.尝试分发事件：如果第一步不需要拦截，并且不是cancel状态，分发给子view</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (!canceled &amp;&amp; !intercepted) &#123;</span><br><span class="line">	// 遍历子view，判断坐标是否在view范围内并且view没有处于动画状态</span><br><span class="line">  // 满足条件则交给子view的dispatchTouchEvent来处理</span><br><span class="line">  // 如果子view处理了事件，则把子view赋值给mFirstTouchTarget</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>3.再次分发事件：判断firstTouchTarget是否为空，如果为空表示没有子view处理事件，则间接的交给自己的onTouchEvent来处理，为空则直接交给firstTouchTarget处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (mFirstTouchTarget == null) &#123;</span><br><span class="line">  // 没有子view处理事件，交给自己的onTouchEvent处理</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  // 直接交给mFirstTouchTarget处理后续事件</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>4.<strong>onTouchListener ：</strong>如果有onTouchListener则优先交给onTouchListener处理，onTouchListener返回true则onTouchEvent将不会调用<br>5.cancel事件：父视图先不拦截，然后在 MOVE 事件中重新拦截，此时子 View 会接收到一个 CANCEL 事件，例如move出子view范围，或者scrollView中事件首先传递给子view，如果滑动则会被拦截。</p>
-<p>#LeakCanary原理</p>
-<p>首先java的四种引用，强、软、弱、虚四种引用，配合ReferenceQueue使用，在构造弱引用时传入ReferenceQueue，在垃圾回收之前，会将引用放入队列中，可以通过队列中是否有对象的引用来判断对象是否被回收；</p>
-<p>具体就是在Application中注册ActivityLifecycleCallbacks监听activity的生命周期，在onDestory的时候，新建一个弱引用传入队列，在线程空闲的时候，会尝试清除队列的弱引用，如果成功则没有发生泄漏，如果失败，则尝试GC，GC之后再<br>次尝试清除弱引用，如果失败则发生了内存泄漏</p>
-<p>Fragment也类似，在Activity创建时获取到FragmentManager注册一个fragmentLifecycleCallbacks，然后观察fragment；</p>
-<p>#Retrofit原理<br>核心原理：在createService时，创建一个Api接口的动态代理，在loadServiceMethod方法先查找缓存，没有找到则解析Api接口，解析包括两部分，一个是方法上的注解，包括url、Header、请求参数等，第二个是方法的返回类型和参数类型，也就是CallAdapter和ConverAdapter</p>
-<p>CallAdapter用于把结果适配成Rxjava、kotlin协程等返回类型</p>
-<p>ConverAdapter用于把参数转化为json或者其他格式传输。</p>
-<p>loadServiceMethod完毕后，实际上是把请求组装成一个OkHttpCall，用okhttp来进行具体的请求。</p>
-<p>#OkHttp原理</p>
-<p>优点：连接池技术复用连接，可以降低延迟，无缝支持gzip减少数据量，支持http2以及SPDY多路复用技术</p>
-<p>责任链设计模式：用来处理相关事务责任的一条执行链，执行链上有多个节点，每个节点都有机会（条件匹配）处理请求事务，如果某个节点处理完了就可以根据实际业务需求传递给下一个节点继续处理或者返回处理完毕</p>
-<p>#请求流程：<br>1.构建request<br>2.通过dispatcher执行请求，dispatcher内部包含三个队列：同步请求队列、异步等待队列和异步执行队列，对于同步请求，直接添加到同步请求队列执行，异步请求则添加到等待队列中，然后判断请求数是否大于最大请求数、以及同一个主机的最大请求数，如果可以执行，则提升到执行队列进行执行<br>3.无论是同步请求还是异步请求，最终都调用到getResponseWithInterceptorChain方法，核心就是拦截器链，包含了7大拦截器，分别负责不同的功能，每一个拦截器都可以自己处理请求，然后直接返回或者交给下一节点来处理。</p>
-<pre><code>自定义拦截器
-RetryAndFollowUpInterceptor：重试和重定向拦截器
-BridgeInterceptor：用来设置一些必要的header
-CacheInterceptor：处理缓存
-ConnectInterceptor：负责建立服务器连接，优先从连接池中找到可用连接(soket连接是否可用，是否超时等，如不可用则会从连接池中移除)，否则打开一个新的连接
-自定义网络拦截器
-CallServerInterceptor：最后一个拦截器，用于真正发送网络请求，返回response
-</code></pre><p>#为什么要组件化，怎么实现？了解的路由框架</p>
-<p>痛点：在业务开发中，各个业务模块依赖关系复杂，耦合严重，造成app编译缓慢、不能并行开发、组件复用性不高的问题。通过组件化改造，可以对各个模块进行了业务隔离，使模块可以单独编译运行，降低耦合度，提高了开发和调试效率。</p>
-<p>##组件拆分：</p>
-<p>应用入口：一个空壳app，提供应用的启动页面</p>
-<p>支撑业务组件：网络请求、图片加载等一些支撑服务</p>
-<p>通用业务模块：例如支付、推送、地图等sdk，封装后对外提供调用接口</p>
-<p>应用业务组件：具体的业务，可以提出来作为一个单独应用的功能模块，两两之间不互相依赖</p>
-<p>##模块间的通信，需要引入路由框架，主流路由框架大概分为两种</p>
-<p>ARouter：路由表+接口下沉的方式，在编译期间通过注解处理器扫描目标类，然后解析参数生成路由表，<br>模块服务通过接口下沉的方式，把接口定义在公共库中，具体实现类在业务模块中，在编译时通过扫描字节码发现实现类，然后通过ASM等字节码修改技术完成服务的注册；</p>
-<p>CC：组件总线的方式，类似于EventBus发送消息一样，直接找到目标组件，发送一条指令执行对应操作，<br>通过gradle的Transform API:在编译时(dex/proguard之前)扫描当前要打包到apk中的所有类 ，然后通过ASM技术修改字节码，生成代码完成组件的注册；</p>
-<p>#android优化的数据结构：SparseArray、ArrayMap</p>
-<p>SparseArray的key只能为int，双列数组结构，优化了自动装箱的过程，并且会自动排序，查找采用二分查找，在数据量不大的情况下效率高</p>
-<p>ArrayMap和SparseArray类似，但是key可以是对象，存储的时候存储通过key的hash值排序，也采用二分查找；</p>
-<p>#进程间通信的方式</p>
-<p>1.广播</p>
-<p>2.Messenger，封装的Binder，可以执行简单的串行通信。</p>
-<p>3.ContentProvider，适用于进程间的数据共享，可以进行操作权限的控制，如数据库的读写等。</p>
-<p>4.Socket，适用于网络通信，用于传输原始的字节流，两次拷贝、效率低于binder</p>
-<p>5.Binder，适用于复杂的进程通信，功能强大，CS架构，底层基于内存映射，只进行一次拷贝，所以效率高，可以验证通信的进程id，所以比socket更安全。</p>
-<p>#AIDL和Binder机制</p>
-<p>AIDL实际上是一套快速实现Binder通信的工具，通过定义AIDL接口，系统会自动生成一个类实现IInterface接口，内部包含Stub和Proxy两个内部类。服务端继承Stub提供服务。</p>
-<p>##关键类和方法</p>
-<p>Stub：服务端通过继承Stub，实现定义的接口来提供服务</p>
-<p>Proxy：服务端对象的本地代理，客户端通过它来间接调用服务端接口的方法</p>
-<p>asInterface：客户端调用，将binder对象转化为AIDL接口类型对象，如果和服务端在同一进程，返回Stub对象本身，否则返回Stub.proxy代理对象</p>
-<p>asBinder：返回binder对象</p>
-<p>onTransact：运行在服务端binder线程池，客户端请求时，远程请求会被系统封装后交给此方法处理</p>
-<p>transact：运行在客户端，客户端发起请求时线程挂起，调用到服务端onTransact，等待其返回后才继续执行</p>
-<p>#Binder机制</p>
-<p>基于C/S架构，包括Server、Client、ServiceManager和Binder驱动，其中Binder驱动运行在内核空间，其他的运行在用户空间</p>
-<p>ServiceManager负责服务管理，服务端向ServiceManager注册后，客户端可以向ServiceManager查询获取到目标服务的引用</p>
-<p>Binder驱动：负责进程之间的Binder通信的建立，基于内存映射技术，传统的通信方式需要将数据从用户空间拷贝到内核空间，然后从内核空间拷贝到目标进程的用户空间，需要两次拷贝，Binder驱动可以建立用户空间内存和内核空间内存的一个映射，</p>
-<p>只需要一次拷贝，非常高效。</p>
-<p>#kotlin的扩展方法是怎么实现的，inline关键字的作用</p>
-<p>扩展方法编译成java后，实际上是一个 public static的静态方法，传入了对象实例和参数<br>Inline关键字修饰的函数是内联函数，用于优化函数调用的压栈操作，相当于在编译期间把内联函数的代码拷贝到函数调用处，可以提升性能，但是增加了代码量</p>
-<p>#Handler机制</p>
-<p>##关键类：</p>
-<p>Handler：用于发送消息和处理消息，发送消息就是将消息对象放入当前线程的MessageQueue中，然后Looper轮询到消息后交给自己处理，构造时需要传入Looper或者自动获取当前线程的Looper</p>
-<p>Looper：轮询器，一个线程只能有一个Looper，用于从消息队列中轮询消息，然后交给对应的Handler处理</p>
-<p>MessageQueue：消息队列，是一个阻塞队列，当没有消息是线程会被阻塞，等待有消息时唤醒线程</p>
-<p>Message：消息对象，采用了对象池技术，可以避免对象的频繁创建开销</p>
-<p>#消息的发送和轮询</p>
-<p>发送消息：最终都会调用MessageQueue的enqueueMessage中，如果队列中没有消息或者消息的发送时间小于第一个消息，则直接放入队列头部，否则则根据时间插入到队列中的合适位置，同时会刷新needWeak标记，然后判断needWeak，如果需要唤醒，调用naviteWeak唤醒Looper。</p>
-<p>获取消息：核心方法为MessageQueue的next，首先调用nativePollOnce，这个方法是一个native阻塞方法（通过监控文件描述符的io操作来实现），新消息放入队列时，会调用naviteWeak来唤醒。唤醒之后，如果是消息屏障就先处理异步消息，否则判断消息执行时间是否到达来返回消息或者进入下一个循环继续阻塞。</p>
-<p>IdleHandler：在消息队列空闲的时候，会尝试执行IdleHandler的任务</p>
-<p>消息屏障机制：当messageQueue取出屏障消息时，会开启循环，找到下一个异步消息执行，相当于阻塞了同步消息而优先执行异步消息，Android中所有UI绘制都是异步消息，可以保证UI绘制任务优先执行。</p>
-<p>#postDelay怎么保证消息的顺序</p>
-<p>发送消息时会对消息队列按执行时间进行排序，如果没有消息或者当前消息执行时间小于队列的第一条消息，则直接插入到表头，否则会插入到合适的位置，保证delay时间长的不会阻塞住时间短的。</p>
-<p>#Activity启动流程<br>1.Luancher 进程通过binder向AMS发起startActivity请求<br>2.AMS收到请求， ActivityStarter解析flag，启动模式等，ActivityStack处理activity栈<br>3.然后AMS通过socket调用到Zygote，fork新的app进程<br>4.app进程创建后，再通过binder向AMS发起attachApplication请求<br>5.AMS通过binder调用发送scheduleLaunchActivity到app进程<br>6.APP进程的binder线程ApplicationThread接收到请求，通过handler发送LAUNCH_ACTIVITY消息到主线程<br>7.ActivityThread接收到消息，执行到handleLaunchActivity，开始Activity的生命周期<br><img src="/2015/12/14/offce001/../../../../images/a3aed8572f104535a3b0e679ea8c4cd9_tplv-k3u1fbpfcp-zoom-1.png" alt="Alt text"><br>应用第一次启动时，zygote进程fork出应用进程后，AMS会保存一个ProcessRecord信息（包名+进程uid），下一次启动判断这个ProcessRecord已经存在的话，就不会再新建进程，这就属于应用内打开Activity的过程了</p>
-<p>#APK打包流程<br><img src="/2015/12/14/offce001/../../../../images/4689f854f716495ea598a49d6ddac2b0_tplv-k3u1fbpfcp-zoom-1.png" alt="Alt text"></p>
-<p>1.打包资源文件，生成R.java文件<br>2.处理aidl文件，生成相应的Java文件<br>3.编译项目源代码，生成class文件（所有的Java代码，包括R.java和.aidl文件）<br>4.转换所有的class文件，生成classes.dex文件<br>5.打包生成APK文件<br>6.对APK文件进行签名<br>7.对签名后的APK文件进行对齐处理。对齐的主要过程是将APK包中所有的资源文件距离文件起始偏移为4字节整数倍，这样通过内存映射访问apk文件时的速度会更快。对齐的作用就是减少运行时内存的使用</p>
-<p>#APK安装流程：</p>
-<p>1.拷贝阶段：通过PMS通过handler发送一个安装消息，包含一些安装的参数，PackageHandler收到消息后通过隐式intent绑定到拷贝的service。检查apk安装路径，包的状态，然后拷贝至/data/app包名下<br>2.装载阶段：installPackageLI，PackageParser解析AndroidManifest文件，解析四大组件等信息<br>3.验证apk的签名信息<br>4.执行 dex 优化，实际为 dex2oat 操作，用来将 apk 中的 dex 文件转换为 oat 文件<br>5.安装apk，创建data目录，安装成功则更新权限等信息<br>6.发送成功广播，安装失败则删除安装包和缓存</p>
-<p>#Android系统启动流程</p>
-<p>1.开机加载BootLoader，加载Linux内核<br>2.启动Init进程<br>3.读取init.rc配置文件，启动几个关键进程，包括Zygote、ServiceManager、SurfaceFlinger和MediaServer<br>4.zygote进程启动java runntime，然后fork出sytem_server进程<br>5.sytem_server启动AMS、WMS、电源管理、等等系统服务，并通过Binder注册到ServiceManager。<br>6.启动Launcher显示桌面<br><img src="/2015/12/14/offce001/../../../../images/96bd5c17c1374385971a2ad840d964bc_tplv-k3u1fbpfcp-zoom-1.png" alt="Alt text"></p>
-<p>#Webview的漏洞<br>1.4.2版本的addJavascriptInterface 造成的远程代码执行漏洞，当JS拿到Android这个对象后，就可以调用Android对象中所有的方法，包括系统类（java.lang.Runtime 类），从而执行任意代码</p>
-<pre><code>4.2版本以上通过对调用的方法添加JavascriptInterface注解避免漏洞
-4.2以下采用url拦截或者js弹窗拦截的方式进行交互，不能采用对象映射
-</code></pre><p>2.密码明文存储<br>3.域控制不严问题，允许导出的WebActivity未关闭file协议，可以外部启动并加载恶意file协议的文件，从而访问私有文件，所以不需要使用file协议的，需要关闭</p>
-<p>#Dalvik与ART的区别<br>1.Dalvik：即时编译，应用每次运行都需要通过即时编译器（JIT）将字节码转换为机器码，所以运行效率相对ART较低。由于不需要预编译，所以安装过程较快<br>2.ART ：应用在第一次安装的时候，字节码就会预编译（AOT）成机器码，这样的话，虽然设备和应用的首次启动（安装慢了）会变慢，但是以后每次启动执行的时候，都可以直接运行，因此运行效率会提高<br>3.ART占用空间比Dalvik大（字节码变为机器码之后，可能会增加10%-20%）<br>4.预编译也可以明显改善电池续航，从而减少了 CPU 的使用频率，降低了能耗。</p>
-<p>#热修复和插件化原理<br>java类加载机制</p>
-<p>双亲委托机制：如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器，如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载</p>
-<p>Java的类加载器分为：根加载器（加载java核心类）、扩展类加载器（加载jre扩展目录）、应用类加载器（加载classPath指定目录的类，自定义类加载器一般继承此加载器）</p>
-<p>Android的类加载器：根加载器、BaseDexClassLoader、PathClassLoader（加载安装到系统的APK）、DexClassLoader（加载指定目录的dex和apk）</p>
-<p>#热修复和插件化的区别</p>
-<p>热修复：替换bug的类，需要把修复类抢先于bug类进行加载，让bug类得不到加载。通过反射修改DexClassLoader中DexPathList的dexElements数组，将需要加载的dex添加到数组前面。</p>
-<p>插件化：运行未安装的插件apk的代码，不涉及到抢先加载，只需要将dex加载到dexElements中</p>
-<p>#热修复的CLASS_ISPREVERIFIED问题</p>
-<p>热修复是需要修复有bug的类，所以需要把dex放在数组的前端抢先加载补丁类，在虚拟机启动的时候，在verify选项被打开的时候，如果static方法、private方法、构造函数等，其中直接引用到的类都在同一个dex文件中，那么该类就会被打上CLASS_ISPREVERIFIED标志，且一旦类被打上CLASS_ISPREVERIFIED标志其他dex就不能再去替换这个类。<br>​        为了阻止类被打上CLASS_ISPREVERIFIED标志，先将一个预备好的hack.dex加入到dexElements的第一项，让后面的dex的所有类都引用hack.dex其中的一个类。</p>
-<p>#常见热修复框架</p>
-<p>Tinker实际上是类加载方案的升级，它增加了dex的差分算法，再将差分dex与apk中的classex.dex做合并，在运行bug类之前抢先加载补丁。</p>
-<p>tinker差分算法：dexDiff , 新旧dex先排序，然后定义两个指针依次往下挪，如果old&gt;new，则一定是新增，如果old&lt;\new，则是删除，如果相等，则索引可能不同，需要记录索引的变化，最后如果相同的索引既有删除又有新增，则优化为replace操作。资源差分则采用BSDiff。</p>
-<p>美团Robust，Instant Run方案，用代码插桩的方式，在每个方法中插入一段开关代码，如果需要修复，则走入if判断，执行补丁中的同名类的同名方法</p>
-<p>#插件化方案</p>
-<p>插件化主要是加载新的功能模块，最主要的功能除了加载类，还需要加载资源和生命周期的管理。</p>
-<p>资源加载：通过反射AssetManager ，将资源所在路径添加到AssetManager的path中，然后创建一个Resource，hook住activity替换mResources实现资源的访问。具体分为两种：</p>
-<p>1.合并式：插件资源合并到主工程，插件和主工程可以直接访问资源，合并资源会造成资源id冲突，所以需要修改aapt源码，id格式为0xPPTTNNNN，在编译期修改高两位PP段，不同插件使用不同的PP段标识。<br>修改resources.arsc文件，该文件列出了资源id到具体资源路径的映射，相当于一个索引。</p>
-<p>2.独立式：插件只访问插件内部的资源，不能共享，也不会冲突。</p>
-<p><strong>生命周期的管理：</strong>没有在清单文件中注册过的Activity不能启动，现在的主流做法是预留各种启动模式的代理Activity占坑，然后通过hook住mInstrumentation对象，在启动插件Activity时替换intent为代理的Activity，从而绕过AMS的验证，系统以为是启动的代理Activity，然后真正启动时，需要还原原先的Intent，启动插件Activity，同时hook替换mResources，这样就实现了生命周期管理</p>
-<p>#VirtualApk原理<br>如何加载插件类：（类加载机制）<br>插件创建ClassLoader，父类加载器是宿主的classloader，这样插件可以反射访问到宿主的类。</p>
-<p>然后判断COMBINE_CLASSLOADER标记，如果COMBINE_CLASSLOADER为true，则会把dex插入到父类加载器的elements后边，使宿主可以访问插件的类。如果为false表示宿主与插件隔离，宿主不能访问插件。不论true或false，插件都可以访问宿主。</p>
-<p>DroidPlugin是采用隔离模式，插件的classloader的父类加载器是BootClassLoader，所以相互都不能访问。</p>
-<p>#如何加载资源：</p>
-<p>1.COMBINE_CLASSLOADER为true：把插件资源添加到宿主Resources的AssetsManager的资源路径中去。<br>编译时过滤宿主和插件中的重复资源，然后修改R和资源表文件，让插件中只保留新的资源。<br>存在的问题：</p>
-<p>2.宿主和插件开发可能是并行的，过滤资源时候如果依赖的是1.0的宿主，在1.1中资源发生了变化，插件就会找不到资源，滴滴是让public.xml让宿主资源id不可变来实现。<br>如果宿主和插件有相同名字的资源，例如都有一个about字符串，由于资源过滤，插件的会被过滤掉。</p>
-<p>#activity的启动：</p>
-<p>hook系统instrumentation，判断如果启动的是插件的类，则通过预埋的activity绕过ams对activity的验证，然后在真正启动activity的时候，还原intent来启动目标类，这样目标类就有正常的生命周期了</p>
-<p>#service的启动：<br>hook系统ActivityManager，创建一个动态代理来替换系统中的单例对象，实际上启动LocalService来代理目标服务的生命周期。</p>
-<p>#广播：</p>
-<p>解析清单文件，把注册的静态广播转换为动态广播。</p>
-<p>启动activity时的问题</p>
-<p>在创建插件的ClassLoader时，有一个COMBINE_CLASSLOADER标记用来设置是否要讲插件的dex插入到宿主的dex数组中，让宿主可以访问插件的类。COMBINE_CLASSLOADER标记为false时，宿主不能访问到插件类<br>源码instrumentation中handleMessage处理启动activity时，给intent的extras设置了宿主的类加载器，如果extra中有一个插件中才有的序列化对象，读取extra时反序列化会出错，就会抛出找不到类异常。到现在版本仍未解决。<br>解决方案：直接用一个新的intent包装原始的intent来替换，intent是parcelable的。</p>
-<p>#RecyclerView缓存</p>
-<p>1.mAttachedScrap和mChangedScrap，用于缓存屏幕内的ViewHolder，例如下拉刷新后，屏幕内的ViewHolder需要刷新数据<br>2.mCachedViews，移除屏幕之外的，默认缓存两个，因为接下来可能马上往回滑动，再次使用到<br>3.ViewCacheExtension，预留的一个缓存扩展，暂时没有用到<br>4.RecycledViewPool，缓存屏幕外的 ViewHolder，需要重新绑定数据</p>
-<p>#AsyncTask原理和缺陷</p>
-<p>实际是通过Handler+线程池实现，内部含有两个线程池，一个用于排队，一个用于真正执行任务</p>
-<p>#缺陷：<br>执行任务的线程池是个静态的全局线程池，最大线程数为128，如果任务队列满了，然后最大线程数也满了，再提交任务会出现崩溃；解决方案为自定义线程池<br>必须主线程初始化，内部handler获取主线程looper，否则不能正确切换到主线程。<br>结果丢失问题：如果activity重建，例如切横竖屏，因为持有的引用是重建之前的，新的Activity无法接收到结果。<br>内存泄漏，退出页面需要正确取消</p>
-<p>#性能优化相关</p>
-<p>卡顿优化</p>
-<p>1.View本身绘制时间过长超过16ms造成掉帧，所以需要减少View嵌套层级，使用ViewStub和merge标签，优化过度绘制等</p>
-<p>2.主线程执行耗时任务，合理使用线程，将耗时任务放到后台进行</p>
-<p>3.内存抖动，会频繁触发GC，造成卡顿。使用内存分析工具优化内存使用，减少不必要对象的创建</p>
-<p>#耗电优化</p>
-<p>合理使用后台服务，合并网络请求，使用protobuf替换json进行服务端请求，cpu休眠锁等</p>
-<p>#内存优化<br>内存泄露优化（包括常见的内存泄漏、分析方法、LeakCanrary等）、使用优化的数据结构（ArrayMap和SparseArray），对频繁创建的对象使用对象池技术，减少不必要的内存开销，</p>
-<p>#启动优化</p>
-<p>Application的attachBaseContext和onCreate，三方sdk采用线程池异步初始化，activity的onCreate中，设置布局的优化（xml的io操作、反射创建view的操作，通过异步inflater和自定义inflater.factory来优化）</p>
-<p>1.延迟初始化非必要的库，拓展到异步启动器的设计和实现，有向无环图来解决库依赖的问题。<br>2.给闪屏页设置图片背景避免冷启动白屏，其实不能加快启动，只是避免白屏给用户的体验不佳</p>
-<p>#apk大小优化<br>1，开启混淆压缩代码<br>2，压缩和混淆资源，图片压缩采用webP格式，整理Raw、assets资源<br>3，减少非必要so库，目前主流的机型都是支持armeabi-v7a的，并且armeabi-v7a兼容armeabi<br>4，移除未使用的资源，如图标，字符串，字体等<br>5，一些小图像可以使用矢量图，大矢量图渲染时间很长，不适用<br>6，减少三方库使用，避免枚举的使用<br>7，动态下发一些资源，如换肤包，so，字体等</p>
-<p>#网络优化<br>1.HttpDNS优化，传统DNS解析一般是用UDP的方式与DNS服务器交互，HttpDNS采用Http协议交互，绕过运营商的 LocalDNS 服务器，有效的防止了域名劫持，提高域名解析的效率<br>2.使用缓存，需要服务端支持，或者通过OkHttp拦截器添加统一的缓存策略<br>3.HTTP 1.1支持长连接（PersistentConnection）和请求的流水线（Pipelining）处理，在一个TCP连接上可以传送多个HTTP请求和响应，减少了建立和关闭连接的消耗和延迟。在HTTP1.1中默认开启keep-alive<br>4.数据压缩，gzip压缩，http2.0也支持header的压缩<br>5.根据网络质量来下载不同质量的图片</p>
-<p>#View inflate流程</p>
-<p>1.先从resource中获取一个xml parser用于加载布局<br>2.读取layout文件，调用createViewFromTag创建View<br>3.tryCreateView中，依次判断有没有设置Factory2和Factory，如果有则调用它的createView来创建view<br>4.如果没有factory则调用自己的createView来创建，内部是使用反射创建对象<br>5.注意，Factory2继承Factory增加了一个创建view的方法，相当于是一个扩展，它们可以对view创建的过程进行拦截，在创建view的时候做一些事情，例如换肤功能就用到这里。</p>
-<p>#换肤的原理<br>1.制作皮肤包apk，只包含颜色、图片等，通过网络下载到sd卡；<br>2.通过反射构造皮肤包的AssetManager，再用此AssetManager创建Resource。<br>3.原apk和资源包中资源名称一样，提供一个资源映射的方法，通过原来的资源id找到资源名称，然后在皮肤包中查找皮肤资源具体的值；<br>4.通过自定义LayoutInflater传入自定义的Factory2拦截view的创建过程，查找到需要换肤的view和对应的可替换属性名(background、color、textcolor等)、属性值的类型（color\drawable\mipmap…）、属性值在原apk中的资源名(如color1)和资源的id，保存起来；<br>5.点击换肤时，遍历需要换肤的view集合，调用对应的方法（setColor等等）设置新的值。</p>
-<p>#Android的startActivityForResult的实现为什么不使用回调。<br>因为匿名内部类会持有外部类的引用，使用回调时，例如A启动B去获取result，由于某些原因原A已经被销毁了，当B设置结果返回A时，实际上A已经被系统重建，和原先的A不是同一个对象了，所以就不能正确的获取结果。</p>
-<p>#如何跨app启动activity？<br>1.shareUserId，设置同一个shareUserId的应用可以直接启动。<br>2.Exported 设置为true，向外部暴露activity，允许外部启动。<br>注意：为了安全需要添加自定义权限控制，注意被暴露的有权限的app需要先被安装，否则会获取不到权限。<br>会导致拒绝服务漏洞，例如：A启动B中的activity，往intent中添加一个序列化对象，这个对象只在A中有，B中没有这个类，如果在B中访问intent的extra，就会触发反序列化对象，由于找不到这个对象的类，造成B崩溃。处理方法：获取extra要捕获异常。<br>3.隐式启动activity，只要intentFilter匹配成功就可以启动。</p>
-<p>#高性能日志采集</p>
-<p>##传统直接读写文件的方式的缺点<br>读写文件的IO操作，需要两次拷贝，用户空间到内核空间，内核空间再到硬盘。为了避免频繁IO，采用缓存日志到内存，达到一定量时再统一写入文件，虽然避免了频繁IO，但是可能造成crash时日志丢失。多进程也无法保证写入顺序</p>
-<p>#mmap方案：<br>mmap是一种内存映射文件的方法，即将一个文件或者其它对象映射到进程的地址空间，实现文件磁盘地址和进程虚拟地址空间中一段虚拟地址的一一对映关系。mmap操作提供了一种机制，让用户程序直接访问设备内存，这种机制，相比较在用户空间和内核空间互相拷贝数据，效率更高。</p>
-<p>#mmap的回写时机：</p>
-<p>1.内存不足<br>2.进程退出<br>3.调用 msync 或者 munmap<br>4.不设置 MAP_NOSYNC 情况下 30s-60s(仅限FreeBSD)</p>
-<p>多进程写入映射同一个内存也会造成写入顺序无法保证，所以可以选择多进程映射不同的文件，每隔一段时间合并一次来解决</p>
-<p>#性能优化工具：</p>
-<p>查看方法执行时间：</p>
-<p>#TraceView（影响性能）</p>
-<p>1.用Debug.startMethodTrace来打点，生成trace文件，然后用adb导出分析<br>2.使用profiler工具，选择cpu，输出trace文件</p>
-<p>#Systrace（轻量级）</p>
-<p>1.TraceCompat.beginSection<br>2.使用python命令导出html，查看wall time和 cpu time</p>
-<p>#MAT分析内存泄露：<br>profiler分析内存，手动触发gc，然后输出堆转储hporf文件，然后用mat分析引用链</p>
-<p>#内存抖动：</p>
-<p>使用profiler工具排查</p>
+            <p>Lru：</p>
+<p>   LRU是Least Recently Used 的缩写，翻译过来就是“最近最少使用”，LRU缓存就是使用这种原理实现，简单的说就是缓存一定量的数据，当超过设定的阈值时就把一些过期的数据删除掉，比如我们缓存10000条数据，当数据小于10000时可以随意添加，当超过10000时就需要把新的数据添加进来，同时要把过期数据删除，以确保我们最大缓存10000条，那怎么确定删除哪条过期数据呢，采用LRU算法实现的话就是将最老的数据删掉。</p>
+<p> 1.）初始化MemoryCache</p>
+<p>  这里内存缓存的是Drawable 而不是Bitmap 理由是Drawable相对Bitmap来说有很大的内存优势<br>  int maxMemory = (int) Runtime.getRuntime().maxMemory();//获取系统分配给应用的总内存大小<br>  int mCacheSize = maxMemory / 8;//设置图片内存缓存占用八分之一<br>  mMemoryCache = new LruCache<string, drawable="">(mCacheSize) {<br>  //必须重写此方法，来测量Bitmap的大小<br>  @Override<br>  protected int sizeOf(String key, Drawable value) {<br>  　　if (value instanceof BitmapDrawable) {<br>  　　　　Bitmap bitmap = ((BitmapDrawable) value).getBitmap();<br>  　　　　return bitmap == null ? 0 : bitmap.getByteCount();<br>　　　}<br>　　　return super.sizeOf(key, value);<br>            }<br>        };</string,></p>
+<p>2.）添加一个Drawable到内存缓存<br>    /**</p>
+<pre><code> * 添加Drawable到内存缓存
+ *
+ * @param key
+ * @param drawable
+ */
+private void addDrawableToMemoryCache(String key, Drawable drawable) {
+    if (getDrawableFromMemCache(key) == null &amp;&amp; drawable != null) {
+        mMemoryCache.put(key, drawable);
+    }
+}
+</code></pre><p>3.）从内存缓存中获取一个Drawable</p>
+<pre><code>/**
+ * 从内存缓存中获取一个Drawable
+ *
+ * @param key
+ * @return
+ */
+public Drawable getDrawableFromMemCache(String key) {
+    return mMemoryCache.get(key);
+}
+</code></pre><p>4.）从内存缓存中移除一个Drawable</p>
+<p>   /**</p>
+<pre><code> * 从内存缓存中移除
+ *
+ * @param key
+ */
+public void removeCacheFromMemory(String key) {
+    mMemoryCache.remove(key);
+}
+</code></pre><p>5.）清空内存缓存</p>
+<pre><code>/**
+ * 清理内存缓存
+ */
+public void cleanMemoryCCache() {
+    mMemoryCache.evictAll();
+}
+</code></pre><p>其实Lru缓存机制本质上就是存储在一个LinkedHashMap存储，为了保障插入的数据顺序，方便清理。</p>
+<p>基于DiskLruCache实现磁盘缓存：</p>
+<p>   DiskLruCache类并不是谷歌官方实现，需要自行下载，下载地址：<a href="https://github.com/JakeWharton/DiskLruCache" target="_blank" rel="noopener">https://github.com/JakeWharton/DiskLruCache</a></p>
+<p>  1.）初始化DiskLruCache</p>
+<pre><code>File cacheDir = context.getCacheDir();//指定的是数据的缓存地址
+ long diskCacheSize = 1024 * 1024 * 30;//最多可以缓存多少字节的数据
+ int appVersion = DiskLruUtils.getAppVersion(context);//指定当前应用程序的版本号
+ int valueCount = 1;//指定同一个key可以对应多少个缓存文件
+ try {
+     mDiskCache = DiskLruCache.open(cacheDir, appVersion, valueCount, diskCacheSize);
+ } catch (Exception ex) {
+ }
+</code></pre><p>2.）写入一个文件到磁盘缓存</p>
+<pre><code>/**
+ * 添加Bitmap到磁盘缓存
+ *
+ * @param key
+ * @param value
+ */
+private void addBitmapToDiskCache(String key, byte[] value) {
+    OutputStream out = null;
+    try {
+        DiskLruCache.Editor editor = mDiskCache.edit(key);
+        if (editor != null) {
+            out = editor.newOutputStream(0);
+            if (value != null &amp;&amp; value.length &gt; 0) {
+                out.write(value);
+                out.flush();
+                editor.commit();
+            } else {
+                editor.abort();
+            }
+        }
+        mDiskCache.flush();
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        DiskLruUtils.closeQuietly(out);
+    }
+}
+</code></pre><p>3.）从磁盘缓存中读取Drawable</p>
+<pre><code>/**
+ * 从磁盘缓存中获取一个Drawable
+ *
+ * @param key
+ * @return
+ */
+public Drawable getDrawableFromDiskCache(String key) {
+    try {
+        DiskLruCache.Snapshot snapShot = mDiskCache.get(key);
+        if (snapShot != null) {
+            InputStream is = snapShot.getInputStream(0);
+            Bitmap bitmap = BitmapFactory.decodeStream(is);
+            Drawable drawable = DiskLruUtils.bitmap2Drawable(bitmap);
+            //从磁盘中读取到之后 加入内存缓存
+            addDrawableToMemoryCache(key, drawable);
+            return drawable;
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+</code></pre><p>4.）从磁盘缓存中移除</p>
+<pre><code>/**
+ * 从磁盘缓存中移除
+ *
+ * @param key
+ */
+public void removeCacheFromDisk(String key) {
+    try {
+        mDiskCache.remove(key);
+    } catch (Exception e) {
+    }
+}
+</code></pre><p>5.）清空磁盘缓存</p>
+<pre><code>/**
+ * 清理磁盘缓存
+ */
+public void cleanDiskCache() {
+    try {
+        mDiskCache.delete();
+    } catch (Exception e) {
+    }
+}
+</code></pre><p>图片下载过程：</p>
+<p>   接下来实例中用到了一点RxJava的知识有不了解RxJava的请自行了解一下。</p>
+<p>  1.）采用异步方式操作磁盘缓存和网络下载， 内存缓存可以在主线程中操作</p>
+<p>   public void disPlay(final ImageView imageView, String imageUrl) {<br>        //生成唯一key<br>        final String key = DiskLruUtils.hashKeyForDisk(imageUrl);<br>        //先从内存中读取<br>        Drawable drawableFromMemCache = getDrawableFromMemCache(key);<br>        if (drawableFromMemCache != null) {<br>            imageView.setImageDrawable(drawableFromMemCache);<br>            return;<br>        }<br>        Observable.just(imageUrl)<br>                .map(new Func1<string, drawable="">() {<br>                    @Override<br>                    public Drawable call(String imageUrl) { // 参数类型 String<br>                        //从磁盘中读取<br>                        Drawable drawableFromDiskCache = getDrawableFromDiskCache(key);<br>                        if (drawableFromDiskCache != null) {<br>                            return drawableFromDiskCache;<br>                        }<br>                        //网络下载<br>                        return download(imageUrl); // 返回类型 Drawable<br>                    }<br>                })<br>                .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程<br>                .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程<br>                .subscribe(new Action1<drawable>() {<br>                    @Override<br>                    public void call(Drawable drawable) { // 参数类型 Drawable<br>                        imageView.setImageDrawable(drawable);<br>                    }<br>                });<br>    }</drawable></string,></p>
+<p>2.）下载图片过程以及处理</p>
+<p> private Drawable download(String imageUrl) {<br>        HttpURLConnection urlConnection = null;<br>        ByteArrayOutputStream bos = null;<br>        InputStream ins = null;<br>        try {<br>            final URL url = new URL(imageUrl);<br>            urlConnection = (HttpURLConnection) url.openConnection();<br>            ins = urlConnection.getInputStream();<br>            bos = new ByteArrayOutputStream();<br>            int b;<br>            while ((b = ins.read()) != -1) {<br>                bos.write(b);<br>            }<br>            bos.flush();<br>            byte[] bytes = bos.toByteArray();<br>            Bitmap bitmap = DiskLruUtils.bytes2Bitmap(bytes);<br>            String key = DiskLruUtils.hashKeyForDisk(imageUrl);<br>            Drawable drawable = DiskLruUtils.bitmap2Drawable(bitmap);<br>            //加入内存缓存<br>            addDrawableToMemoryCache(key, drawable);<br>            //加入磁盘缓存<br>            addBitmapToDiskCache(key, bytes);<br>            return drawable;<br>        } catch (IOException e) {<br>            e.printStackTrace();<br>        } finally {<br>            if (urlConnection != null) {<br>                urlConnection.disconnect();<br>            }<br>            DiskLruUtils.closeQuietly(bos);<br>            DiskLruUtils.closeQuietly(ins);<br>        }<br>        return null;<br>    }</p>
 
         
         </div>
@@ -671,7 +883,7 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
 
             
     
-        <a href="http://b.nearby.ren/2015/12/14/offce001/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2016/06/18/Android之Lru算法/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -681,7 +893,7 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
 
 
 
-    <article id="post-offce002" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Android应用防止被截图或者录屏" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -689,7 +901,7 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2015/12/13/offce002/">offce 002</a>
+            <a class="article-title" href="/2016/06/17/Android应用防止被截图或者录屏/">Android应用防止被截图或者录屏</a>
         </h1>
     
 
@@ -698,8 +910,8 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2015/12/13/offce002/">
-            <time datetime="2015-12-13T04:10:55.000Z" itemprop="datePublished">2015-12-13</time>
+        <a href="/2016/06/17/Android应用防止被截图或者录屏/">
+            <time datetime="2016-06-17T12:31:28.000Z" itemprop="datePublished">2016-06-17</time>
         </a>
     </div>
 
@@ -707,13 +919,13 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/offce/">offce</a>
+        <a class="article-category-link" href="/categories/android/">android</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/offce/">offce</a>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/glide/">glide</a>
     </div>
 
                     </div>
@@ -724,180 +936,8 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h3 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h3><h5 id="标记算法："><a href="#标记算法：" class="headerlink" title="标记算法："></a>标记算法：</h5><p>1.引用计数法<br>2.可达性分析法(注意GC root的类型，虚拟机栈和本地方法栈引用的对象、静态对象、字节码对象)</p>
-<h3 id="回收算法（复制算法、标记清除、标记整理）"><a href="#回收算法（复制算法、标记清除、标记整理）" class="headerlink" title="回收算法（复制算法、标记清除、标记整理）"></a>回收算法（复制算法、标记清除、标记整理）</h3><p>新生代：对象存活率低，采用复制算法，堆中分为3个区域，Eden、from、to，每次分配对象都在Eden，第一次gc时，把存活对象复制到from，第二次gc把Eden和from的对象复制到to，第三次又把Eden和to的对象复制到from，依次往复。达到一定阈值时，把对象移入老年代。</p>
-<p>老年代：对象存活率高，标记整理法</p>
-<h3 id="java类加载机制"><a href="#java类加载机制" class="headerlink" title="java类加载机制"></a>java类加载机制</h3><ul>
-<li><p>双亲委托机制：如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器，如果父类加载器可以完</p>
-</li>
-<li><p>成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载</p>
-</li>
-<li><p>Java的类加载器：根加载器（加载java核心类）、扩展类加载器（加载jre扩展目录）、应用类加载器（加载classPath指定目录的类，自定义类加载器一般继承此加载器）</p>
-</li>
-<li><p>Android的类加载器：根加载器、BaseDexClassLoader、PathClassLoader（加载安装到系统的APK）、DexClassLoader（加载指定目录的dex和apk）</p>
-</li>
-</ul>
-<h3 id="java匿名内部类"><a href="#java匿名内部类" class="headerlink" title="java匿名内部类"></a>java匿名内部类</h3><p>匿名内部类就是没有名字的内部类，（其实是有名字的，虚拟机定位这个类，编译之后会使用 外部类名$1这样的名字，数字按顺序生成）。<br>匿名内部类的构造方法由编译器生成，参数列表包括：</p>
-<ul>
-<li><p>外部类的引用（定义在非静态域）</p>
-</li>
-<li><p>捕获的外部变量（方法体中使用的外部final对象）</p>
-</li>
-<li><p>父类的构造参数</p>
-</li>
-<li><p>如果父类也是一个非静态内部类则还有父类的外部类引用。</p>
-</li>
-</ul>
-<h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul>
-<li><p>不能继承父类或者实现接口（kotlin中是可以的）</p>
-</li>
-<li><p>不能定义静态变量和方法</p>
-</li>
-<li><p>会持有外部类的引用，可能会造成内存泄露。</p>
-</li>
-</ul>
-<p>拓展：lambda表达式可以替代部分匿名内部类，父类必须是接口，且只有一个方法。</p>
-<h3 id="java泛型擦除"><a href="#java泛型擦除" class="headerlink" title="java泛型擦除"></a>java泛型擦除</h3><p>使用泛型可以声明集合存储的元素类型，取出元素时避免强转的操作。在java中，编译完成后泛型参数会被擦除，例如List<string>和List<integer>编译完成后都是List类型。</integer></string></p>
-<h3 id="java泛型为什么会被擦除："><a href="#java泛型为什么会被擦除：" class="headerlink" title="java泛型为什么会被擦除："></a>java泛型为什么会被擦除：</h3><ul>
-<li><p>运行时内存压力小，不同泛型的List都编译成同一个类型。泛型不擦除的语言如c#，在方法区就会真实存在各种不同的List类型，压力就会相对较大。</p>
-</li>
-<li><p>兼容性的问题，1.5之前是没有泛型的，java当时的用户量很大，为了向下兼容。  </p>
-</li>
-</ul>
-<h3 id="存在的问题："><a href="#存在的问题：" class="headerlink" title="存在的问题："></a>存在的问题：</h3><p>1.基本类型无法用于泛型，只能用装箱类型，例如List，装箱操作有额外的开销。<br>2.泛型参数不能用于方法重载，因为编译完成后泛型被擦除，参数都是一样的。<br>3.泛型类型不能当做真实的类型来使用，例如方法参数中有一个泛型T，方法中不能直接new  T（），因为编译之后就是Object，不知道真实的类型。<br>4.静态方法无法引用类的泛型，因为类的泛型在实例化的时候才知道。<br>5.类型强转的额外开销。</p>
-<p>泛型在特定场景可以通过反射获取，例如父类有一个泛型参数已经被确定，子类继承之后可以获取。例如gson中，解析带泛型的List，要传入一个TypeToken，实际上是new了一个子类，通过反射获取泛型类型。</p>
-<h3 id="如何写出线程安全的程序？"><a href="#如何写出线程安全的程序？" class="headerlink" title="如何写出线程安全的程序？"></a>如何写出线程安全的程序？</h3><p>线程安全的本质，可变资源在线程间共享的问题。关键：可变资源、线程共享。</p>
-<p>线程安全三要素：原子性、可见性、有序性</p>
-<p>所以要保证线程安全：</p>
-<p>1.共享不可变资源，final关键字的使用。<br>2.使用纯函数（不访问外部资源），使用ThreadLocal，不共享资源。<br>3.使用volatile关键字保证共享资源的可见性，并禁止指令重排序。<br>4.操作原子性（加锁保证操作的互斥性，原子类AtomicXXX的使用，CAS指令如Unsafe.compareAndSwap）</p>
-<h3 id="Synchronized原理"><a href="#Synchronized原理" class="headerlink" title="Synchronized原理"></a>Synchronized原理</h3><p>底层通过一个监视器monitor实现，monitor对象包含一个count计数字段和owner字段指向获取锁的线程，当线程获取monitor后，count+1，owner指向线程，监视器处于锁定状态，其他线程不能获取monitor会进入阻塞状态，当前线程释放monitor后，其他线程可以继续竞争该锁。</p>
-<h3 id="Java1-6之后对Synchronized进行了一些优化："><a href="#Java1-6之后对Synchronized进行了一些优化：" class="headerlink" title="Java1.6之后对Synchronized进行了一些优化："></a>Java1.6之后对Synchronized进行了一些优化：</h3><ul>
-<li><p>锁自旋：线程的阻塞和唤醒需要 CPU 从用户态转为核心态，例如在Synchronized代码块中调用wait方法阻塞线程，wait会释放锁，所谓自旋，就是让该线程执行一段无意义的循环指令来等待一段时间，不会被立即挂起，看当前持有锁的线程是否会很快释放锁。缺点是需要占用 CPU，锁竞争的时间比较长时不实用）</p>
-</li>
-<li><p>偏斜锁：如果一个线程获得了一个偏向锁，如果在接下来的一段时间中没有其他线程来竞争锁，那么持有偏向锁的线程再次进入或者退出同一个同步代码块，不需要再次进行抢占锁和释放锁的操作，一旦出现锁竞争，偏向锁会被撤销，并膨胀成轻量级锁</p>
-</li>
-<li><p>轻量级锁：对于一块同步代码，虽然有多个不同线程会去执行，但是这些线程是在不同的时间段交替请求这把锁对象，也就是不存在锁竞争的情况。在这种情况下，锁会保持在轻量级锁的状态，从而避免重量级锁的阻塞和唤醒操作</p>
-</li>
-</ul>
-<p>Synchronized可以修饰静态方法（锁对象为字节码对象）、实例方法（锁为实例对象）和代码块，无论是否发生异常虚拟机都会正常释放锁<br>ReentrantLock发生异常时不能释放锁，所以一般需要在finaly代码块中释放锁，它包含公平锁和读写锁等用法，使用更灵活</p>
-<h3 id="java虚拟机内存模型"><a href="#java虚拟机内存模型" class="headerlink" title="java虚拟机内存模型"></a>java虚拟机内存模型</h3><ul>
-<li><p>虚拟机栈：线程私有，随线程创建而创建。栈里面是一个一个“栈帧”，每个栈帧对应一次方法调用。栈帧中存放了局部变量表（基本数据类型变量和对象引用）、操作数栈、方法出口等信息。当栈调用深度大于JVM所允许的范围，会抛出StackOverflowError的错误。</p>
-</li>
-<li><p>本地方法栈：线程私有，这部分主要与虚拟机用到的Native方法相关，一般情况下并不需要关心这部分内容。</p>
-</li>
-<li><p>程序计数器：也叫PC寄存器，JVM支持多个线程同时运行，每个线程都有自己的程序计数器。倘若当前执行的是 JVM 的方法，则该寄存器中保存当前执行指令的地址；倘若执行的是native方法，则PC寄存器中为空。（PS：线程执行过程中并不都是一口气执行完，有可能在一个CPU时钟周期内没有执行完，由于时间片用完了，所以不得不暂停执行，当下一次获得CPU资源时，通过程序计数器就知道该从什么地方开始执行）</p>
-</li>
-<li><p>方法区：方法区存放类的信息（包括类的字节码，类的结构）、常量、静态变量等。字符串常量池就是在方法区中。虽然Java虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫做Non-Heap（非堆），目的是与Java堆区分开来。很多人都更愿意把方法区称为“永久代”（Permanent Generation）。从jdk1.7已经开始准备“去永久代”的规划，jdk1.7的HotSpot中，已经把原本放在方法区中的静态变量、字符串常量池等移到堆内存中。</p>
-</li>
-<li><p>堆：堆中存放的是数组（PS：数组也是对象）和对象。当申请不到空间时会抛出OutOfMemoryError。</p>
-</li>
-</ul>
-<h3 id="class加载过程"><a href="#class加载过程" class="headerlink" title="class加载过程"></a>class加载过程</h3><p>1.装载，将class文件加载进内存，在堆中生成class对象<br>2.链接，验证二进制数据流（类结构是否正确），分配静态变量设置默认值（初始化时才真正赋值），将符号引用转换为直接引用<br>3.初始化，初始化静态变量，静态代码块</p>
-<h3 id="java内存模型、volatile的作用"><a href="#java内存模型、volatile的作用" class="headerlink" title="java内存模型、volatile的作用"></a>java内存模型、volatile的作用</h3><h5 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h5><ul>
-<li><p>本地内存：存放的是 私有变量 和 主内存数据的副本。如果私有变量是基本数据类型，则直接存放在本地内存，如果是引用类型变量，存放的是引用，实际的数据存放在主内存。本地内存是不共享的，只有属于它的线程可以访问。</p>
-</li>
-<li><p>主内存：存放的是共享的数据，所有线程都可以访问。当然它也有不少其他称呼，比如 堆内存，共享内存等等。</p>
-</li>
-</ul>
-<p>Java内存模型规定了所有对共享变量的读写操作都必须在本地内存中进行，需要先从主内存中拿到数据，复制到本地内存，然后在本地内存中对数据进行修改，再刷新回主内存，这就导致了多线程情况下数据的可见性问题，可以使用volatile关键字来修饰</p>
-<ul>
-<li><p>volatile变量在修改后，会立即刷新主内存的值，对所有线程可见，当volatile变量写后，线程中本地内存中共享变量就会置为失效的状态，因此线程需要从主内存中去读取该变量的最新值。</p>
-</li>
-<li><p>volatile还可以防止指令重排序造成的线程安全问题，例如双重校验的懒汉式单例中，不加volatile的对象编译后的指令有可能重排序成：对象引用已经被赋值不等于null了，但是对象的构造方法还没有调用完成的情况。第二个线程去判断不为空，拿到的对象还未初始化完成造成错误。</p>
-</li>
-</ul>
-<h3 id="如何安全停止一个线程"><a href="#如何安全停止一个线程" class="headerlink" title="如何安全停止一个线程"></a>如何安全停止一个线程</h3><p>stop方法，被废弃。强行停止一个线程，没有资源的机会，如果正在处理任务，会留下一堆异常的数据。另一个线程再访问时就会发生错误。那么如何安全的结束呢：<br>1、设置volatile的boolean标志位，修改标志位来判断是否继续执行还是清理现场。</p>
-<p>2、Interrupt方法：线程内部也需要做支持，判断是否被中断，和标志位类似的处理。支持sleep等系统方法（sleep过程中中断）。判断是否中断的两个方法的区别：<br>interrupted，静态方法，获取当前正在执行的线程是否被中断，中断之后会清空状态，重复获取就返回falseisInterrupted，线程的方法，获取当前线程的中断状态，不会被清空状态</p>
-<h3 id="HashMap原理"><a href="#HashMap原理" class="headerlink" title="HashMap原理"></a>HashMap原理</h3><p>底层是数组+链表的结构，默认数组长度16，加载因子0.75，在put时，（如果第一次put，会创建数组）如果元素个数大于数组长度*加载因子时，将触发扩容操作，数组长度翻倍，并重新计算hash将元素放入数组；</p>
-<p>Java1.8中，如果元素过多，数组长64，链表长度超过8，将进行树化操作，将链表转为红黑树，红黑树的节点是链表节点占用空间的两倍，提高查询效率；</p>
-<h5 id="如何计算元素存储的位置，如何解决hash冲突，为何数组长度必须为2的整数幂："><a href="#如何计算元素存储的位置，如何解决hash冲突，为何数组长度必须为2的整数幂：" class="headerlink" title="如何计算元素存储的位置，如何解决hash冲突，为何数组长度必须为2的整数幂："></a>如何计算元素存储的位置，如何解决hash冲突，为何数组长度必须为2的整数幂：</h5><p>先把key取hash值，然后进行一个二次hash，方式为(n-1)&amp;hash，这个二次hash是因为如果n正好等于2的幂，(n-1)&amp;hash相当于对n取模，这样位运算效率很高，这样就相当于把元素均匀分布到了数组中，如果数组的位置没有元素，直接保存元素，如果已经有元素了，表示发生了hash冲突，将改为链表的存储方式，把新元素放在头部（1.8中是尾插法）</p>
-<h5 id="为什么加载因子为0-75？设为1和0-5有什么问题？"><a href="#为什么加载因子为0-75？设为1和0-5有什么问题？" class="headerlink" title="为什么加载因子为0.75？设为1和0.5有什么问题？"></a>为什么加载因子为0.75？设为1和0.5有什么问题？</h5><p>loadFactor太大，比如等于1，那么就会有很高的哈希冲突的概率，会大大降低查询速度。</p>
-<p>loadFactor太小，比如等于0.5，那么频繁扩容没，就会大大浪费空间。</p>
-<h3 id="Hashtable"><a href="#Hashtable" class="headerlink" title="Hashtable"></a>Hashtable</h3><p>初始化容量不一样（11），线程安全对整个数组加锁，不允许null值，数据结构一直是数组+链表，不会转换为红黑树；</p>
-<h3 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap:"></a>ConcurrentHashMap:</h3><p>1.5-1.7采用分段锁segment机制，不再是整个数组加锁，而是对单条或者几条链表和红黑树进行加锁。内部结构如图：segment数组，segment中类似HashMap的数组+链表。要通过hash让元素尽可能的均匀分布到不同的segment和数组中，所以对key取hash，用高位确定segment的位置，然后用低位确定数组的位置。</p>
-<p>1.5的hash算法不好，元素多的时候会造成新加的节点分布在最后的几个桶，分布不均匀，</p>
-<p>1.6就改善了hash算法。</p>
-<p>1.7的优化是采用segment的懒加载机制，并用volatile的方式访问数组，保证数组的线程可见性，结合CAS指令来避免加锁。</p>
-<p>1.8中则基于hashmap做优化，不再采用分段锁，而是对桶节点加锁，使用volatile和CAS乐观锁来实现读和写，再次提高了效率。</p>
-<p>通过对Hashtable和ConcurrentHashMap的比较，得出一些锁优化的方法论，比如大锁不如小锁，长锁不如短锁，读写锁的分离等等</p>
-<h3 id="线程池原理"><a href="#线程池原理" class="headerlink" title="线程池原理"></a>线程池原理</h3><h3 id="线程池的参数"><a href="#线程池的参数" class="headerlink" title="线程池的参数"></a>线程池的参数</h3><p>1.corePoolSize：线程池大小，当向线程池提交任务时，如果线程池已创建的线程数小于corePoolSize，即便此时存在空闲线程，也会创建一个新的线程来执行任务，直到线程数大于或等于corePoolSize。（除了提交新任务来创建线程，也可以通过prestartCoreThread或prestartAllCoreThreads来提前创建核心线程）<br>2.maximumPoolSize：线程池最大大小，当任务队列满了，且已创建的线程数小于最大线程数，则创建新线程来执行任务，如果线程池任务队列为无界队列可以忽略该参数<br>3.keepAliveTime：线程存活时间，当线程数大于核心线程数时，线程空闲时间大于存活时间，那么这个线程将被销毁，如果线程池任务队列为无界队列可以忽略该参数<br>4.workQueue：任务队列，用于保存等待执行任务的阻塞队列<br>5.threadFactory：线程工厂，用于创建新线程，可以设置统一风格的线程名<br>6.handler：线程饱和策略，当任务队列和线程池都满了，继续提交任务将执行此策略</p>
-<h3 id="如何配置线程池？需要看任务的类型"><a href="#如何配置线程池？需要看任务的类型" class="headerlink" title="如何配置线程池？需要看任务的类型"></a>如何配置线程池？需要看任务的类型</h3><p>cpu密集型需要配置较小的线程数，避免cpu过度切换反而效率低下<br>IO密集型，线程池可以稍大，提高cpu的利用率；混合型任务则可配置两个线程池分别来执行；</p>
-<p>java自带的线程池</p>
-<p>线程池                   核心线程    最大线程              存活时间           任务队列<br>CachedThreadPool        0          Integer.MAX_VALUE    60S               SynchronousQueue<br>FixedThreadPool         n          n                    0                 LinkedBlockingQueue<br>SingleThreadExecutor    1          1                    0                 LinkedBlockingQueue<br>ScheduledThreadPool     n          Integer.MAX_VALUE    0                 DelayWorkQueue</p>
-<p>SynchronousQueue：只能有一个元素的队列，插入和获取元素都会阻塞线程</p>
-<h3 id="java方法分派（多态）"><a href="#java方法分派（多态）" class="headerlink" title="java方法分派（多态）"></a>java方法分派（多态）</h3><p>子类复写父类方法，调用方法调用子类还是父类？ 取决于运行时具体的调用者类型，实例是子类就调用子类的方法。</p>
-<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><ul>
-<li><p>对称加密和非对称加密</p>
-</li>
-<li><p>对称加密：加密和解密使用同一个秘钥，使用对应的加密和解密算法进行加解密</p>
-</li>
-<li><p>非对称加密：加密和解密使用不同的秘钥，分为公钥和私钥，公钥和私钥相互可解，意思就是私钥加密的密文只有公钥可解，反之亦然。</p>
-</li>
-<li><p>数字签名技术<br>​   非对称加密在实际使用中，公钥会公开出来，私钥保存在自己手中不公开。由于私钥加密的密文只有公钥可解，那么如果有一个密文用你的公钥可以解开，那么可以说明这个密文肯定是你的私钥加密的，这就诞生了数字签名技术。<br>​   只有信息的发送者才能产生的别人无法伪造的一段数字串，这段数字串同时也是对信息的发送者发送信息真实性的一个有效证明</p>
-</li>
-</ul>
-<h3 id="https的本质"><a href="#https的本质" class="headerlink" title="https的本质"></a>https的本质</h3><p>https的本质就是：用非对称加密的方式协商出一个对称加密的会话秘钥来进行会话</p>
-<ul>
-<li>首先服务端需要有一个证书，证书包含了自己的公钥和服务端信息，如hash算法、加密算法、域名、有效期等等。此证书需要由可信任的第三方（CA机构）的私钥进行签名，实际上是对证书做一个hash，得到hash值然后签名，CA机构也可能不止一级而是一个证书链</li>
-<li>为什么要用第三方机构来颁发证书呢？为了安全的传输自己的公钥，系统都预置了可信任的根证书，三方机构是否可信任由系统来保证</li>
-</ul>
-<h3 id="客户端如何校验CA证书"><a href="#客户端如何校验CA证书" class="headerlink" title="客户端如何校验CA证书"></a>客户端如何校验CA证书</h3><p>1.客户端收到证书后，用证书中的公钥去解密该Hash值，得到hash-a<br>2.客户端用证书中指定的签名算法，计算出一个hash-b，比较hash-a和hash-b<br>3.除了校验hash值，还会校验CA证书有效期和域名等</p>
-<h3 id="SSL握手过程"><a href="#SSL握手过程" class="headerlink" title="SSL握手过程"></a>SSL握手过程</h3><p>1.客户端A访问服务端B，客户端生成一个随机数1、将自己支持的SSL版本号、加密套件（包括哈希算法和加密算法）等信息发送给服务端<br>2.服务端B收到请求，选择一个加密套件，也生成一个随机数2，将随机数和自己的证书一同返回给客户端<br>3.客户端收到证书，校验证书是否有效（方法之前说过了），通过校验后，生成一个随机数3，用证书中的公钥加密随机数3，发送给服务端B<br>4.服务端收到加密的随机数，用私钥解密<br>5.服务端和客户端都有了随机数1、2、3，通过这三个随机数，生成一个对称加密的会话密钥<br>6.服务端和客户端分别通知对方之后的会话用会话秘钥来完成，握手结束</p>
-<h3 id="为什么要用非对称加密来握手，而用对称加密来会话"><a href="#为什么要用非对称加密来握手，而用对称加密来会话" class="headerlink" title="为什么要用非对称加密来握手，而用对称加密来会话"></a>为什么要用非对称加密来握手，而用对称加密来会话</h3><p>对称加密握手的话，由于双方的秘钥是一样的，相当于秘钥公开了，和没加密没有区别<br>而会话阶段，对称加密效率较非对称高</p>
-<h3 id="TCP为什么要三次握手和四次挥手"><a href="#TCP为什么要三次握手和四次挥手" class="headerlink" title="TCP为什么要三次握手和四次挥手"></a>TCP为什么要三次握手和四次挥手</h3><ul>
-<li>“三次握手”的目的是“为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误”。例如：第一次请求由于网络拥堵没有到达服务端，客户端又发起第二次请求，正常完成了连接，传输完数据之后断开，这时第一次的请求到达了服务端，如果没有第三次握手，会直接建立一条没有用的连接，server端一直等待，浪费资源。</li>
-</ul>
-<p>+“四次挥手”原因是因为tcp是全双工模式，接收到FIN时意味对方将没有数据再发来，但是自己还是可以继续发送数据。</p>
-<h3 id="为什么TCP是可靠的？"><a href="#为什么TCP是可靠的？" class="headerlink" title="为什么TCP是可靠的？"></a>为什么TCP是可靠的？</h3><h3 id="TCP基于连接，具有以下机制："><a href="#TCP基于连接，具有以下机制：" class="headerlink" title="TCP基于连接，具有以下机制："></a>TCP基于连接，具有以下机制：</h3><ul>
-<li>确认和重传：接收方收到报文后就会进行确认，发送方一段时间没有收到确认就会重传。</li>
-<li>数据校验。</li>
-<li>数据合理分片与排序，TCP会对数据进行分片，接收方会缓存为按序到达的数据，重新排序后再提交给应用层。</li>
-<li>流程控制：当接收方来不及接收发送的数据时，则会提示发送方降低发送的速度，防止包丢失。</li>
-<li>拥塞控制：当网络发生拥塞时，减少数据的发送。</li>
-</ul>
-<p>UDP是无连接、不安全的，每个数据包都包含接收的ip等信息，客户端只管发送，没有确认重传机制，所以速度更快，但是可能会丢包。</p>
-<h3 id="HTTP1-0、1-1、2-0的区别"><a href="#HTTP1-0、1-1、2-0的区别" class="headerlink" title="HTTP1.0、1.1、2.0的区别"></a>HTTP1.0、1.1、2.0的区别</h3><h5 id="1-1和1-0："><a href="#1-1和1-0：" class="headerlink" title="1.1和1.0："></a>1.1和1.0：</h5><ul>
-<li><p>增加新的控制缓存策略的Header，如Entity tag，If-Unmodified-Since, If-Match, If-None-Match；</p>
-</li>
-<li><p>增加了range请求头，允许请求资源的一部分，支持了多线程断点续传下载，优化了带宽和连接；</p>
-</li>
-<li><p>增加了Host头，允许一台物理服务器上存在多个虚拟主机，共享一个IP地址，通过Host来区分；</p>
-</li>
-<li><p>增加了keep-alive支持TCP长连接，一定程度弥补了每次请求都重新创建连接的情况；</p>
-</li>
-</ul>
-<h4 id="SPDY："><a href="#SPDY：" class="headerlink" title="SPDY："></a>SPDY：</h4><p>SPDY是Http1.x版本的优化方案，包括多路复用技术、请求优先级（多路复用时，多个请求并行于共用的TCP连接，可以设置请求的优先级防止关键请求被阻塞）、header压缩和服务端推送功能；SPDY的特性并入了Http2.0中；</p>
-<h4 id="1-1和2-0："><a href="#1-1和2-0：" class="headerlink" title="1.1和2.0："></a>1.1和2.0：</h4><ul>
-<li><p>支持了新的二进制格式，1.x版本只支持文本协议</p>
-</li>
-<li><p>多路复用技术，在HTTP/1.1协议中，同一时间针对同一域名下的请求有一定数量限制，超过限制数目的请求会被阻塞。多个请求是串行处理，当一个请求超时，后续请求就会被阻塞，而在2.0中，一个TCP连接上并行多个请求，某个请求耗时不影响其他连接；</p>
-</li>
-<li><p>Header压缩，多个请求可以差量更新Header字段，降低流量提高效率；</p>
-</li>
-<li><p>服务端推送功能</p>
-</li>
-</ul>
-<h3 id="三方授权方式"><a href="#三方授权方式" class="headerlink" title="三方授权方式"></a>三方授权方式</h3><ul>
-<li><p>Basic：格式：Authorization: Basic username:password(Base64ed)</p>
-</li>
-<li><p>Bearer：格式：Authorization: Bearer </p>
-</li>
-</ul>
-<h3 id="bearer-token-的获取⽅式（-OAuth2-的授权流程）："><a href="#bearer-token-的获取⽅式（-OAuth2-的授权流程）：" class="headerlink" title="bearer token 的获取⽅式（ OAuth2 的授权流程）："></a>bearer token 的获取⽅式（ OAuth2 的授权流程）：</h3><p>1.第三⽅⽹站向授权⽅⽹站申请第三⽅授权合作，拿到 client id 和 client secret</p>
-<p>2.⽤户在使⽤第三⽅⽹站时，点击「通过 XX (如 GitHub) 授权」按钮，第三⽅⽹站将⻚⾯跳转到授权⽅⽹站，并传⼊ client id 作为⾃⼰的身份标识</p>
-<p>3.授权⽅⽹站根据 client id ，将第三⽅⽹站的信息和需要的⽤户权限展示给⽤户，询问⽤户是否同意授权</p>
-<p>4.⽤户点击「同意授权」按钮后，授权⽅⽹站将⻚⾯跳转回第三⽅⽹站，并传⼊ Authorization code 作为⽤户认可的凭证。</p>
-<p>5.第三⽅⽹站将 Authorization code 发送回⾃⼰的服务器</p>
-<p>6.服务器将 Authorization code 和 client secret ⼀并发送给授权⽅的服务器，授权⽅返回 access token。</p>
-<h3 id="WebSocket和Socket的区别"><a href="#WebSocket和Socket的区别" class="headerlink" title="WebSocket和Socket的区别"></a>WebSocket和Socket的区别</h3><ul>
-<li>WebSocket是应用层的一个持久化协议，http它一次请求和响应就断开连接，属于非持久化协议。WebSocket分为握手和数据传输两个阶段，采用http协议握手然后建立全双工的tcp连接。</li>
-<li>Socket是传输层的一个协议抽象，包括TCP和UDP，TCP基于连接，拥有确认和重传，拥塞控制和流程控制等机制的可靠的协议。UDP则面向无连接，基于数据报，相对于TCP速度快但不可靠。</li>
-</ul>
-<h3 id="多线程下载和断点续传"><a href="#多线程下载和断点续传" class="headerlink" title="多线程下载和断点续传"></a>多线程下载和断点续传</h3><p>两个核心Header，Content-Length表示文件的总字节数，RANGE表示从某一个位置开始传输。</p>
-<p>首先，获取到文件大小后，通过线程数来计算每个线程下载的开始位置。</p>
-<p>然后，通过range来设置从哪个位置传输。</p>
-<p>当暂停或者退出时，记录已下载的位置，下次恢复后从记录的位置下载。</p>
-<p>使用RandAccessFile来保存文件，这个类的特点是可以通过移动文件指针来设置写入的位置。</p>
+            <p> Activity创建时设置WindowManager.LayoutParams.FLAG_SECURE属性，该属性能防止屏幕被截图和录制。以下为修复代码示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class DemoActivity extends Activity &#123;</span><br><span class="line">       @Override</span><br><span class="line">       public void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">           super.onCreate(savedInstanceState);</span><br><span class="line">           getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);</span><br><span class="line">           setContentView(R.layout.main);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>即在Activity onCreate方法中，setContenView调用前设置getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);若是所有Activity需要设置该属性，那么可以在BaseActivity中设置，然后其他Activity继承即可</p>
 
         
         </div>
@@ -910,7 +950,74 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
 
             
     
-        <a href="http://b.nearby.ren/2015/12/13/offce002/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2016/06/17/Android应用防止被截图或者录屏/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-Android Studio --“Cannot resolve symbol” 解决办法" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/06/17/Android Studio --“Cannot resolve symbol” 解决办法/">Android Studio --“Cannot resolve symbol” 解决办法</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/06/17/Android Studio --“Cannot resolve symbol” 解决办法/">
+            <time datetime="2016-06-17T12:31:28.000Z" itemprop="datePublished">2016-06-17</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>Android Studio 无法识别同一个 package 里的其他类，将其显示为红色，但是 compile 没有问题。鼠标放上去后显示 “Cannot resolve symbol XXX”，重启 Android Studio，重新 sync gradle，Clean build 都没有用。</p>
+<p>多半是因为 Android Studio 之前发生了错误，某些 setting 出了问题。解决方法如下：<br>点击菜单中的 “File” -&gt; “Sync Project with Gradle Files”语法就会正确的高亮了。<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2016/06/17/Android Studio --“Cannot resolve symbol” 解决办法/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -921,7 +1028,7 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
 
 
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/12/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/14/">下一页 &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/12/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/14/">下一页 &raquo;</a>
     </nav>
 </section>
             
@@ -932,6 +1039,25 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/30/View绘制主要要讲什么/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2020/12/30/View绘制主要要讲什么/" class="title">View绘制主要要讲什么</a></p>
+                            <p class="item-date"><time datetime="2020-12-30T04:50:25.000Z" itemprop="datePublished">2020-12-30</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -974,7 +1100,7 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2019/03/22/MAC文件夹权限问题/" class="thumbnail">
+                            <a href="/2019/09/30/什么是Handler的同步屏障机制/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -984,16 +1110,16 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/mac/">mac</a></p>
-                            <p class="item-title"><a href="/2019/03/22/MAC文件夹权限问题/" class="title">MAC /usr/local 文件夹权限问题</a></p>
-                            <p class="item-date"><time datetime="2019-03-22T04:28:11.000Z" itemprop="datePublished">2019-03-22</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/09/30/什么是Handler的同步屏障机制/" class="title">Handler的同步屏障机制</a></p>
+                            <p class="item-date"><time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2019/03/03/GoToken学习/" class="thumbnail">
+                            <a href="/2019/09/17/Leakcanary原理浅析/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -1003,28 +1129,9 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/go/">go</a></p>
-                            <p class="item-title"><a href="/2019/03/03/GoToken学习/" class="title">GoToken学习</a></p>
-                            <p class="item-date"><time datetime="2019-03-03T10:53:55.000Z" itemprop="datePublished">2019-03-03</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2018/12/31/TPS和QPS区别/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/软件/">软件</a></p>
-                            <p class="item-title"><a href="/2018/12/31/TPS和QPS区别/" class="title">什么是TPS，什么是QPS，区别是什么？</a></p>
-                            <p class="item-date"><time datetime="2018-12-31T05:55:20.000Z" itemprop="datePublished">2018-12-31</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/09/17/Leakcanary原理浅析/" class="title">Leakcanary原理浅析</a></p>
+                            <p class="item-date"><time datetime="2019-09-17T12:31:28.000Z" itemprop="datePublished">2019-09-17</time></p>
                         </div>
                     </li>
                 
@@ -1037,7 +1144,7 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">28</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1046,7 +1153,7 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -1055,7 +1162,7 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">33</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">37</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1064,7 +1171,7 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 13.33px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 13.33px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+            <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
         </div>
     </div>
 

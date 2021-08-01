@@ -159,11 +159,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                84
+                86
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                36
+                37
                 <span>标签</span>
             </div>
         </div>
@@ -212,7 +212,7 @@
 
             
             <section id="main">
-    <article id="post-hexo插入本地图片" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-java对象四大引用" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -220,7 +220,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2014/09/22/hexo插入本地图片/">hexo插入本地图片</a>
+            <a class="article-title" href="/2015/09/22/java对象四大引用/">java对象四大引用</a>
         </h1>
     
 
@@ -229,8 +229,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2014/09/22/hexo插入本地图片/">
-            <time datetime="2014-09-22T06:48:20.000Z" itemprop="datePublished">2014-09-22</time>
+        <a href="/2015/09/22/java对象四大引用/">
+            <time datetime="2015-09-22T03:47:38.000Z" itemprop="datePublished">2015-09-22</time>
         </a>
     </div>
 
@@ -238,13 +238,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/hexo/">hexo</a>
+        <a class="article-category-link" href="/categories/java/">java</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/hexo/">hexo</a>
+        <a class="tag-link" href="/tags/java/">java</a>
     </div>
 
                     </div>
@@ -255,47 +255,511 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>1.先把hexo[你的项目]目录下的配置文件[_config.yml ]打开，更改里面的 post_asset_folder：true。<br>2.在dos命令行下，操作到你的hexo[你的项目]目录下，输入 npm install hexo-asset-image –save 命令，这是下载安装一个可以上传本地图片的插件。<br>3.稍等片刻，在dos命令行下，输入hexo n “xxx”来生成md博客文件后，在hexo[你的项目]目录下source/_posts文件夹里，会生成刚才输入命令的 “xxx”.md文件和”xxx”文件夹<br>4.编辑打开”xxx”.md文件，然后在”xxx”.md文件中按照markdown的格式引入图片： <img src="/2014/09/22/hexo插入本地图片/图片名.png" alt="你想输入的替代文字"> 或者 <img src="/2014/09/22/hexo插入本地图片/图片名.png">在”xxx”文件夹存放图片即可<br>5.另种方式：在hexo[你的项目]目录下source文件夹，新建images文件夹存放图片，引用方式如下两种<br><img src="/2014/09/22/hexo插入本地图片/../../../../images/20180426104055.png" alt="Alt text"><br>&lt;img src=”../../../../images/20180426104055.png &gt;<br>6.因为 hexo g生成网页后，会在hexo[你的项目]下生成public/xx/xx/xx/文件名/index.html 所以前xx/xx/xx/文件名/ 就像相当于 ../../../../这是在hexo目录下source文件夹，新建images管理图片的好处。<br>第一种方式就是对应的每个xx.md文件生成一个xx文件夹存放图片<br>第二种方式就是在source文件夹，新建images文件夹负责存储所有xx.md文件所有的图片</p>
-<h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo -g #安装  </span><br><span class="line">npm update hexo -g #升级  </span><br><span class="line">hexo init #初始化</span><br></pre></td></tr></table></figure>
-<h1 id="简写"><a href="#简写" class="headerlink" title="简写"></a>简写</h1><p>hexo n “我的博客” == hexo new “我的博客” #新建文章<br>hexo p == hexo publish<br>hexo g == hexo generate#生成<br>hexo s == hexo server #启动服务预览<br>hexo d == hexo deploy#部署<br>hexo clean &amp;&amp; hexo g &amp;&amp; hexo d #清除部署上线</p>
-<h1 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h1><p>hexo server #Hexo 会监视文件变动并自动更新，您无须重启服务器。<br>hexo server -s #静态模式<br>hexo server -p 5000 #更改端口<br>hexo server -i 192.168.1.1 #自定义 IP</p>
-<p>hexo clean #清除缓存 网页正常情况下可以忽略此条命令<br>hexo g #生成静态网页<br>hexo d #开始部署</p>
-<h1 id="监视文件变动"><a href="#监视文件变动" class="headerlink" title="监视文件变动"></a>监视文件变动</h1><p>hexo generate #使用 Hexo 生成静态文件快速而且简单<br>hexo generate –watch #监视文件变动</p>
-<h1 id="完成后部署"><a href="#完成后部署" class="headerlink" title="完成后部署"></a>完成后部署</h1><p>两个命令的作用是相同的<br>hexo generate –deploy<br>hexo deploy –generate</p>
-<p>hexo deploy -g<br>hexo server -g</p>
-<h1 id="草稿"><a href="#草稿" class="headerlink" title="草稿"></a>草稿</h1><p>hexo publish [layout] <title></title></p>
-<h1 id="模版"><a href="#模版" class="headerlink" title="模版"></a>模版</h1><p>hexo new “postName” #新建文章<br>hexo new page “pageName” #新建页面<br>hexo generate #生成静态页面至public目录<br>hexo server #开启预览访问端口（默认端口4000，’ctrl + c’关闭server）<br>hexo deploy #将.deploy目录部署到GitHub</p>
-<p>hexo new [layout] <title><br>hexo new photo “My Gallery”<br>hexo new “Hello World” –lang tw</title></p>
-<p>｜变量    ｜描述｜<br>｜layout    ｜布局｜<br>｜title    ｜标题｜<br>｜date    ｜文件建立日期｜</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">title: 使用Hexo搭建个人博客</span><br><span class="line">layout: post</span><br><span class="line">date: 2014-03-03 19:07:43</span><br><span class="line">comments: true</span><br><span class="line">categories: Blog</span><br><span class="line">tags: [Hexo]</span><br><span class="line">keywords: Hexo, Blog</span><br><span class="line">description: 生命在于折腾，又把博客折腾到Hexo了。给Hexo点赞。</span><br></pre></td></tr></table></figure>
-<h1 id="模版（Scaffold）"><a href="#模版（Scaffold）" class="headerlink" title="模版（Scaffold）"></a>模版（Scaffold）</h1><p>hexo new photo “My Gallery”</p>
-<p>｜变量    ｜描述｜<br>｜layout    ｜布局｜<br>｜title    ｜标题｜<br>｜date    ｜文件建立日期｜</p>
-<h1 id="设置文章摘要"><a href="#设置文章摘要" class="headerlink" title="设置文章摘要"></a>设置文章摘要</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以上是文章摘要 &lt;!--more--&gt; 以下是余下全文</span><br></pre></td></tr></table></figure>
-<h1 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h1><p>hexo new page <title><br>hexo new post <title></title></title></p>
-<p>｜变量    ｜描述｜<br>｜:title    ｜标题｜<br>｜:year    ｜建立的年份（4 位数）｜<br>｜:month    ｜建立的月份（2 位数）｜<br>｜:i_month    ｜建立的月份（去掉开头的零）｜<br>｜:day    ｜建立的日期（2 位数）｜<br>｜:i_day    ｜建立的日期（去掉开头的零）｜</p>
-<h1 id="推送到服务器上"><a href="#推送到服务器上" class="headerlink" title="推送到服务器上"></a>推送到服务器上</h1><p>hexo n #写文章<br>hexo g #生成<br>hexo d #部署 #可与hexo g合并为 hexo d -g</p>
-<h1 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h1><h2 id="1-找不到git部署"><a href="#1-找不到git部署" class="headerlink" title="1.找不到git部署"></a>1.找不到git部署</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR Deployer not found: git</span><br></pre></td></tr></table></figure>
-<p>解决方法</p>
-<p>npm install hexo-deployer-git –save</p>
-<h1 id="3-部署类型设置git"><a href="#3-部署类型设置git" class="headerlink" title="3.部署类型设置git"></a>3.部署类型设置git</h1><p>hexo 3.0 部署类型不再是github，_config.yml 中修改</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: http://hexo.io/docs/deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@***.github.com:***/***.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-<h1 id="4-xcodebuild"><a href="#4-xcodebuild" class="headerlink" title="4. xcodebuild"></a>4. xcodebuild</h1><p>xcode-select: error: tool ‘xcodebuild’ requires Xcode, but active developer directory ‘/Library/Developer/CommandLineTools’ is a command line tools instance</p>
-<p>npm install bcrypt</p>
-<h1 id="5-RSS不显示"><a href="#5-RSS不显示" class="headerlink" title="5. RSS不显示"></a>5. RSS不显示</h1><p>安装RSS插件</p>
-<p>npm install hexo-generator-feed –save</p>
-<p>开启RSS功能</p>
-<p>编辑hexo/_config.yml，添加如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rss: /atom.xml #rss地址  默认即可</span><br></pre></td></tr></table></figure>
-<p>开启评论</p>
-<p>1.我使用多说代替自带的评论，在多说 网站注册 &gt; 后台管理 &gt; 添加新站点 &gt; 工具 === 复制通用代码 里面有 short_name</p>
+            <blockquote>
+<p>强引用、软引用、弱引用、虚引用总结</p>
+</blockquote>
+<pre><code>总结：
+</code></pre><ol>
+<li>强引用(StrongReference)：普通new对象的引用<pre><code>Person person  = new Person();
+JVM宁愿抛出OutOfMenory异常也不会去回收该对象。
+</code></pre></li>
+<li>软引用(SoftReference)：<br> SoftReference引用的装饰对象，该对象的强引用应该赋值空<br>这里配合SoftReferenceQueue使用(也可以配合),因为SoftRefereceQueue本身也是new了一个对象，当它把别人的问题解决掉以后，也需要自己的问题解决，所有jvm把软引用对象回收后，就会把自己的对象引用放到这个队列中，我们可以通过队列的poll()方法查看,如果存在该ReferenceQueue引用也赋值为空，等待被jvm回收。注意：软引用对象在jvm内存不够的时候才会被回收，我们调用system.gc方法只是起通知作用，jvm什么时候扫描回收对象，是jvm自己的状态决定的。就算扫描到软引用对象也不一定回收。只有内存不够的时候才会回收<br>ReferenceQueue queue = new ReferenceQueue();<br>Person person = new Person();<br>SoftReference soft = new SoftReference(person,queue);<br>user = null;</li>
+<li>弱引用(WeakReference)：弱引用也是用描述非必需对象的，当jvm进行垃圾回收时，只要扫描到，无论内存是否充足(与软引用的区别)，都会回收弱引用关联的对象。在java中，用java.lang.ref.WeakReference类表示<br>WeakReference<person> weak = new WeakRefence<person>(new Person());<br>System.out.println(weak.get());<br>System.gc();//通知jvm的gc进行垃圾回收<br>System.out.println(weak.get());</person></person></li>
+<li>虚引用(PhantomReference)：<br>虚引用和前面的软引用，弱引用不同，它并不影响对象的生命周期。<br>在java中用java.lang.ref.PhantomReference类表示。如果一个对象与虚引用关联，则跟没有引用与之关联一样，在任何时候都可能被垃圾回收器回收。要注意的是，虚引用必须和引用队列关联使用，当垃圾回收准备回收一个对象时，如果发现它还有虚引用，就会把这个虚引用加入到与之关联的引用队列中。程序可以通过判断引用队列中是否已经加入虚引用，来了解被引用的对象是否将要被垃圾回收。如果程序发现某个虚引用已经被加入引用队列，那么就可以在所引用的对象内存被回收之前采取必要的行动。<br>ReferenceQueue queue = new ReferenceQueue();<br>PhantomReference<person> prf = new PhantomReference<person>(new Person(),queue);<br>System.out.print(prf.get());<br><a href="http://www.cnblogs.com/dolphin0520/p/3741519.html" target="_blank" rel="noopener">http://www.cnblogs.com/dolphin0520/p/3741519.html</a><br><a href="http://www.cnblogs.com/dolphin0520/p/3749259.html" target="_blank" rel="noopener">http://www.cnblogs.com/dolphin0520/p/3749259.html</a></person></person></li>
+</ol>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2015/09/22/java对象四大引用/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-android-正则表达式" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2015/09/22/android-正则表达式/">android 正则表达式</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/09/22/android-正则表达式/">
+            <time datetime="2015-09-22T01:52:37.000Z" itemprop="datePublished">2015-09-22</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <blockquote>
+<p>android正则表达式及Pattern Matcher使用</p>
+</blockquote>
+<pre><code>// 反斜杠
+/t 间隔 (&apos;/u0009&apos;)
+/n 换行 (&apos;/u000A&apos;)
+/r 回车 (&apos;/u000D&apos;)
+/d 数字 等价于[0-9]
+/D 非数字 等价于[^0-9]
+/s 空白符号 [/t/n/x0B/f/r]
+/S 非空白符号 [^/t/n/x0B/f/r]
+/w 单独字符 [a-zA-Z_0-9]
+/W 非单独字符 [^a-zA-Z_0-9]
+/f 换页符
+/e Escape
+/b 一个单词的边界
+/B 一个非单词的边界
+/G 前一个匹配的结束
+
+^为限制开头
+^java     条件限制为以Java为开头字符
+$为限制结尾
+java$     条件限制为以java为结尾字符
+.  条件限制除/n以外任意一个单独字符
+java..     条件限制为java后除换行外任意两个字符
+
+
+加入特定限制条件「[]」
+[a-z]     条件限制在小写a to z范围中一个字符
+[A-Z]     条件限制在大写A to Z范围中一个字符
+[a-zA-Z] 条件限制在小写a to z或大写A to Z范围中一个字符
+[0-9]     条件限制在小写0 to 9范围中一个字符
+[0-9a-z] 条件限制在小写0 to 9或a to z范围中一个字符
+[0-9[a-z]] 条件限制在小写0 to 9或a to z范围中一个字符(交集)
+
+[]中加入^后加再次限制条件「[^]」
+[^a-z]     条件限制在非小写a to z范围中一个字符
+[^A-Z]     条件限制在非大写A to Z范围中一个字符
+[^a-zA-Z] 条件限制在非小写a to z或大写A to Z范围中一个字符
+[^0-9]     条件限制在非小写0 to 9范围中一个字符
+[^0-9a-z] 条件限制在非小写0 to 9或a to z范围中一个字符
+[^0-9[a-z]] 条件限制在非小写0 to 9或a to z范围中一个字符(交集)
+
+在限制条件为特定字符出现0次以上时，可以使用「*」
+J*     0个以上J
+.*     0个以上任意字符
+J.*D     J与D之间0个以上任意字符
+
+在限制条件为特定字符出现1次以上时，可以使用「+」
+J+     1个以上J
+.+     1个以上任意字符
+J.+D     J与D之间1个以上任意字符
+
+在限制条件为特定字符出现有0或1次以上时，可以使用「?」JA? J或者JA出现
+
+限制为连续出现指定次数字符「{a}」
+J{2}     JJ
+J{3}     JJJ
+文字a个以上，并且「{a,}」
+J{3,}     JJJ,JJJJ,JJJJJ,???(3次以上J并存)
+文字个以上，b个以下「{a,b}」
+J{3,5}     JJJ或JJJJ或JJJJJ
+两者取一「|」
+J|A     J或A
+Java|Hello     Java或Hello
+</code></pre><blockquote>
+<p>比如，在字符串包含验证时</p>
+</blockquote>
+<pre><code>//查找以Java开头,任意结尾的字符串
+Pattern pattern  = Pattern.compile(&quot;^Java.*&quot;);
+Matcher matcher = pattern.matcher(&quot;Java棒棒的&quot;);
+boolean bool = matcher.matches();
+System.out.println(bool); //true
+
+//以多条件分割字符串时
+Pattern pattern = Pattern.compile(&quot;[,|]+&quot;);
+String[] strs = pattern.split(&quot;Java Hello World  Java,Hello,,World|Sun&quot;);
+for (int i=0;i&lt;strs.length;i++) {  
+ System.out.println(strs[i]);  
+ //Java Hello World  Java
+//Hello
+//World
+//Sun
+}  
+
+//文字替换（首次出现字符）
+Pattern pattern = Pattern.compile(&quot;正则表达式&quot;);  
+Matcher matcher = pattern.matcher(&quot;正则表达式 Hello World,正则表达式 Hello       World&quot;);  
+//替换第一个符合正则的数据  
+System.out.println(matcher.replaceFirst(&quot;Java&quot;));  
+//Java Hello World,正则表达式 Hello
+
+//文字替换（全部）
+Pattern pattern = Pattern.compile(&quot;正则表达式&quot;);  
+Matcher matcher = pattern.matcher(&quot;正则表达式 Hello World,正则表达式 Hello       World&quot;);  
+//替换第一个符合正则的数据  
+System.out.println(matcher.replaceAll(&quot;Java&quot;));  
+//Java Hello World,Java Hello
+
+
+//◆文字替换（置换字符）
+ Pattern pattern = Pattern.compile(&quot;正则表达式&quot;);
+ Matcher matcher = pattern.matcher(&quot;正则表达式 Hello World,正则表达式 Hello World &quot;);
+ StringBuffer sbr = new StringBuffer();
+ while (matcher.find()) {
+        matcher.appendReplacement(sbr, &quot;Java&quot;);
+ }
+ matcher.appendTail(sbr);
+ System.out.println(sbr.toString());
+ //Java Hello World,Java Hello World 
+
+
+ //验证是否为邮箱地址
+ String str=&quot;ceponline@yahoo.com.cn&quot;;  
+ Pattern pattern =  
+ Pattern.compile(&quot;[//w//.//-]+@([//w//-]+//.)+[//w//-]+&quot;,Pattern.CASE_INSENSI
+ TIVE);  
+ Matcher matcher = pattern.matcher(str);
+ System.out.println(matcher.matches());  //true
+
+//去除html标记
+ Pattern pattern = Pattern.compile(&quot;&lt;.+?&gt;&quot;, Pattern.DOTALL);  
+ Matcher matcher = pattern.matcher(&quot;&lt;a href=/&quot;index.html/&quot;&gt;主页&lt;/a&gt;&quot;);  
+ String string = matcher.replaceAll(&quot;&quot;);  
+ System.out.println(string); //主页
+
+//查找html中对应条件字符串
+Pattern pattern = Pattern.compile(&quot;href=\&quot;(.+?)\&quot;&quot;);
+Matcher matcher = pattern.matcher(&quot;&lt;a href=\&quot;index.html\&quot;&gt;主页&lt;/a&gt;&quot;);
+if(matcher.find())
+System.out.println(matcher.group(1));//index.html
+
+//截取http://地址
+Pattern pattern = Pattern.compile(&quot;(http://|https://){1}[//w//.//-/:]+&quot;);  
+Matcher matcher = pattern.matcher(&quot;dsdsds&lt;http://dsds//gfgffdfd&gt;fdf&quot;);  
+StringBuffer buffer = new StringBuffer();  
+while(matcher.find()){                
+buffer.append(matcher.group());          
+buffer.append(&quot;/r/n&quot;);                
+System.out.println(buffer.toString());  
+}  
+
+//替换指定{}中文字
+String str = &quot;Java目前的发展史是由{0}年-{1}年&quot;;  
+String[][] object={new String[]{&quot;//{0//}&quot;,&quot;1995&quot;},new 
+String[]{&quot;//{1//}&quot;,&quot;2007&quot;}};  
+System.out.println(replace(str,object));  
+public static String replace(final String sourceString,Object[] object) {  
+        String temp=sourceString;      
+        for(int i=0;i&lt;object.length;i++){  
+                  String[] result=(String[])object[i];  
+           Pattern    pattern = Pattern.compile(result[0]);  
+           Matcher matcher = pattern.matcher(temp);  
+           temp=matcher.replaceAll(result[1]);  
+        }  
+        return temp;  
+        }  //Java目前的发展史是由1995年-2007年
+</code></pre>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2015/09/22/android-正则表达式/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-git基础学习二" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2015/09/21/git基础学习二/">git基础学习二</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/09/21/git基础学习二/">
+            <time datetime="2015-09-21T03:13:18.000Z" itemprop="datePublished">2015-09-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/git/">git</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/git/">git</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <blockquote>
+<p>git常用命令</p>
+</blockquote>
+<p>1) 远程仓库相关命令</p>
+<p>检出仓库：$ git clone git://github.com/jquery/jquery.git<br>查看远程仓库：$ git remote -v<br>添加远程仓库：$ git remote add [name] [url]<br>删除远程仓库：$ git remote rm [name]<br>修改远程仓库：$ git remote set-url –push[name][newUrl]<br>拉取远程仓库：$ git pull [remoteName] [localBranchName]<br>推送远程仓库：$ git push [remoteName] [localBranchName]</p>
+<p>2）分支(branch)操作相关命令</p>
+<p>查看本地分支：$ git branch<br>查看远程分支：$ git branch -r<br>创建本地分支：$ git branch [name] —-注意新分支创建后不会自动切换为当前分支<br>切换分支：$ git checkout [name]<br>创建新分支并立即切换到新分支：$ git checkout -b [name]<br>删除分支：$ git branch -d [name] —- -d选项只能删除已经参与了合并的分支，对于未有合并的分支是无法删除的。如果想强制删除一个分支，可以使用-D选项<br>合并分支：$ git merge [name] —-将名称为[name]的分支与当前分支合并<br>创建远程分支(本地分支push到远程)：$ git push origin [name]<br>删除远程分支：$ git push origin :heads/[name]<br>我从master分支创建了一个issue5560分支，做了一些修改后，使用git push origin master提交，但是显示的结果却是’Everything up-to-date’，发生问题的原因是git push origin master 在没有track远程分支的本地分支中默认提交的master分支，因为master分支默认指向了origin master 分支，这里要使用git push origin issue5560：master 就可以把issue5560推送到远程的master分支了。<br>如果想把本地的某个分支test提交到远程仓库，并作为远程仓库的master分支，或者作为另外一个名叫test的分支，那么可以这么做。</p>
+<p>$ git push origin test:master // 提交本地test分支作为远程的master分支 //好像只写这一句，远程的github就会自动创建一个test分支<br>$ git push origin test:test // 提交本地test分支作为远程的test分支</p>
+<p>如果想删除远程的分支呢？类似于上面，如果:左边的分支为空，那么将删除:右边的远程的分支。</p>
+<p>$ git push origin :test // 刚提交到远程的test将被删除，但是本地还会保存的，不用担心</p>
+<p>3）版本(tag)操作相关命令</p>
+<p>查看版本：$ git tag<br>创建版本：$ git tag [name]<br>删除版本：$ git tag -d [name]<br>查看远程版本：$ git tag -r<br>创建远程版本(本地版本push到远程)：$ git push origin [name]<br>删除远程版本：$ git push origin :refs/tags/[name]<br>推送所有tag: git push origin –tags</p>
+<p>tag迁出branch：<br>git checkout tagname<br>git checkout -b new_branch_name</p>
+<p>4）git stash暂存相关命令</p>
+<p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。<br>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。<br>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。<br>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>
+<p>5）git rebase 使用</p>
+<p>当前分支问题develop，从master拉取最新代码<br>git pull –rebase origin master 或者 git rebase develop<br>先将develop分支的代码checkout出来，作为工作目录<br>然后将master分支从develop分支创建起的所有改变的补丁，依次打上。如果打补丁的过程没问题，rebase就搞定了<br>如果打补丁的时候出现了问题，就会提示你处理冲突。处理好了，可以运行git rebase –continue继续直到完成<br>如果你不想处理，你还是有两个选择，一个是放弃rebase过程（运行git rebase –abort），另一个是直接用test分支的取代当前分支的（git rebase –skip）。</p>
+<p>6） 工具</p>
+<p>  SourceTree &amp; git bash</p>
+<blockquote>
+<p>git进阶<br> <a href="http://stormzhang.com/github/2016/06/16/learn-github-from-zero5/" target="_blank" rel="noopener">进阶链接</a></p>
+</blockquote>
+<p><a href="http://stormzhang.com/github/2016/07/09/learn-from-github-from-zero6/" target="_blank" rel="noopener">团队合作git</a><br><a href="http://blog.csdn.net/column/details/retrofit.html" target="_blank" rel="noopener">rxjava进阶教程</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2015/09/21/git基础学习二/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-git基础学习一" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2015/09/21/git基础学习一/">git基础学习一</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/09/21/git基础学习一/">
+            <time datetime="2015-09-21T03:13:18.000Z" itemprop="datePublished">2015-09-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/git/">git</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/git/">git</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <blockquote>
+<p>git常用命令</p>
+</blockquote>
 <ol>
-<li><p>在根目录 _config.yml 添加一行 disqus_shortname: jslite 是在多说注册时产生的</p>
+<li>git mkdir xx(创建xx文件夹) cd xx(切换到xx文件夹) </li>
+<li>touch a.md(新建a.md文件)</li>
+<li>gitstatus (查看git文件内容状态) </li>
+<li>git init(初始化仓库)</li>
+<li>git add xx(添加xx文件到暂存区) git add . (添加所有文件到暂存区)</li>
+<li>git commit -m”content”(content 提交内容留言)</li>
+<li>git log (查看日志)</li>
+<li>git branch (查看分支，* master是默认分支)</li>
+<li>git branch a (新建名为a的分支)</li>
+<li>git checkout a (切换到名为a的分支 快捷方式 git checkout -b a 新建a分支并切换到该分支)</li>
+<li>git merge (分支合并 切换到主分支 再执行 git merge a 将a分支合并到主分支上)</li>
+<li>git branch -d a (删除a分支)</li>
+<li>git branch -D a (执行 branch -d a 删除失败，比如a分支未合并到主分支上，git branch -D a就是执行强制删除)</li>
+<li>git tag v1.0(创建标签v1.0版本。标签，用于标记版本。切换某版本 git checkout v1.0)</li>
+</ol>
+<blockquote>
+<p>PUSH&amp;PUll</p>
+</blockquote>
+<ol>
+<li>git push origin master (推代码到远程仓库)</li>
+<li>git pull origin master (拉代码到本地)</li>
+<li>git clone git@github.com:mccapp/test.git (将远程代码复制到本地)</li>
+<li>git remote add origin git@github.com:mccapp/test.git (将本地项目与github上的项目进行关联)</li>
+<li>git remote -v (查看有那些远程仓库)</li>
+<li>git config –blobal user.name “mccapp” (设置github用户名)</li>
+<li>git config –blobal user.email  “rsinn@sina.com”(设置邮箱)</li>
+</ol>
+<blockquote>
+<p>git进阶<br> <a href="http://stormzhang.com/github/2016/06/16/learn-github-from-zero5/" target="_blank" rel="noopener">进阶链接</a></p>
+</blockquote>
+<p><a href="http://stormzhang.com/github/2016/07/09/learn-from-github-from-zero6/" target="_blank" rel="noopener">团队合作git</a><br><a href="http://blog.csdn.net/column/details/retrofit.html" target="_blank" rel="noopener">rxjava进阶教程</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2015/09/21/git基础学习一/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-resume2" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2015/06/09/resume2/">resume2</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/06/09/resume2/">
+            <time datetime="2015-06-09T01:19:18.000Z" itemprop="datePublished">2015-06-09</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/resume/">resume</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/resume/">resume</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>姓名<br>170 7777 7777 | xxx@gmail.com | github.com/xx | www.xx.com</p>
+<p><strong>个人经历</strong><br>20xx/xx—至今<br>codeKK2 公司 | Android 资深开发<br>工作描述：带领移动团队负责 xx，取得了什么成绩</p>
+<p>20xx/xx—20xx/xx<br>codeKK1 公司 | Android 高级开发<br>工作描述：负责 xx 产品，取得了什么成绩</p>
+<p>20xx/xx—20xx/xx<br>XXX 学校 | XX 专业 | 本科<br>专业排名：x/xxx        GPA：</p>
+<p><strong>专业技能</strong><br>x 年团队管理经验，x 年开发经验，x 年移动开发经验<br>开源 xx 项目，用于 xx，多少 Star，多少 Contributors<br>博客主要分享 xx xx<br>熟悉 Android 应用框架设计，熟悉 Android 高性能编程及调优<br>熟悉xx 技术点，xx 技术点，xx 技术点</p>
+<p><strong>项目经验</strong></p>
+<ol>
+<li><p>20xx/xx—至今 | codeKK2 公司 | XX 项目<br>项目简介：<br>职责：</p>
 </li>
-<li><p>复制到 themes\landscape\layout_partial\article.ejs<br>把</p>
+<li><p>20xx/xx—20xx/xx | codeKK2 公司 | XX 项目<br>项目简介：<br>职责：</p>
+</li>
+<li>20xx/xx—20xx/xx | codeKK2 公司 | XX 项目<br>项目简介：<br>职责：</li>
+<li><p>20xx/xx—20xx/xx | codeKK1 公司 | XX 项目<br>项目简介：<br>职责：</p>
+</li>
+<li><p>20xx/xx—20xx/xx | codeKK1 公司 | XX 项目<br>项目简介：<br>职责：</p>
 </li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.disqus_shortname)&#123; %&gt;</span><br><span class="line">&lt;section id=&quot;comments&quot;&gt;</span><br><span class="line">&lt;div id=&quot;disqus_thread&quot;&gt;</span><br><span class="line">  &lt;noscript&gt;Please enable JavaScript to view the &lt;a href=&quot;//disqus.com/?ref_noscript&quot;&gt;comments powered by Disqus.&lt;/a&gt;&lt;/noscript&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/section&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
-<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (!index &amp;&amp; post.comments &amp;&amp; config.disqus_shortname)&#123; %&gt;</span><br><span class="line">  &lt;section id=&quot;comments&quot;&gt;</span><br><span class="line">    &lt;!-- 多说评论框 start --&gt;</span><br><span class="line">    &lt;div class=&quot;ds-thread&quot; data-thread-key=&quot;&lt;%= post.layout %&gt;-&lt;%= post.slug %&gt;&quot; data-title=&quot;&lt;%= post.title %&gt;&quot; data-url=&quot;&lt;%= page.permalink %&gt;&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;!-- 多说评论框 end --&gt;</span><br><span class="line">    &lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    var duoshuoQuery = &#123;short_name:&apos;&lt;%= config.disqus_shortname %&gt;&apos;&#125;;</span><br><span class="line">      (function() &#123;</span><br><span class="line">        var ds = document.createElement(&apos;script&apos;);</span><br><span class="line">        ds.type = &apos;text/javascript&apos;;ds.async = true;</span><br><span class="line">        ds.src = (document.location.protocol == &apos;https:&apos; ? &apos;https:&apos; : &apos;http:&apos;) + &apos;//static.duoshuo.com/embed.js&apos;;</span><br><span class="line">        ds.charset = &apos;UTF-8&apos;;</span><br><span class="line">        (document.getElementsByTagName(&apos;head&apos;)[0] </span><br><span class="line">         || document.getElementsByTagName(&apos;body&apos;)[0]).appendChild(ds);</span><br><span class="line">      &#125;)();</span><br><span class="line">      &lt;/script&gt;</span><br><span class="line">    &lt;!-- 多说公共JS代码 end --&gt;</span><br><span class="line">  &lt;/section&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>在校经历</strong><br>XX大赛 XX 奖<br>XX 系统设计、开发<br>XXX 奖学金</p>
 
         
         </div>
@@ -308,247 +772,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2014/09/22/hexo插入本地图片/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-hexo部署问题" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2014/09/21/hexo部署问题/">hexo部署问题</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2014/09/21/hexo部署问题/">
-            <time datetime="2014-09-21T06:48:20.000Z" itemprop="datePublished">2014-09-21</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/hexo/">hexo</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/hexo/">hexo</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>这两天学着使用hexo和github page搭建个人博客<br>到使用hexo deploy自动部署到github page的时候出现了错误：</p>
-<p>FATAL bash: /dev/tty: No such device or address<br>error: failed to execute prompt script (exit code 1)<br>fatal: could not read Username for ‘<a href="https://github.com" target="_blank" rel="noopener">https://github.com</a>‘: Invalid argument<br>Error: bash: /dev/tty: No such device or address<br>error: failed to execute prompt script (exit code 1)<br>fatal: could not read Username for ‘<a href="https://github.com" target="_blank" rel="noopener">https://github.com</a>‘: Invalid argument</p>
-<p><img src="http://img.blog.csdn.net/20170306142722422?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvR3JlZW5vdmlh/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="此处输入图片的描述"></p>
-<p>在服务器上部署一点问题都没有，但是在本地部署是就一直报这个错误<br>最后把_config.yml中的Git仓库链接改成了ssh链接，然后又给git账户增加了ssh key才解决了问题</p>
-<p>要使用自动部署首先要安装hexo-deployer-git工具：<br>$ npm install hexo-deployer-git –save</p>
-<p>配置_config.yml中的deploy：</p>
-<p>deploy:<br> type: git<br> repo:git@github.com:your_github_user_name/your_github_user_name.github.io.git<br> branch: master</p>
-<p> 注意：这里的repo需要设置成你git仓库的ssh链接</p>
-<p> 生成 ssh key</p>
-<p>命令行中输入：</p>
-<p>$ ssh-keygen -t rsa -C greenovia@qq.com（换成你的邮箱地址）<br>接着出现的一些步骤都可以回车跳过，如下：<br><img src="http://img.blog.csdn.net/20170306142941806?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvR3JlZW5vdmlh/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="此处输入图片的描述"><br>这样在 /c/Users/Administrator/.ssh/id_rsa文件中就生成了公钥</p>
-<p>配置github账户的ssh key</p>
-<p>打开id_rsa.pub文件将一整串公钥拷贝下来</p>
-<p>进入你的github账户设置，在ssh and GPG keys中新增一个ssh key，如下<br><img src="http://img.blog.csdn.net/20170306143047462?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvR3JlZW5vdmlh/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="此处输入图片的描述"></p>
-<p>把刚刚拷贝出来的公钥粘贴到key中，title放空就好<br><img src="http://img.blog.csdn.net/20170306143103647?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvR3JlZW5vdmlh/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="此处输入图片的描述"></p>
-<p>验证ssh key：</p>
-<p>$ ssh -T git@github.com</p>
-<p>出现下面的语句说明你的ssh key已经配置好了</p>
-<p>Hi wispyoureyes! You’ve successfully authenticated, but GitHub does not provide shell access.</p>
-<p>初始化本地git仓库</p>
-<p>设置Git的user name和email：</p>
-<p>$ git config –global user.name “wuyanqina”<br>$ git config –global user.email “greenovia@qq.com”（换成你的邮箱地址）</p>
-<p>在本地的hexo init生成的文件夹中初始化git仓库：</p>
-<p>$ git init</p>
-<p>将本地仓库和远程仓库连接（这一步骤可以不做）：</p>
-<p>$ git remote add origin git@github.com:your_github_user_name/your_github_user_name.github.io.git(远程仓库ssh地址) </p>
-<p>做完以上这些步骤，说明你的仓库可以使用ssh方式来上传下载代码，而不需要输入用户名和密码了</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2014/09/21/hexo部署问题/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-springboot教程" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2014/08/16/springboot教程/">springboot教程</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2014/08/16/springboot教程/">
-            <time datetime="2014-08-16T06:06:17.000Z" itemprop="datePublished">2014-08-16</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/spring/">spring</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/springboot/">springboot</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p><a href="http://412887952-qq-com.iteye.com/blog/2291500" target="_blank" rel="noopener">Spring Boot 系列博客！</a></p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2014/08/16/springboot教程/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-Markdown语法" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2014/08/05/Markdown语法/">hexo Markdown</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2014/08/05/Markdown语法/">
-            <time datetime="2014-08-05T04:18:18.000Z" itemprop="datePublished">2014-08-05</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/markdown/">markdown</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/markdown/">markdown</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p><strong>Markdown语法</strong></p>
-<blockquote>
-<p>1、分段： 两个回车</p>
-<p>2、换行 两个空格 + 回车</p>
-<p>3、标题 # ~ ###### 井号的个数表示几级标题，即Markdown可以表示一级标题到六级标题</p>
-<p>4、引用 &gt;</p>
-<p>5、列表 * ， + ， - ， 1. ，选其中之一，注意后面有个空格</p>
-<p>6、代码区块 四个空格 开头</p>
-<p>7、链接 /<em>*[文字]</em>/(链接地址)</p>
-<p>8、图片 /<em>*![图片说明]</em>/(图片地址) ，图片地址可以是本地路劲，也可以是网络地址</p>
-<p>9、强调 /<strong>文字/</strong> ， /<strong>__*/文字/</strong>_<em><em>/ ， /*</em></em><em>/文字/**_</em>/ ， /<em>文字</em>/</p>
-<p>10、代码 /<strong>```*/，/</strong>``*/</p>
-</blockquote>
-<p><strong>hexo 命令</strong></p>
-<blockquote>
-<p>1.新建 hexo new “my blog”<br>2.编译 hexo generate 或者 hexo g<br>3.开启本地服务 hexo server<br>4.部署 hexo deploy 或者 hexo d<br>5.清除 public hexo clean</p>
-</blockquote>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2014/08/05/Markdown语法/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2015/06/09/resume2/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -559,7 +783,7 @@
 
 
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/16/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span>
+        <a class="extend prev" rel="prev" href="/page/16/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/18/">下一页 &raquo;</a>
     </nav>
 </section>
             
@@ -570,6 +794,25 @@
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/12/30/View绘制主要要讲什么/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2020/12/30/View绘制主要要讲什么/" class="title">View绘制主要要讲什么</a></p>
+                            <p class="item-date"><time datetime="2020-12-30T04:50:25.000Z" itemprop="datePublished">2020-12-30</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -612,7 +855,7 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2019/03/22/MAC文件夹权限问题/" class="thumbnail">
+                            <a href="/2019/09/30/什么是Handler的同步屏障机制/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -622,16 +865,16 @@
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/mac/">mac</a></p>
-                            <p class="item-title"><a href="/2019/03/22/MAC文件夹权限问题/" class="title">MAC /usr/local 文件夹权限问题</a></p>
-                            <p class="item-date"><time datetime="2019-03-22T04:28:11.000Z" itemprop="datePublished">2019-03-22</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/09/30/什么是Handler的同步屏障机制/" class="title">Handler的同步屏障机制</a></p>
+                            <p class="item-date"><time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time></p>
                         </div>
                     </li>
                 
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2019/03/03/GoToken学习/" class="thumbnail">
+                            <a href="/2019/09/17/Leakcanary原理浅析/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -641,28 +884,9 @@
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/go/">go</a></p>
-                            <p class="item-title"><a href="/2019/03/03/GoToken学习/" class="title">GoToken学习</a></p>
-                            <p class="item-date"><time datetime="2019-03-03T10:53:55.000Z" itemprop="datePublished">2019-03-03</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2018/12/31/TPS和QPS区别/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/软件/">软件</a></p>
-                            <p class="item-title"><a href="/2018/12/31/TPS和QPS区别/" class="title">什么是TPS，什么是QPS，区别是什么？</a></p>
-                            <p class="item-date"><time datetime="2018-12-31T05:55:20.000Z" itemprop="datePublished">2018-12-31</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/09/17/Leakcanary原理浅析/" class="title">Leakcanary原理浅析</a></p>
+                            <p class="item-date"><time datetime="2019-09-17T12:31:28.000Z" itemprop="datePublished">2019-09-17</time></p>
                         </div>
                     </li>
                 
@@ -675,7 +899,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">28</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -684,7 +908,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">一月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">十二月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">九月 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">八月 2014</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -693,7 +917,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">33</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">37</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -702,7 +926,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 13.33px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 13.33px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+            <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
         </div>
     </div>
 
