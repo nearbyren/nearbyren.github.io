@@ -212,171 +212,6 @@
 
             
             <section id="main">
-    <article id="post-TPS和QPS区别" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/12/31/TPS和QPS区别/">什么是TPS，什么是QPS，区别是什么？</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/12/31/TPS和QPS区别/">
-            <time datetime="2018-12-31T05:55:20.000Z" itemprop="datePublished">2018-12-31</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/软件/">软件</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/软件名词/">软件名词</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>一、TPS：Transactions Per Second（每秒传输的事物处理个数），即服务器美妙处理的事务数。TPS包括一条消息入和一条消息出，加上一次与数据库访问。（业务TPS=CAPS传*每次呼叫的平均TPS）<br>TPS是软件测试结果的测量单位。一个事务是指一个客户机向服务器发送请求然后我服务器作出反应的过程。客户机在发送请求时开始计时，收到服务器响应后结束计时，以此来算计算使用的时间和完成的事务个数。</p>
-<p>一般的评价系统性能均以每秒钟完成的技术交易的数量来衡量，系统整体处理能力取决于处理能力最低模块的TPS值。</p>
-<p>二、QPS：每秒查询率QPS是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准，在因特网上，作为域名系统服务器的机器的性能经常用每秒查询率来衡量。<br>对应fetches/sec，即每秒的响应请求数，也即是最大的吞吐能力。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2018/12/31/TPS和QPS区别/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-JWT实现用户认证原理与实现[golang]" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/12/28/JWT实现用户认证原理与实现[golang]/">JWT实现用户认证原理与实现[golang]</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/12/28/JWT实现用户认证原理与实现[golang]/">
-            <time datetime="2018-12-28T05:48:20.000Z" itemprop="datePublished">2018-12-28</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/mac/">mac</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/golang/">golang</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="1-JWT标准规范"><a href="#1-JWT标准规范" class="headerlink" title="1 JWT标准规范"></a>1 JWT标准规范</h1><p>JWT（JSON Web Token）是一个非常轻巧的规范。这个规范允许我们使用JWT在用户和服务器之间传递安全可靠的信息。</p>
-<p>一个JWT由三部分组成，头部、载荷与签名。</p>
-<p>JWT原理类似我们加盖公章或手写签名的的过程，合同上写了很多条款，不是随便一张纸随便写啥都可以的，必须要一些证明，比如签名，比如盖章。JWT就是通过附加签名，保证传输过来的信息是真的，而不是伪造的。</p>
-<h1 id="头部："><a href="#头部：" class="headerlink" title="头部："></a>头部：</h1><p>用于说明签名的加密算法等，下面类型的json经过base64编码后得到JWT头部 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;typ&quot;: &quot;JWT&quot;,</span><br><span class="line">  &quot;alg&quot;: &quot;HS256&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="载荷："><a href="#载荷：" class="headerlink" title="载荷："></a>载荷：</h1><p>包含生成Token时间，过期时间，以及一些身份标识,标准定义了6个字段，载荷json经过base64编码后得到JWT的载荷：</p>
-<ul>
-<li>sub: 该JWT所面向的用户</li>
-<li>iss: 该JWT的签发者</li>
-<li>iat(issued at): 在什么时候签发的token</li>
-<li>exp(expires): token什么时候过期</li>
-<li>nbf(not before)：token在此时间之前不能被接收处理</li>
-<li>jti：JWT ID为web token提供唯一标识</li>
-</ul>
-<h2 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;sub&quot;: &quot;1&quot;,</span><br><span class="line">    &quot;iss&quot;: &quot;http://localhost:8000/user/sign_up&quot;,</span><br><span class="line">    &quot;iat&quot;: 1451888119,</span><br><span class="line">    &quot;exp&quot;: 1454516119,</span><br><span class="line">    &quot;nbf&quot;: 1451888119,</span><br><span class="line">    &quot;jti&quot;: &quot;37c107e4609ddbcc9c096ea5ee76c667&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="签名："><a href="#签名：" class="headerlink" title="签名："></a>签名：</h1><p>将头部和载荷用’.’号连接，再加上一串密钥，经过头部声明的加密算法加密后得到签名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">HMACSHA256(</span><br><span class="line">    base64UrlEncode(header) + &quot;.&quot; +</span><br><span class="line">    base64UrlEncode(payload),</span><br><span class="line">    secret</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h1 id="JWT-Token"><a href="#JWT-Token" class="headerlink" title="JWT Token"></a>JWT Token</h1><p>Token=头部+’.’+载荷+’.’+签名</p>
-<h1 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h1><p>实现代码来之开源项目<a href="https://github.com/dgrijalva/jwt-go" target="_blank" rel="noopener">https://github.com/dgrijalva/jwt-go</a></p>
-<h1 id="使用例子"><a href="#使用例子" class="headerlink" title="使用例子"></a>使用例子</h1><h1 id="Token生成："><a href="#Token生成：" class="headerlink" title="Token生成："></a>Token生成：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var(</span><br><span class="line">	key []byte = []byte(&quot;Hello World！This is secret!&quot;)</span><br><span class="line">)</span><br><span class="line">// 产生json web token</span><br><span class="line">func GenToken() string &#123;</span><br><span class="line">	claims := &amp;jwt.StandardClaims&#123;</span><br><span class="line">		NotBefore: int64(time.Now().Unix()),</span><br><span class="line">		ExpiresAt: int64(time.Now().Unix() + 1000),</span><br><span class="line">		Issuer:    &quot;Bitch&quot;,</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)</span><br><span class="line">	ss, err := token.SignedString(key)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		logs.Error(err)</span><br><span class="line">		return &quot;&quot;</span><br><span class="line">	&#125;</span><br><span class="line">	return ss</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="检验Token："><a href="#检验Token：" class="headerlink" title="检验Token："></a>检验Token：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 校验token是否有效</span><br><span class="line">func CheckToken(token string) bool &#123;</span><br><span class="line">	_, err := jwt.Parse(token, func(*jwt.Token) (interface&#123;&#125;, error) &#123;</span><br><span class="line">		return key, nil</span><br><span class="line">	&#125;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;parase with claims failed.&quot;, err)</span><br><span class="line">		return false</span><br><span class="line">	&#125;</span><br><span class="line">	return true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h1><p>上面是签名的使用例子，下面分析签名的源码实现，首先看下数据结构Token，包含了我们标准中说道的三部分：头部，载荷和签名，此外还带了一个用于存储生成token的字段Raw和校验标识符Valid</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// A JWT Token.  Different fields will be used depending on whether you&apos;re</span><br><span class="line">// creating or parsing/verifying a token.</span><br><span class="line">type Token struct &#123;</span><br><span class="line">	Raw       string                 // The raw token.  Populated when you Parse a token</span><br><span class="line">	Method    SigningMethod          // The signing method used or to be used</span><br><span class="line">	Header    map[string]interface&#123;&#125; // The first segment of the token</span><br><span class="line">	Claims    Claims                 // The second segment of the token</span><br><span class="line">	Signature string                 // The third segment of the token.  Populated when you Parse a token</span><br><span class="line">	Valid     bool                   // Is the token valid?  Populated when you Parse/Verify a token</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看下载荷，多了一个字段Audience</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// Structured version of Claims Section, as referenced at</span><br><span class="line">// https://tools.ietf.org/html/rfc7519#section-4.1</span><br><span class="line">// See examples for how to use this with your own claim types</span><br><span class="line">type StandardClaims struct &#123;</span><br><span class="line">	Audience  string `json:&quot;aud,omitempty&quot;`</span><br><span class="line">	ExpiresAt int64  `json:&quot;exp,omitempty&quot;`</span><br><span class="line">	Id        string `json:&quot;jti,omitempty&quot;`</span><br><span class="line">	IssuedAt  int64  `json:&quot;iat,omitempty&quot;`</span><br><span class="line">	Issuer    string `json:&quot;iss,omitempty&quot;`</span><br><span class="line">	NotBefore int64  `json:&quot;nbf,omitempty&quot;`</span><br><span class="line">	Subject   string `json:&quot;sub,omitempty&quot;`</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="API介绍"><a href="#API介绍" class="headerlink" title="API介绍"></a>API介绍</h1><h3 id="初始化API"><a href="#初始化API" class="headerlink" title="初始化API"></a>初始化API</h3><h4 id="提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象"><a href="#提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象" class="headerlink" title="提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象"></a>提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// Create a new Token.  Takes a signing method</span><br><span class="line">func New(method SigningMethod) *Token &#123;</span><br><span class="line">	return NewWithClaims(method, MapClaims&#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func NewWithClaims(method SigningMethod, claims Claims) *Token &#123;</span><br><span class="line">	return &amp;Token&#123;</span><br><span class="line">		Header: map[string]interface&#123;&#125;&#123;</span><br><span class="line">			&quot;typ&quot;: &quot;JWT&quot;,</span><br><span class="line">			&quot;alg&quot;: method.Alg(),</span><br><span class="line">		&#125;,</span><br><span class="line">		Claims: claims,</span><br><span class="line">		Method: method,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="生成签名API"><a href="#生成签名API" class="headerlink" title="生成签名API"></a>生成签名API</h1><p>如标准所说，主要是将头部和载荷部分的结构对象转化为json格式，然后用base64编码，然后用’.’号连接，然后使用指定加密方法生成签名，再与前面的头部和载荷用’.’号连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// Get the complete, signed token</span><br><span class="line">func (t *Token) SignedString(key interface&#123;&#125;) (string, error) &#123;</span><br><span class="line">	var sig, sstr string</span><br><span class="line">	var err error</span><br><span class="line">	//把头部和载荷转化为json格式，base64编码之后用&apos;.&apos;号连接起来</span><br><span class="line">	if sstr, err = t.SigningString(); err != nil &#123;</span><br><span class="line">		return &quot;&quot;, err</span><br><span class="line">	&#125;</span><br><span class="line">	//使用指定的加密方法生成签名</span><br><span class="line">	if sig, err = t.Method.Sign(sstr, key); err != nil &#123;</span><br><span class="line">		return &quot;&quot;, err</span><br><span class="line">	&#125;</span><br><span class="line">	return strings.Join([]string&#123;sstr, sig&#125;, &quot;.&quot;), nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>头部和载荷数据结构对象的处理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// Generate the signing string.  This is the</span><br><span class="line">// most expensive part of the whole deal.  Unless you</span><br><span class="line">// need this for something special, just go straight for</span><br><span class="line">// the SignedString.</span><br><span class="line">func (t *Token) SigningString() (string, error) &#123;</span><br><span class="line">	var err error</span><br><span class="line">	parts := make([]string, 2)</span><br><span class="line">	for i, _ := range parts &#123;</span><br><span class="line">		var jsonValue []byte</span><br><span class="line">		if i == 0 &#123;</span><br><span class="line">			if jsonValue, err = json.Marshal(t.Header); err != nil &#123;</span><br><span class="line">				return &quot;&quot;, err</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			if jsonValue, err = json.Marshal(t.Claims); err != nil &#123;</span><br><span class="line">				return &quot;&quot;, err</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"> </span><br><span class="line">		parts[i] = EncodeSegment(jsonValue)</span><br><span class="line">	&#125;</span><br><span class="line">	return strings.Join(parts, &quot;.&quot;), nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="校验API"><a href="#校验API" class="headerlink" title="校验API"></a>校验API</h1><p>检验Token基本就是生成Token的逆过程了，也提供了两个API：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// Parse, validate, and return a token.</span><br><span class="line">// keyFunc will receive the parsed token and should return the key for validating.</span><br><span class="line">// If everything is kosher, err will be nil</span><br><span class="line">func Parse(tokenString string, keyFunc Keyfunc) (*Token, error) &#123;</span><br><span class="line">	return new(Parser).Parse(tokenString, keyFunc)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func ParseWithClaims(tokenString string, claims Claims, keyFunc Keyfunc) (*Token, error) &#123;</span><br><span class="line">	return new(Parser).ParseWithClaims(tokenString, claims, keyFunc)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2018/12/28/JWT实现用户认证原理与实现[golang]/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <article id="post-两种方式实现延迟搜索" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -611,6 +446,144 @@
 
 
 
+    <article id="post-Go sync包 WaitGroup使用" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/10/05/Go sync包 WaitGroup使用/">Go sync包 WaitGroup使用</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/10/05/Go sync包 WaitGroup使用/">
+            <time datetime="2018-10-05T08:30:12.000Z" itemprop="datePublished">2018-10-05</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/go/">go</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/go/">go</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>sync.WaitGroup用途：<br>它能够一直等到所有的goroutine执行完成，<br>并且阻塞主线程的执行，直到所有的goroutine执行完成<br>注意：它们的执行结果有没有顺序的，调度器不能保证多个goroutine执行次序，且进程退出时不会等待它们结束。</p>
+<p>waiGroup共有三个方法：Add(delta int)Done()Wait()<br>Add:添加或者减少等待goroutine的数量<br>Done：相当于Add(-1)<br>Wait:执行阻塞，知道直到所有的WaitGroutine数量变成0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var wg sync.WaitGroup</span><br><span class="line">	for i := 0; i &gt; 5; i = i + 1 &#123;</span><br><span class="line">		wg.Add(1)</span><br><span class="line">		go func(n int) &#123;</span><br><span class="line">			defer wg.Add(-1)</span><br><span class="line">			EchoNumber(n)</span><br><span class="line"></span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br><span class="line">func EchoNumber(i int) &#123;</span><br><span class="line">	time.Sleep(3e9)</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>golang中的同步是通过sync.WaitGroup来实现的，<br>WaitGroup的功能：它实现了一个类似队列的结构，<br>可以一直向队列添加任务，当任务完成后便从队列中删除，<br>如果队列中的任务没有完全完成，可以通过Wait()函数来出发阻塞，<br>防止程序继续进行，直到所有的队列任务都完成为止。<br>WaitGroup的特点是Wait()可以用来阻塞直到队列中的所有任务都完成才解除阻塞，<br>而不需要Sleep一个固定的时间来等待，但是其缺点是无法指定固定的goroutine数目，<br>可能通过使用channel解决此问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var waitgroup sync.WaitGroup</span><br><span class="line"></span><br><span class="line">func Afunction(shownum int) &#123;</span><br><span class="line"></span><br><span class="line">	fmt.Println(shownum)</span><br><span class="line">	//任务队列，将任务队列中的任务数量-1，其实.Done就是.Add(-1)</span><br><span class="line">	waitgroup.Done()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i := 0; i &lt; 10; i++ &#123;</span><br><span class="line">		//每创建一个goroutine，就把任务队列中的任务的数量+1</span><br><span class="line">		waitgroup.Add(1)</span><br><span class="line">		go Afunction(i)</span><br><span class="line">	&#125;</span><br><span class="line">	//.Wait()这里发生阻塞，直到队列中所有的任务结束就会解除阻塞</span><br><span class="line">	waitgroup.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2018/10/05/Go sync包 WaitGroup使用/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-sync.WaitGroup使用说明" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/10/05/sync.WaitGroup使用说明/">Go sync包 WaitGroup使用</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/10/05/sync.WaitGroup使用说明/">
+            <time datetime="2018-10-05T08:30:12.000Z" itemprop="datePublished">2018-10-05</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/go/">go</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/go/">go</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>sync.WaitGroup用途：<br>它能够一直等到所有的goroutine执行完成，<br>并且阻塞主线程的执行，直到所有的goroutine执行完成<br>注意：它们的执行结果有没有顺序的，调度器不能保证多个goroutine执行次序，且进程退出时不会等待它们结束。</p>
+<p>waiGroup共有三个方法：Add(delta int)Done()Wait()<br>Add:添加或者减少等待goroutine的数量<br>Done：相当于Add(-1)<br>Wait:执行阻塞，知道直到所有的WaitGroutine数量变成0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var wg sync.WaitGroup</span><br><span class="line">	for i := 0; i &gt; 5; i = i + 1 &#123;</span><br><span class="line">		wg.Add(1)</span><br><span class="line">		go func(n int) &#123;</span><br><span class="line">			defer wg.Add(-1)</span><br><span class="line">			EchoNumber(n)</span><br><span class="line"></span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br><span class="line">func EchoNumber(i int) &#123;</span><br><span class="line">	time.Sleep(3e9)</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>golang中的同步是通过sync.WaitGroup来实现的，<br>WaitGroup的功能：它实现了一个类似队列的结构，<br>可以一直向队列添加任务，当任务完成后便从队列中删除，<br>如果队列中的任务没有完全完成，可以通过Wait()函数来出发阻塞，<br>防止程序继续进行，直到所有的队列任务都完成为止。<br>WaitGroup的特点是Wait()可以用来阻塞直到队列中的所有任务都完成才解除阻塞，<br>而不需要Sleep一个固定的时间来等待，但是其缺点是无法指定固定的goroutine数目，<br>可能通过使用channel解决此问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var waitgroup sync.WaitGroup</span><br><span class="line"></span><br><span class="line">func Afunction(shownum int) &#123;</span><br><span class="line"></span><br><span class="line">	fmt.Println(shownum)</span><br><span class="line">	//任务队列，将任务队列中的任务数量-1，其实.Done就是.Add(-1)</span><br><span class="line">	waitgroup.Done()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i := 0; i &lt; 10; i++ &#123;</span><br><span class="line">		//每创建一个goroutine，就把任务队列中的任务的数量+1</span><br><span class="line">		waitgroup.Add(1)</span><br><span class="line">		go Afunction(i)</span><br><span class="line">	&#125;</span><br><span class="line">	//.Wait()这里发生阻塞，直到队列中所有的任务结束就会解除阻塞</span><br><span class="line">	waitgroup.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2018/10/05/sync.WaitGroup使用说明/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <nav id="page-nav">
         <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
     </nav>
@@ -665,44 +638,6 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/linxu/">linxu</a></p>
-                            <p class="item-title"><a href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/" class="title">Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程</a></p>
-                            <p class="item-date"><time datetime="2020-02-23T07:10:55.000Z" itemprop="datePublished">2020-02-23</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2020/02/22/linxu安装python3/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/linxu/">linxu</a></p>
-                            <p class="item-title"><a href="/2020/02/22/linxu安装python3/" class="title">linxu安装python3</a></p>
-                            <p class="item-date"><time datetime="2020-02-22T15:53:55.000Z" itemprop="datePublished">2020-02-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2019/12/30/View绘制主要要讲什么/" class="thumbnail">
     
     
@@ -716,6 +651,44 @@
                             <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
                             <p class="item-title"><a href="/2019/12/30/View绘制主要要讲什么/" class="title">View绘制主要要讲什么</a></p>
                             <p class="item-date"><time datetime="2019-12-30T03:50:25.000Z" itemprop="datePublished">2019-12-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/10/31/androidmvp架构模式/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/10/31/androidmvp架构模式/" class="title">androidMVP架构模式</a></p>
+                            <p class="item-date"><time datetime="2019-10-31T08:47:42.000Z" itemprop="datePublished">2019-10-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/09/30/什么是Handler的同步屏障机制/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/09/30/什么是Handler的同步屏障机制/" class="title">Handler的同步屏障机制</a></p>
+                            <p class="item-date"><time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time></p>
                         </div>
                     </li>
                 
@@ -737,7 +710,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 

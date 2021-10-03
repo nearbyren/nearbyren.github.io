@@ -370,174 +370,6 @@
 
 
 
-    <article id="post-Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/">Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/">
-            <time datetime="2020-02-23T07:10:55.000Z" itemprop="datePublished">2020-02-23</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/linxu/">linxu</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/linxu/">linxu</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h3 id="安装之前检查下是否已经安装VNC安装之前检查下是否已经安装VNC"><a href="#安装之前检查下是否已经安装VNC安装之前检查下是否已经安装VNC" class="headerlink" title="安装之前检查下是否已经安装VNC安装之前检查下是否已经安装VNC"></a>安装之前检查下是否已经安装VNC安装之前检查下是否已经安装VNC</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby ~]# rpm -q tigervnc tigervnc-server </span><br><span class="line">未安装软件包 tigervnc </span><br><span class="line">未安装软件包 tigervnc-server</span><br></pre></td></tr></table></figure>
-<p>没有安装的话直接使用yum进行安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby  ~]# yum -y install tigervnc tigervnc-server</span><br><span class="line">......</span><br><span class="line">已安装:</span><br><span class="line">igervnc.x86_64 0:1.8.0-13.el7  tigervnc-server.x86_64 0:1.8.0-13.el7                   </span><br><span class="line"> </span><br><span class="line">作为依赖被安装:</span><br><span class="line">fltk.x86_64 0:1.3.4-1.el7  mesa-libGLU.x86_64 0:9.0.0-4.el7    tigervnc-icons.noarch 0:1.8.0-13.el7   </span><br><span class="line"> </span><br><span class="line">完毕！</span><br></pre></td></tr></table></figure>
-<p>复制配置模板并进行配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby ~]# cp /lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service</span><br><span class="line">[root@nearby ~]# vim /etc/systemd/system/vncserver@\:1.service</span><br></pre></td></tr></table></figure>
-<p>将配置文件中的<user>改成对应的用户，我这里用root<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Clean any existing files in /tmp/.X11-unix environment</span><br><span class="line">ExecStartPre=/bin/sh -c &apos;/usr/bin/vncserver -kill %i &gt; /dev/null 2&gt;&amp;1 || :&apos;</span><br><span class="line">ExecStart=/usr/sbin/runuser -l &lt;USER&gt; -c &quot;/usr/bin/vncserver %i&quot;</span><br><span class="line">PIDFile=/home/&lt;USER&gt;/.vnc/%H%i.pid</span><br><span class="line">ExecStop=/bin/sh -c &apos;/usr/bin/vncserver -kill %i &gt; /dev/null 2&gt;&amp;1 || :&apos;</span><br></pre></td></tr></table></figure></user></p>
-<p>调整为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Clean any existing files in /tmp/.X11-unix environment</span><br><span class="line">ExecStartPre=/bin/sh -c &apos;/usr/bin/vncserver -kill %i &gt; /dev/null 2&gt;&amp;1 || :&apos;</span><br><span class="line">ExecStart=/usr/sbin/runuser -l root -c &quot;/usr/bin/vncserver %i&quot;</span><br><span class="line">PIDFile=/home/root/.vnc/%H%i.pid</span><br><span class="line">ExecStop=/bin/sh -c &apos;/usr/bin/vncserver -kill %i &gt; /dev/null 2&gt;&amp;1 || :&apos;</span><br></pre></td></tr></table></figure></p>
-<p>要通知systemd重载此配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby ~]# systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-<p>现在为这个用户配置个密码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby ~]# vncpasswd </span><br><span class="line">Password:</span><br><span class="line">Verify:</span><br><span class="line">Would you like to enter a view-only password (y/n)? y</span><br><span class="line">Password:</span><br><span class="line">Verify:</span><br><span class="line">[root@nearby ~]#</span><br></pre></td></tr></table></figure>
-<p>设置开机服务自启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby ~]# systemctl enable vncserver@:1.service</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/vncserver@:1.service to /etc/systemd/system/vncserver@:1.service.</span><br></pre></td></tr></table></figure></p>
-<p>启动服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby ~]# vncserver :1</span><br><span class="line">A VNC server is already running as :1</span><br><span class="line"> </span><br><span class="line">New &apos;nearby.jump:2 (root)&apos; desktop is nearby.jump:2</span><br><span class="line"> </span><br><span class="line">Starting applications specified in /root/.vnc/xstartup</span><br><span class="line">Log file is /root/.vnc/nearby.jump:2.log</span><br><span class="line"> </span><br><span class="line">[root@nearby ~]#</span><br></pre></td></tr></table></figure>
-<h3 id="安Centos-7-安装GNOME桌面环境"><a href="#安Centos-7-安装GNOME桌面环境" class="headerlink" title="安Centos 7 安装GNOME桌面环境"></a>安Centos 7 安装GNOME桌面环境</h3><p>第1步：安装GNOME及相应桌面管理工具<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby ~]# yum groupinstall -y &quot;X Window System&quot; &quot;GNOME Desktop&quot;</span><br></pre></td></tr></table></figure></p>
-<p>第2步：设置开机启动为GNOME<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby ~]# systemctl set-default graphical.target</span><br></pre></td></tr></table></figure></p>
-<p>第3步：重启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@nearby ~]# reboot</span><br></pre></td></tr></table></figure></p>
-<p>第4步：开启VNC服务需要用到的5900和5901端口。【此处阿里云服务器配置】<br><img src="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/../../../../images/aliyunanquanzu01.png" alt="Alt text"><br><img src="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/../../../../images/aliyunanquanzu02.png" alt="Alt text"></p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-linxu安装python3" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2020/02/22/linxu安装python3/">linxu安装python3</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2020/02/22/linxu安装python3/">
-            <time datetime="2020-02-22T15:53:55.000Z" itemprop="datePublished">2020-02-22</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/linxu/">linxu</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/linxu/">linxu</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h3 id="1-首先来看一下系统版本"><a href="#1-首先来看一下系统版本" class="headerlink" title="1.首先来看一下系统版本"></a>1.首先来看一下系统版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 ~]# cat /etc/redhat-release </span><br><span class="line">CentOS Linux release 7.6.1810 (Core)</span><br></pre></td></tr></table></figure>
-<h3 id="2-更新一下yum源，yum源我这里用的都是阿里云的源"><a href="#2-更新一下yum源，yum源我这里用的都是阿里云的源" class="headerlink" title="2.更新一下yum源，yum源我这里用的都是阿里云的源"></a>2.更新一下yum源，yum源我这里用的都是阿里云的源</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 ~]# cd /etc/yum.repos.d/</span><br><span class="line">[root@python3 yum.repos.d]# mkdir bak</span><br><span class="line">[root@python3 yum.repos.d]# mv * bak</span><br><span class="line">[root@python3 yum.repos.d]# wget http://mirrors.aliyun.com/repo/Centos-7.repo</span><br><span class="line">[root@python3 yum.repos.d]# wget http://mirrors.aliyun.com/repo/epel-7.repo</span><br></pre></td></tr></table></figure>
-<h3 id="3-安装python3-7之前需要先安装一些依赖，，这也是上面更新yum源的原因"><a href="#3-安装python3-7之前需要先安装一些依赖，，这也是上面更新yum源的原因" class="headerlink" title="3.安装python3.7之前需要先安装一些依赖，，这也是上面更新yum源的原因"></a>3.安装python3.7之前需要先安装一些依赖，，这也是上面更新yum源的原因</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 ~]# yum -y install zlib-devel bzip2-devel openssl-devel openssl-static ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel [root@python3 ~]# yum -y groupinstall &quot;Development tools&quot;</span><br><span class="line">CentOS Linux release 7.6.1810 (Core)</span><br><span class="line">[root@python3 ~]# cat /etc/redhat-release </span><br><span class="line">CentOS Linux release 7.6.1810 (Core)</span><br><span class="line">[root@python3 ~]# cat /etc/redhat-release </span><br><span class="line">CentOS Linux release 7.6.1810 (Core)</span><br></pre></td></tr></table></figure>
-<h3 id="4-下载python3-7安装包，方法很多，我这里直接用wget从官网上下载"><a href="#4-下载python3-7安装包，方法很多，我这里直接用wget从官网上下载" class="headerlink" title="4.下载python3.7安装包，方法很多，我这里直接用wget从官网上下载"></a>4.下载python3.7安装包，方法很多，我这里直接用wget从官网上下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 ~]# cd /usr/local/src/</span><br><span class="line">[root@python3 src]# wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz</span><br></pre></td></tr></table></figure>
-<pre><code>将安装包下载到/usr/local/src/目录下
-</code></pre><h3 id="5-解压-amp-amp-移动"><a href="#5-解压-amp-amp-移动" class="headerlink" title="5.解压&amp;&amp;移动"></a>5.解压&amp;&amp;移动</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 src]# tar xvf Python-3.7.0.tar.xz</span><br><span class="line">[root@python3 src]# mv Python-3.7.0 /usr/local/python-3.7</span><br><span class="line">[root@python3 src]# cd /usr/local/python-3.7/</span><br></pre></td></tr></table></figure>
-<h3 id="6-安装-amp-amp-编译"><a href="#6-安装-amp-amp-编译" class="headerlink" title="6.安装&amp;&amp;编译"></a>6.安装&amp;&amp;编译</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 python-3.7]# ./configure --prefix=/usr/local/sbin/python-3.7</span><br></pre></td></tr></table></figure>
-<p>将python3.7安装到/usr/local/sbin/python-3.7目录下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 python-3.7]# make &amp;&amp; make install</span><br><span class="line">安装完成后，若出现以下两行，说明安装成功；</span><br><span class="line">Installing collected packages: setuptools, pip</span><br><span class="line">Successfully installed pip-10.0.1 setuptools-39.0.1</span><br></pre></td></tr></table></figure>
-<h3 id="7-安装成功之后就能使用了"><a href="#7-安装成功之后就能使用了" class="headerlink" title="7.安装成功之后就能使用了"></a>7.安装成功之后就能使用了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 python-3.7]# /usr/local/sbin/python-3.7/bin/python3</span><br><span class="line">Python 3.7.0 (default, Mar 15 2019, 00:44:37) </span><br><span class="line">[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">【此处退出的命令 exit()】</span><br><span class="line">虽然能用了，但是命令较长使用起来并不方便,we konw 系统本身是带的有python的，看一下版本</span><br><span class="line">[root@python3 ~]# python -V</span><br><span class="line">Python 2.7.5</span><br></pre></td></tr></table></figure>
-<h3 id="8-看一下python命令的绝对路径"><a href="#8-看一下python命令的绝对路径" class="headerlink" title="8.看一下python命令的绝对路径"></a>8.看一下python命令的绝对路径</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 ~]# which python</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/usr/bin/python</span><br><span class="line"></span><br><span class="line">[root@python3 ~]# ll /usr/bin/ |grep python</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-rwxr-xr-x. 1 root root 11312 Nov 14 00:00 abrt-action-analyze-python</span><br><span class="line">lrwxrwxrwx. 1 root root 7 Mar 14 18:19 python -&gt; python2</span><br><span class="line">lrwxrwxrwx. 1 root root 9 Mar 14 18:19 python2 -&gt; python2.7</span><br><span class="line">-rwxr-xr-x. 1 root root 7216 Oct 31 07:46 python2.7</span><br></pre></td></tr></table></figure>
-<p>可以看到python命令是通过软链接连接到python2.7的，[做运维的小年轻]那我们现在安装了python3.7，是不是可以将python命令做一个软链接链接到python3，答案是肯定的昂。</p>
-<h3 id="9-将python命令通过软链接指向到python3命令（就是上面那一大串-usr-local-sbin-python-3-7-bin-python3）"><a href="#9-将python命令通过软链接指向到python3命令（就是上面那一大串-usr-local-sbin-python-3-7-bin-python3）" class="headerlink" title="9.将python命令通过软链接指向到python3命令（就是上面那一大串/usr/local/sbin/python-3.7/bin/python3）"></a>9.将python命令通过软链接指向到python3命令（就是上面那一大串/usr/local/sbin/python-3.7/bin/python3）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 ~]# rm -rf /usr/bin/python</span><br><span class="line"></span><br><span class="line">[root@python3 ~]# ln -sv /usr/local/sbin/python-3.7/bin/python3 /usr/bin/python</span><br><span class="line"></span><br><span class="line">‘/usr/bin/python’ -&gt; ‘/usr/local/sbin/python-3.7/bin/python3’</span><br><span class="line"></span><br><span class="line">[root@python3 ~]# ll /usr/bin/ |grep python</span><br><span class="line"></span><br><span class="line">-rwxr-xr-x. 1 root root 11312 Nov 14 00:00 abrt-action-analyze-python</span><br><span class="line">lrwxrwxrwx. 1 root root 38 Mar 14 19:24 python -&gt; /usr/local/sbin/python-3.7/bin/python3</span><br><span class="line">lrwxrwxrwx. 1 root root 9 Mar 14 18:19 python2 -&gt; python2.7</span><br><span class="line">-rwxr-xr-x. 1 root root 7216 Oct 31 07:46 python2.7</span><br></pre></td></tr></table></figure>
-<h3 id="10-查看现在的默认版本"><a href="#10-查看现在的默认版本" class="headerlink" title="10.查看现在的默认版本"></a>10.查看现在的默认版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 ~]# python -V</span><br><span class="line">Python 3.7.0</span><br></pre></td></tr></table></figure>
-<h3 id="11-修改完python默认版本之后，会存不能执行yum命令，需要做一些修改，如下："><a href="#11-修改完python默认版本之后，会存不能执行yum命令，需要做一些修改，如下：" class="headerlink" title="11.修改完python默认版本之后，会存不能执行yum命令，需要做一些修改，如下："></a>11.修改完python默认版本之后，会存不能执行yum命令，需要做一些修改，如下：</h3><p>①将/usr/bin/yum的顶部的：</p>
-<p>vim !/usr/bin/python  改成  !/usr/bin/python2.7 </p>
-<p>②将/usr/libexec/urlgrabber-ext-down的顶部的：</p>
-<p>vim /usr/bin/python  改为   /usr/bin/python2.7</p>
-<p>③将/usr/bin/yum-config-manager的顶部的</p>
-<h3 id="12-最后将pip指向到python3-7"><a href="#12-最后将pip指向到python3-7" class="headerlink" title="12.最后将pip指向到python3.7"></a>12.最后将pip指向到python3.7</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@python3 ~]# ln -s /usr/local/sbin/python-3.7/bin/pip3 /usr/bin/pip 或者 ln -sf /usr/local/sbin/python-3.7/bin/pip3 /usr/bin/pip</span><br><span class="line"></span><br><span class="line">[root@python3 ~]# pip --version</span><br><span class="line">pip 10.0.1 from /usr/local/sbin/python-3.7/lib/python3.7/site-packages/pip (python 3.7)</span><br></pre></td></tr></table></figure>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2020/02/22/linxu安装python3/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <article id="post-View绘制主要要讲什么" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -666,6 +498,209 @@
 
 
 
+    <article id="post-androidmvp架构模式" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/10/31/androidmvp架构模式/">androidMVP架构模式</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/10/31/androidmvp架构模式/">
+            <time datetime="2019-10-31T08:47:42.000Z" itemprop="datePublished">2019-10-31</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/mvp/">mvp</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>android MVP模式在Android项目中的使用</p>
+<p>在开发当中我们会涉及到一些架构模式，对于初级程序员来说是很陌生，但是对于中级过渡高级的程序员来说是非常重要需要了解的模式。首先我们先了解有哪些架构模式：不管都前端，移动端，后端都会涉及到这三种：MVC、MVP、MVVM。<br>概念：什么是MVP<br>MVP是模型(Model)、视图(View)、主持人(Presenter)的缩写,分别代表项目中3个不同的模块。<br>模型(Model):负责处理数据的加载或者存储，比如从网络或者本地数据库获取数据等；<br>视图(View):负责界面数据的展示，与用户进行交互；<br>主持人(Presenter):相当于协调者，是模型与视图之间的桥梁，将模型与视图分离开来。</p>
+<p>如下图所示，View与Model并不直接交互，而是使用Presenter作为View与Model之间的桥梁。其中Presenter中同时持有View层以及Model层的Interface的引用，而View层持有Presenter层Ineterface的引用。当View层某个界面需要展示展示某些数据的时候，首先会调用Presenter层的某个接口，然后Presneter层会调用Model层请求数据，当Model层数据加载成功之后会调用Presenter层的回调方法通知Presenter层数据加载完毕，最后Presneter层再调用View层的接口将加载后的数据展示给用户。这就是Mvp模式的整个核心过程。<br><img src="/2019/10/31/androidmvp架构模式/../../../../images/420264-20151223222959015-298327306.png" alt="Alt text"></p>
+<p>这样分层的好处就是大大减少了Model与View层之间的耦合度。一方面可以使得View层和Model层单独开发与测试，互不依赖。另一方面Model层可以封装复用，可以极大的减少代码量。当然，Mvp还有其他的一些优点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.View层</span><br><span class="line">  View层首页数据展示模块的组件是Activity，里面有一个RecycleView 布局如下：</span><br><span class="line"></span><br><span class="line">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">   &lt;android.support.v7.widget.RecyclerView</span><br><span class="line">          xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">          xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">          android:id=&quot;@+id/recycle_view&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">          android:scrollbars=&quot;vertical&quot;</span><br><span class="line">          app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;</span><br><span class="line">          android:paddingTop=&quot;@dimen/card_margin&quot;&gt;</span><br><span class="line">      &lt;/android.support.v7.widget.RecyclerView&gt;</span><br></pre></td></tr></table></figure>
+<p>首页列表模块主要展示从网络获取的首页列表信息，view层的接口大概需要如下方法：<br>(1)请求数据的过程中需要提示‘正在加载’的反馈信息给用户<br>(2)加载数据成功后，将加载得到的数据填充到RecycleView展示给用户<br>(3)加载数据成功后，将提示‘正在加载’反馈信息取消掉<br>(4)若加载数据失败，如网络连接、则需要给用户提示信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//业务接口</span><br><span class="line">   public interface HomeContract &#123;</span><br><span class="line">       interface View &#123;</span><br><span class="line">          void onLoading();</span><br><span class="line">          void onError(String error);</span><br><span class="line">          void updateUI(XXX xxx);</span><br><span class="line">          void ToastMessage(String message);</span><br><span class="line">       &#125;</span><br><span class="line">       interface Action extends IPresenter &#123;</span><br><span class="line">           void requestHome(XXX... xxx);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //业务处理请求</span><br><span class="line">   public class HomePresenter implements HomeContract.Action&#123;</span><br><span class="line">           HomeContract.view view;</span><br><span class="line">           public HomePresenter(HomeContract.view view)&#123;</span><br><span class="line">                   this.view =view;</span><br><span class="line">           &#125;</span><br><span class="line">           @Override</span><br><span class="line">           pubublic void requestHome(XXX... xxx)&#123;</span><br><span class="line">                   //请求网络数据处理业务层</span><br><span class="line">                   view.onLoading();</span><br><span class="line">                   view.onError();</span><br><span class="line">                   view.updateUI();</span><br><span class="line">                   view.ToastMessage();</span><br><span class="line">           &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>首页列表Activity中实现上述接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class HomeActivity extends AppCompatActivity implements HomeContract.view &#123;</span><br><span class="line">      HomeContract.Action action;</span><br><span class="line">        @Override</span><br><span class="line">        public void onLoading()&#123;</span><br><span class="line">                //提示加载信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onError(String error)&#123;</span><br><span class="line">                //加载错误ui</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void updateUI(XXX xxx)&#123;</span><br><span class="line">                //更新UI数据</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void ToastMessage(String message)&#123;</span><br><span class="line">               //网络请求结束提示信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onCreate(@Nullable Bundle savedInstanceState)&#123;</span><br><span class="line">            super.onCreate(savedInstanceState);</span><br><span class="line">            action = new HomePresenter(this);</span><br><span class="line">            action.requestHome(xx);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>当用户打开首页界面时，就请求网络获取数据，初始化Presenter引用实例，调用Presenter层的requestHome接口，业务处理完毕后，调用相应的onLoading()、onError()、updateUI()、ToastMessage()方法处理不同逻辑。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2019/10/31/androidmvp架构模式/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-什么是Handler的同步屏障机制" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/09/30/什么是Handler的同步屏障机制/">Handler的同步屏障机制</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/09/30/什么是Handler的同步屏障机制/">
+            <time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <ul>
+<li>对于Handler机制，想必大家都已经非常熟悉了吧，从迈进Android开发这扇大门的时候，就不停的研究和使用它，同样的这也是Android系统架构的精髓之一。然而在我们使用的时候，往往会忽略掉一些不常见却又很重要的内容，今天就来讲一讲经常被忽略的同步屏障以及异步消息。</li>
+</ul>
+<h1 id="制流程中窥视handler同步屏障"><a href="#制流程中窥视handler同步屏障" class="headerlink" title="制流程中窥视handler同步屏障"></a>制流程中窥视handler同步屏障</h1><p>为了引出今天的主题，我们先来看看ui的渲染流程吧。在Android的绘制流程中，ViewRootImpl这个类发挥了非常重要的作用，首先我们看一下这个类中比较重要的一个方法requestLayout(),<br>下面开始按这个思路分析源码，直接从入口开始：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void requestLayout() &#123;</span><br><span class="line">    if (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">        //校验主线程</span><br><span class="line">        checkThread();</span><br><span class="line">        mLayoutRequested = true;</span><br><span class="line">        //调用这个方法启动绘制流程</span><br><span class="line">        scheduleTraversals();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>requestLayout()中会通过checkThread()方法检查发起布局请求的线程是否为主线程（校验ViewRootImpl构造时记录的mThread， 和当前线程是否一致），之后，在调用scheduleTraversals()的时候 postSyncBarrier添加同步消息屏障</p>
+<p>requestLayout()中会通过checkThread()方法检查发起布局请求的线程是否为主线程（校验ViewRootImpl构造时记录的mThread， 和当前线程是否一致），之后，在调用scheduleTraversals()的时候 postSyncBarrier添加同步消息屏障</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@UnsupportedAppUsage</span><br><span class="line">    void scheduleTraversals() &#123;</span><br><span class="line">        if (!mTraversalScheduled) &#123;</span><br><span class="line">            mTraversalScheduled = true;</span><br><span class="line">            //1. 往主线程的Handler对应的MessageQueue发送一个同步屏障消息</span><br><span class="line">            mTraversalBarrier = mHandler.getLooper().getQueue().postSyncBarrier();</span><br><span class="line">            //2.将mTraversalRunnable保存到Choreographer中</span><br><span class="line">            mChoreographer.postCallback(</span><br><span class="line">                    Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);</span><br><span class="line">            if (!mUnbufferedInputDispatch) &#123;</span><br><span class="line">                scheduleConsumeBatchedInput();</span><br><span class="line">            &#125;</span><br><span class="line">            notifyRendererOfFramePending();</span><br><span class="line">            pokeDrawLockIfNeeded();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    ...</span><br><span class="line">     //在doTraversal方法中移除同步消息屏障</span><br><span class="line">     void doTraversal() &#123;</span><br><span class="line">        if (mTraversalScheduled) &#123;</span><br><span class="line">            mTraversalScheduled = false;</span><br><span class="line">            //移除同步屏障</span><br><span class="line">            mHandler.getLooper().getQueue().removeSyncBarrier(mTraversalBarrier);</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在这个方法中，涉及到三个比较重要的信息</p>
+<ul>
+<li>mTraversalRunnable</li>
+<li>Choreographer编舞者</li>
+<li>同步屏障消息</li>
+</ul>
+<ol>
+<li><p>首先看mTraversalRunnable，它的作用就是从ViewRootImpl 从上往下执行performMeasure、performLayout、performDraw。</p>
+</li>
+<li><p>Choreographer主要是为了配合Vsync信号，给上层app的渲染提供一个稳定的Message处理时机，也就是Vsync信号到来时，系统通过对Vsync信号的调整，来控制每一帧绘制操作的时机。当Vsync信号到来时，会往主线程的MessageQueue中插入一条异步消息，由于在scheduleTraversals中给MessageQueue中插入了同步屏障消息，那么当执行到同步屏障时，会取出异步消息执行。</p>
+</li>
+</ol>
+<p>看下Choreography中插入消息的方法是如何实现的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private void postCallbackDelayedInternal(int callbackType,</span><br><span class="line">            Object action, Object token, long delayMillis) &#123;</span><br><span class="line">        synchronized (mLock) &#123;</span><br><span class="line">            ...</span><br><span class="line">            if (dueTime &lt;= now) &#123;</span><br><span class="line">                scheduleFrameLocked(now);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                Message msg = mHandler.obtainMessage(MSG_DO_SCHEDULE_CALLBACK, action);</span><br><span class="line">                msg.arg1 = callbackType;</span><br><span class="line">                //设置为异步消息</span><br><span class="line">                msg.setAsynchronous(true);</span><br><span class="line">                mHandler.sendMessageAtTime(msg, dueTime);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>通过以上的分析，我们知道了，在刷新ui的时候原来会有这么多的参与者，但是那些什么同步消息、异步消息、消息屏障又是些什么东西呢？接下来我们就来研究一下。</p>
+<h1 id="何为同步屏障？"><a href="#何为同步屏障？" class="headerlink" title="何为同步屏障？"></a>何为同步屏障？</h1><p>message分类</p>
+<p>Handler的message分为三种</p>
+<ul>
+<li>同步消息</li>
+<li>异步消息</li>
+<li>屏障消息</li>
+</ul>
+<p>通常我们使用handler发送消息，都是使用默认的构造函数构造handler，然后使用send方法发送。这样发送的消息都是普通消息也就是同步消息，发出去的消息就会在MessageQueue中排队。异步消息正常情况下跟同步消息没有区别，只有在设置了同步屏障之后，才会出现差异。</p>
+<p>同步屏障就是在消息队列中插入一个屏障，插入之后，所有的同步消息都会被屏蔽，不能被执行，但是异步消息却不受影响，可以继续执行。</p>
+<h1 id="插入消息屏障"><a href="#插入消息屏障" class="headerlink" title="插入消息屏障"></a>插入消息屏障</h1><p>正常插入消息会调用enqueueMessage方法，同时将handler赋值给message的target。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//将消息插入消息队列</span><br><span class="line">private boolean enqueueMessage(@NonNull MessageQueue queue, @NonNull Message msg,</span><br><span class="line">        long uptimeMillis) &#123;</span><br><span class="line">    msg.target = this;</span><br><span class="line">    msg.workSourceUid = ThreadLocalWorkSource.getUid();</span><br><span class="line">    //进行判断是否将消息设置为异步消息</span><br><span class="line">    if (mAsynchronous) &#123;</span><br><span class="line">        msg.setAsynchronous(true);</span><br><span class="line">    &#125;</span><br><span class="line">    return queue.enqueueMessage(msg, uptimeMillis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在MessageQueue中进行判断，如果target为空也就是这个message没有对应的handler则会报异常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">boolean enqueueMessage(Message msg, long when) &#123;</span><br><span class="line">       if (msg.target == null) &#123;</span><br><span class="line">           throw new IllegalArgumentException(&quot;Message must have a target.&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       if (msg.isInUse()) &#123;</span><br><span class="line">           throw new IllegalStateException(msg + &quot; This message is already in use.&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       ...</span><br><span class="line">       // 如果需要唤醒，则唤醒</span><br><span class="line">       if (needWake) &#123;</span><br><span class="line">           nativeWake(mPtr);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>通过MessageQueue的postSyncBarrier方法插入屏障，message的target属性为null</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">private int postSyncBarrier(long when) &#123;</span><br><span class="line">      </span><br><span class="line">       synchronized (this) &#123;</span><br><span class="line">           final int token = mNextBarrierToken++;</span><br><span class="line">           //msg没有为target属性赋值</span><br><span class="line">           final Message msg = Message.obtain();</span><br><span class="line">           ...</span><br><span class="line">           //根据时间插入到MessageQueue中</span><br><span class="line">           if (when != 0) &#123;</span><br><span class="line">               while (p != null &amp;&amp; p.when &lt;= when) &#123;</span><br><span class="line">                   prev = p;</span><br><span class="line">                   p = p.next;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           if (prev != null) &#123; // invariant: p == prev.next</span><br><span class="line">               msg.next = p;</span><br><span class="line">               prev.next = msg;</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               msg.next = p;</span><br><span class="line">               mMessages = msg;</span><br><span class="line">           &#125;</span><br><span class="line">           //返回一个序号，通过它可以对屏障消息进行撤销</span><br><span class="line">           return token;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>经过以上的操作，我们可以总结出</p>
+<ul>
+<li>屏障消息和普通消息的区别是屏障消息没有target属性，普通消息有target属性是因为要将消息分发给target指向的handler处理</li>
+<li>屏障消息会插入到MessageQueue中合适的位置，这个消息以后的普通消息将被屏蔽</li>
+<li>postSyncBarrier返回一个int类型的数值，通过这个数值可以撤销屏障</li>
+<li>postSyncBarrier方法是私有的，如果我们想调用它就得使用反射</li>
+<li>插入普通消息会唤醒消息队列，但是插入屏障不会</li>
+</ul>
+<h1 id="如何发送异步消息"><a href="#如何发送异步消息" class="headerlink" title="如何发送异步消息"></a>如何发送异步消息</h1><p>通常我们发送的都是普通消息，如果想发送异步消息</p>
+<ul>
+<li>可以在创建handler时使用如下的构造器中的一种，同时将async参数设置为true，这样这个handler发送的消息就都是异步消息了。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public Handler(boolean async) &#123;</span><br><span class="line">    this(null, async);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Handler(@NonNull Looper looper, @Nullable Callback callback) &#123;</span><br><span class="line">    this(looper, callback, false);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Handler(@Nullable Callback callback, boolean async) &#123;</span><br><span class="line">    ...</span><br><span class="line">    mLooper = Looper.myLooper();</span><br><span class="line">    if (mLooper == null) &#123;</span><br><span class="line">        throw new RuntimeException(</span><br><span class="line">            &quot;Can&apos;t create handler inside thread &quot; + Thread.currentThread()</span><br><span class="line">                    + &quot; that has not called Looper.prepare()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    mQueue = mLooper.mQueue;</span><br><span class="line">    mCallback = callback;</span><br><span class="line">    mAsynchronous = async;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>除了这种方式还可以直接设置消息的类型为异步消息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void setAsynchronous(boolean async) &#123;</span><br><span class="line">       if (async) &#123;</span><br><span class="line">           flags |= FLAG_ASYNCHRONOUS;</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           flags &amp;= ~FLAG_ASYNCHRONOUS;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="消息处理的过程"><a href="#消息处理的过程" class="headerlink" title="消息处理的过程"></a>消息处理的过程</h1><p>MessageQueue是通过next方法来遍历消息的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">@UnsupportedAppUsage</span><br><span class="line">    Message next() &#123;</span><br><span class="line">        for (;;) &#123;</span><br><span class="line">            nativePollOnce(ptr, nextPollTimeoutMillis);</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                Message msg = mMessages;</span><br><span class="line">                //如果msg.target为空，也就是说是一个同步屏障消息，则进入这个判断里面</span><br><span class="line">                if (msg != null &amp;&amp; msg.target == null) &#123;</span><br><span class="line">                    // Stalled by a barrier.  Find the next asynchronous message in the queue.</span><br><span class="line">                    //在这个while循环中，找到最近的一个异步消息</span><br><span class="line">                    do &#123;</span><br><span class="line">                        prevMsg = msg;</span><br><span class="line">                        msg = msg.next;</span><br><span class="line">                    &#125; while (msg != null &amp;&amp; !msg.isAsynchronous());</span><br><span class="line">                &#125;</span><br><span class="line">                //找到了异步消息</span><br><span class="line">                if (msg != null) &#123;</span><br><span class="line">                    //如果消息的处理时间小于当前时间 则等待</span><br><span class="line">                    if (now &lt; msg.when) &#123;</span><br><span class="line">                        // Next message is not ready.  Set a timeout to wake up when it is ready.</span><br><span class="line">                        nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // Got a message.</span><br><span class="line">                        //处理消息</span><br><span class="line">                        mBlocked = false;</span><br><span class="line">                        //将异步消息移除</span><br><span class="line">                        if (prevMsg != null) &#123;</span><br><span class="line">                            prevMsg.next = msg.next;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            mMessages = msg.next;</span><br><span class="line">                        &#125;</span><br><span class="line">                        msg.next = null;</span><br><span class="line">                        if (DEBUG) Log.v(TAG, &quot;Returning message: &quot; + msg);</span><br><span class="line">                        msg.markInUse();</span><br><span class="line">                        //返回异步消息</span><br><span class="line">                        return msg;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    // No more messages.</span><br><span class="line">                    //没有找到异步消息则进入阻塞状态，等待被唤醒</span><br><span class="line">                    nextPollTimeoutMillis = -1;</span><br><span class="line">                &#125;</span><br><span class="line">                ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，可以看到，处理过程中会先判断此消息是否为屏障消息，如果是屏障消息，则去循环遍历，直到寻找到异步消息为止。通过这种方式跳过了普通消息，直接执行异步消息。也就是说同步屏障为handler消息机制提供了一种优先级策略，异步消息的优先级要高于同步消息。</p>
+<p>另外需要注意的是：同步屏障不会自动移除，使用完成之后需要手动移除，不然会造成同步消息无法处理。也就是上边提到的，通过removeSyncBarrier(int token)方法进行移除，token就是之前添加屏障时返回的token。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void removeSyncBarrier(int token)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过以上的分析，想必对于handler消息机制中的几种不同的消息有了一个更深入的了解了吧，对于绘制流程中，为什么要发送一个同步屏障并且发送异步消息，应该心中也有了答案，不错，就是为了让保证在vsync信号到来时，异步任务可以优先执行，从而绘制任务可以被及时执行，避免造成界面卡顿。</li>
+</ul>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2019/09/30/什么是Handler的同步屏障机制/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
     </nav>
@@ -720,44 +755,6 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/linxu/">linxu</a></p>
-                            <p class="item-title"><a href="/2020/02/23/Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程/" class="title">Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程</a></p>
-                            <p class="item-date"><time datetime="2020-02-23T07:10:55.000Z" itemprop="datePublished">2020-02-23</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2020/02/22/linxu安装python3/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/linxu/">linxu</a></p>
-                            <p class="item-title"><a href="/2020/02/22/linxu安装python3/" class="title">linxu安装python3</a></p>
-                            <p class="item-date"><time datetime="2020-02-22T15:53:55.000Z" itemprop="datePublished">2020-02-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2019/12/30/View绘制主要要讲什么/" class="thumbnail">
     
     
@@ -771,6 +768,44 @@
                             <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
                             <p class="item-title"><a href="/2019/12/30/View绘制主要要讲什么/" class="title">View绘制主要要讲什么</a></p>
                             <p class="item-date"><time datetime="2019-12-30T03:50:25.000Z" itemprop="datePublished">2019-12-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/10/31/androidmvp架构模式/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/10/31/androidmvp架构模式/" class="title">androidMVP架构模式</a></p>
+                            <p class="item-date"><time datetime="2019-10-31T08:47:42.000Z" itemprop="datePublished">2019-10-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/09/30/什么是Handler的同步屏障机制/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/09/30/什么是Handler的同步屏障机制/" class="title">Handler的同步屏障机制</a></p>
+                            <p class="item-date"><time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time></p>
                         </div>
                     </li>
                 
@@ -792,7 +827,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
