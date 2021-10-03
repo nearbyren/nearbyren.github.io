@@ -159,11 +159,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                86
+                88
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                37
+                39
                 <span>标签</span>
             </div>
         </div>
@@ -212,6 +212,164 @@
 
             
             <section id="main">
+    <article id="post-mac flutter 支持多个版本配置" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2021/05/31/mac flutter 支持多个版本配置/">mac flutter 支持多个版本配置</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2021/05/31/mac flutter 支持多个版本配置/">
+            <time datetime="2021-05-31T01:47:42.000Z" itemprop="datePublished">2021-05-31</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/flutter/">flutter</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>首先从官方下载需要的版本<br><a href="https://flutter.dev/docs/development/tools/sdk/releases?tab=macos#macos" target="_blank" rel="noopener">https://flutter.dev/docs/development/tools/sdk/releases?tab=macos#macos</a><br>1.将下载的放在自己存放的目录 例如我的如下<br><img src="/2021/05/31/mac flutter 支持多个版本配置/../../../../images/iShot2021-09-2512.10.30.png" alt="Alt text"></p>
+<p>2.配置Flutter环境变量<br> 终端打开 执行 open ~/.bash_profile  打开bash_profile文件</p>
+<p> 将文件中的：export PATH=/xx/xx/flutter/bin:$PATH   [xx代表你的文件目录]</p>
+<p> 改成需要配置的flutter版本地址：export PATH=/xx/xx/flutter1.20.0/bin:$PATH</p>
+<p> 然后执行：source ~/.bash_profile</p>
+<p>最后检测flutter是否设置成功：flutter doctor</p>
+<p>此处红框位置Flutter (Channel stable, 1.20.0, on macOS 11.4 20F71, locale zh-Hans-CN）<br>此处是bash_profile配置好的版本的话代表版本安装成功。</p>
+<p><img src="/2021/05/31/mac flutter 支持多个版本配置/../../../../images/iShot2021-09-2512.21.46.png" alt="Alt text"></p>
+<p>3.打开 Android studio 配置flutter版本和dart版本</p>
+<p><img src="/2021/05/31/mac flutter 支持多个版本配置/../../../../images/iShot2021-09-2512.25.42.png" alt="Alt text"><br><img src="/2021/05/31/mac flutter 支持多个版本配置/../../../../images/iShot2021-09-2512.25.18.png" alt="Alt text"></p>
+<p>4.执行pubspec.yaml 的package get 更新一下库，若不报错，即更新完成<br>至此，flutter更新完成。若想使用低版本，把以上地址都改回去，然后package get一下即可。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2021/05/31/mac flutter 支持多个版本配置/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-android 网络优化" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2020/03/31/android 网络优化/">android 网络优化</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/03/31/android 网络优化/">
+            <time datetime="2020-03-31T01:12:23.000Z" itemprop="datePublished">2020-03-31</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/性能优化/">性能优化</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>随着移动网络的不断升级，客户端的网络传输由3G进化到Wifi、4G，且Wifi场景越来越多。虽然网络环境在变好，但也对网络的应用提出了更高的要求，会发现很多大厂都十分重视网络指标，如果技术人员不加以控制，在弱网、体验、包括服务器带宽、流浪方面都会造成不同程度的损失。</p>
+<h1 id="网络指标"><a href="#网络指标" class="headerlink" title="网络指标"></a>网络指标</h1><p>流量<br>网络第一个影响的app指标当然是流量，在手机设置界面可以清楚查看到每个 app 耗费的流量，极端情况下会造成用户卸载。</p>
+<h1 id="电量"><a href="#电量" class="headerlink" title="电量"></a>电量</h1><p>频繁的网络请求和网络时常是引发电量的主要原因，每次发送请求都会激活电信号，同样耗电也会对用户产生恶略的影响，甚至卸载。</p>
+<h1 id="用户体验"><a href="#用户体验" class="headerlink" title="用户体验"></a>用户体验</h1><p>一些网络框架会优化处理内部线程池，但线程池毕竟有限，网络请求过多或请求数据包体大，就会造成网络阻塞，也就是一些用户所谓的卡顿，在弱网方面可能表现更差，所以网络框架的好坏直接影响着整个app的用户体验。</p>
+<h1 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h1><p>网络安全同样是网络优化中十分重要的一部分，怎样防止被第三方窃听/篡改或冒充，防止运营商劫持，同时又不影响性能，没有安全体系的网络架构同样会对服务端或者客户端造成直接或间接的影响。</p>
+<h1 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h1><p>Network Monitor<br>Network Monitor Android Studio自带的网络监测工具，可以看出时间段之内的网络请求数量及访问速率。</p>
+<p><img src="/2020/03/31/android 网络优化/../../../../images/iShot2021-10-0310.25.47.png" alt="Alt text"></p>
+<h1 id="Charles-抓包工具"><a href="#Charles-抓包工具" class="headerlink" title="Charles 抓包工具"></a>Charles 抓包工具</h1><p>本人更习惯于使用 charles 进行网络监控，这可以查看更多的数据指标，查看请求request、response 更加直观。</p>
+<p><img src="/2020/03/31/android 网络优化/../../../../images/iShot2021-10-0310.31.53.png" alt="Alt text"></p>
+<h1 id="网络优化"><a href="#网络优化" class="headerlink" title="网络优化"></a>网络优化</h1><p>本人觉得网络优化主要从以下几个方面入手：</p>
+<p>1.请求速度<br>2.链接成功率<br>3.流量消耗<br>4.安全策略</p>
+<h1 id="网络请求过程："><a href="#网络请求过程：" class="headerlink" title="网络请求过程："></a>网络请求过程：</h1><p>1.DNS 解析，请求DNS服务器，获取IP地址<br>2.建立连接，包括 tcp 三次握手、安全协议<br>3.发送和接收数据，解码数据</p>
+<h1 id="优化DNS解析"><a href="#优化DNS解析" class="headerlink" title="优化DNS解析"></a>优化DNS解析</h1><p>1.DNS解析在网路错误中占比较高，使用IP直连方式替代DNS服务器解析，可以减少域名解析几百毫秒的时间消耗。</p>
+<h1 id="连接池复用"><a href="#连接池复用" class="headerlink" title="连接池复用"></a>连接池复用</h1><p>keep-alive HTTP 协议里有个 keep-alive，HTTP1.1默认开启，一定程度上缓解了每次请求都要进行TCP三次握手建立连接的耗时。原理是请求完成后不立即释放连接，而是放入连接池中，若这时有另一个请求要发出，请求的域名和端口是一样的，就直接拿出连接池中的连接进行发送和接收数据，少了建立连接的耗时。</p>
+<h1 id="数据压缩"><a href="#数据压缩" class="headerlink" title="数据压缩"></a>数据压缩</h1><p>目前比较成熟的方案未 GZIP 压缩，正常情况下压缩率均值能打包 30-50之间，可以极大的提升传输速度和节省流量，必要是可以使用 Protocol Buffer 替换 JSON 。</p>
+<h1 id="弱网优化"><a href="#弱网优化" class="headerlink" title="弱网优化"></a>弱网优化</h1><p>弱网优化，在弱网时要是制定合适的超时时间，控制网络并发，合并打包请求，调优TCP参数，使用TCP优化算法。<br>对服务端的TCP协议参数进行调优，以及开启各种优化算法，使得适合业务特性和移动端网络环境，包括RTO初始值，混合慢启动，TLP，F-RTO等。<br>针对弱网的这些细致优化暂未成为标准，开源网络库 mars 有实现可以借鉴，若有需要可以使用。</p>
+<h1 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h1><p>1.采用 Https 双向认证<br>2.参数加密校验，防窃听/篡改或冒充<br>3.加密秘钥保护，采用 so 方式进行秘钥提取</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2020/03/31/android 网络优化/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-Centos 7 安装GNOME桌面环境与安装 VNC 使用图形界面远程" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -508,245 +666,6 @@
 
 
 
-    <article id="post-什么是Handler的同步屏障机制" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2019/09/30/什么是Handler的同步屏障机制/">Handler的同步屏障机制</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2019/09/30/什么是Handler的同步屏障机制/">
-            <time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <ul>
-<li>对于Handler机制，想必大家都已经非常熟悉了吧，从迈进Android开发这扇大门的时候，就不停的研究和使用它，同样的这也是Android系统架构的精髓之一。然而在我们使用的时候，往往会忽略掉一些不常见却又很重要的内容，今天就来讲一讲经常被忽略的同步屏障以及异步消息。</li>
-</ul>
-<h1 id="制流程中窥视handler同步屏障"><a href="#制流程中窥视handler同步屏障" class="headerlink" title="制流程中窥视handler同步屏障"></a>制流程中窥视handler同步屏障</h1><p>为了引出今天的主题，我们先来看看ui的渲染流程吧。在Android的绘制流程中，ViewRootImpl这个类发挥了非常重要的作用，首先我们看一下这个类中比较重要的一个方法requestLayout(),<br>下面开始按这个思路分析源码，直接从入口开始：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void requestLayout() &#123;</span><br><span class="line">    if (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">        //校验主线程</span><br><span class="line">        checkThread();</span><br><span class="line">        mLayoutRequested = true;</span><br><span class="line">        //调用这个方法启动绘制流程</span><br><span class="line">        scheduleTraversals();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>requestLayout()中会通过checkThread()方法检查发起布局请求的线程是否为主线程（校验ViewRootImpl构造时记录的mThread， 和当前线程是否一致），之后，在调用scheduleTraversals()的时候 postSyncBarrier添加同步消息屏障</p>
-<p>requestLayout()中会通过checkThread()方法检查发起布局请求的线程是否为主线程（校验ViewRootImpl构造时记录的mThread， 和当前线程是否一致），之后，在调用scheduleTraversals()的时候 postSyncBarrier添加同步消息屏障</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@UnsupportedAppUsage</span><br><span class="line">    void scheduleTraversals() &#123;</span><br><span class="line">        if (!mTraversalScheduled) &#123;</span><br><span class="line">            mTraversalScheduled = true;</span><br><span class="line">            //1. 往主线程的Handler对应的MessageQueue发送一个同步屏障消息</span><br><span class="line">            mTraversalBarrier = mHandler.getLooper().getQueue().postSyncBarrier();</span><br><span class="line">            //2.将mTraversalRunnable保存到Choreographer中</span><br><span class="line">            mChoreographer.postCallback(</span><br><span class="line">                    Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);</span><br><span class="line">            if (!mUnbufferedInputDispatch) &#123;</span><br><span class="line">                scheduleConsumeBatchedInput();</span><br><span class="line">            &#125;</span><br><span class="line">            notifyRendererOfFramePending();</span><br><span class="line">            pokeDrawLockIfNeeded();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    ...</span><br><span class="line">     //在doTraversal方法中移除同步消息屏障</span><br><span class="line">     void doTraversal() &#123;</span><br><span class="line">        if (mTraversalScheduled) &#123;</span><br><span class="line">            mTraversalScheduled = false;</span><br><span class="line">            //移除同步屏障</span><br><span class="line">            mHandler.getLooper().getQueue().removeSyncBarrier(mTraversalBarrier);</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>在这个方法中，涉及到三个比较重要的信息</p>
-<ul>
-<li>mTraversalRunnable</li>
-<li>Choreographer编舞者</li>
-<li>同步屏障消息</li>
-</ul>
-<ol>
-<li><p>首先看mTraversalRunnable，它的作用就是从ViewRootImpl 从上往下执行performMeasure、performLayout、performDraw。</p>
-</li>
-<li><p>Choreographer主要是为了配合Vsync信号，给上层app的渲染提供一个稳定的Message处理时机，也就是Vsync信号到来时，系统通过对Vsync信号的调整，来控制每一帧绘制操作的时机。当Vsync信号到来时，会往主线程的MessageQueue中插入一条异步消息，由于在scheduleTraversals中给MessageQueue中插入了同步屏障消息，那么当执行到同步屏障时，会取出异步消息执行。</p>
-</li>
-</ol>
-<p>看下Choreography中插入消息的方法是如何实现的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private void postCallbackDelayedInternal(int callbackType,</span><br><span class="line">            Object action, Object token, long delayMillis) &#123;</span><br><span class="line">        synchronized (mLock) &#123;</span><br><span class="line">            ...</span><br><span class="line">            if (dueTime &lt;= now) &#123;</span><br><span class="line">                scheduleFrameLocked(now);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                Message msg = mHandler.obtainMessage(MSG_DO_SCHEDULE_CALLBACK, action);</span><br><span class="line">                msg.arg1 = callbackType;</span><br><span class="line">                //设置为异步消息</span><br><span class="line">                msg.setAsynchronous(true);</span><br><span class="line">                mHandler.sendMessageAtTime(msg, dueTime);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>通过以上的分析，我们知道了，在刷新ui的时候原来会有这么多的参与者，但是那些什么同步消息、异步消息、消息屏障又是些什么东西呢？接下来我们就来研究一下。</p>
-<h1 id="何为同步屏障？"><a href="#何为同步屏障？" class="headerlink" title="何为同步屏障？"></a>何为同步屏障？</h1><p>message分类</p>
-<p>Handler的message分为三种</p>
-<ul>
-<li>同步消息</li>
-<li>异步消息</li>
-<li>屏障消息</li>
-</ul>
-<p>通常我们使用handler发送消息，都是使用默认的构造函数构造handler，然后使用send方法发送。这样发送的消息都是普通消息也就是同步消息，发出去的消息就会在MessageQueue中排队。异步消息正常情况下跟同步消息没有区别，只有在设置了同步屏障之后，才会出现差异。</p>
-<p>同步屏障就是在消息队列中插入一个屏障，插入之后，所有的同步消息都会被屏蔽，不能被执行，但是异步消息却不受影响，可以继续执行。</p>
-<h1 id="插入消息屏障"><a href="#插入消息屏障" class="headerlink" title="插入消息屏障"></a>插入消息屏障</h1><p>正常插入消息会调用enqueueMessage方法，同时将handler赋值给message的target。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//将消息插入消息队列</span><br><span class="line">private boolean enqueueMessage(@NonNull MessageQueue queue, @NonNull Message msg,</span><br><span class="line">        long uptimeMillis) &#123;</span><br><span class="line">    msg.target = this;</span><br><span class="line">    msg.workSourceUid = ThreadLocalWorkSource.getUid();</span><br><span class="line">    //进行判断是否将消息设置为异步消息</span><br><span class="line">    if (mAsynchronous) &#123;</span><br><span class="line">        msg.setAsynchronous(true);</span><br><span class="line">    &#125;</span><br><span class="line">    return queue.enqueueMessage(msg, uptimeMillis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在MessageQueue中进行判断，如果target为空也就是这个message没有对应的handler则会报异常。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">boolean enqueueMessage(Message msg, long when) &#123;</span><br><span class="line">       if (msg.target == null) &#123;</span><br><span class="line">           throw new IllegalArgumentException(&quot;Message must have a target.&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       if (msg.isInUse()) &#123;</span><br><span class="line">           throw new IllegalStateException(msg + &quot; This message is already in use.&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       ...</span><br><span class="line">       // 如果需要唤醒，则唤醒</span><br><span class="line">       if (needWake) &#123;</span><br><span class="line">           nativeWake(mPtr);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-<p>通过MessageQueue的postSyncBarrier方法插入屏障，message的target属性为null</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">private int postSyncBarrier(long when) &#123;</span><br><span class="line">      </span><br><span class="line">       synchronized (this) &#123;</span><br><span class="line">           final int token = mNextBarrierToken++;</span><br><span class="line">           //msg没有为target属性赋值</span><br><span class="line">           final Message msg = Message.obtain();</span><br><span class="line">           ...</span><br><span class="line">           //根据时间插入到MessageQueue中</span><br><span class="line">           if (when != 0) &#123;</span><br><span class="line">               while (p != null &amp;&amp; p.when &lt;= when) &#123;</span><br><span class="line">                   prev = p;</span><br><span class="line">                   p = p.next;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           if (prev != null) &#123; // invariant: p == prev.next</span><br><span class="line">               msg.next = p;</span><br><span class="line">               prev.next = msg;</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               msg.next = p;</span><br><span class="line">               mMessages = msg;</span><br><span class="line">           &#125;</span><br><span class="line">           //返回一个序号，通过它可以对屏障消息进行撤销</span><br><span class="line">           return token;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>经过以上的操作，我们可以总结出</p>
-<ul>
-<li>屏障消息和普通消息的区别是屏障消息没有target属性，普通消息有target属性是因为要将消息分发给target指向的handler处理</li>
-<li>屏障消息会插入到MessageQueue中合适的位置，这个消息以后的普通消息将被屏蔽</li>
-<li>postSyncBarrier返回一个int类型的数值，通过这个数值可以撤销屏障</li>
-<li>postSyncBarrier方法是私有的，如果我们想调用它就得使用反射</li>
-<li>插入普通消息会唤醒消息队列，但是插入屏障不会</li>
-</ul>
-<h1 id="如何发送异步消息"><a href="#如何发送异步消息" class="headerlink" title="如何发送异步消息"></a>如何发送异步消息</h1><p>通常我们发送的都是普通消息，如果想发送异步消息</p>
-<ul>
-<li>可以在创建handler时使用如下的构造器中的一种，同时将async参数设置为true，这样这个handler发送的消息就都是异步消息了。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public Handler(boolean async) &#123;</span><br><span class="line">    this(null, async);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Handler(@NonNull Looper looper, @Nullable Callback callback) &#123;</span><br><span class="line">    this(looper, callback, false);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Handler(@Nullable Callback callback, boolean async) &#123;</span><br><span class="line">    ...</span><br><span class="line">    mLooper = Looper.myLooper();</span><br><span class="line">    if (mLooper == null) &#123;</span><br><span class="line">        throw new RuntimeException(</span><br><span class="line">            &quot;Can&apos;t create handler inside thread &quot; + Thread.currentThread()</span><br><span class="line">                    + &quot; that has not called Looper.prepare()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    mQueue = mLooper.mQueue;</span><br><span class="line">    mCallback = callback;</span><br><span class="line">    mAsynchronous = async;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>除了这种方式还可以直接设置消息的类型为异步消息</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void setAsynchronous(boolean async) &#123;</span><br><span class="line">       if (async) &#123;</span><br><span class="line">           flags |= FLAG_ASYNCHRONOUS;</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           flags &amp;= ~FLAG_ASYNCHRONOUS;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h1 id="消息处理的过程"><a href="#消息处理的过程" class="headerlink" title="消息处理的过程"></a>消息处理的过程</h1><p>MessageQueue是通过next方法来遍历消息的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">@UnsupportedAppUsage</span><br><span class="line">    Message next() &#123;</span><br><span class="line">        for (;;) &#123;</span><br><span class="line">            nativePollOnce(ptr, nextPollTimeoutMillis);</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                Message msg = mMessages;</span><br><span class="line">                //如果msg.target为空，也就是说是一个同步屏障消息，则进入这个判断里面</span><br><span class="line">                if (msg != null &amp;&amp; msg.target == null) &#123;</span><br><span class="line">                    // Stalled by a barrier.  Find the next asynchronous message in the queue.</span><br><span class="line">                    //在这个while循环中，找到最近的一个异步消息</span><br><span class="line">                    do &#123;</span><br><span class="line">                        prevMsg = msg;</span><br><span class="line">                        msg = msg.next;</span><br><span class="line">                    &#125; while (msg != null &amp;&amp; !msg.isAsynchronous());</span><br><span class="line">                &#125;</span><br><span class="line">                //找到了异步消息</span><br><span class="line">                if (msg != null) &#123;</span><br><span class="line">                    //如果消息的处理时间小于当前时间 则等待</span><br><span class="line">                    if (now &lt; msg.when) &#123;</span><br><span class="line">                        // Next message is not ready.  Set a timeout to wake up when it is ready.</span><br><span class="line">                        nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // Got a message.</span><br><span class="line">                        //处理消息</span><br><span class="line">                        mBlocked = false;</span><br><span class="line">                        //将异步消息移除</span><br><span class="line">                        if (prevMsg != null) &#123;</span><br><span class="line">                            prevMsg.next = msg.next;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            mMessages = msg.next;</span><br><span class="line">                        &#125;</span><br><span class="line">                        msg.next = null;</span><br><span class="line">                        if (DEBUG) Log.v(TAG, &quot;Returning message: &quot; + msg);</span><br><span class="line">                        msg.markInUse();</span><br><span class="line">                        //返回异步消息</span><br><span class="line">                        return msg;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    // No more messages.</span><br><span class="line">                    //没有找到异步消息则进入阻塞状态，等待被唤醒</span><br><span class="line">                    nextPollTimeoutMillis = -1;</span><br><span class="line">                &#125;</span><br><span class="line">                ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>在这段代码中，可以看到，处理过程中会先判断此消息是否为屏障消息，如果是屏障消息，则去循环遍历，直到寻找到异步消息为止。通过这种方式跳过了普通消息，直接执行异步消息。也就是说同步屏障为handler消息机制提供了一种优先级策略，异步消息的优先级要高于同步消息。</p>
-<p>另外需要注意的是：同步屏障不会自动移除，使用完成之后需要手动移除，不然会造成同步消息无法处理。也就是上边提到的，通过removeSyncBarrier(int token)方法进行移除，token就是之前添加屏障时返回的token。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void removeSyncBarrier(int token)&#123;&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过以上的分析，想必对于handler消息机制中的几种不同的消息有了一个更深入的了解了吧，对于绘制流程中，为什么要发送一个同步屏障并且发送异步消息，应该心中也有了答案，不错，就是为了让保证在vsync信号到来时，异步任务可以优先执行，从而绘制任务可以被及时执行，避免造成界面卡顿。</li>
-</ul>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2019/09/30/什么是Handler的同步屏障机制/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-Leakcanary原理浅析" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2019/09/17/Leakcanary原理浅析/">Leakcanary原理浅析</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2019/09/17/Leakcanary原理浅析/">
-            <time datetime="2019-09-17T12:31:28.000Z" itemprop="datePublished">2019-09-17</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Leakcanary/">Leakcanary</a>, <a class="tag-link" href="/tags/android/">android</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>LeakCanary是Android内存泄漏的框架，作为一个“面试常见问题”，它一定有值得学习的地方，今天我们就讲一下它。作为一名开发，我觉得给人讲框架或者库的原理，最好先把大概思路给读者讲一下，这样读者后面会按照这个框架往里填内容，理解起来也更容易一些，所以我先把LeakCanary的大致原理放出来：</p>
-<p>其思路大致为：监听Activity生命周期-&gt;onDestroy以后延迟5秒判断Activity有没有被回收-&gt;如果没有回收,调用GC，再此判断是否回收，如果还没回收，则内存泄露了，反之，没有泄露。整个框架最核心的问题就是在什么时间点如何判断一个Activity是否被回收了。</p>
-<p>下面开始按这个思路分析源码，直接从入口开始：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static RefWatcher install(Application application) &#123;</span><br><span class="line">  return refWatcher(application).listenerServiceClass(DisplayLeakService.class)</span><br><span class="line">      .excludedRefs(AndroidExcludedRefs.createAppDefaults().build())</span><br><span class="line">      .buildAndInstall();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>builder模式构建了一个RefWatcher对象,listenerServiceClass()方法绑定了一个后台服务DisplayLeakService</p>
-<p>这个服务主要用来分析内存泄漏结果并发送通知。你可以继承并重写这个类来进行一些自定义操作，比如上传分析结果等。</p>
-<p>我们看最后buildAndInstall()方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public RefWatcher buildAndInstall() &#123;</span><br><span class="line">    RefWatcher refWatcher = build();</span><br><span class="line">    if (refWatcher != DISABLED) &#123;</span><br><span class="line">      LeakCanary.enableDisplayLeakActivity(context);</span><br><span class="line">      ActivityRefWatcher.installOnIcsPlus((Application) context, refWatcher);</span><br><span class="line">    &#125;</span><br><span class="line">    return refWatcher;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>build()方法，这个方法主要是配置一些东西，先大概了解一下，后面用到再说，下面是几个配置项目。</p>
-<p><font color="#FF0000">watchExecutor </font>: 线程控制器，在 onDestroy()之后并且主线程空闲时执行内存泄漏检测</p>
-<p><font color="#FF0000">debuggerControl </font>: 判断是否处于调试模式，调试模式中不会进行内存泄漏检测</p>
-<p><font color="#FF0000">gcTrigger </font>: 用于GC</p>
-<p><font color="#FF0000">watchExecutor </font> 首次检测到可能的内存泄漏，会主动进行GC,GC之后会再检测一次，仍然泄漏的判定为内存泄漏，进行后续操作</p>
-<p><font color="#FF0000">heapDumper </font>: dump内存泄漏处的heap信息，写入hprof文件</p>
-<p><font color="#FF0000">heapDumpListener </font>: 解析完hprof文件并通知DisplayLeakService弹出提醒</p>
-<p><font color="#FF0000">excludedRefs </font>: 排除可以忽略的泄漏路径</p>
-<h1 id="LeakCanary-enableDisplayLeakActivity-context"><a href="#LeakCanary-enableDisplayLeakActivity-context" class="headerlink" title="LeakCanary.enableDisplayLeakActivity(context)"></a>LeakCanary.enableDisplayLeakActivity(context)</h1><p>这行代码主要是为了开启LeakCanary的应用，显示其图标.</p>
-<p>接下来是重点：</p>
-<p>ActivityRefWatcher.installOnIcsPlus((Application) context, refWatcher)</p>
-<p>它会进入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ActivityRefWatcher activityRefWatcher = new ActivityRefWatcher(application, refWatcher);</span><br><span class="line">activityRefWatcher.watchActivities();</span><br></pre></td></tr></table></figure>
-<p>接下来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stopWatchingActivities();</span><br><span class="line">application.registerActivityLifecycleCallbacks(lifecycleCallbacks);</span><br></pre></td></tr></table></figure></p>
-<p>第一行代码是为了确保不会重复绑定，第二行绑定生命周期，之后监听Activity的生命周期。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@Override public void onActivityDestroyed(Activity activity) &#123;</span><br><span class="line">  ActivityRefWatcher.this.onActivityDestroyed(activity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>监听到Activity销毁时执行onActivityDestroyed方法,进入看看：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public void watch(Object watchedReference, String referenceName) &#123;</span><br><span class="line">    if (this == DISABLED) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line">    checkNotNull(watchedReference, &quot;watchedReference&quot;);</span><br><span class="line">    checkNotNull(referenceName, &quot;referenceName&quot;);</span><br><span class="line">    final long watchStartNanoTime = System.nanoTime();</span><br><span class="line">    String key = UUID.randomUUID().toString();</span><br><span class="line">    retainedKeys.add(key);</span><br><span class="line">    final KeyedWeakReference reference =</span><br><span class="line">        new KeyedWeakReference(watchedReference, key, referenceName, queue);</span><br><span class="line"></span><br><span class="line">    ensureGoneAsync(watchStartNanoTime, reference);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>整个LeakCanary最核心的思路就在这儿了。</p>
-<p>前面几行是这样的，根据Activity生成一个随机Key,并将Key加入到一个Set中，然后讲key，activity传如一个包装的弱引用里。</p>
-<p>这里引出了第一个知识点，弱引用和引用队列ReferenceQueue联合使用时，如果弱引用持有的对象被垃圾回收，Java虚拟机就会把这个弱引用加入到与之关联的引用队列中。即 KeyedWeakReference持有的Activity对象如果被垃圾回收，该对象就会加入到引用队列queue,我们看看RefreceQueue的javadoc：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Reference queues, to which registered reference objects are appended by the</span><br><span class="line"> * garbage collector after the appropriate reachability changes are detected.</span><br><span class="line"> *</span><br><span class="line"> * @author   Mark Reinhold</span><br><span class="line"> * @since    1.2</span><br><span class="line"> */</span><br><span class="line">public class ReferenceQueue&lt;T&gt;</span><br></pre></td></tr></table></figure>
-<p>证实了上面的说法,另外看名字我们就知道，不光弱引用，软和虚引用也可以这样做。</p>
-<p>重点是最后一句:ensureGoneAsyc，看字面意思，异步确保消失。这里我们先不看代码，如果要自己设计一套检测方案的话，怎么想？其实很简单，就是在Activiy onDestroy以后，我们等一会，检测一下这个Acitivity有没有被回收,那么问题来了，什么时候检测？怎么检测？这也是本框架的核心和难点。</p>
-<p>LeakCanary是这么做的：onDestroy以后，一旦主线程空闲下来，延时5秒执行一个任务：先判断Activity有没有被回收？如果已经回收了，说明没有内存泄漏，如果还没回收，我们进一步确认，手动触发一下gc，然后再判断有没有回收，如果这次还没回收，说明Activity确实泄漏了，接下来把泄漏的信息展示给开发者就好了。</p>
-<p>思路其实挺清晰的，我们看代码实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">private void ensureGoneAsync(final long watchStartNanoTime, final KeyedWeakReference reference) &#123;</span><br><span class="line">    watchExecutor.execute(new Retryable() &#123;</span><br><span class="line">      @Override public Retryable.Result run() &#123;</span><br><span class="line">        return ensureGone(reference, watchStartNanoTime);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里watchExecutor是AndroidWatchExecutor,看代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Override public void execute(Retryable retryable) &#123;</span><br><span class="line">  if (Looper.getMainLooper().getThread() == Thread.currentThread()) &#123;</span><br><span class="line">    waitForIdle(retryable, 0);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    postWaitForIdle(retryable, 0);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>主线程和子线程其实一样，都要到主线程中执行，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  void waitForIdle(final Retryable retryable, final int failedAttempts) &#123;</span><br><span class="line">  // This needs to be called from the main thread.</span><br><span class="line">  Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() &#123;</span><br><span class="line">    @Override public boolean queueIdle() &#123;</span><br><span class="line">      postToBackgroundWithDelay(retryable, failedAttempts);</span><br><span class="line">      return false;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  这里有第二个知识点，IdleHandler，这个东西是干嘛的，其实看名字就知道了，就是当主线程空闲的时候，如果设置了这个东西，就会执行它的queueIdle()方法，所以这个方法就是在onDestory以后，一旦主线程空闲了，就会执行，然后我们看它执行了啥：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   private void postToBackgroundWithDelay(final Retryable retryable, final int failedAttempts) &#123;</span><br><span class="line">    long exponentialBackoffFactor = (long) Math.min(Math.pow(2, failedAttempts), maxBackoffFactor);</span><br><span class="line">    long delayMillis = initialDelayMillis * exponentialBackoffFactor;</span><br><span class="line">    backgroundHandler.postDelayed(new Runnable() &#123;</span><br><span class="line">      @Override public void run() &#123;</span><br><span class="line">        Retryable.Result result = retryable.run();</span><br><span class="line">        if (result == RETRY) &#123;</span><br><span class="line">          postWaitForIdle(retryable, failedAttempts + 1);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, delayMillis);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>很简单，延时5秒执行retryable的run()，注意，因为这里是backgroundHandler post出来的，所以是下面的run是在子线程执行的。这里的retryable就是前面传过来的:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">private void ensureGoneAsync(final long watchStartNanoTime, final KeyedWeakReference reference) &#123;</span><br><span class="line">  watchExecutor.execute(new Retryable() &#123;</span><br><span class="line">    @Override public Retryable.Result run() &#123;</span><br><span class="line">      return ensureGone(reference, watchStartNanoTime);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  ensureGone(reference,watchStartNanoTime),在看它干了啥之前，我们先理一下思路，前面onDestory以后，AndroidWatchExecutor这个东西执行excute方法，这个方法让主线程在空闲的时候发送了一个延时任务，该任务会在5秒延时后在一个子线程执行。理清了思路，我们看看这个任务是怎么执行的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">Retryable.Result ensureGone(final KeyedWeakReference reference, final long watchStartNanoTime) &#123;</span><br><span class="line">   long gcStartNanoTime = System.nanoTime();</span><br><span class="line">   long watchDurationMs = NANOSECONDS.toMillis(gcStartNanoTime - watchStartNanoTime);</span><br><span class="line"></span><br><span class="line">   removeWeaklyReachableReferences();</span><br><span class="line"></span><br><span class="line">   if (debuggerControl.isDebuggerAttached()) &#123;</span><br><span class="line">     // The debugger can create false leaks.</span><br><span class="line">     return RETRY;</span><br><span class="line">   &#125;</span><br><span class="line">   if (gone(reference)) &#123;</span><br><span class="line">     return DONE;</span><br><span class="line">   &#125;</span><br><span class="line">   gcTrigger.runGc();</span><br><span class="line">   removeWeaklyReachableReferences();</span><br><span class="line">   if (!gone(reference)) &#123;</span><br><span class="line">     long startDumpHeap = System.nanoTime();</span><br><span class="line">     long gcDurationMs = NANOSECONDS.toMillis(startDumpHeap - gcStartNanoTime);</span><br><span class="line"></span><br><span class="line">     File heapDumpFile = heapDumper.dumpHeap();</span><br><span class="line">     if (heapDumpFile == RETRY_LATER) &#123;</span><br><span class="line">       // Could not dump the heap.</span><br><span class="line">       return RETRY;</span><br><span class="line">     &#125;</span><br><span class="line">     long heapDumpDurationMs = NANOSECONDS.toMillis(System.nanoTime() - startDumpHeap);</span><br><span class="line">     heapdumpListener.analyze(</span><br><span class="line">         new HeapDump(heapDumpFile, reference.key, reference.name, excludedRefs, watchDurationMs,</span><br><span class="line">             gcDurationMs, heapDumpDurationMs));</span><br><span class="line">   &#125;</span><br><span class="line">   return DONE;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>  前面我们说过思路了，5秒延迟后先看看有没有回收，如果回收了，直接返回，没有发生内存泄漏，如果没有回收，触发GC，gc完成后，在此判断有没有回收，如果还没回收，说明泄漏了，收集泄漏信息，展示给开发者。而上面的代码完全按照这个思路来的。其中，removeWeaklyRechableReferences()和gone(reference)这两个方法配合，用来判断对象是否被回收了,看代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> private void removeWeaklyReachableReferences() &#123;</span><br><span class="line">  // WeakReferences are enqueued as soon as the object to which they point to becomes weakly</span><br><span class="line">  // reachable. This is before finalization or garbage collection has actually happened.</span><br><span class="line">  KeyedWeakReference ref;</span><br><span class="line">  while ((ref = (KeyedWeakReference) queue.poll()) != null) &#123;</span><br><span class="line">    retainedKeys.remove(ref.key);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过知识点1知道：被回收的对象都会放到设置的引用队列queue中,我们从queue中拿出所有的ref，根据他们的key匹配retainedKeys集合中的元素并删除。然后在gone()函数里面判断key是否被移除.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">private boolean gone(KeyedWeakReference reference) &#123;</span><br><span class="line">    return !retainedKeys.contains(reference.key);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>  这个方法挺巧妙的，retainedKeys集合了所有destoryed了的但没有被回收的Activity的key，这个集合可以用来判断一个Activity有没有被回收，但是判断之前需要用removeWeaklyReachableReferences()这个方法更新一下。</p>
-<p>一旦一个Activity检测出泄漏了，就收集泄漏信息然后通过前面配置的DisplayLeakService通知给用户并展示在DisplayLeakActivity中，后面的东西都是UI展示东西，就不是本文的重点了，有兴趣的可以自己查看。</p>
-<p>稍微总结一下，我觉得这个框架中用到的一个很重要但冷门技巧就是弱引用的构造方法：传入一个RefrenceQueue，可以记录被垃圾回收的对象引用。说个题外话，一个对象都被回收了，他的弱引用咋办，总不能一直留着吧，（引用本身也是一个强引用对象，不要把引用和引用的对象搞混了，对象可以被回收了，但是它的引用，包括软，弱，虚引用都可以继续存在）。完全不用担心，这个引用在无用之后也会被GC回收的。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2019/09/17/Leakcanary原理浅析/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
     </nav>
@@ -759,6 +678,44 @@
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/05/31/mac flutter 支持多个版本配置/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2021/05/31/mac flutter 支持多个版本配置/" class="title">mac flutter 支持多个版本配置</a></p>
+                            <p class="item-date"><time datetime="2021-05-31T01:47:42.000Z" itemprop="datePublished">2021-05-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/03/31/android 网络优化/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2020/03/31/android 网络优化/" class="title">android 网络优化</a></p>
+                            <p class="item-date"><time datetime="2020-03-31T01:12:23.000Z" itemprop="datePublished">2020-03-31</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -817,44 +774,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/09/30/什么是Handler的同步屏障机制/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
-                            <p class="item-title"><a href="/2019/09/30/什么是Handler的同步屏障机制/" class="title">Handler的同步屏障机制</a></p>
-                            <p class="item-date"><time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/09/17/Leakcanary原理浅析/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
-                            <p class="item-title"><a href="/2019/09/17/Leakcanary原理浅析/" class="title">Leakcanary原理浅析</a></p>
-                            <p class="item-date"><time datetime="2019-09-17T12:31:28.000Z" itemprop="datePublished">2019-09-17</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -864,7 +783,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">28</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -873,7 +792,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -882,7 +801,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">37</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">39</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flutter/">flutter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -891,7 +810,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+            <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/flutter/" style="font-size: 10px;">flutter</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
         </div>
     </div>
 

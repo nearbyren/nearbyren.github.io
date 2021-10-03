@@ -159,11 +159,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                86
+                88
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                37
+                39
                 <span>标签</span>
             </div>
         </div>
@@ -212,6 +212,585 @@
 
             
             <section id="main">
+    <article id="post-service详解" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/01/18/service详解/">service详解</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/01/18/service详解/">
+            <time datetime="2016-01-18T06:00:17.000Z" itemprop="datePublished">2016-01-18</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/service/">service</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <blockquote>
+<p><strong>android server 详解</strong></p>
+<p> Service的种类：</p>
+<p>一、Service的种类</p>
+</blockquote>
+<ol>
+<li>本地服务， Local Service<br>用于应用程序内部。在Service可以调用Context.startService()启动，调用Context.stopService()结束。在内部可以调用Service.stopSelf()<br>或<br>Service.stopSelfResult()来自己停止。无论调用了多少次startService()，都只需调用一次stopService()来停止。</li>
+<li>远程服务， Remote Service<br>用于android系统内部的应用程序之间。可以定义接口并把接口暴露出来，以便其他应用进行操作。客户端建立到服务对象的连接，并通过那个连接来调用服务。调用Context.bindService()方法建立连接，并启动，以调用<br>Context.unbindService()关闭连接。多个客户端可以绑定至同一个服务。如果服务此时还没有加载，bindService()会先加载它。</li>
+</ol>
+<p>提供给可被其他应用复用，比如定义一个天气预报服务，提供与其他应用调用即可。</p>
+<blockquote>
+<p> 二、生命周期</p>
+</blockquote>
+<p>1). 被启动的服务的生命周期：如果一个Service被某个Activity 调用 Context.startService方法启动，那么不管是否有Activity使用bindService绑定或unbindService解除绑定到该Service，该Service都在后台运行。如果一个Service被startService 方法多次启动，那么onCreate方法只会调用一次，onStart将会被调用多次（对应调用startService的次数），并且系统只会创建Service的一个实例（因此你应该知道只需要一次stopService调用）。该Service将会一直在后台运行，而不管对应程序的Activity是否在运行，直到被调用stopService，或自身的stopSelf方法。当然如果系统资源不足，android系统也可能结束服务。</p>
+<p>2). 被绑定的服务的生命周期：如果一个Service被某个Activity 调用 Context.bindService 方法绑定启动，不管调用 bindService调用几次，onCreate方法都只会调用一次，同时onStart方法始终不会被调用。当连接建立之后，Service将会一直运行，除非调用Context.unbindService 断开连接或者之前调用bindService 的 Context 不存在了（如Activity被finish的时候），系统将会自动停止Service，对应onDestroy将被调用。</p>
+<p>3).被启动又被绑定的服务的生命周期：如果一个Service又被启动又被绑定，则该Service将会一直在后台运行。并且不管如何调用，onCreate始终只会调用一次，对应startService调用多少次，Service的onStart便会调用多少次。调用unbindService将不会停止Service，而必须调用 stopService 或 Service的 stopSelf 来停止服务。</p>
+<p>4).当服务被停止时清除服务：当一个Service被终止（1、调用stopService；2、调用stopSelf；3、不再有绑定的连接（没有被启动））时，onDestroy方法将会被调用，在这里你应当做一些清除工作，如停止在Service中创建并运行的线程。</p>
+<blockquote>
+<p>特别注意：</p>
+</blockquote>
+<ol>
+<li><p>你应当知道在调用 bindService 绑定到Service的时候，你就应当保证在某处调用 unbindService<br>解除绑定（尽管Activity被finish的时候绑定会自动解除，并且Service会自动停止）</p>
+</li>
+<li><p>你应当注意 使用 startService 启动服务之后，一定要使用<br>stopService停止服务，不管你是否使用bindService。</p>
+</li>
+<li><p>同时使用 startService 与 bindService 要注意到，Service<br>的终止，需要unbindService与stopService同时调用，才能终止 Service，不管 startService 与<br>bindService 的调用顺序，如果先调用 unbindService 此时服务不会自动终止，再调用 stopService<br>之后服务才会停止，如果先调用 stopService 此时服务也不会终止，而再调用 unbindService 或者 之前调用<br>bindService 的 Context 不存在了（如Activity 被 finish 的时候）之后服务才会自动停止。</p>
+</li>
+<li><p>当在旋转手机屏幕的时候，当手机屏幕在“横”“竖”变换时，此时如果你的 Activity 如果会自动旋转的话，旋转其实是 Activity<br>的重新创建，因此旋转之前的使用 bindService 建立的连接便会断开（Context 不存在了），对应服务的生命周期与上述相同</p>
+</li>
+<li><p>在 sdk 2.0 及其以后的版本中，对应的 onStart 已经被否决变为了 onStartCommand，不过之前的 onStart<br>任然有效。这意味着，如果你开发的应用程序用的 sdk 为 2.0 及其以后的版本，那么你应当使用 onStartCommand 而不是<br>onStart。<br><img src="http://static.oschina.net/uploads/space/2015/0730/095222_Jssm_1175007.png" alt="此处输入图片的描述"></p>
+</li>
+</ol>
+<blockquote>
+<p>例子：</p>
+</blockquote>
+<pre><code>    public class ServiceDemo extends Service {
+
+    public static final String TAG = &quot;ServiceDemo&quot; ;
+    public static final String ACTION = &quot;com.demo.SERVICE_DEMO&quot;;
+
+    /**
+     * onBind 是 Service 的虚方法，因此我们不得不实现它。
+     * 返回 null，表示客服端不能建立到此服务的连接，所以不会调用onServiceConnected。
+     */
+    @Override
+    public IBinder onBind(Intent intent) {
+        Log.i(TAG, this.toString() + &quot; ServiceDemo onBind&quot;);
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        Log.i(TAG, this.toString() + &quot; ServiceDemo onCreate&quot;);
+        super.onCreate();
+    }
+
+    @Override
+    public void onStart(Intent intent, int startId) {
+    Log.i(TAG, this.toString() + &quot; ServiceDemo onStart&quot;);
+    super.onStart(intent, startId);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i(TAG, this.toString() + &quot; ServiceDemo onStartCommand&quot;);
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.i(TAG, this.toString() + &quot; ServiceDemo onUnbind&quot;);
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.i(TAG, this.toString() + &quot; ServiceDemo onDestroy&quot;);
+        super.onDestroy();
+    }
+
+}
+&lt;!-- android:exported 这个属性用于指示该服务是否能够被其他应用程序组件调用或跟它交互。
+     如果设置为true，则能够被调用或交互，否则不能。设置为false时，
+     只有同一个应用程序的组件或带有相同用户ID的应用程序才能启动或绑定该服务。--&gt;
+&lt;service android:name=&quot;.ServiceDemo&quot; android:exported=&quot;false&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;com.demo.SERVICE_DEMO&quot; /&gt;
+        &lt;category android:name=&quot;android.intent.category.default&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+
+通过Context.startService(Intent)方法启动service或者Context.bindService方法来绑定service
+
+
+    public class MainActivity extends ActionBarActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        findViewById(R.id.btn_bindService).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            bindService(new Intent(ServiceDemo.ACTION), conn, BIND_AUTO_CREATE);
+        }
+    });
+
+        findViewById(R.id.btn_unbindService).setOnClickListener(new OnClickListener() {
+            @Override
+        public void onClick(View v) {
+        unbindService(conn);
+        }
+    });
+
+        findViewById(R.id.btn_startService).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            startService(new Intent(ServiceDemo.ACTION));
+            }
+        });
+
+        findViewById(R.id.btn_stopService).setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+        stopService(new Intent(ServiceDemo.ACTION));
+        }
+    });
+    }
+
+    ServiceConnection conn = new ServiceConnection() {
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.i(ServiceDemo.TAG, service.toString() + &quot; onServiceConnected&quot;);
+        }
+    public void onServiceDisconnected(ComponentName name) {
+        Log.i(ServiceDemo.TAG, &quot;onServiceDisconnected&quot;);
+    }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+}
+</code></pre><p>  <img src="http://static.oschina.net/uploads/space/2015/0730/160834_rK7t_1175007.png" alt="此处输入图片的描述"></p>
+<blockquote>
+<p>日志输出：</p>
+</blockquote>
+<p><img src="http://static.oschina.net/uploads/space/2015/0730/160949_ye2r_1175007.png" alt="此处输入图片的描述"><br>上面的截图是点击绑定服务时输出的。可以看出，只调用了onCreate方法和onBind方法，当重复点击绑定服务时，没有再输出任何日志，并且不报错。onCreate方法是在第一次创建Service时调用的，而且只调用一次。另外，在绑定服务时，给定了参数BIND_AUTO_CREATE，即当服务不存在时，自动创建，如果服务已经启动了或者创建了，那么只会掉调用onBind方法。<br><img src="http://static.oschina.net/uploads/space/2015/0730/161109_fGYl_1175007.png" alt="此处输入图片的描述"><br>当解除绑定的时，可以看出，Service调用onUnbind和onDestroy销毁了服务。<br><img src="http://static.oschina.net/uploads/space/2015/0730/161604_zRTz_1175007.png" alt="此处输入图片的描述"><br>上面的截图是在多次点击启动服务时输出的。可以看出，在第一次点击时，因为Service还未创建，所以调用了onCreate方法，紧接着调用了onStartCommand和onStart方法。当再次点击启动服务时，仍然调用了onStartCommand和onStart方法，所以，在Service中做任务处理时需要注意这点，因为一个Service可以被重复启动。<br><img src="http://static.oschina.net/uploads/space/2015/0730/161711_V5xw_1175007.png" alt="此处输入图片的描述"><br>当点停止服务的时，Service只是执行onDestroy方法，跟绑定还是有点小区别。<br>这里说一下，平常使用多的是startService方法，可以把一些耗时的任务放到后台去处理，当处理完成后，可以通过广播来通知前台。<br>而onBind方法更多的是结合AIDL来使用，这样一个应用可以通过绑定服务获得的IBinder来拿到后台的接口，进而调用AIDL中定义的方法，进行数据交换等。</p>
+<blockquote>
+<p>三、Local 与 Remote 服务绑定</p>
+</blockquote>
+<p>1) Local 服务绑定：Local 服务的绑定较简单，首先在 Service 中我们需要实现 Service 的抽象方法 onBind，并返回一个实现 IBinder 接口的对象。</p>
+<p>Service 中的代码：</p>
+<pre><code>    public class LocalService extends Service{
+
+    public static final String TAG = &quot;LocalService&quot; ;
+    public static final String ACTION = &quot;com.demo.LOCAL_SERVICE&quot;;
+    public SimpleBinder sBinder;
+
+    public class SimpleBinder extends Binder{
+
+        public LocalService getService(){
+            return LocalService.this;
+        }
+
+        public int add(int a, int b){
+            return a + b;
+        }
+    }
+
+    @Override
+    public void onCreate() {
+    super.onCreate();
+    // 创建 SimpleBinder
+        sBinder = new SimpleBinder();
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+    // 返回 SimpleBinder 对象
+    Log.i(TAG, &quot;LocalService onBind&quot;);
+        return sBinder;
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+    Log.i(TAG, &quot;LocalService onUnbind&quot;);
+    return super.onUnbind(intent);
+    }
+
+}
+&lt;service android:name=&quot;.LocalService&quot; android:exported=&quot;false&quot;&gt;
+    &lt;intent-filter&gt;
+    &lt;action android:name=&quot;com.demo.LOCAL_SERVICE&quot; /&gt;
+    &lt;category android:name=&quot;android.intent.category.default&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+public class LocalActivity extends ActionBarActivity {
+
+    private ServiceConnection sc;
+    private boolean isBind;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_local);
+
+    sc = new ServiceConnection() {
+
+            @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.i(LocalService.TAG, &quot;onServiceConnected&quot;);
+        LocalService.SimpleBinder sBinder = (LocalService.SimpleBinder)service;
+                Log.i(LocalService.TAG, &quot;3 + 5 = &quot; + sBinder.add(3, 5));
+        }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                Log.i(LocalService.TAG, &quot; onServiceDisconnected&quot;);
+            }
+        };
+
+        findViewById(R.id.btn_bindService).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                bindService(new Intent(LocalService.ACTION), sc, Context.BIND_AUTO_CREATE);
+                isBind = true;
+            }
+        });
+        findViewById(R.id.btn_unbindService).setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if(isBind){
+                    unbindService(sc);
+                    isBind = false;
+                }
+            }
+        });
+    }
+}
+</code></pre><p>在 Activity 中，我们通过 ServiceConnection 接口来取得建立连接 与 连接意外丢失的回调。bindService有三个参数，第一个是用于区分 Service 的Intent 与 startService 中的 Intent 一致，第二个是实现了 ServiceConnection 接口的对象，最后一个是 flag 标志位。有两个flag，BIND_DEBUG_UNBIND 与 BIND_AUTO_CREATE，前者用于调试（详细内容可以查看javadoc 上面描述的很清楚），后者默认使用。unbindService 解除绑定，参数则为之前创建的 ServiceConnection 接口对象。另外，多次调用 unbindService 来释放相同的连接会抛出异常，因此我创建了一个 boolean 变量来判断是否 unbindService 已经被调用过。</p>
+<p>运行结果：<br><img src="http://static.oschina.net/uploads/space/2015/0730/173329_fLfe_1175007.png" alt="此处输入图片的描述"></p>
+<p>在绑定服务的时候，需要一个服务连接对象，ServiceConnection，服务一旦连接，就会调用onServiceConnected方法，我们可以在这个方法里面返回我们的本地服务对象，具体看代码；而在服务断开时候会调用onServiceDisconnected方法，我们可以清理一些服务资源。</p>
+<p>2) Remote 服务绑定：之前所谈的Service属于Local Service，即Service和Client在同一进程内（即同一application内），Service的生命周期服从进程的生命周期。在实际应用上，有时希望Service作为后台服务，不仅被同一进程内的activity使用，也可被其他进程所使用。</p>
+<p>通常每个应用程序都在它自己的进程内运行，但有时需要在进程之间传递对象（IPC通信），你可以通过应用程序UI的方式写个运行在一个不同的进程中的service。在android平台中，一个进程通常不能访问其它进程中的内存区域。所以，他们需要把对象拆分成操作系统能理解的简单形式，以便伪装成对象跨越边界访问。编写这种伪装代码相当的枯燥乏味，好在android为我们提供了AIDL工具可以来做这件事。</p>
+<p>AIDL(android接口描述语言)是一个IDL语言，它可以生成一段代码，可以使在一个android设备上运行的两个进程使用内部通信进程进行交互。如果你需要在一个进程中(例如在一个Activity中)访问另一个进程中(例如一个Service)某个对象的方法，你就可以使用AIDL来生成这样的代码来伪装传递各种参数。</p>
+<p> <img src="http://static.oschina.net/uploads/space/2015/0802/170432_x9mE_1175007.png" alt="此处输入图片的描述"><br> Android提供AIDL（Android Interface Definition Language）工具帮助IPC之间接口的建立，大大地简化了开发者视图。通过下面的步骤实现client和service之间的通信：<br>1）定义AIDL接口 ，Eclipse将自动为Service建立接口IService<br>2）Client连接Service，连接到IService暴露给Client的Stub，获得stub对象；换句话，Service通过接口中的Stub向client提供服务，在IService中对抽象IService.Stub具体实现。<br>3）Client和Service连接后，Client可向使用本地方法那样，简单地直接调用IService.Stub里面的方法。<br>下面的例子给出client从提供定时计数的Remote Service，称为TestRemoteService，中获得服务的例子。</p>
+<p><strong>步骤1：通过AIDL文件定义Service向client提供的接口，ITestRemoteService.aidl文件如下</strong></p>
+<pre><code>interface ITestRemoteService { 
+    int getCounter(); 
+}
+
+我们在src的目录下添加一个ITestRemoteService.aidl文件，语法和java的相同。在这个例子中Service很简单，只提供计数器的值，故在接口中我们定义了int getCounter( )。
+</code></pre><p>AIDL文件很简单，Eclipse会根据文件自动生成相关的一个java interface文件，不过没有显示出来，如果直接使用命令行工具会帮助生成java文件。</p>
+<p><strong>步骤2：Remote Service的编写，通过onBind()，在client连接时，传递stub对象。 TestRemoteService.java文件如下</strong>：</p>
+<pre><code>//Service提供一个定时计数器，采用Runnable的方式实现。
+public class TestRemoteService extends Service{ 
+    private Handler serviceHandler = null;
+    private int counter = 0; 
+    private TestCounterTask myTask = new TestCounterTask();  
+
+    public void onCreate() {  
+        super.onCreate(); 
+        showInfo(&quot;remote service onCreate()&quot;);
+    }  
+
+    public void onDestroy() { 
+        super.onDestroy(); 
+        serviceHandler.removeCallbacks(myTask); //停止计数器
+        serviceHandler = null; 
+        showInfo(&quot;remote service onDestroy()&quot;);
+    }  
+
+    public void onStart(Intent intent, int startId) { 
+       // 开启计数器 
+        super.onStart(intent, startId); 
+        serviceHandler=new Handler(); 
+        serviceHandler.postDelayed(myTask, 1000); 
+        showInfo(&quot;remote service onStart()&quot;); 
+    } 
+
+   //步骤2.1：具体实现接口中暴露给client的Stub，提供一个stub inner class来具体实现。 
+    private ITestRemoteService.Stub stub= new ITestRemoteService.Stub() {
+       //步骤2.1：具体实现AIDL文件中接口的定义的各个方法。
+        public int getCounter() throws RemoteException {  
+            showInfo(&quot;getCounter()&quot;);
+            return counter; 
+        } 
+    };  
+
+//步骤2.2：当client连接时，将触发onBind()，Service向client返回一个stub对象，
+//由此client可以通过stub对象来访问Service，本例中通过stub.getCounter()就可以获得计时器的当前计数。
+//在这个例子中，我们向所有的client传递同一stub对象。 
+   public IBinder onBind(Intent arg0) {  
+   //我们特别跟踪了stub对象的地址，可以在client连接service中看看通过ServiceConnection传递给client
+        showInfo(&quot;onBind() &quot; + stub); 
+        return stub; 
+   }
+
+    //用Runnable使用定时计数器，每10秒计数器加1。
+    private class TestCounterTask implements Runnable{
+        public void run() {  
+            ++ counter; 
+            serviceHandler.postDelayed(myTask,10000); 
+            showInfo(&quot;running &quot; + counter); 
+        } 
+    }  
+    //showInfo() 帮助我们进行信息跟踪，更好了解Service的运行情况
+    private void showInfo(String s){ 
+        System.out.println(&quot;[&quot; +getClass().getSimpleName()+&quot;@&quot; + Thread.currentThread().getName()+ &quot;] &quot; + s);
+    } 
+}
+</code></pre><p><img src="http://static.oschina.net/uploads/space/2015/0802/171454_Lix4_1175007.png" alt="此处输入图片的描述"></p>
+<p><strong>步骤3：Client和Service建立连接，获得stub，ServiceTest4.java代码如下</strong></p>
+<pre><code>public class ServiceTest4 extends Activity{
+
+    //步骤3.1 定义接口变量 
+    private ITestRemoteService remoteService = null;
+    private boolean isStarted = false;
+    //步骤3.1 定义连接变量，实现ServiceConnection接口
+    private CounterServiceConnection conn = null;
+
+    protected void onCreate(Bundle savedInstanceState) {
+        //5个button分别触发startService( )，stopService( ) ,
+        //bindService( ), releaseService( )和invokeService( )，
+        //下面两行，一行是显示从Service中获得的计数值，一行显示状态。    
+    } 
+
+    private void startService(){ 
+        Intent i = new Intent();
+        //我的这个包里面还有层次，如*.part1、*.part2,etc
+        i.setClassName(&quot;com.wei.android.learning&quot;, &quot;com.wei.android.learning.part5.TestRemoteService&quot;); 
+//和之前的local service一样，通过intent开启Service，触发onCreate()[if Service没有开启]-&gt;onStart()
+        startService(i); 
+        isStarted = true;  
+        updateServiceStatus();  
+    } 
+    private void stopService(){ 
+        Intent i = new Intent(); 
+        i.setClassName(&quot;com.wei.android.learning&quot;,&quot;com.wei.android.learning.part5.TestRemoteService&quot;);
+        stopService(i); //触发Service的 onDestroy()[if Service存在]
+        isStarted = false;
+        updateServiceStatus(); 
+    }    
+   //步骤3.3：bindService( )通过一个实现ServiceConnection接口的类于Service之间建立连接，
+   //注意到里面的参数Context.BIND_AUTO_CREATE，触发onCreate()[if Service不存在] –&gt; onBind().
+    private void bindService(){
+        if(conn == null){ 
+            conn = new CounterServiceConnection();
+            Intent i = new Intent();
+            i.setClassName(&quot;com.wei.android.learning&quot;,&quot;com.wei.android.learning.part5.TestRemoteService&quot;);
+           bindService(i, conn,Context.BIND_AUTO_CREATE);
+            updateServiceStatus();
+        } 
+    } 
+
+    private void releaseService(){ 
+        if(conn !=null){ 
+            unbindService(conn); //断开连接，解除绑定
+            conn = null; 
+            updateServiceStatus(); 
+        } 
+    } 
+    private void invokeService(){  
+        if(conn != null){ 
+            try{ 
+            //一旦client成功绑定到Service，就可以直接使用stub中的方法。
+                Integer counter =remoteService.getCounter(); 
+                TextView t = (TextView)findViewById(R.id.st4_notApplicable);
+                t.setText(&quot;Counter value : &quot; + Integer.toString(counter));
+            }catch(RemoteException e){ 
+                Log.e(getClass().getSimpleName(),e.toString()); 
+            } 
+        } 
+    } 
+    //步骤3.2 class CounterServiceConnection实现ServiceConnection接口，
+    //需要具体实现里面两个触发onServiceConnected()和onServiceDisconnected() 
+    private class CounterServiceConnection implements ServiceConnection{
+        @Override 
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            // 从连接中获得stub对象，根据我们的跟踪，remoteService就是service中的stub对象
+            remoteService = ITestRemoteService.Stub.asInterface(service);
+            showInfo(&quot;onServiceConnected()&quot; + remoteService);
+        } 
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) { 
+            remoteService = null;
+            updateServiceStatus(); 
+            showInfo(&quot;onServiceDisconnected&quot;);
+        } 
+    } 
+
+    private void updateServiceStatus() {
+        TextView t = (TextView)findViewById( R.id.st4_serviceStatus); 
+        t.setText( &quot;Service status: &quot;+(conn == null ? &quot;unbound&quot; : &quot;bound&quot;)+ &quot;,&quot;+ (isStarted ? &quot;started&quot; : &quot;not started&quot;; ));     
+      } 
+
+    private void showInfo(String s){
+        System.out.println(&quot;[&quot; +getClass().getSimpleName()+&quot;@&quot; + Thread.currentThread().getName()+ &quot;] &quot; + s);
+    }
+}
+</code></pre><p> <img src="http://static.oschina.net/uploads/space/2015/0802/171402_Rt1I_1175007.png" alt="此处输入图片的描述"></p>
+<p> 注意：</p>
+<p>Service.onBind如果返回null，则调用 bindService 会启动 Service，但不会连接上 Service，因此 ServiceConnection.onServiceConnected 不会被调用，但你任然需要使用 unbindService 函数断开它，这样 Service 才会停止。</p>
+<p>其它：</p>
+<p>1、在什么情况下使用 startService 或 bindService 或 同时使用startService 和 bindService</p>
+<p>如果你只是想要启动一个后台服务长期进行某项任务那么使用 startService 便可以了。如果你想要与正在运行的 Service 取得联系，那么有两种方法，一种是使用 broadcast ，另外是使用 bindService ，前者的缺点是如果交流较为频繁，容易造成性能上的问题，并且 BroadcastReceiver 本身执行代码的时间是很短的（也许执行到一半，后面的代码便不会执行），而后者则没有这些问题，因此我们肯定选择使用 bindService（这个时候你便同时在使用 startService 和 bindService 了，这在 Activity 中更新 Service 的某些运行状态是相当有用的）。另外如果你的服务只是公开一个远程接口，供连接上的客服端（android 的 Service 是C/S架构）远程调用执行方法。这个时候你可以不让服务一开始就运行，而只用 bindService ，这样在第一次 bindService 的时候才会创建服务的实例运行它，这会节约很多系统资源，特别是如果你的服务是Remote Service，那么该效果会越明显（当然在 Service 创建的时候会花去一定时间，你应当注意到这点）。</p>
+<p>2、在 AndroidManifest.xml 里 Service 元素的常见选项</p>
+<p>android:name，服务类名</p>
+<p>android:label，服务的名字，如果此项不设置，那么默认显示的服务名则为类名</p>
+<p>android:icon，服务的图标</p>
+<p>android:permission，申明此服务的权限，这意味着只有提供了该权限的应用才能控制或连接此服务</p>
+<p>android:process，表示该服务是否运行在另外一个进程，如果设置了此项，那么将会在包名后面加上这段字符串表示另一进程的名字</p>
+<p>android:enabled，如果此项设置为 true，那么 Service 将会默认被系统启动，不设置默认此项为 false</p>
+<p>android:exported，表示该服务是否能够被其他应用程序所控制或连接，不设置默认此项为 false</p>
+<p>3、Service 与 Thread 的区别</p>
+<p>很多时候，你可能会问，为什么要用 Service，而不用 Thread 呢，因为用 Thread 是很方便的，比起 Service 也方便多了，下面我详细的来解释一下。</p>
+<p>1). Thread：Thread 是程序执行的最小单元，它是分配CPU的基本单位。可以用 Thread 来执行一些异步的操作。</p>
+<p>2). Service：Service 是android的一种机制，当它运行的时候如果是Local Service，那么对应的 Service 是运行在主进程的 main 线程上的。如：onCreate，onStart 这些函数在被系统调用的时候都是在主进程的 main 线程上运行的。如果是Remote Service，那么对应的 Service 则是运行在独立进程的 main 线程上。因此请不要把 Service 理解成线程，它跟线程半毛钱的关系都没有！</p>
+<p>既然这样，那么我们为什么要用 Service 呢？其实这跟 android 的系统机制有关，我们先拿 Thread 来说。Thread 的运行是独立于 Activity 的，也就是说当一个 Activity 被 finish 之后，如果你没有主动停止 Thread 或者 Thread 里的 run 方法没有执行完毕的话，Thread 也会一直执行。因此这里会出现一个问题：当 Activity 被 finish 之后，你不再持有该 Thread 的引用。另一方面，你没有办法在不同的 Activity 中对同一 Thread 进行控制。</p>
+<p>举个例子：如果你的 Thread 需要不停地隔一段时间就要连接服务器做某种同步的话，该 Thread 需要在 Activity 没有start的时候也在运行。这个时候当你 start 一个 Activity 就没有办法在该 Activity 里面控制之前创建的 Thread。因此你便需要创建并启动一个 Service ，在 Service 里面创建、运行并控制该 Thread，这样便解决了该问题（因为任何 Activity 都可以控制同一 Service，而系统也只会创建一个对应 Service 的实例）。</p>
+<p>因此你可以把 Service 想象成一种消息服务，而你可以在任何有 Context 的地方调用 Context.startService、Context.stopService、Context.bindService，Context.unbindService，来控制它，你也可以在 Service 里注册 BroadcastReceiver，在其他地方通过发送 broadcast 来控制它，当然这些都是 Thread 做不到的。</p>
+<p>4、拥有service的进程具有较高的优先级</p>
+<p>官方文档告诉我们，Android系统会尽量保持拥有service的进程运行，只要在该service已经被启动(start)或者客户端连接(bindService)到它。当内存不足时，需要保持，拥有service的进程具有较高的优先级。</p>
+<p>1). 如果service正在调用onCreate,onStartCommand或者onDestory方法，那么用于当前service的进程则变为前台进程以避免被killed。</p>
+<p>2). 如果当前service已经被启动(start)，拥有它的进程则比那些用户可见的进程优先级低一些，但是比那些不可见的进程更重要，这就意味着service一般不会被killed.</p>
+<p>3). 如果客户端已经连接到service (bindService),那么拥有Service的进程则拥有最高的优先级，可以认为service是可见的。</p>
+<p>4). 如果service可以使用startForeground(int, Notification)方法来将service设置为前台状态，那么系统就认为是对用户可见的，并不会在内存不足时killed。</p>
+<p>如果有其他的应用组件作为Service,Activity等运行在相同的进程中，那么将会增加该进程的重要性。</p>
+<p>5、注意事项</p>
+<p>Service的onCreate的方法只会被调用一次，就是你无论多少次的startService又 bindService，Service只被创建一次。如果先是bind了，那么start的时候就直接运行Service的onStart方法，如果先是start，那么bind的时候就直接运行onBind方法。如果你先bind上了，就stop不掉了，只能先UnbindService, 再StopService,所以是先start还是先bind行为是有区别的。 </p>
+<p>Android中的服务和windows中的服务是类似的东西，服务一般没有用户操作界面，它运行于系统中不容易被用户发觉，可以使用它开发如监控之类的 程序。</p>
+<p>服务不能自己运行，需要通过调用Context.startService()或Context.bindService()方法启动服务。</p>
+<p>这两个方法都可以启动Service，但是它们的使用场合有所不同。使用startService()方法启用服务，调用者与服务之间没有关连，即使调用者退出了，服务仍然运行。使用bindService()方法启用服务，调用者与服务绑定在了一起，调用者一旦退出，服务也就终止，大有“不求同 时生，必须同时死”的特点。</p>
+<p>如果打算采用Context.startService()方法启动服务，在服务未被创建时，系统会先调用服务的onCreate()方法，接着调用onStart()方法。如果调用startService()方法前服务已经被创建，多次调用startService()方法并不会导致多次 创建服务，但会导致多次调用onStart()方法。采用startService()方法启动的服务，只能调用Context.stopService()方法结 束服务，服务结束时会调用onDestroy()方法。</p>
+<p>如果打算采用Context.bindService()方法启动服务，在服务未被创建时，系统会先调用服务的onCreate()方法，接着调用onBind()方法。这个时候调用者和服务绑定在一起，调用者退出了，系统就会先调用服务的onUnbind()方法，接着调用onDestroy()方法。如果调用bindService()方法前服务已经被绑定，多次调用bindService()方法并不会导致多次创建服务及绑定(也就是说onCreate()和onBind()方法并不会被多次调用)。</p>
+<p>如果调用者希望与正在绑定的服务解除绑定，可以调用unbindService()方法，调用该方法也会导致系统调用服务的 onUnbind()–&gt;onDestroy()方法.   </p>
+<p>原文地址：<a href="http://aswang.iteye.com/blog/1424309" target="_blank" rel="noopener">http://aswang.iteye.com/blog/1424309</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2016/01/18/service详解/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-淘汰" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2015/12/17/淘汰/">淘汰</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2015/12/17/淘汰/">
+            <time datetime="2015-12-17T01:24:27.000Z" itemprop="datePublished">2015-12-17</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/文字/">文字</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/歌曲/">歌曲</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>陈奕迅 - 淘汰<br>曲 : 周杰伦 词：周杰伦</p>
+<p>我说了 所有的谎<br>你全都相信<br>简单的 我爱你<br>你却老不信<br>你书里的剧情<br>我不想上演<br>因为我喜欢 喜剧收尾</p>
+<p>我试过 完美放弃<br>的确很踏实<br>醒来了<br>梦散了<br>你我都走散了<br>情歌歌词何必押韵<br>就算我是K歌之王<br>也不见得把 爱情唱得完美</p>
+<p>只能说我输了<br>也许是你怕了<br>我们的回忆 没有皱褶<br>你却用离开烫下句点<br>只能说我认了<br>你的不安赢得你信任<br>我却得到你 安慰的淘汰</p>
+<p>我试过完美放弃<br>的确很踏实<br>醒来了<br>梦散了<br>你我都走散了<br>情歌歌词何必押韵<br>就算我是K歌之王<br>也不见得把 爱情唱得完美</p>
+<p>只能说我输了<br>也许是你怕了<br>我们的回忆 没有皱褶<br>你却用离开烫下句点<br>只能说我认了<br>你的不安赢得你信任<br>我却得到你 安慰的淘汰</p>
+<p>只能说我输了<br>也许是你怕了<br>我们的回忆 没有皱褶<br>你却用离开烫下句点<br>只能说我认了<br>你的不安赢得你信任<br>我却得到你 安慰的淘汰</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2015/12/17/淘汰/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-offce001" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -735,233 +1314,6 @@ CallServerInterceptor：最后一个拦截器，用于真正发送网络请求�
 
 
 
-    <article id="post-gradle目录解析" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2015/11/10/gradle目录解析/">gradle目录解析</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2015/11/10/gradle目录解析/">
-            <time datetime="2015-11-10T05:40:09.000Z" itemprop="datePublished">2015-11-10</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/gradle/">gradle</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/gradle/">gradle</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <blockquote>
-<p>Gradle目录解析</p>
-</blockquote>
-<p>Gradle 是以 Groovy 语言为基础，面向Java应用为主。基于DSL（领域特定语言）语法的自动化构建工具。<br>Gradle这个工具集成了构建，测试，发布和其他，比如软件打包，生成注释文档等功能。<br>之前eclipse使用ant进行软件的构建功能，需要配置一大堆的xml，但是在gradle中就不需要了。</p>
-<p>目前主流的打包方式有ant,maven,gradle。gradle是近几年发展起来的自动化构建工具，解决ant构建上的繁琐代码。<br>比如在ant上发布多渠道的包，你需要自己写脚本替换渠道名称，而在gradle中就不需要了。已经内建支持多渠道打包。</p>
-<blockquote>
-<p>Gradle的文件结构</p>
-</blockquote>
-<pre><code>./build.gradle
-./gradle.properties
-./gradlew
-./gradlew.bat
-./local.properties
-./setting.gradle
-./XXX.iml
-./app/build.gradle
-./app/app.iml
-./app/proguard-rules.pro
-</code></pre><p>./builld.gradle 和 ./app/build.grade</p>
-<p>gradle项目自动编译的时候要读取的配置文件。比如指定项目的依赖包等。<br>build.grade有两个，一个是全局的，一个是在模块里面。<br>全局的build.grade主要设置的是声明仓库源，gradle的版本号说明等。</p>
-<p>./build.gradle</p>
-<pre><code>buildscript {
-repositories {
-    // 声明仓库源，比如我们构建了一个安卓的库，现在想要把库上传到jcenter中供别人一起使用，则可以上传到jcenter中
-    // 具体上传步骤见：http://www.jcodecraeer.com/a/anzhuokaifa/Android_Studio/2015/0227/2502.html
-    jcenter()
-}
-dependencies {
-    // 说明gradle的版本号
-    classpath &apos;com.android.tools.build:gradle:1.3.0&apos;
-    // NOTE: Do not place your application dependencies here; they belong
-    // in the individual module build.gradle files
-}
-}
-</code></pre><p>// 所有项目都继承这个配置</p>
-<pre><code>    allprojects {
-    repositories {
-        mavenLocal()
-        jcenter()
-    }
-}
-</code></pre><p>./app/build.grade 设置了模块的gradle构建配置</p>
-<pre><code>// 说明这个模块是安卓项目，如果是多模块开发，有可能有的值为java/war
-</code></pre><p>apply plugin: ‘com.android.application’</p>
-<p>// 配置了所有android构建的参数<br>android {<br>    // 编译使用SDK版本<br>    compileSdkVersion 23<br>    // 编译工具的版本<br>    buildToolsVersion “23.0.1”</p>
-<pre><code>defaultConfig {
-    // 包名
-    applicationId &quot;com.awesomeproject&quot;
-    // sdk最低支持版本
-    minSdkVersion 16
-    // 目标SDK版本，如果目标设备的API版本正好等于此数值，就不会为此程序开启兼容性检查判断的工作
-    targetSdkVersion 22
-    // 版本号
-    versionCode 1
-    versionName &quot;1.0&quot;
-    // 原生
-    ndk {
-        abiFilters &quot;armeabi-v7a&quot;, &quot;x86&quot;
-    }
-}
-buildTypes {
-    // 发布时候的设置
-    release {
-        // 是否进行混淆
-        minifyEnabled false
-        // 混淆使用文件
-        proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
-    }
-}
-}
-// 依赖的工具包
-dependencies {
-compile fileTree(dir: &apos;libs&apos;, include: [&apos;*.jar&apos;])
-compile &apos;com.android.support:appcompat-v7:23.0.0&apos;
-compile &apos;com.facebook.react:react-native:0.11.+&apos;
-}
-
-./app/proguard-rules.pro
-这个和上面说的一样混淆文件
-
-./gradle.properties
-grade的运行环境配置，比如使用多少内存之类的。
-
-./gradlew 和 ./gradlew.bat
-自动完成 gradle 环境的脚本，在linux和mac下直接运行gradlew会自动完成gradle环境的搭建。
-
-./local.properties
-配置SDK或者NDK的环境路径，各个机器上这个变量可能都是不一样的，所以不应该进入版本库
-
-./setting.gradle
-整个项目的管理，比如这个项目包含哪些模块等。
-
-./XXX.iml 和 ./app/app.iml
-iml是Intellij模块文件。Intellij是一款JAVA的IDE。AndroidStudio是基于开源的Intellij IDEA开发出来的IDE。所以AndroidStudio有的IDE功能是需要有.iml才能使用的。比如我们删除了iml文件，可能就在Android Studio中看不到一些目录了。
-</code></pre>
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2015/11/10/gradle目录解析/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-读不透的言辞" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2015/10/01/读不透的言辞/">读不透的言辞</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2015/10/01/读不透的言辞/">
-            <time datetime="2015-10-01T01:09:50.000Z" itemprop="datePublished">2015-10-01</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/文字/">文字</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/文字/">文字</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <blockquote>
-<p>没什么比懂自己的心来得更重要. </p>
-</blockquote>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2015/10/01/读不透的言辞/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
         <a class="extend prev" rel="prev" href="/page/15/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/17/">下一页 &raquo;</a>
     </nav>
@@ -974,6 +1326,44 @@ iml是Intellij模块文件。Intellij是一款JAVA的IDE。AndroidStudio是基�
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/05/31/mac flutter 支持多个版本配置/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2021/05/31/mac flutter 支持多个版本配置/" class="title">mac flutter 支持多个版本配置</a></p>
+                            <p class="item-date"><time datetime="2021-05-31T01:47:42.000Z" itemprop="datePublished">2021-05-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/03/31/android 网络优化/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2020/03/31/android 网络优化/" class="title">android 网络优化</a></p>
+                            <p class="item-date"><time datetime="2020-03-31T01:12:23.000Z" itemprop="datePublished">2020-03-31</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -1032,44 +1422,6 @@ iml是Intellij模块文件。Intellij是一款JAVA的IDE。AndroidStudio是基�
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/09/30/什么是Handler的同步屏障机制/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
-                            <p class="item-title"><a href="/2019/09/30/什么是Handler的同步屏障机制/" class="title">Handler的同步屏障机制</a></p>
-                            <p class="item-date"><time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/09/17/Leakcanary原理浅析/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
-                            <p class="item-title"><a href="/2019/09/17/Leakcanary原理浅析/" class="title">Leakcanary原理浅析</a></p>
-                            <p class="item-date"><time datetime="2019-09-17T12:31:28.000Z" itemprop="datePublished">2019-09-17</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1079,7 +1431,7 @@ iml是Intellij模块文件。Intellij是一款JAVA的IDE。AndroidStudio是基�
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">28</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1088,7 +1440,7 @@ iml是Intellij模块文件。Intellij是一款JAVA的IDE。AndroidStudio是基�
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -1097,7 +1449,7 @@ iml是Intellij模块文件。Intellij是一款JAVA的IDE。AndroidStudio是基�
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">37</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">39</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flutter/">flutter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1106,7 +1458,7 @@ iml是Intellij模块文件。Intellij是一款JAVA的IDE。AndroidStudio是基�
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+            <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/flutter/" style="font-size: 10px;">flutter</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
         </div>
     </div>
 
