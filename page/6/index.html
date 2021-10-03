@@ -283,6 +283,74 @@
 
 
 
+    <article id="post-android os文件的兼容和适配" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/11/08/android os文件的兼容和适配/">Android SO文件的兼容和适配</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/11/08/android os文件的兼容和适配/">
+            <time datetime="2017-11-08T08:03:12.000Z" itemprop="datePublished">2017-11-08</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/https/">https</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p></p><h1 id="Android-SO文件的兼容和适配"><a href="#Android-SO文件的兼容和适配" class="headerlink" title="Android SO文件的兼容和适配"></a>Android SO文件的兼容和适配</h1><p>开发Android应用时，有时候Java层的编码不能满足实现需求，就需要到C/C++实现后生成SO文件，再用System.loadLibrary()加载进行调用，这里成为JNI层的实现。常见的场景如：加解密算法，音视频编解码等。在生成SO文件时，需要考虑适配市面上不同手机CPU架构，而生成支持不同平台的SO文件进行兼容。目前Android共支持七种不同类型的CPU架构，分别是：ARMv5，ARMv7 (从2010年起)，x86 (从2011年起)，MIPS (从2012年起)，ARMv8，MIPS64和x86_64 (从2014年起)。如果你要完美兼容所有类型的手机，理论上是要在的libs目录下放置各个架构平台的SO文件。<br><img src="/2017/11/08/android os文件的兼容和适配/../../../../images/v2-01f76f20234a9b75e2944c28f52a4200_720w.png" alt="Alt text"></p>
+<p>  这样一来，虽然可以兼容所有机型，但你的项目体积也会变得非常庞大。是否一定需要带入这么多SO文件去兼容呢？答案是否定的。<br></p><p></p>
+            <p class="article-more-link">
+                <a href="/2017/11/08/android os文件的兼容和适配/#more">查看更多</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2017/11/08/android os文件的兼容和适配/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-vue 目录解析" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -415,74 +483,6 @@
             
     
         <a href="http://b.nearby.ren/2017/11/08/mac android studio 几个文件夹路径/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-android os文件的兼容和适配" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/11/08/android os文件的兼容和适配/">Android SO文件的兼容和适配</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/11/08/android os文件的兼容和适配/">
-            <time datetime="2017-11-08T08:03:12.000Z" itemprop="datePublished">2017-11-08</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/https/">https</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p></p><h1 id="Android-SO文件的兼容和适配"><a href="#Android-SO文件的兼容和适配" class="headerlink" title="Android SO文件的兼容和适配"></a>Android SO文件的兼容和适配</h1><p>开发Android应用时，有时候Java层的编码不能满足实现需求，就需要到C/C++实现后生成SO文件，再用System.loadLibrary()加载进行调用，这里成为JNI层的实现。常见的场景如：加解密算法，音视频编解码等。在生成SO文件时，需要考虑适配市面上不同手机CPU架构，而生成支持不同平台的SO文件进行兼容。目前Android共支持七种不同类型的CPU架构，分别是：ARMv5，ARMv7 (从2010年起)，x86 (从2011年起)，MIPS (从2012年起)，ARMv8，MIPS64和x86_64 (从2014年起)。如果你要完美兼容所有类型的手机，理论上是要在的libs目录下放置各个架构平台的SO文件。<br><img src="/2017/11/08/android os文件的兼容和适配/../../../../images/v2-01f76f20234a9b75e2944c28f52a4200_720w.png" alt="Alt text"></p>
-<p>  这样一来，虽然可以兼容所有机型，但你的项目体积也会变得非常庞大。是否一定需要带入这么多SO文件去兼容呢？答案是否定的。<br></p><p></p>
-            <p class="article-more-link">
-                <a href="/2017/11/08/android os文件的兼容和适配/#more">查看更多</a>
-            </p>
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2017/11/08/android os文件的兼容和适配/#comments" class="article-comment-link">评论</a>
     
 
         </footer>

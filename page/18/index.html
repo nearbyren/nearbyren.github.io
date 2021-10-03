@@ -212,7 +212,7 @@
 
             
             <section id="main">
-    <article id="post-git基础学习二" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-git基础学习一" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -220,7 +220,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2015/09/21/git基础学习二/">git基础学习二</a>
+            <a class="article-title" href="/2015/09/21/git基础学习一/">git基础学习一</a>
         </h1>
     
 
@@ -229,7 +229,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2015/09/21/git基础学习二/">
+        <a href="/2015/09/21/git基础学习一/">
             <time datetime="2015-09-21T03:13:18.000Z" itemprop="datePublished">2015-09-21</time>
         </a>
     </div>
@@ -258,22 +258,34 @@
             <blockquote>
 <p>git常用命令</p>
 </blockquote>
-<p>1) 远程仓库相关命令</p>
-<p>检出仓库：$ git clone git://github.com/jquery/jquery.git<br>查看远程仓库：$ git remote -v<br>添加远程仓库：$ git remote add [name] [url]<br>删除远程仓库：$ git remote rm [name]<br>修改远程仓库：$ git remote set-url –push[name][newUrl]<br>拉取远程仓库：$ git pull [remoteName] [localBranchName]<br>推送远程仓库：$ git push [remoteName] [localBranchName]</p>
-<p>2）分支(branch)操作相关命令</p>
-<p>查看本地分支：$ git branch<br>查看远程分支：$ git branch -r<br>创建本地分支：$ git branch [name] —-注意新分支创建后不会自动切换为当前分支<br>切换分支：$ git checkout [name]<br>创建新分支并立即切换到新分支：$ git checkout -b [name]<br>删除分支：$ git branch -d [name] —- -d选项只能删除已经参与了合并的分支，对于未有合并的分支是无法删除的。如果想强制删除一个分支，可以使用-D选项<br>合并分支：$ git merge [name] —-将名称为[name]的分支与当前分支合并<br>创建远程分支(本地分支push到远程)：$ git push origin [name]<br>删除远程分支：$ git push origin :heads/[name]<br>我从master分支创建了一个issue5560分支，做了一些修改后，使用git push origin master提交，但是显示的结果却是’Everything up-to-date’，发生问题的原因是git push origin master 在没有track远程分支的本地分支中默认提交的master分支，因为master分支默认指向了origin master 分支，这里要使用git push origin issue5560：master 就可以把issue5560推送到远程的master分支了。<br>如果想把本地的某个分支test提交到远程仓库，并作为远程仓库的master分支，或者作为另外一个名叫test的分支，那么可以这么做。</p>
-<p>$ git push origin test:master // 提交本地test分支作为远程的master分支 //好像只写这一句，远程的github就会自动创建一个test分支<br>$ git push origin test:test // 提交本地test分支作为远程的test分支</p>
-<p>如果想删除远程的分支呢？类似于上面，如果:左边的分支为空，那么将删除:右边的远程的分支。</p>
-<p>$ git push origin :test // 刚提交到远程的test将被删除，但是本地还会保存的，不用担心</p>
-<p>3）版本(tag)操作相关命令</p>
-<p>查看版本：$ git tag<br>创建版本：$ git tag [name]<br>删除版本：$ git tag -d [name]<br>查看远程版本：$ git tag -r<br>创建远程版本(本地版本push到远程)：$ git push origin [name]<br>删除远程版本：$ git push origin :refs/tags/[name]<br>推送所有tag: git push origin –tags</p>
-<p>tag迁出branch：<br>git checkout tagname<br>git checkout -b new_branch_name</p>
-<p>4）git stash暂存相关命令</p>
-<p>git stash: 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致。同时，将当前的工作区内容保存到Git栈中。<br>git stash pop: 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容。由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复。<br>git stash list: 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复。<br>git stash clear: 清空Git栈。此时使用gitg等图形化工具会发现，原来stash的哪些节点都消失了。</p>
-<p>5）git rebase 使用</p>
-<p>当前分支问题develop，从master拉取最新代码<br>git pull –rebase origin master 或者 git rebase develop<br>先将develop分支的代码checkout出来，作为工作目录<br>然后将master分支从develop分支创建起的所有改变的补丁，依次打上。如果打补丁的过程没问题，rebase就搞定了<br>如果打补丁的时候出现了问题，就会提示你处理冲突。处理好了，可以运行git rebase –continue继续直到完成<br>如果你不想处理，你还是有两个选择，一个是放弃rebase过程（运行git rebase –abort），另一个是直接用test分支的取代当前分支的（git rebase –skip）。</p>
-<p>6） 工具</p>
-<p>  SourceTree &amp; git bash</p>
+<ol>
+<li>git mkdir xx(创建xx文件夹) cd xx(切换到xx文件夹) </li>
+<li>touch a.md(新建a.md文件)</li>
+<li>gitstatus (查看git文件内容状态) </li>
+<li>git init(初始化仓库)</li>
+<li>git add xx(添加xx文件到暂存区) git add . (添加所有文件到暂存区)</li>
+<li>git commit -m”content”(content 提交内容留言)</li>
+<li>git log (查看日志)</li>
+<li>git branch (查看分支，* master是默认分支)</li>
+<li>git branch a (新建名为a的分支)</li>
+<li>git checkout a (切换到名为a的分支 快捷方式 git checkout -b a 新建a分支并切换到该分支)</li>
+<li>git merge (分支合并 切换到主分支 再执行 git merge a 将a分支合并到主分支上)</li>
+<li>git branch -d a (删除a分支)</li>
+<li>git branch -D a (执行 branch -d a 删除失败，比如a分支未合并到主分支上，git branch -D a就是执行强制删除)</li>
+<li>git tag v1.0(创建标签v1.0版本。标签，用于标记版本。切换某版本 git checkout v1.0)</li>
+</ol>
+<blockquote>
+<p>PUSH&amp;PUll</p>
+</blockquote>
+<ol>
+<li>git push origin master (推代码到远程仓库)</li>
+<li>git pull origin master (拉代码到本地)</li>
+<li>git clone git@github.com:mccapp/test.git (将远程代码复制到本地)</li>
+<li>git remote add origin git@github.com:mccapp/test.git (将本地项目与github上的项目进行关联)</li>
+<li>git remote -v (查看有那些远程仓库)</li>
+<li>git config –blobal user.name “mccapp” (设置github用户名)</li>
+<li>git config –blobal user.email  “rsinn@sina.com”(设置邮箱)</li>
+</ol>
 <blockquote>
 <p>git进阶<br> <a href="http://stormzhang.com/github/2016/06/16/learn-github-from-zero5/" target="_blank" rel="noopener">进阶链接</a></p>
 </blockquote>
@@ -290,7 +302,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2015/09/21/git基础学习二/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2015/09/21/git基础学习一/#comments" class="article-comment-link">评论</a>
     
 
         </footer>

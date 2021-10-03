@@ -23,7 +23,7 @@
 <meta property="og:image" content="http://static.oschina.net/uploads/space/2015/0802/170432_x9mE_1175007.png">
 <meta property="og:image" content="http://static.oschina.net/uploads/space/2015/0802/171454_Lix4_1175007.png">
 <meta property="og:image" content="http://static.oschina.net/uploads/space/2015/0802/171402_Rt1I_1175007.png">
-<meta property="og:updated_time" content="2021-08-01T10:33:32.946Z">
+<meta property="og:updated_time" content="2021-10-03T03:02:14.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="service详解">
 <meta name="twitter:description" content="android server 详解  Service的种类： 一、Service的种类   本地服务， Local Service用于应用程序内部。在Service可以调用Context.startService()启动，调用Context.stopService()结束。在内部可以调用Service.stopSelf()或Service.stopSelfResult()来自己停止。无论调用了多">
@@ -518,75 +518,75 @@ public class LocalActivity extends ActionBarActivity {
 <p>AIDL(android接口描述语言)是一个IDL语言，它可以生成一段代码，可以使在一个android设备上运行的两个进程使用内部通信进程进行交互。如果你需要在一个进程中(例如在一个Activity中)访问另一个进程中(例如一个Service)某个对象的方法，你就可以使用AIDL来生成这样的代码来伪装传递各种参数。</p>
 <p> <img src="http://static.oschina.net/uploads/space/2015/0802/170432_x9mE_1175007.png" alt="此处输入图片的描述"><br> Android提供AIDL（Android Interface Definition Language）工具帮助IPC之间接口的建立，大大地简化了开发者视图。通过下面的步骤实现client和service之间的通信：<br>1）定义AIDL接口 ，Eclipse将自动为Service建立接口IService<br>2）Client连接Service，连接到IService暴露给Client的Stub，获得stub对象；换句话，Service通过接口中的Stub向client提供服务，在IService中对抽象IService.Stub具体实现。<br>3）Client和Service连接后，Client可向使用本地方法那样，简单地直接调用IService.Stub里面的方法。<br>下面的例子给出client从提供定时计数的Remote Service，称为TestRemoteService，中获得服务的例子。</p>
 <p><strong>步骤1：通过AIDL文件定义Service向client提供的接口，ITestRemoteService.aidl文件如下</strong></p>
-<pre><code>interface ITestRemoteService { 
-    int getCounter(); 
+<pre><code>interface ITestRemoteService {
+    int getCounter();
 }
 
 我们在src的目录下添加一个ITestRemoteService.aidl文件，语法和java的相同。在这个例子中Service很简单，只提供计数器的值，故在接口中我们定义了int getCounter( )。
 </code></pre><p>AIDL文件很简单，Eclipse会根据文件自动生成相关的一个java interface文件，不过没有显示出来，如果直接使用命令行工具会帮助生成java文件。</p>
 <p><strong>步骤2：Remote Service的编写，通过onBind()，在client连接时，传递stub对象。 TestRemoteService.java文件如下</strong>：</p>
 <pre><code>//Service提供一个定时计数器，采用Runnable的方式实现。
-public class TestRemoteService extends Service{ 
+public class TestRemoteService extends Service{
     private Handler serviceHandler = null;
-    private int counter = 0; 
-    private TestCounterTask myTask = new TestCounterTask();  
+    private int counter = 0;
+    private TestCounterTask myTask = new TestCounterTask();
 
-    public void onCreate() {  
-        super.onCreate(); 
+    public void onCreate() {
+        super.onCreate();
         showInfo(&quot;remote service onCreate()&quot;);
-    }  
+    }
 
-    public void onDestroy() { 
-        super.onDestroy(); 
+    public void onDestroy() {
+        super.onDestroy();
         serviceHandler.removeCallbacks(myTask); //停止计数器
-        serviceHandler = null; 
+        serviceHandler = null;
         showInfo(&quot;remote service onDestroy()&quot;);
-    }  
+    }
 
-    public void onStart(Intent intent, int startId) { 
-       // 开启计数器 
-        super.onStart(intent, startId); 
-        serviceHandler=new Handler(); 
-        serviceHandler.postDelayed(myTask, 1000); 
-        showInfo(&quot;remote service onStart()&quot;); 
-    } 
+    public void onStart(Intent intent, int startId) {
+       // 开启计数器
+        super.onStart(intent, startId);
+        serviceHandler=new Handler();
+        serviceHandler.postDelayed(myTask, 1000);
+        showInfo(&quot;remote service onStart()&quot;);
+    }
 
-   //步骤2.1：具体实现接口中暴露给client的Stub，提供一个stub inner class来具体实现。 
+   //步骤2.1：具体实现接口中暴露给client的Stub，提供一个stub inner class来具体实现。
     private ITestRemoteService.Stub stub= new ITestRemoteService.Stub() {
        //步骤2.1：具体实现AIDL文件中接口的定义的各个方法。
-        public int getCounter() throws RemoteException {  
+        public int getCounter() throws RemoteException {
             showInfo(&quot;getCounter()&quot;);
-            return counter; 
-        } 
-    };  
+            return counter;
+        }
+    };
 
 //步骤2.2：当client连接时，将触发onBind()，Service向client返回一个stub对象，
 //由此client可以通过stub对象来访问Service，本例中通过stub.getCounter()就可以获得计时器的当前计数。
-//在这个例子中，我们向所有的client传递同一stub对象。 
-   public IBinder onBind(Intent arg0) {  
+//在这个例子中，我们向所有的client传递同一stub对象。
+   public IBinder onBind(Intent arg0) {
    //我们特别跟踪了stub对象的地址，可以在client连接service中看看通过ServiceConnection传递给client
-        showInfo(&quot;onBind() &quot; + stub); 
-        return stub; 
+        showInfo(&quot;onBind() &quot; + stub);
+        return stub;
    }
 
     //用Runnable使用定时计数器，每10秒计数器加1。
     private class TestCounterTask implements Runnable{
-        public void run() {  
-            ++ counter; 
-            serviceHandler.postDelayed(myTask,10000); 
-            showInfo(&quot;running &quot; + counter); 
-        } 
-    }  
+        public void run() {
+            ++ counter;
+            serviceHandler.postDelayed(myTask,10000);
+            showInfo(&quot;running &quot; + counter);
+        }
+    }
     //showInfo() 帮助我们进行信息跟踪，更好了解Service的运行情况
-    private void showInfo(String s){ 
+    private void showInfo(String s){
         System.out.println(&quot;[&quot; +getClass().getSimpleName()+&quot;@&quot; + Thread.currentThread().getName()+ &quot;] &quot; + s);
-    } 
+    }
 }
 </code></pre><p><img src="http://static.oschina.net/uploads/space/2015/0802/171454_Lix4_1175007.png" alt="此处输入图片的描述"></p>
 <p><strong>步骤3：Client和Service建立连接，获得stub，ServiceTest4.java代码如下</strong></p>
 <pre><code>public class ServiceTest4 extends Activity{
 
-    //步骤3.1 定义接口变量 
+    //步骤3.1 定义接口变量
     private ITestRemoteService remoteService = null;
     private boolean isStarted = false;
     //步骤3.1 定义连接变量，实现ServiceConnection接口
@@ -595,78 +595,78 @@ public class TestRemoteService extends Service{
     protected void onCreate(Bundle savedInstanceState) {
         //5个button分别触发startService( )，stopService( ) ,
         //bindService( ), releaseService( )和invokeService( )，
-        //下面两行，一行是显示从Service中获得的计数值，一行显示状态。    
-    } 
+        //下面两行，一行是显示从Service中获得的计数值，一行显示状态。
+    }
 
-    private void startService(){ 
+    private void startService(){
         Intent i = new Intent();
         //我的这个包里面还有层次，如*.part1、*.part2,etc
-        i.setClassName(&quot;com.wei.android.learning&quot;, &quot;com.wei.android.learning.part5.TestRemoteService&quot;); 
+        i.setClassName(&quot;com.wei.android.learning&quot;, &quot;com.wei.android.learning.part5.TestRemoteService&quot;);
 //和之前的local service一样，通过intent开启Service，触发onCreate()[if Service没有开启]-&gt;onStart()
-        startService(i); 
-        isStarted = true;  
-        updateServiceStatus();  
-    } 
-    private void stopService(){ 
-        Intent i = new Intent(); 
+        startService(i);
+        isStarted = true;
+        updateServiceStatus();
+    }
+    private void stopService(){
+        Intent i = new Intent();
         i.setClassName(&quot;com.wei.android.learning&quot;,&quot;com.wei.android.learning.part5.TestRemoteService&quot;);
         stopService(i); //触发Service的 onDestroy()[if Service存在]
         isStarted = false;
-        updateServiceStatus(); 
-    }    
+        updateServiceStatus();
+    }
    //步骤3.3：bindService( )通过一个实现ServiceConnection接口的类于Service之间建立连接，
    //注意到里面的参数Context.BIND_AUTO_CREATE，触发onCreate()[if Service不存在] –&gt; onBind().
     private void bindService(){
-        if(conn == null){ 
+        if(conn == null){
             conn = new CounterServiceConnection();
             Intent i = new Intent();
             i.setClassName(&quot;com.wei.android.learning&quot;,&quot;com.wei.android.learning.part5.TestRemoteService&quot;);
            bindService(i, conn,Context.BIND_AUTO_CREATE);
             updateServiceStatus();
-        } 
-    } 
+        }
+    }
 
-    private void releaseService(){ 
-        if(conn !=null){ 
+    private void releaseService(){
+        if(conn !=null){
             unbindService(conn); //断开连接，解除绑定
-            conn = null; 
-            updateServiceStatus(); 
-        } 
-    } 
-    private void invokeService(){  
-        if(conn != null){ 
-            try{ 
+            conn = null;
+            updateServiceStatus();
+        }
+    }
+    private void invokeService(){
+        if(conn != null){
+            try{
             //一旦client成功绑定到Service，就可以直接使用stub中的方法。
-                Integer counter =remoteService.getCounter(); 
+                Integer counter =remoteService.getCounter();
                 TextView t = (TextView)findViewById(R.id.st4_notApplicable);
                 t.setText(&quot;Counter value : &quot; + Integer.toString(counter));
-            }catch(RemoteException e){ 
-                Log.e(getClass().getSimpleName(),e.toString()); 
-            } 
-        } 
-    } 
+            }catch(RemoteException e){
+                Log.e(getClass().getSimpleName(),e.toString());
+            }
+        }
+    }
     //步骤3.2 class CounterServiceConnection实现ServiceConnection接口，
-    //需要具体实现里面两个触发onServiceConnected()和onServiceDisconnected() 
+    //需要具体实现里面两个触发onServiceConnected()和onServiceDisconnected()
     private class CounterServiceConnection implements ServiceConnection{
-        @Override 
+        @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             // 从连接中获得stub对象，根据我们的跟踪，remoteService就是service中的stub对象
             remoteService = ITestRemoteService.Stub.asInterface(service);
             showInfo(&quot;onServiceConnected()&quot; + remoteService);
-        } 
+        }
 
         @Override
-        public void onServiceDisconnected(ComponentName name) { 
+        public void onServiceDisconnected(ComponentName name) {
             remoteService = null;
-            updateServiceStatus(); 
+            updateServiceStatus();
             showInfo(&quot;onServiceDisconnected&quot;);
-        } 
-    } 
+        }
+    }
 
     private void updateServiceStatus() {
-        TextView t = (TextView)findViewById( R.id.st4_serviceStatus); 
-        t.setText( &quot;Service status: &quot;+(conn == null ? &quot;unbound&quot; : &quot;bound&quot;)+ &quot;,&quot;+ (isStarted ? &quot;started&quot; : &quot;not started&quot;; ));     
-      } 
+        TextView t = (TextView)findViewById( R.id.st4_serviceStatus);
+        t.setText( &quot;Service status: &quot;+(conn == null ? &quot;unbound&quot; : &quot;bound&quot;)+ &quot;,&quot;+ (isStarted ? &quot;started&quot; : &quot;not started&quot;; ));
+      }
 
     private void showInfo(String s){
         System.out.println(&quot;[&quot; +getClass().getSimpleName()+&quot;@&quot; + Thread.currentThread().getName()+ &quot;] &quot; + s);
@@ -701,13 +701,13 @@ public class TestRemoteService extends Service{
 <p>4). 如果service可以使用startForeground(int, Notification)方法来将service设置为前台状态，那么系统就认为是对用户可见的，并不会在内存不足时killed。</p>
 <p>如果有其他的应用组件作为Service,Activity等运行在相同的进程中，那么将会增加该进程的重要性。</p>
 <p>5、注意事项</p>
-<p>Service的onCreate的方法只会被调用一次，就是你无论多少次的startService又 bindService，Service只被创建一次。如果先是bind了，那么start的时候就直接运行Service的onStart方法，如果先是start，那么bind的时候就直接运行onBind方法。如果你先bind上了，就stop不掉了，只能先UnbindService, 再StopService,所以是先start还是先bind行为是有区别的。 </p>
+<p>Service的onCreate的方法只会被调用一次，就是你无论多少次的startService又 bindService，Service只被创建一次。如果先是bind了，那么start的时候就直接运行Service的onStart方法，如果先是start，那么bind的时候就直接运行onBind方法。如果你先bind上了，就stop不掉了，只能先UnbindService, 再StopService,所以是先start还是先bind行为是有区别的。</p>
 <p>Android中的服务和windows中的服务是类似的东西，服务一般没有用户操作界面，它运行于系统中不容易被用户发觉，可以使用它开发如监控之类的 程序。</p>
 <p>服务不能自己运行，需要通过调用Context.startService()或Context.bindService()方法启动服务。</p>
 <p>这两个方法都可以启动Service，但是它们的使用场合有所不同。使用startService()方法启用服务，调用者与服务之间没有关连，即使调用者退出了，服务仍然运行。使用bindService()方法启用服务，调用者与服务绑定在了一起，调用者一旦退出，服务也就终止，大有“不求同 时生，必须同时死”的特点。</p>
 <p>如果打算采用Context.startService()方法启动服务，在服务未被创建时，系统会先调用服务的onCreate()方法，接着调用onStart()方法。如果调用startService()方法前服务已经被创建，多次调用startService()方法并不会导致多次 创建服务，但会导致多次调用onStart()方法。采用startService()方法启动的服务，只能调用Context.stopService()方法结 束服务，服务结束时会调用onDestroy()方法。</p>
 <p>如果打算采用Context.bindService()方法启动服务，在服务未被创建时，系统会先调用服务的onCreate()方法，接着调用onBind()方法。这个时候调用者和服务绑定在一起，调用者退出了，系统就会先调用服务的onUnbind()方法，接着调用onDestroy()方法。如果调用bindService()方法前服务已经被绑定，多次调用bindService()方法并不会导致多次创建服务及绑定(也就是说onCreate()和onBind()方法并不会被多次调用)。</p>
-<p>如果调用者希望与正在绑定的服务解除绑定，可以调用unbindService()方法，调用该方法也会导致系统调用服务的 onUnbind()–&gt;onDestroy()方法.   </p>
+<p>如果调用者希望与正在绑定的服务解除绑定，可以调用unbindService()方法，调用该方法也会导致系统调用服务的 onUnbind()–&gt;onDestroy()方法.</p>
 <p>原文地址：<a href="http://aswang.iteye.com/blog/1424309" target="_blank" rel="noopener">http://aswang.iteye.com/blog/1424309</a></p>
 
         
