@@ -512,6 +512,73 @@
 
 
 
+    <article id="post-androidstudiosvn设置忽略" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/09/21/androidstudiosvn设置忽略/">androidstudiosvn设置忽略</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/09/21/androidstudiosvn设置忽略/">
+            <time datetime="2016-09-21T04:13:18.000Z" itemprop="datePublished">2016-09-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/git/">git</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/git/">git</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>一、Android Studio创建的Android项目一般需要忽略<br>1、.idea文件夹<br>2、.gradle文件夹<br>3、所有的build文件夹<br>4、所有的.iml文件<br>5、local.properties文件。<br>方法一、在项目的.idea/workspace.xml的文件里设置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;    </span><br><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">component</span> <span class="attr">name</span>=<span class="string">"ChangeListManager"</span>&gt;</span>    </span><br><span class="line">        ...    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">".gradle/"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">".idea/"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradle/"</span> /&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"项目名/build/"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradlew"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradlew.bat"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">mask</span>=<span class="string">"*.iml"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"local.properties"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"build/"</span> /&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">mask</span>=<span class="string">"*.apk"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">component</span>&gt;</span>    </span><br><span class="line">    ...    </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="http://a1.eoeandroid.com/attachment/forum/201607/18/172122qdxadmdcidnzabmb.png" target="_blank" rel="noopener"><img src="http://a1.eoeandroid.com/attachment/forum/201607/18/172122qdxadmdcidnzabmb.png" alt=""></a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2016/09/21/androidstudiosvn设置忽略/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-androidstudiogit设置忽略" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -571,73 +638,6 @@
             
     
         <a href="http://b.nearby.ren/2016/09/21/androidstudiogit设置忽略/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-androidstudiosvn设置忽略" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2016/09/21/androidstudiosvn设置忽略/">androidstudiosvn设置忽略</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2016/09/21/androidstudiosvn设置忽略/">
-            <time datetime="2016-09-21T04:13:18.000Z" itemprop="datePublished">2016-09-21</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/git/">git</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/git/">git</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>一、Android Studio创建的Android项目一般需要忽略<br>1、.idea文件夹<br>2、.gradle文件夹<br>3、所有的build文件夹<br>4、所有的.iml文件<br>5、local.properties文件。<br>方法一、在项目的.idea/workspace.xml的文件里设置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;    </span><br><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">component</span> <span class="attr">name</span>=<span class="string">"ChangeListManager"</span>&gt;</span>    </span><br><span class="line">        ...    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">".gradle/"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">".idea/"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradle/"</span> /&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"项目名/build/"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradlew"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradlew.bat"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">mask</span>=<span class="string">"*.iml"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"local.properties"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"build/"</span> /&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">mask</span>=<span class="string">"*.apk"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">component</span>&gt;</span>    </span><br><span class="line">    ...    </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><a href="http://a1.eoeandroid.com/attachment/forum/201607/18/172122qdxadmdcidnzabmb.png" target="_blank" rel="noopener"><img src="http://a1.eoeandroid.com/attachment/forum/201607/18/172122qdxadmdcidnzabmb.png" alt=""></a></p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2016/09/21/androidstudiosvn设置忽略/#comments" class="article-comment-link">评论</a>
     
 
         </footer>

@@ -351,73 +351,6 @@
 
 
 
-    <article id="post-vue 目录解析" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2017/11/08/vue 目录解析/">vue 目录解析</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/11/08/vue 目录解析/">
-            <time datetime="2017-11-08T08:03:12.000Z" itemprop="datePublished">2017-11-08</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/web/">web</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/web/">web</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>├── build/                      # webpack config files / webpack 配置文件<br>│   └── …<br>├── config/<br>│   ├── index.js                # main project config / 项目主要配置<br>│   └── …<br>├── src/                        # 主要的项目开发文件都在这个目录下：<br>│   ├── main.js                 # app entry file / 应用入口文件<br>│   ├── App.vue                 # main app component / App 父组件<br>│   ├── components/             # ui components / 可复用的 ui 组件<br>│   │   └── …<br>│   ├── assets/                 # module assets (processed by webpack) / 模块资源（经过 webpack 处理，如文件合并，图片压缩等）<br>│   │   └── …<br>│   ├── page/                   ## 以页面为单位的 .vue 文件<br>│   │   ├── index.vue           ## 一级 router-view，顶部导航栏和左侧侧边导航栏<br>│   │   ├── 404.vue             ## 404 页面<br>│   │   ├── menu1/              ## 二级 router-view，导航切换后的页面内容<br>│   │   │   └── …<br>│   │   └── menu2/              ## 按照菜单项创建文件夹对文件进行组织管理<br>│   │       └── …<br>│   └── router/<br>│       └── index.js            # 路由配置文件<br>├── static/                     # pure static assets (directly copied) / 纯静态资源（直接拷贝使用，不经过 webpack 处理）<br>├── .babelrc                    # babel config<br>├── .eslintrc.js                # eslint config<br>├── .editorconfig               # editor config<br>├── index.html                  # index.html template<br>├── package.json                # build scripts and dependencies<br>└── …</p>
-<p>关闭Eslint：<br>build/webpack.base.conf.js<br>module: {<br>    rules: [<br>      // {<br>      //   test: /.(js|vue)$/,<br>      //   loader: ‘eslint-loader’,<br>      //   enforce: “pre”,<br>      //   include: [resolve(‘src’), resolve(‘test’)],<br>      //   options: {<br>      //     formatter: require(‘eslint-friendly-formatter’)<br>      //   }<br>      // },<br>      {<br>        test: /.vue$/,<br>        loader: ‘vue-loader’,<br>        options: vueLoaderConfig<br>      },<br>      …<br>    ]<br>  },</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2017/11/08/vue 目录解析/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <article id="post-mac android studio 几个文件夹路径" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -483,6 +416,73 @@
             
     
         <a href="http://b.nearby.ren/2017/11/08/mac android studio 几个文件夹路径/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-vue 目录解析" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/11/08/vue 目录解析/">vue 目录解析</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/11/08/vue 目录解析/">
+            <time datetime="2017-11-08T08:03:12.000Z" itemprop="datePublished">2017-11-08</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/web/">web</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/web/">web</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>├── build/                      # webpack config files / webpack 配置文件<br>│   └── …<br>├── config/<br>│   ├── index.js                # main project config / 项目主要配置<br>│   └── …<br>├── src/                        # 主要的项目开发文件都在这个目录下：<br>│   ├── main.js                 # app entry file / 应用入口文件<br>│   ├── App.vue                 # main app component / App 父组件<br>│   ├── components/             # ui components / 可复用的 ui 组件<br>│   │   └── …<br>│   ├── assets/                 # module assets (processed by webpack) / 模块资源（经过 webpack 处理，如文件合并，图片压缩等）<br>│   │   └── …<br>│   ├── page/                   ## 以页面为单位的 .vue 文件<br>│   │   ├── index.vue           ## 一级 router-view，顶部导航栏和左侧侧边导航栏<br>│   │   ├── 404.vue             ## 404 页面<br>│   │   ├── menu1/              ## 二级 router-view，导航切换后的页面内容<br>│   │   │   └── …<br>│   │   └── menu2/              ## 按照菜单项创建文件夹对文件进行组织管理<br>│   │       └── …<br>│   └── router/<br>│       └── index.js            # 路由配置文件<br>├── static/                     # pure static assets (directly copied) / 纯静态资源（直接拷贝使用，不经过 webpack 处理）<br>├── .babelrc                    # babel config<br>├── .eslintrc.js                # eslint config<br>├── .editorconfig               # editor config<br>├── index.html                  # index.html template<br>├── package.json                # build scripts and dependencies<br>└── …</p>
+<p>关闭Eslint：<br>build/webpack.base.conf.js<br>module: {<br>    rules: [<br>      // {<br>      //   test: /.(js|vue)$/,<br>      //   loader: ‘eslint-loader’,<br>      //   enforce: “pre”,<br>      //   include: [resolve(‘src’), resolve(‘test’)],<br>      //   options: {<br>      //     formatter: require(‘eslint-friendly-formatter’)<br>      //   }<br>      // },<br>      {<br>        test: /.vue$/,<br>        loader: ‘vue-loader’,<br>        options: vueLoaderConfig<br>      },<br>      …<br>    ]<br>  },</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2017/11/08/vue 目录解析/#comments" class="article-comment-link">评论</a>
     
 
         </footer>

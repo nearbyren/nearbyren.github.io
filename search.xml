@@ -232,7 +232,7 @@
     
     <entry>
       <title>Go语言中 new()和make()的区别详解</title>
-      <link href="/2018/10/06/sync.WaitGroup%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E7%9A%84%E5%89%AF%E6%9C%AC/"/>
+      <link href="/2018/10/06/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%20new()%E5%92%8Cmake()%E7%9A%84%E5%8C%BA%E5%88%AB%E8%AF%A6%E8%A7%A3/"/>
       <content type="html"><![CDATA[<p>#概述<br>Go语言中的new和make 一直是新手比较容易混淆的东西，咋一看很相似，接下来我们来分析两者的区别</p><p>#new的主要特性</p><p>首先new是内建函数，你可以从  <a href="http://golang.org/pkg/builtin/#new" target="_blank" rel="noopener">http://golang.org/pkg/builtin/#new</a>  这儿看到它，它的定义也很简单：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func new(Type) *Type</span><br></pre></td></tr></table></figure><p>官方文档对于它的描述是：</p><p>内建函数new用来分配内存，它的第一个参数是类型，不是一个值，它的返回值是一个指向新分配类型零值的指针</p><p>根据这段描述，我们可以自己实现一个类似的new的功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func newInt() *Int&#123;</span><br><span class="line">var i int</span><br><span class="line">return &amp;i</span><br><span class="line">&#125;</span><br><span class="line">someint :=newInt()</span><br></pre></td></tr></table></figure></p><p>这个函数的功能跟 someInt :=new(int) 一摸一样，所以在我们自定义new开头的函数时，出于约定应该返回类型的指针。</p><p>#make的主要特性</p><p>make也是内建函数，你可以从<a href="http://golang.org/pkg/builtin/#make" target="_blank" rel="noopener">http://golang.org/pkg/builtin/#make</a> 这儿看到它，它的定义比 new 多了一个参数，返回值也不同：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func make(Type,size INtergerType)Type</span><br></pre></td></tr></table></figure><p>官方文档对于它的描述是：</p><p>内建函数make用来为slie ，map 或 chan 类型分配内存和初始化一个对象(注意：只能用在这三种类型上)，跟new类似，第一个参数也是一个类型而不是一个值，<br>跟new不同的是，make返回的类型的引用而不是指针，而返回值也依赖于具体传入的类型，具体说明如下：</p><p>代码如下：</p><p>Slice ：第二个参数size指定了它的长度，它的容易和长度相同。<br>你可以传入第三个参数来指定不同的容量值，但必须不能长度值小。<br>比如 make([]int,0,10)<br>Map:根据size大小来初始化分配内存，不过分配后的map长度为0，如果size被忽略了，那么会在初始化分配内存时分配一个小尺寸的内存<br>Channel：管道缓冲区依据缓冲区容量被初始化。如果容量为0或者忽略容量。管道是没有缓冲区的</p><p>总结</p><p>new 的作用是初始化一个指向类型的指针(*T)，make 的作用是为 slice，map 或 chan 初始化并返回引用(T)。</p>]]></content>
       
       <categories>
@@ -252,7 +252,7 @@
     
     <entry>
       <title>Go语言中 new()和make()的区别详解</title>
-      <link href="/2018/10/06/Go%E8%AF%AD%E8%A8%80%E4%B8%AD%20new()%E5%92%8Cmake()%E7%9A%84%E5%8C%BA%E5%88%AB%E8%AF%A6%E8%A7%A3/"/>
+      <link href="/2018/10/06/sync.WaitGroup%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E%E7%9A%84%E5%89%AF%E6%9C%AC/"/>
       <content type="html"><![CDATA[<p>#概述<br>Go语言中的new和make 一直是新手比较容易混淆的东西，咋一看很相似，接下来我们来分析两者的区别</p><p>#new的主要特性</p><p>首先new是内建函数，你可以从  <a href="http://golang.org/pkg/builtin/#new" target="_blank" rel="noopener">http://golang.org/pkg/builtin/#new</a>  这儿看到它，它的定义也很简单：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func new(Type) *Type</span><br></pre></td></tr></table></figure><p>官方文档对于它的描述是：</p><p>内建函数new用来分配内存，它的第一个参数是类型，不是一个值，它的返回值是一个指向新分配类型零值的指针</p><p>根据这段描述，我们可以自己实现一个类似的new的功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func newInt() *Int&#123;</span><br><span class="line">var i int</span><br><span class="line">return &amp;i</span><br><span class="line">&#125;</span><br><span class="line">someint :=newInt()</span><br></pre></td></tr></table></figure></p><p>这个函数的功能跟 someInt :=new(int) 一摸一样，所以在我们自定义new开头的函数时，出于约定应该返回类型的指针。</p><p>#make的主要特性</p><p>make也是内建函数，你可以从<a href="http://golang.org/pkg/builtin/#make" target="_blank" rel="noopener">http://golang.org/pkg/builtin/#make</a> 这儿看到它，它的定义比 new 多了一个参数，返回值也不同：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">代码如下：</span><br><span class="line">func make(Type,size INtergerType)Type</span><br></pre></td></tr></table></figure><p>官方文档对于它的描述是：</p><p>内建函数make用来为slie ，map 或 chan 类型分配内存和初始化一个对象(注意：只能用在这三种类型上)，跟new类似，第一个参数也是一个类型而不是一个值，<br>跟new不同的是，make返回的类型的引用而不是指针，而返回值也依赖于具体传入的类型，具体说明如下：</p><p>代码如下：</p><p>Slice ：第二个参数size指定了它的长度，它的容易和长度相同。<br>你可以传入第三个参数来指定不同的容量值，但必须不能长度值小。<br>比如 make([]int,0,10)<br>Map:根据size大小来初始化分配内存，不过分配后的map长度为0，如果size被忽略了，那么会在初始化分配内存时分配一个小尺寸的内存<br>Channel：管道缓冲区依据缓冲区容量被初始化。如果容量为0或者忽略容量。管道是没有缓冲区的</p><p>总结</p><p>new 的作用是初始化一个指向类型的指针(*T)，make 的作用是为 slice，map 或 chan 初始化并返回引用(T)。</p>]]></content>
       
       <categories>
@@ -561,26 +561,6 @@
     </entry>
     
     <entry>
-      <title>vue 目录解析</title>
-      <link href="/2017/11/08/vue%20%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/"/>
-      <content type="html"><![CDATA[<h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>├── build/                      # webpack config files / webpack 配置文件<br>│   └── …<br>├── config/<br>│   ├── index.js                # main project config / 项目主要配置<br>│   └── …<br>├── src/                        # 主要的项目开发文件都在这个目录下：<br>│   ├── main.js                 # app entry file / 应用入口文件<br>│   ├── App.vue                 # main app component / App 父组件<br>│   ├── components/             # ui components / 可复用的 ui 组件<br>│   │   └── …<br>│   ├── assets/                 # module assets (processed by webpack) / 模块资源（经过 webpack 处理，如文件合并，图片压缩等）<br>│   │   └── …<br>│   ├── page/                   ## 以页面为单位的 .vue 文件<br>│   │   ├── index.vue           ## 一级 router-view，顶部导航栏和左侧侧边导航栏<br>│   │   ├── 404.vue             ## 404 页面<br>│   │   ├── menu1/              ## 二级 router-view，导航切换后的页面内容<br>│   │   │   └── …<br>│   │   └── menu2/              ## 按照菜单项创建文件夹对文件进行组织管理<br>│   │       └── …<br>│   └── router/<br>│       └── index.js            # 路由配置文件<br>├── static/                     # pure static assets (directly copied) / 纯静态资源（直接拷贝使用，不经过 webpack 处理）<br>├── .babelrc                    # babel config<br>├── .eslintrc.js                # eslint config<br>├── .editorconfig               # editor config<br>├── index.html                  # index.html template<br>├── package.json                # build scripts and dependencies<br>└── …</p><p>关闭Eslint：<br>build/webpack.base.conf.js<br>module: {<br>    rules: [<br>      // {<br>      //   test: /.(js|vue)$/,<br>      //   loader: ‘eslint-loader’,<br>      //   enforce: “pre”,<br>      //   include: [resolve(‘src’), resolve(‘test’)],<br>      //   options: {<br>      //     formatter: require(‘eslint-friendly-formatter’)<br>      //   }<br>      // },<br>      {<br>        test: /.vue$/,<br>        loader: ‘vue-loader’,<br>        options: vueLoaderConfig<br>      },<br>      …<br>    ]<br>  },</p>]]></content>
-      
-      <categories>
-          
-          <category> web </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>mac android studio 几个文件夹夹路径</title>
       <link href="/2017/11/08/mac%20android%20studio%20%E5%87%A0%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E8%B7%AF%E5%BE%84/"/>
       <content type="html"><![CDATA[<h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>在mac资源目录下保存的的目录地址</p><p>gradle 关系文件</p><p>~/.gradle</p><p>Android 模拟器(AVDs) and *.keystore 文件</p><p>~/.android</p><p>Android SDK 工具</p><p>~/Library/Android*</p><p>完全移除android studio终端中执行下列命令</p><p>rm -Rf /Applications/Android\ Studio.app<br>rm -Rf ~/Library/Preferences/AndroidStudio<em><br>rm -Rf ~/Library/Preferences/com.google.android.studio.plist<br>rm -Rf ~/Library/Application\ Support/AndroidStudio</em><br>rm -Rf ~/Library/Logs/AndroidStudio<em><br>rm -Rf ~/Library/Caches/AndroidStudio</em></p>]]></content>
@@ -595,6 +575,26 @@
         <tags>
             
             <tag> mac </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>vue 目录解析</title>
+      <link href="/2017/11/08/vue%20%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/"/>
+      <content type="html"><![CDATA[<h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>├── build/                      # webpack config files / webpack 配置文件<br>│   └── …<br>├── config/<br>│   ├── index.js                # main project config / 项目主要配置<br>│   └── …<br>├── src/                        # 主要的项目开发文件都在这个目录下：<br>│   ├── main.js                 # app entry file / 应用入口文件<br>│   ├── App.vue                 # main app component / App 父组件<br>│   ├── components/             # ui components / 可复用的 ui 组件<br>│   │   └── …<br>│   ├── assets/                 # module assets (processed by webpack) / 模块资源（经过 webpack 处理，如文件合并，图片压缩等）<br>│   │   └── …<br>│   ├── page/                   ## 以页面为单位的 .vue 文件<br>│   │   ├── index.vue           ## 一级 router-view，顶部导航栏和左侧侧边导航栏<br>│   │   ├── 404.vue             ## 404 页面<br>│   │   ├── menu1/              ## 二级 router-view，导航切换后的页面内容<br>│   │   │   └── …<br>│   │   └── menu2/              ## 按照菜单项创建文件夹对文件进行组织管理<br>│   │       └── …<br>│   └── router/<br>│       └── index.js            # 路由配置文件<br>├── static/                     # pure static assets (directly copied) / 纯静态资源（直接拷贝使用，不经过 webpack 处理）<br>├── .babelrc                    # babel config<br>├── .eslintrc.js                # eslint config<br>├── .editorconfig               # editor config<br>├── index.html                  # index.html template<br>├── package.json                # build scripts and dependencies<br>└── …</p><p>关闭Eslint：<br>build/webpack.base.conf.js<br>module: {<br>    rules: [<br>      // {<br>      //   test: /.(js|vue)$/,<br>      //   loader: ‘eslint-loader’,<br>      //   enforce: “pre”,<br>      //   include: [resolve(‘src’), resolve(‘test’)],<br>      //   options: {<br>      //     formatter: require(‘eslint-friendly-formatter’)<br>      //   }<br>      // },<br>      {<br>        test: /.vue$/,<br>        loader: ‘vue-loader’,<br>        options: vueLoaderConfig<br>      },<br>      …<br>    ]<br>  },</p>]]></content>
+      
+      <categories>
+          
+          <category> web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web </tag>
             
         </tags>
       
@@ -1207,9 +1207,9 @@
     </entry>
     
     <entry>
-      <title>androidstudiogit设置忽略</title>
-      <link href="/2016/09/21/androidstudiogit%E8%AE%BE%E7%BD%AE%E5%BF%BD%E7%95%A5/"/>
-      <content type="html"><![CDATA[<p>要忽略的文件<br>-.idea文件夹<br>-.gradle文件夹<br>-所有文的build文件夹<br>-所有的.iml文件<br>-loca.properties文件</p><p>所以：<br>跟目录的<br>.gitignore<br>.gradle<br>/local.properties<br>/.idea/workspace.xml<br>/.idea/libraries<br>.DS_Store<br>/build<br>/captures<br>.idea<br>*.iml</p><p>module目录下的.gitignore<br>/build<br>*.iml</p>]]></content>
+      <title>androidstudiosvn设置忽略</title>
+      <link href="/2016/09/21/androidstudiosvn%E8%AE%BE%E7%BD%AE%E5%BF%BD%E7%95%A5/"/>
+      <content type="html"><![CDATA[<p>一、Android Studio创建的Android项目一般需要忽略<br>1、.idea文件夹<br>2、.gradle文件夹<br>3、所有的build文件夹<br>4、所有的.iml文件<br>5、local.properties文件。<br>方法一、在项目的.idea/workspace.xml的文件里设置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;    </span><br><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">component</span> <span class="attr">name</span>=<span class="string">"ChangeListManager"</span>&gt;</span>    </span><br><span class="line">        ...    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">".gradle/"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">".idea/"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradle/"</span> /&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"项目名/build/"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradlew"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradlew.bat"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">mask</span>=<span class="string">"*.iml"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"local.properties"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"build/"</span> /&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">mask</span>=<span class="string">"*.apk"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">component</span>&gt;</span>    </span><br><span class="line">    ...    </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p><p><a href="http://a1.eoeandroid.com/attachment/forum/201607/18/172122qdxadmdcidnzabmb.png" target="_blank" rel="noopener"><img src="http://a1.eoeandroid.com/attachment/forum/201607/18/172122qdxadmdcidnzabmb.png" alt=""></a></p>]]></content>
       
       <categories>
           
@@ -1227,9 +1227,9 @@
     </entry>
     
     <entry>
-      <title>androidstudiosvn设置忽略</title>
-      <link href="/2016/09/21/androidstudiosvn%E8%AE%BE%E7%BD%AE%E5%BF%BD%E7%95%A5/"/>
-      <content type="html"><![CDATA[<p>一、Android Studio创建的Android项目一般需要忽略<br>1、.idea文件夹<br>2、.gradle文件夹<br>3、所有的build文件夹<br>4、所有的.iml文件<br>5、local.properties文件。<br>方法一、在项目的.idea/workspace.xml的文件里设置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;    </span><br><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">component</span> <span class="attr">name</span>=<span class="string">"ChangeListManager"</span>&gt;</span>    </span><br><span class="line">        ...    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">".gradle/"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">".idea/"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradle/"</span> /&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"项目名/build/"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradlew"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"gradlew.bat"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">mask</span>=<span class="string">"*.iml"</span> /&gt;</span>     </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"local.properties"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">path</span>=<span class="string">"build/"</span> /&gt;</span>   </span><br><span class="line">    <span class="tag">&lt;<span class="name">ignored</span> <span class="attr">mask</span>=<span class="string">"*.apk"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">component</span>&gt;</span>    </span><br><span class="line">    ...    </span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure></p><p><a href="http://a1.eoeandroid.com/attachment/forum/201607/18/172122qdxadmdcidnzabmb.png" target="_blank" rel="noopener"><img src="http://a1.eoeandroid.com/attachment/forum/201607/18/172122qdxadmdcidnzabmb.png" alt=""></a></p>]]></content>
+      <title>androidstudiogit设置忽略</title>
+      <link href="/2016/09/21/androidstudiogit%E8%AE%BE%E7%BD%AE%E5%BF%BD%E7%95%A5/"/>
+      <content type="html"><![CDATA[<p>要忽略的文件<br>-.idea文件夹<br>-.gradle文件夹<br>-所有文的build文件夹<br>-所有的.iml文件<br>-loca.properties文件</p><p>所以：<br>跟目录的<br>.gitignore<br>.gradle<br>/local.properties<br>/.idea/workspace.xml<br>/.idea/libraries<br>.DS_Store<br>/build<br>/captures<br>.idea<br>*.iml</p><p>module目录下的.gitignore<br>/build<br>*.iml</p>]]></content>
       
       <categories>
           
@@ -1349,26 +1349,6 @@
     </entry>
     
     <entry>
-      <title>Android Studio --“Cannot resolve symbol” 解决办法</title>
-      <link href="/2016/06/17/Android%20Studio%20--%E2%80%9CCannot%20resolve%20symbol%E2%80%9D%20%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
-      <content type="html"><![CDATA[<p>Android Studio 无法识别同一个 package 里的其他类，将其显示为红色，但是 compile 没有问题。鼠标放上去后显示 “Cannot resolve symbol XXX”，重启 Android Studio，重新 sync gradle，Clean build 都没有用。</p><p>多半是因为 Android Studio 之前发生了错误，某些 setting 出了问题。解决方法如下：<br>点击菜单中的 “File” -&gt; “Sync Project with Gradle Files”语法就会正确的高亮了。<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>]]></content>
-      
-      <categories>
-          
-          <category> android </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> android </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>Android应用防止被截图或者录屏</title>
       <link href="/2016/06/17/Android%E5%BA%94%E7%94%A8%E9%98%B2%E6%AD%A2%E8%A2%AB%E6%88%AA%E5%9B%BE%E6%88%96%E8%80%85%E5%BD%95%E5%B1%8F/"/>
       <content type="html"><![CDATA[<p> Activity创建时设置WindowManager.LayoutParams.FLAG_SECURE属性，该属性能防止屏幕被截图和录制。以下为修复代码示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class DemoActivity extends Activity &#123;</span><br><span class="line">       @Override</span><br><span class="line">       public void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">           super.onCreate(savedInstanceState);</span><br><span class="line">           getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);</span><br><span class="line">           setContentView(R.layout.main);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p><p>即在Activity onCreate方法中，setContenView调用前设置getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);若是所有Activity需要设置该属性，那么可以在BaseActivity中设置，然后其他Activity继承即可</p>]]></content>
@@ -1385,6 +1365,26 @@
             <tag> android </tag>
             
             <tag> glide </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Android Studio --“Cannot resolve symbol” 解决办法</title>
+      <link href="/2016/06/17/Android%20Studio%20--%E2%80%9CCannot%20resolve%20symbol%E2%80%9D%20%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+      <content type="html"><![CDATA[<p>Android Studio 无法识别同一个 package 里的其他类，将其显示为红色，但是 compile 没有问题。鼠标放上去后显示 “Cannot resolve symbol XXX”，重启 Android Studio，重新 sync gradle，Clean build 都没有用。</p><p>多半是因为 Android Studio 之前发生了错误，某些 setting 出了问题。解决方法如下：<br>点击菜单中的 “File” -&gt; “Sync Project with Gradle Files”语法就会正确的高亮了。<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>]]></content>
+      
+      <categories>
+          
+          <category> android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> android </tag>
             
         </tags>
       
@@ -1667,7 +1667,7 @@
     <entry>
       <title>读不透的言辞</title>
       <link href="/2015/10/01/%E8%AF%BB%E4%B8%8D%E9%80%8F%E7%9A%84%E8%A8%80%E8%BE%9E/"/>
-      <content type="html"><![CDATA[<blockquote><p>没什么比懂自己的心来得更重要. </p></blockquote>]]></content>
+      <content type="html"><![CDATA[<blockquote><p>没什么比懂自己的心来得更重要.</p></blockquote>]]></content>
       
       <categories>
           
