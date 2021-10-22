@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    
+    <title>深入详解Apk编译打包流程 | nearby.ren</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="apk的编译流程1、apk文件.  apk是Android Package的缩写；.  解压apk文件后包含AndroidManifest.xml、assets目录、classes.dex(还可能有 classes2.dex,classes3.dex…classesN.dex)、lib目录、META-INF目录、res目录和resources.arsc；.  classes.dex 是.dex文件">
+<meta name="keywords" content="Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入详解Apk编译打包流程">
+<meta property="og:url" content="http://b.nearby.ren/2020/09/11/深入详解Apk编译打包流程/index.html">
+<meta property="og:site_name" content="nearby.ren">
+<meta property="og:description" content="apk的编译流程1、apk文件.  apk是Android Package的缩写；.  解压apk文件后包含AndroidManifest.xml、assets目录、classes.dex(还可能有 classes2.dex,classes3.dex…classesN.dex)、lib目录、META-INF目录、res目录和resources.arsc；.  classes.dex 是.dex文件">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://b.nearby.ren/images/da13d22bc0414e93b22b822af1115d04.png">
+<meta property="og:image" content="http://b.nearby.ren/images/fa3b1a98d05f47aca59839bd6b412534.png">
+<meta property="og:updated_time" content="2021-10-22T13:28:56.546Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入详解Apk编译打包流程">
+<meta name="twitter:description" content="apk的编译流程1、apk文件.  apk是Android Package的缩写；.  解压apk文件后包含AndroidManifest.xml、assets目录、classes.dex(还可能有 classes2.dex,classes3.dex…classesN.dex)、lib目录、META-INF目录、res目录和resources.arsc；.  classes.dex 是.dex文件">
+<meta name="twitter:image" content="http://b.nearby.ren/images/da13d22bc0414e93b22b822af1115d04.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="nearby.ren" type="application/atom+xml">
+    
+
+    
+        <link rel="icon" href="/css/images/super.png# path to favicon">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">nearby.ren</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">目录</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">目录</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png">
+            <h2 id="name">lr</h2>
+            <h3 id="title">Android server web Go</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>china, Hainan</span>
+            <a id="follow" target="_blank" href="https://github.com/nearbyren">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                93
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                40
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://gitee.com/mccapp" target="_blank" title="github">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/" target="_blank" title="twitter">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.facebook.com/" target="_blank" title="facebook">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://dribbble.com/" target="_blank" title="dribbble">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-深入详解Apk编译打包流程" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            深入详解Apk编译打包流程
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/09/11/深入详解Apk编译打包流程/">
+            <time datetime="2020-09-11T04:13:18.000Z" itemprop="datePublished">2020-09-11</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="apk的编译流程"><a href="#apk的编译流程" class="headerlink" title="apk的编译流程"></a>apk的编译流程</h1><h2 id="1、apk文件"><a href="#1、apk文件" class="headerlink" title="1、apk文件"></a>1、apk文件</h2><p>.  apk是Android Package的缩写；<br>.  解压apk文件后包含AndroidManifest.xml、assets目录、classes.dex(还可能有 classes2.dex,classes3.dex…classesN.dex)、lib目录、META-INF目录、res目录和resources.arsc；<br>.  classes.dex 是.dex文件；<br>.  resources.arsc是resources resources文件；<br>.  AndroidManifest.xml是AndroidManifest.xml文件；<br>.  res是uncompiled resources；<br>.  META-INF是签名文件夹；</p>
+<h2 id="2、打包流程"><a href="#2、打包流程" class="headerlink" title="2、打包流程"></a>2、打包流程</h2><p><img src="/2020/09/11/深入详解Apk编译打包流程/../../../../images/da13d22bc0414e93b22b822af1115d04.png" alt="Alt text"></p>
+<h2 id="打包中需要的工具"><a href="#打包中需要的工具" class="headerlink" title="打包中需要的工具"></a>打包中需要的工具</h2><p>.  aapt：Android资源打包工具，${ANDROID_SDK_HOME}/platform-tools/appt<br>.  aidl：Android接口描述语言转化为.java文件的工具，${ANDROID_SDK_HOME}/platform-tools/aidl<br>.  javac：Java Compiler，${JDK_HOME}/javac或/usr/bin/javac<br>.  dex：转化.class文件为Davik VM能识别的.dex文件，${ANDROID_SDK_HOME}/platform-tools/dx<br>.  apkbuilder：生成apk包，${ANDROID_SDK_HOME}/tools/opkbuilder<br>.  jarsigner：.jar文件的签名工具，${JDK_HOME}/jarsigner或/usr/bin/jarsigner<br>.  zipalign：字节码对齐工具，${ANDROID_SDK_HOME}/tools/zipalign</p>
+<h2 id="2-1打包资源文件，生成R-java文件"><a href="#2-1打包资源文件，生成R-java文件" class="headerlink" title="2.1打包资源文件，生成R.java文件"></a>2.1打包资源文件，生成R.java文件</h2><p>使用aapt来打包res资源文件，生成R.java、resources.arsc和res文件（二进制 &amp; 非二进制如res/raw和pic保持原样）；</p>
+<h2 id="res目录"><a href="#res目录" class="headerlink" title="res目录"></a>res目录</h2><p>.  animator：这类资源以XML文件保存在res/animator目录下，用来描述属性动画；<br>.  anim：这类资源以XML文件保存在res/anim目录下，用来描述补间动画；<br>.  color：这类资源以XML文件保存在res/color目录下，用描述对象颜色状态选择子；<br>.  drawable：这类资源以XML或者Bitmap文件保存在res/drawable目录下，用来描述可绘制对象。例如，我们可以在里面放置一些图片（.png, .9.png, .jpg, .gif），来作为程序界面视图的背景图；<br>.  layout：这类资源以XML文件保存在res/layout目录下，用来描述应用程序界面布局；<br>.  menu：这类资源以XML文件保存在res/menu目录下，用来描述应用程序菜单；<br>.  raw：这类资源以任意格式的文件保存在res/raw目录下，它们和assets类资源一样，都是原装不动地打包在apk文件中的，不过它们会被赋予资源ID，这样我们就可以在程序中通过ID来访问它们。例如，假设在res/raw目录下有一个名称.  .  为filename的文件，并且它在编译的过程，被赋予的资源ID为R.raw.filename，那么就可以使用以下代码来访问它：<br>.  Resources res = getResources();<br>.  InputStream is = res .openRawResource(R.raw.filename);<br>.  values：这类资源以XML文件保存在res/values目录下，用来描述一些简单值，例如，数组、颜色、尺寸、字符串和样式值等，一般来说，这六种不同的值分别保存在名称为arrays.xml、colors.xml、dimens.xml、strings.xml.  和styles.xml文件中；<br>.  xml：这类资源以XML文件保存在res/xml目录下，一般就是用来描述应用程序的配置信息；</p>
+<h2 id="resources-arsc文件"><a href="#resources-arsc文件" class="headerlink" title="resources.arsc文件"></a>resources.arsc文件</h2><p>.  resources.arsc这个文件记录了所有的应用程序资源目录的信息，包括每一个资源名称、类型、值、ID以及所配置的维度信息；<br>.  我们可以将这个resources.arsc文件想象成是一个资源索引表，这个资源索引表在给定资源ID和设备配置信息的情况下，能够在应用程序的资源目录中快速地找到最匹配的资源；</p>
+<h2 id="R-java文件"><a href="#R-java文件" class="headerlink" title="R.java文件"></a>R.java文件</h2><p>.  R.java文件，里面拥有很多个静态内部类，比如layout，string等；<br>.  每当有这种资源添加时，就在R.java文件中添加一条静态内部类里的静态常量类成员，且所有成员都是int类型；</p>
+<h2 id="2-2处理AIDL文件，生成对应的-java文件"><a href="#2-2处理AIDL文件，生成对应的-java文件" class="headerlink" title="2.2处理AIDL文件，生成对应的.java文件"></a>2.2处理AIDL文件，生成对应的.java文件</h2><p>.  AIDL （Android Interface Definition Language）， Android接口定义语言，Android提供的IPC （Inter Process Communication，进程间通信）的一种独特实现；<br>.  这个阶段处理.aidl文件，生成对应的Java接口文件；</p>
+<h2 id="2-3编译Java文件，生成对应的-class文件"><a href="#2-3编译Java文件，生成对应的-class文件" class="headerlink" title="2.3编译Java文件，生成对应的.class文件"></a>2.3编译Java文件，生成对应的.class文件</h2><p>.  编译工程源码，生成相应的class文件。处理文件包括src、R.java、AIDL生成的 java 文件，库jar文件；<br>.  调用了javac编译工程的src目录下所有的java源文件，生成的class文件位于工程的bin\classess目录下；</p>
+<h2 id="2-4把-class文件转化成Davik-VM支持的-dex文件"><a href="#2-4把-class文件转化成Davik-VM支持的-dex文件" class="headerlink" title="2.4把.class文件转化成Davik VM支持的.dex文件"></a>2.4把.class文件转化成Davik VM支持的.dex文件</h2><p>.  转换所有的class文件，生成classes.dex文件。处理文件就是上一步生成的 .class 文件；<br>.  使用dx工具将java字节码转换为dalvik字节码、压缩常量池、消除冗余信息等；<br>.  通过dex命令，将.class文件和第三方库中的.class文件处理生成classes.dex；</p>
+<h2 id="2-5打包生成未签名的-apk文件"><a href="#2-5打包生成未签名的-apk文件" class="headerlink" title="2.5打包生成未签名的.apk文件"></a>2.5打包生成未签名的.apk文件</h2><p>将classes.dex、resources.arsc、res文件夹(res/raw资源被原装不动地打包进APK之外，其它的资源都会被编译或者处理)、Other Resources(assets文件夹)、AndroidManifest.xml打包成apk文件；<br>注意：</p>
+<h2 id="res-raw和assets的相同点："><a href="#res-raw和assets的相同点：" class="headerlink" title="res/raw和assets的相同点："></a>res/raw和assets的相同点：</h2><p>两者目录下的文件在打包后会原封不动的保存在apk包中，不会被编译成二进制；</p>
+<h2 id="res-raw和assets的不同点："><a href="#res-raw和assets的不同点：" class="headerlink" title="res/raw和assets的不同点："></a>res/raw和assets的不同点：</h2><p>.  res/raw中的文件会被映射到R.java文件中，访问的时候直接使用资源ID即R.id.filename；assets文件夹下的文件不会被映射到R.java中，访问的时候需要AssetManager类；<br>.  res/raw不可以有目录结构，而assets则可以有目录结构，也就是assets目录下可以再建立文件夹；</p>
+<h2 id="2-6对未签名-apk文件进行签名"><a href="#2-6对未签名-apk文件进行签名" class="headerlink" title="2.6对未签名.apk文件进行签名"></a>2.6对未签名.apk文件进行签名</h2><p>.  android的应用程序需要签名才能在android设备上安装，签名apk文件有两种情况:<br>.  在调试应用程序时，也就是我们通常称为的debug模式的签名，平时开发的时候，在编译调试程序时会自己使用一个debug.keystore对apk进行签名；<br>.  正式发布时对应用程序打包进行签名，这种情况下需要提供一个符合android开发文档中要求的签名文件。这种签名也是分两种： JDK中提供的jarsigner工具签名 、android源码中提供的signapk工具；</p>
+<h2 id="2-7对签名后的-apk文件进行对齐处理"><a href="#2-7对签名后的-apk文件进行对齐处理" class="headerlink" title="2.7对签名后的.apk文件进行对齐处理"></a>2.7对签名后的.apk文件进行对齐处理</h2><p>.  release mode 下使用 aipalign进行align，即对签名后的apk进行对齐处理；<br>.  Zipalign是一个android平台上整理APK文件的工具，它对apk中未压缩的数据进行4字节对齐，对齐后就可以使用mmap函数读取文件，可以像读取内存一样对普通文件进行操作。如果没有4字节对齐，就必须显式的读取，这样比较缓慢并且会耗费额外的内存；<br>.  在 Android SDK 中包含一个名为 “zipalign” 的工具，它能够对打包后的 app 进行优化。 其位于 SDK 的 build-tools 目录下；</p>
+<p><img src="/2020/09/11/深入详解Apk编译打包流程/../../../../images/fa3b1a98d05f47aca59839bd6b412534.png" alt="Alt text"></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2020/09/11/深入详解Apk编译打包流程/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2021/05/31/mac flutter 支持多个版本配置/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    mac flutter 支持多个版本配置
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2020/03/31/android 网络优化/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">android 网络优化</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="uyan_frame"></div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/05/31/mac flutter 支持多个版本配置/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2021/05/31/mac flutter 支持多个版本配置/" class="title">mac flutter 支持多个版本配置</a></p>
+                            <p class="item-date"><time datetime="2021-05-31T01:47:42.000Z" itemprop="datePublished">2021-05-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/09/11/深入详解Apk编译打包流程/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2020/09/11/深入详解Apk编译打包流程/" class="title">深入详解Apk编译打包流程</a></p>
+                            <p class="item-date"><time datetime="2020-09-11T04:13:18.000Z" itemprop="datePublished">2020-09-11</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/03/31/android 网络优化/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2020/03/31/android 网络优化/" class="title">android 网络优化</a></p>
+                            <p class="item-date"><time datetime="2020-03-31T01:12:23.000Z" itemprop="datePublished">2020-03-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/30/View绘制主要要讲什么/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
+                            <p class="item-title"><a href="/2019/12/30/View绘制主要要讲什么/" class="title">View绘制主要要讲什么</a></p>
+                            <p class="item-date"><time datetime="2019-12-30T03:50:25.000Z" itemprop="datePublished">2019-12-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/21/粘性事件的EventBus/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/EventBus/">EventBus</a></p>
+                            <p class="item-title"><a href="/2019/12/21/粘性事件的EventBus/" class="title">粘性事件的EventBus</a></p>
+                            <p class="item-date"><time datetime="2019-12-21T09:22:18.000Z" itemprop="datePublished">2019-12-21</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/EventBus/">EventBus</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">39</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flutter/">flutter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Android/" style="font-size: 16px;">Android</a> <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 12px;">dagger2</a> <a href="/tags/flutter/" style="font-size: 10px;">flutter</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/glide/" style="font-size: 16px;">glide</a> <a href="/tags/go/" style="font-size: 18px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 12px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 16px;">hexo</a> <a href="/tags/https/" style="font-size: 12px;">https</a> <a href="/tags/ios/" style="font-size: 12px;">ios</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/linxu/" style="font-size: 12px;">linxu</a> <a href="/tags/mac/" style="font-size: 12px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 14px;">mvp</a> <a href="/tags/offce/" style="font-size: 12px;">offce</a> <a href="/tags/resume/" style="font-size: 12px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 12px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 12px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 12px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 14px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/文字/" style="font-size: 12px;">文字</a> <a href="/tags/歌曲/" style="font-size: 12px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 14px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2021 阿荣<br>
+            <!-- <a href="http://github.com/ppoffice">ppoffice</a>     
+            主题 - <a href="http://hexo.io/" target="_blank">Hexo</a> -->  
+             <a href="#" target="_blank">人生如逆旅  &phi; 我亦是行人 </a>
+             <div class="copyright" style="margin-top: 10px;">
+ 			ICP备案号： <a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备16067940号</a><br>
+		</div>	
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2119666"></script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

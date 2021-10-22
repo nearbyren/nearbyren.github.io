@@ -159,11 +159,11 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                88
+                93
                 <span>文章</span>
             </div>
             <div class="article-info-block">
-                39
+                40
                 <span>标签</span>
             </div>
         </div>
@@ -212,6 +212,282 @@
 
             
             <section id="main">
+    <article id="post-androidmvp架构模式" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/10/31/androidmvp架构模式/">androidMVP架构模式</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/10/31/androidmvp架构模式/">
+            <time datetime="2019-10-31T08:47:42.000Z" itemprop="datePublished">2019-10-31</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/mvp/">mvp</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>android MVP模式在Android项目中的使用</p>
+<p>在开发当中我们会涉及到一些架构模式，对于初级程序员来说是很陌生，但是对于中级过渡高级的程序员来说是非常重要需要了解的模式。首先我们先了解有哪些架构模式：不管都前端，移动端，后端都会涉及到这三种：MVC、MVP、MVVM。<br>概念：什么是MVP<br>MVP是模型(Model)、视图(View)、主持人(Presenter)的缩写,分别代表项目中3个不同的模块。<br>模型(Model):负责处理数据的加载或者存储，比如从网络或者本地数据库获取数据等；<br>视图(View):负责界面数据的展示，与用户进行交互；<br>主持人(Presenter):相当于协调者，是模型与视图之间的桥梁，将模型与视图分离开来。</p>
+<p>如下图所示，View与Model并不直接交互，而是使用Presenter作为View与Model之间的桥梁。其中Presenter中同时持有View层以及Model层的Interface的引用，而View层持有Presenter层Ineterface的引用。当View层某个界面需要展示展示某些数据的时候，首先会调用Presenter层的某个接口，然后Presneter层会调用Model层请求数据，当Model层数据加载成功之后会调用Presenter层的回调方法通知Presenter层数据加载完毕，最后Presneter层再调用View层的接口将加载后的数据展示给用户。这就是Mvp模式的整个核心过程。<br><img src="/2019/10/31/androidmvp架构模式/../../../../images/420264-20151223222959015-298327306.png" alt="Alt text"></p>
+<p>这样分层的好处就是大大减少了Model与View层之间的耦合度。一方面可以使得View层和Model层单独开发与测试，互不依赖。另一方面Model层可以封装复用，可以极大的减少代码量。当然，Mvp还有其他的一些优点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.View层</span><br><span class="line">  View层首页数据展示模块的组件是Activity，里面有一个RecycleView 布局如下：</span><br><span class="line"></span><br><span class="line">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">   &lt;android.support.v7.widget.RecyclerView</span><br><span class="line">          xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">          xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">          android:id=&quot;@+id/recycle_view&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">          android:scrollbars=&quot;vertical&quot;</span><br><span class="line">          app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;</span><br><span class="line">          android:paddingTop=&quot;@dimen/card_margin&quot;&gt;</span><br><span class="line">      &lt;/android.support.v7.widget.RecyclerView&gt;</span><br></pre></td></tr></table></figure>
+<p>首页列表模块主要展示从网络获取的首页列表信息，view层的接口大概需要如下方法：<br>(1)请求数据的过程中需要提示‘正在加载’的反馈信息给用户<br>(2)加载数据成功后，将加载得到的数据填充到RecycleView展示给用户<br>(3)加载数据成功后，将提示‘正在加载’反馈信息取消掉<br>(4)若加载数据失败，如网络连接、则需要给用户提示信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//业务接口</span><br><span class="line">   public interface HomeContract &#123;</span><br><span class="line">       interface View &#123;</span><br><span class="line">          void onLoading();</span><br><span class="line">          void onError(String error);</span><br><span class="line">          void updateUI(XXX xxx);</span><br><span class="line">          void ToastMessage(String message);</span><br><span class="line">       &#125;</span><br><span class="line">       interface Action extends IPresenter &#123;</span><br><span class="line">           void requestHome(XXX... xxx);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //业务处理请求</span><br><span class="line">   public class HomePresenter implements HomeContract.Action&#123;</span><br><span class="line">           HomeContract.view view;</span><br><span class="line">           public HomePresenter(HomeContract.view view)&#123;</span><br><span class="line">                   this.view =view;</span><br><span class="line">           &#125;</span><br><span class="line">           @Override</span><br><span class="line">           pubublic void requestHome(XXX... xxx)&#123;</span><br><span class="line">                   //请求网络数据处理业务层</span><br><span class="line">                   view.onLoading();</span><br><span class="line">                   view.onError();</span><br><span class="line">                   view.updateUI();</span><br><span class="line">                   view.ToastMessage();</span><br><span class="line">           &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>首页列表Activity中实现上述接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class HomeActivity extends AppCompatActivity implements HomeContract.view &#123;</span><br><span class="line">      HomeContract.Action action;</span><br><span class="line">        @Override</span><br><span class="line">        public void onLoading()&#123;</span><br><span class="line">                //提示加载信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onError(String error)&#123;</span><br><span class="line">                //加载错误ui</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void updateUI(XXX xxx)&#123;</span><br><span class="line">                //更新UI数据</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void ToastMessage(String message)&#123;</span><br><span class="line">               //网络请求结束提示信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onCreate(@Nullable Bundle savedInstanceState)&#123;</span><br><span class="line">            super.onCreate(savedInstanceState);</span><br><span class="line">            action = new HomePresenter(this);</span><br><span class="line">            action.requestHome(xx);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>当用户打开首页界面时，就请求网络获取数据，初始化Presenter引用实例，调用Presenter层的requestHome接口，业务处理完毕后，调用相应的onLoading()、onError()、updateUI()、ToastMessage()方法处理不同逻辑。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2019/10/31/androidmvp架构模式/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-什么是Handler的同步屏障机制" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/09/30/什么是Handler的同步屏障机制/">Handler的同步屏障机制</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/09/30/什么是Handler的同步屏障机制/">
+            <time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <ul>
+<li>对于Handler机制，想必大家都已经非常熟悉了吧，从迈进Android开发这扇大门的时候，就不停的研究和使用它，同样的这也是Android系统架构的精髓之一。然而在我们使用的时候，往往会忽略掉一些不常见却又很重要的内容，今天就来讲一讲经常被忽略的同步屏障以及异步消息。</li>
+</ul>
+<h1 id="制流程中窥视handler同步屏障"><a href="#制流程中窥视handler同步屏障" class="headerlink" title="制流程中窥视handler同步屏障"></a>制流程中窥视handler同步屏障</h1><p>为了引出今天的主题，我们先来看看ui的渲染流程吧。在Android的绘制流程中，ViewRootImpl这个类发挥了非常重要的作用，首先我们看一下这个类中比较重要的一个方法requestLayout(),<br>下面开始按这个思路分析源码，直接从入口开始：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void requestLayout() &#123;</span><br><span class="line">    if (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">        //校验主线程</span><br><span class="line">        checkThread();</span><br><span class="line">        mLayoutRequested = true;</span><br><span class="line">        //调用这个方法启动绘制流程</span><br><span class="line">        scheduleTraversals();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>requestLayout()中会通过checkThread()方法检查发起布局请求的线程是否为主线程（校验ViewRootImpl构造时记录的mThread， 和当前线程是否一致），之后，在调用scheduleTraversals()的时候 postSyncBarrier添加同步消息屏障</p>
+<p>requestLayout()中会通过checkThread()方法检查发起布局请求的线程是否为主线程（校验ViewRootImpl构造时记录的mThread， 和当前线程是否一致），之后，在调用scheduleTraversals()的时候 postSyncBarrier添加同步消息屏障</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@UnsupportedAppUsage</span><br><span class="line">    void scheduleTraversals() &#123;</span><br><span class="line">        if (!mTraversalScheduled) &#123;</span><br><span class="line">            mTraversalScheduled = true;</span><br><span class="line">            //1. 往主线程的Handler对应的MessageQueue发送一个同步屏障消息</span><br><span class="line">            mTraversalBarrier = mHandler.getLooper().getQueue().postSyncBarrier();</span><br><span class="line">            //2.将mTraversalRunnable保存到Choreographer中</span><br><span class="line">            mChoreographer.postCallback(</span><br><span class="line">                    Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);</span><br><span class="line">            if (!mUnbufferedInputDispatch) &#123;</span><br><span class="line">                scheduleConsumeBatchedInput();</span><br><span class="line">            &#125;</span><br><span class="line">            notifyRendererOfFramePending();</span><br><span class="line">            pokeDrawLockIfNeeded();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    ...</span><br><span class="line">     //在doTraversal方法中移除同步消息屏障</span><br><span class="line">     void doTraversal() &#123;</span><br><span class="line">        if (mTraversalScheduled) &#123;</span><br><span class="line">            mTraversalScheduled = false;</span><br><span class="line">            //移除同步屏障</span><br><span class="line">            mHandler.getLooper().getQueue().removeSyncBarrier(mTraversalBarrier);</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在这个方法中，涉及到三个比较重要的信息</p>
+<ul>
+<li>mTraversalRunnable</li>
+<li>Choreographer编舞者</li>
+<li>同步屏障消息</li>
+</ul>
+<ol>
+<li><p>首先看mTraversalRunnable，它的作用就是从ViewRootImpl 从上往下执行performMeasure、performLayout、performDraw。</p>
+</li>
+<li><p>Choreographer主要是为了配合Vsync信号，给上层app的渲染提供一个稳定的Message处理时机，也就是Vsync信号到来时，系统通过对Vsync信号的调整，来控制每一帧绘制操作的时机。当Vsync信号到来时，会往主线程的MessageQueue中插入一条异步消息，由于在scheduleTraversals中给MessageQueue中插入了同步屏障消息，那么当执行到同步屏障时，会取出异步消息执行。</p>
+</li>
+</ol>
+<p>看下Choreography中插入消息的方法是如何实现的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private void postCallbackDelayedInternal(int callbackType,</span><br><span class="line">            Object action, Object token, long delayMillis) &#123;</span><br><span class="line">        synchronized (mLock) &#123;</span><br><span class="line">            ...</span><br><span class="line">            if (dueTime &lt;= now) &#123;</span><br><span class="line">                scheduleFrameLocked(now);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                Message msg = mHandler.obtainMessage(MSG_DO_SCHEDULE_CALLBACK, action);</span><br><span class="line">                msg.arg1 = callbackType;</span><br><span class="line">                //设置为异步消息</span><br><span class="line">                msg.setAsynchronous(true);</span><br><span class="line">                mHandler.sendMessageAtTime(msg, dueTime);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>通过以上的分析，我们知道了，在刷新ui的时候原来会有这么多的参与者，但是那些什么同步消息、异步消息、消息屏障又是些什么东西呢？接下来我们就来研究一下。</p>
+<h1 id="何为同步屏障？"><a href="#何为同步屏障？" class="headerlink" title="何为同步屏障？"></a>何为同步屏障？</h1><p>message分类</p>
+<p>Handler的message分为三种</p>
+<ul>
+<li>同步消息</li>
+<li>异步消息</li>
+<li>屏障消息</li>
+</ul>
+<p>通常我们使用handler发送消息，都是使用默认的构造函数构造handler，然后使用send方法发送。这样发送的消息都是普通消息也就是同步消息，发出去的消息就会在MessageQueue中排队。异步消息正常情况下跟同步消息没有区别，只有在设置了同步屏障之后，才会出现差异。</p>
+<p>同步屏障就是在消息队列中插入一个屏障，插入之后，所有的同步消息都会被屏蔽，不能被执行，但是异步消息却不受影响，可以继续执行。</p>
+<h1 id="插入消息屏障"><a href="#插入消息屏障" class="headerlink" title="插入消息屏障"></a>插入消息屏障</h1><p>正常插入消息会调用enqueueMessage方法，同时将handler赋值给message的target。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//将消息插入消息队列</span><br><span class="line">private boolean enqueueMessage(@NonNull MessageQueue queue, @NonNull Message msg,</span><br><span class="line">        long uptimeMillis) &#123;</span><br><span class="line">    msg.target = this;</span><br><span class="line">    msg.workSourceUid = ThreadLocalWorkSource.getUid();</span><br><span class="line">    //进行判断是否将消息设置为异步消息</span><br><span class="line">    if (mAsynchronous) &#123;</span><br><span class="line">        msg.setAsynchronous(true);</span><br><span class="line">    &#125;</span><br><span class="line">    return queue.enqueueMessage(msg, uptimeMillis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在MessageQueue中进行判断，如果target为空也就是这个message没有对应的handler则会报异常。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">boolean enqueueMessage(Message msg, long when) &#123;</span><br><span class="line">       if (msg.target == null) &#123;</span><br><span class="line">           throw new IllegalArgumentException(&quot;Message must have a target.&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       if (msg.isInUse()) &#123;</span><br><span class="line">           throw new IllegalStateException(msg + &quot; This message is already in use.&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       ...</span><br><span class="line">       // 如果需要唤醒，则唤醒</span><br><span class="line">       if (needWake) &#123;</span><br><span class="line">           nativeWake(mPtr);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>通过MessageQueue的postSyncBarrier方法插入屏障，message的target属性为null</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">private int postSyncBarrier(long when) &#123;</span><br><span class="line">      </span><br><span class="line">       synchronized (this) &#123;</span><br><span class="line">           final int token = mNextBarrierToken++;</span><br><span class="line">           //msg没有为target属性赋值</span><br><span class="line">           final Message msg = Message.obtain();</span><br><span class="line">           ...</span><br><span class="line">           //根据时间插入到MessageQueue中</span><br><span class="line">           if (when != 0) &#123;</span><br><span class="line">               while (p != null &amp;&amp; p.when &lt;= when) &#123;</span><br><span class="line">                   prev = p;</span><br><span class="line">                   p = p.next;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           if (prev != null) &#123; // invariant: p == prev.next</span><br><span class="line">               msg.next = p;</span><br><span class="line">               prev.next = msg;</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               msg.next = p;</span><br><span class="line">               mMessages = msg;</span><br><span class="line">           &#125;</span><br><span class="line">           //返回一个序号，通过它可以对屏障消息进行撤销</span><br><span class="line">           return token;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>经过以上的操作，我们可以总结出</p>
+<ul>
+<li>屏障消息和普通消息的区别是屏障消息没有target属性，普通消息有target属性是因为要将消息分发给target指向的handler处理</li>
+<li>屏障消息会插入到MessageQueue中合适的位置，这个消息以后的普通消息将被屏蔽</li>
+<li>postSyncBarrier返回一个int类型的数值，通过这个数值可以撤销屏障</li>
+<li>postSyncBarrier方法是私有的，如果我们想调用它就得使用反射</li>
+<li>插入普通消息会唤醒消息队列，但是插入屏障不会</li>
+</ul>
+<h1 id="如何发送异步消息"><a href="#如何发送异步消息" class="headerlink" title="如何发送异步消息"></a>如何发送异步消息</h1><p>通常我们发送的都是普通消息，如果想发送异步消息</p>
+<ul>
+<li>可以在创建handler时使用如下的构造器中的一种，同时将async参数设置为true，这样这个handler发送的消息就都是异步消息了。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public Handler(boolean async) &#123;</span><br><span class="line">    this(null, async);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Handler(@NonNull Looper looper, @Nullable Callback callback) &#123;</span><br><span class="line">    this(looper, callback, false);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Handler(@Nullable Callback callback, boolean async) &#123;</span><br><span class="line">    ...</span><br><span class="line">    mLooper = Looper.myLooper();</span><br><span class="line">    if (mLooper == null) &#123;</span><br><span class="line">        throw new RuntimeException(</span><br><span class="line">            &quot;Can&apos;t create handler inside thread &quot; + Thread.currentThread()</span><br><span class="line">                    + &quot; that has not called Looper.prepare()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    mQueue = mLooper.mQueue;</span><br><span class="line">    mCallback = callback;</span><br><span class="line">    mAsynchronous = async;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>除了这种方式还可以直接设置消息的类型为异步消息</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void setAsynchronous(boolean async) &#123;</span><br><span class="line">       if (async) &#123;</span><br><span class="line">           flags |= FLAG_ASYNCHRONOUS;</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           flags &amp;= ~FLAG_ASYNCHRONOUS;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="消息处理的过程"><a href="#消息处理的过程" class="headerlink" title="消息处理的过程"></a>消息处理的过程</h1><p>MessageQueue是通过next方法来遍历消息的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">@UnsupportedAppUsage</span><br><span class="line">    Message next() &#123;</span><br><span class="line">        for (;;) &#123;</span><br><span class="line">            nativePollOnce(ptr, nextPollTimeoutMillis);</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                Message msg = mMessages;</span><br><span class="line">                //如果msg.target为空，也就是说是一个同步屏障消息，则进入这个判断里面</span><br><span class="line">                if (msg != null &amp;&amp; msg.target == null) &#123;</span><br><span class="line">                    // Stalled by a barrier.  Find the next asynchronous message in the queue.</span><br><span class="line">                    //在这个while循环中，找到最近的一个异步消息</span><br><span class="line">                    do &#123;</span><br><span class="line">                        prevMsg = msg;</span><br><span class="line">                        msg = msg.next;</span><br><span class="line">                    &#125; while (msg != null &amp;&amp; !msg.isAsynchronous());</span><br><span class="line">                &#125;</span><br><span class="line">                //找到了异步消息</span><br><span class="line">                if (msg != null) &#123;</span><br><span class="line">                    //如果消息的处理时间小于当前时间 则等待</span><br><span class="line">                    if (now &lt; msg.when) &#123;</span><br><span class="line">                        // Next message is not ready.  Set a timeout to wake up when it is ready.</span><br><span class="line">                        nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // Got a message.</span><br><span class="line">                        //处理消息</span><br><span class="line">                        mBlocked = false;</span><br><span class="line">                        //将异步消息移除</span><br><span class="line">                        if (prevMsg != null) &#123;</span><br><span class="line">                            prevMsg.next = msg.next;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            mMessages = msg.next;</span><br><span class="line">                        &#125;</span><br><span class="line">                        msg.next = null;</span><br><span class="line">                        if (DEBUG) Log.v(TAG, &quot;Returning message: &quot; + msg);</span><br><span class="line">                        msg.markInUse();</span><br><span class="line">                        //返回异步消息</span><br><span class="line">                        return msg;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    // No more messages.</span><br><span class="line">                    //没有找到异步消息则进入阻塞状态，等待被唤醒</span><br><span class="line">                    nextPollTimeoutMillis = -1;</span><br><span class="line">                &#125;</span><br><span class="line">                ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在这段代码中，可以看到，处理过程中会先判断此消息是否为屏障消息，如果是屏障消息，则去循环遍历，直到寻找到异步消息为止。通过这种方式跳过了普通消息，直接执行异步消息。也就是说同步屏障为handler消息机制提供了一种优先级策略，异步消息的优先级要高于同步消息。</p>
+<p>另外需要注意的是：同步屏障不会自动移除，使用完成之后需要手动移除，不然会造成同步消息无法处理。也就是上边提到的，通过removeSyncBarrier(int token)方法进行移除，token就是之前添加屏障时返回的token。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void removeSyncBarrier(int token)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过以上的分析，想必对于handler消息机制中的几种不同的消息有了一个更深入的了解了吧，对于绘制流程中，为什么要发送一个同步屏障并且发送异步消息，应该心中也有了答案，不错，就是为了让保证在vsync信号到来时，异步任务可以优先执行，从而绘制任务可以被及时执行，避免造成界面卡顿。</li>
+</ul>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2019/09/30/什么是Handler的同步屏障机制/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-getLocationInWindow和getLocationOnScreen的区别" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/09/21/getLocationInWindow和getLocationOnScreen的区别/">getLocationInWindow和getLocationOnScreen的区别</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/09/21/getLocationInWindow和getLocationOnScreen的区别/">
+            <time datetime="2019-09-21T04:13:18.000Z" itemprop="datePublished">2019-09-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Android/">Android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="一个控件在其父窗口中的坐标位置"><a href="#一个控件在其父窗口中的坐标位置" class="headerlink" title="一个控件在其父窗口中的坐标位置"></a>一个控件在其父窗口中的坐标位置</h1><p>View.getLocationInWindow(int[] location)</p>
+<p>一个控件在其整个屏幕上的坐标位置<br>View.getLocationOnScreen(int[] location)</p>
+<p><img src="/2019/09/21/getLocationInWindow和getLocationOnScreen的区别/../../../../images/iShot2021-10-2221.37.01.png" alt="Alt text"></p>
+<p>getLocationInWindow是以B为原点的C的坐标<br>getLocationOnScreen以A为原点。<br>下面是getLocationOnScreen示例</p>
+<h1 id="下面是getLocationOnScreen示例"><a href="#下面是getLocationOnScreen示例" class="headerlink" title="下面是getLocationOnScreen示例"></a>下面是getLocationOnScreen示例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start = (Button) findViewById(R.id.start);</span><br><span class="line">int []location=new int[2];</span><br><span class="line">start.getLocationOnScreen(location);</span><br><span class="line">int x=location[0];//获取当前位置的横坐标</span><br><span class="line">int y=location[1];//获取当前位置的纵坐标</span><br></pre></td></tr></table></figure>
+<h1 id="getLocationOnScreen-的源码"><a href="#getLocationOnScreen-的源码" class="headerlink" title="getLocationOnScreen 的源码"></a>getLocationOnScreen 的源码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void getLocationOnScreen(@Size(2) int[] outLocation) &#123;</span><br><span class="line">    getLocationInWindow(outLocation);</span><br><span class="line"></span><br><span class="line">    final AttachInfo info = mAttachInfo;</span><br><span class="line">    if (info != null) &#123;</span><br><span class="line">        outLocation[0] += info.mWindowLeft;</span><br><span class="line">        outLocation[1] += info.mWindowTop;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="下面是getLocationInWindow示例"><a href="#下面是getLocationInWindow示例" class="headerlink" title="下面是getLocationInWindow示例"></a>下面是getLocationInWindow示例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start = (Button) findViewById(R.id.start);</span><br><span class="line">int []location=new int[2];</span><br><span class="line">start.getLocationInWindow(location);</span><br><span class="line">int x=location[0];//获取当前位置的横坐标</span><br><span class="line">int y=location[1];//获取当前位置的纵坐标</span><br></pre></td></tr></table></figure>
+<h1 id="getLocationInWindow-的源码"><a href="#getLocationInWindow-的源码" class="headerlink" title="getLocationInWindow 的源码"></a>getLocationInWindow 的源码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">public void getLocationInWindow(@Size(2) int[] outLocation) &#123;</span><br><span class="line">    if (outLocation == null || outLocation.length &lt; 2) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;outLocation must be an array of two integers&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    outLocation[0] = 0;</span><br><span class="line">    outLocation[1] = 0;</span><br><span class="line"></span><br><span class="line">    transformFromViewToWindowSpace(outLocation);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public void transformFromViewToWindowSpace(@Size(2) int[] inOutLocation) &#123;</span><br><span class="line">     if (inOutLocation == null || inOutLocation.length &lt; 2) &#123;</span><br><span class="line">         throw new IllegalArgumentException(&quot;inOutLocation must be an array of two integers&quot;);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     if (mAttachInfo == null) &#123;</span><br><span class="line">         // When the view is not attached to a window, this method does not make sense</span><br><span class="line">         inOutLocation[0] = inOutLocation[1] = 0;</span><br><span class="line">         return;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     float position[] = mAttachInfo.mTmpTransformLocation;</span><br><span class="line">     position[0] = inOutLocation[0];</span><br><span class="line">     position[1] = inOutLocation[1];</span><br><span class="line"></span><br><span class="line">     if (!hasIdentityMatrix()) &#123;</span><br><span class="line">         getMatrix().mapPoints(position);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     position[0] += mLeft;</span><br><span class="line">     position[1] += mTop;</span><br><span class="line"></span><br><span class="line">     ViewParent viewParent = mParent;</span><br><span class="line">     while (viewParent instanceof View) &#123;</span><br><span class="line">         final View view = (View) viewParent;</span><br><span class="line"></span><br><span class="line">         position[0] -= view.mScrollX;</span><br><span class="line">         position[1] -= view.mScrollY;</span><br><span class="line"></span><br><span class="line">         if (!view.hasIdentityMatrix()) &#123;</span><br><span class="line">             view.getMatrix().mapPoints(position);</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         position[0] += view.mLeft;</span><br><span class="line">         position[1] += view.mTop;</span><br><span class="line"></span><br><span class="line">         viewParent = view.mParent;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">     if (viewParent instanceof ViewRootImpl) &#123;</span><br><span class="line">         // *cough*</span><br><span class="line">         final ViewRootImpl vr = (ViewRootImpl) viewParent;</span><br><span class="line">         position[1] -= vr.mCurScrollY;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     inOutLocation[0] = Math.round(position[0]);</span><br><span class="line">     inOutLocation[1] = Math.round(position[1]);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2019/09/21/getLocationInWindow和getLocationOnScreen的区别/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-Leakcanary原理浅析" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -403,246 +679,8 @@
 
 
 
-    <article id="post-GoToken学习" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2019/03/03/GoToken学习/">GoToken学习</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2019/03/03/GoToken学习/">
-            <time datetime="2019-03-03T10:53:55.000Z" itemprop="datePublished">2019-03-03</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/go/">go</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/go/">go</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h1><p>上面是签名的使用例子，下面分析签名的源码实现，首先看下数据结构Token，包含了我们标准中说道的三部分：头部，载荷和签名，此外还带了一个用于存储生成token的字段Raw和校验标识符Valid<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// A JWT Token.  Different fields will be used depending on whether you&apos;re</span><br><span class="line">// creating or parsing/verifying a token.</span><br><span class="line">type Token struct &#123;</span><br><span class="line">	Raw       string                 // The raw token.  Populated when you Parse a token</span><br><span class="line">	Method    SigningMethod          // The signing method used or to be used</span><br><span class="line">	Header    map[string]interface&#123;&#125; // The first segment of the token</span><br><span class="line">	Claims    Claims                 // The second segment of the token</span><br><span class="line">	Signature string                 // The third segment of the token.  Populated when you Parse a token</span><br><span class="line">	Valid     bool                   // Is the token valid?  Populated when you Parse/Verify a token</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>看下载荷，多了一个字段Audience<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// Structured version of Claims Section, as referenced at</span><br><span class="line">// https://tools.ietf.org/html/rfc7519#section-4.1</span><br><span class="line">// See examples for how to use this with your own claim types</span><br><span class="line">type StandardClaims struct &#123;</span><br><span class="line">	Audience  string `json:&quot;aud,omitempty&quot;`</span><br><span class="line">	ExpiresAt int64  `json:&quot;exp,omitempty&quot;`</span><br><span class="line">	Id        string `json:&quot;jti,omitempty&quot;`</span><br><span class="line">	IssuedAt  int64  `json:&quot;iat,omitempty&quot;`</span><br><span class="line">	Issuer    string `json:&quot;iss,omitempty&quot;`</span><br><span class="line">	NotBefore int64  `json:&quot;nbf,omitempty&quot;`</span><br><span class="line">	Subject   string `json:&quot;sub,omitempty&quot;`</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="API介绍"><a href="#API介绍" class="headerlink" title="API介绍"></a>API介绍</h1><h3 id="初始化API"><a href="#初始化API" class="headerlink" title="初始化API"></a>初始化API</h3><h4 id="提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象"><a href="#提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象" class="headerlink" title="提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象"></a>提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// Create a new Token.  Takes a signing method</span><br><span class="line">func New(method SigningMethod) *Token &#123;</span><br><span class="line">	return NewWithClaims(method, MapClaims&#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func NewWithClaims(method SigningMethod, claims Claims) *Token &#123;</span><br><span class="line">	return &amp;Token&#123;</span><br><span class="line">		Header: map[string]interface&#123;&#125;&#123;</span><br><span class="line">			&quot;typ&quot;: &quot;JWT&quot;,</span><br><span class="line">			&quot;alg&quot;: method.Alg(),</span><br><span class="line">		&#125;,</span><br><span class="line">		Claims: claims,</span><br><span class="line">		Method: method,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="生成签名API"><a href="#生成签名API" class="headerlink" title="生成签名API"></a>生成签名API</h1><p>如标准所说，主要是将头部和载荷部分的结构对象转化为json格式，然后用base64编码，<br>然后用’.’号连接，然后使用指定加密方法生成签名，再与前面的头部和载荷用’.’号连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// Get the complete, signed token</span><br><span class="line">func (t *Token) SignedString(key interface&#123;&#125;) (string, error) &#123;</span><br><span class="line">	var sig, sstr string</span><br><span class="line">	var err error</span><br><span class="line">	//把头部和载荷转化为json格式，base64编码之后用&apos;.&apos;号连接起来</span><br><span class="line">	if sstr, err = t.SigningString(); err != nil &#123;</span><br><span class="line">		return &quot;&quot;, err</span><br><span class="line">	&#125;</span><br><span class="line">	//使用指定的加密方法生成签名</span><br><span class="line">	if sig, err = t.Method.Sign(sstr, key); err != nil &#123;</span><br><span class="line">		return &quot;&quot;, err</span><br><span class="line">	&#125;</span><br><span class="line">	return strings.Join([]string&#123;sstr, sig&#125;, &quot;.&quot;), nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>头部和载荷数据结构对象的处理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// Generate the signing string.  This is the</span><br><span class="line">// most expensive part of the whole deal.  Unless you</span><br><span class="line">// need this for something special, just go straight for</span><br><span class="line">// the SignedString.</span><br><span class="line">func (t *Token) SigningString() (string, error) &#123;</span><br><span class="line">	var err error</span><br><span class="line">	parts := make([]string, 2)</span><br><span class="line">	for i, _ := range parts &#123;</span><br><span class="line">		var jsonValue []byte</span><br><span class="line">		if i == 0 &#123;</span><br><span class="line">			if jsonValue, err = json.Marshal(t.Header); err != nil &#123;</span><br><span class="line">				return &quot;&quot;, err</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			if jsonValue, err = json.Marshal(t.Claims); err != nil &#123;</span><br><span class="line">				return &quot;&quot;, err</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"> </span><br><span class="line">		parts[i] = EncodeSegment(jsonValue)</span><br><span class="line">	&#125;</span><br><span class="line">	return strings.Join(parts, &quot;.&quot;), nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="校验API"><a href="#校验API" class="headerlink" title="校验API"></a>校验API</h1><p>检验Token基本就是生成Token的逆过程了，也提供了两个API：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// Parse, validate, and return a token.</span><br><span class="line">// keyFunc will receive the parsed token and should return the key for validating.</span><br><span class="line">// If everything is kosher, err will be nil</span><br><span class="line">func Parse(tokenString string, keyFunc Keyfunc) (*Token, error) &#123;</span><br><span class="line">	return new(Parser).Parse(tokenString, keyFunc)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func ParseWithClaims(tokenString string, claims Claims, keyFunc Keyfunc) (*Token, error) &#123;</span><br><span class="line">	return new(Parser).ParseWithClaims(tokenString, claims, keyFunc)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2019/03/03/GoToken学习/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-TPS和QPS区别" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/12/31/TPS和QPS区别/">什么是TPS，什么是QPS，区别是什么？</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/12/31/TPS和QPS区别/">
-            <time datetime="2018-12-31T05:55:20.000Z" itemprop="datePublished">2018-12-31</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/软件/">软件</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/软件名词/">软件名词</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>一、TPS：Transactions Per Second（每秒传输的事物处理个数），即服务器美妙处理的事务数。TPS包括一条消息入和一条消息出，加上一次与数据库访问。（业务TPS=CAPS传*每次呼叫的平均TPS）<br>TPS是软件测试结果的测量单位。一个事务是指一个客户机向服务器发送请求然后我服务器作出反应的过程。客户机在发送请求时开始计时，收到服务器响应后结束计时，以此来算计算使用的时间和完成的事务个数。</p>
-<p>一般的评价系统性能均以每秒钟完成的技术交易的数量来衡量，系统整体处理能力取决于处理能力最低模块的TPS值。</p>
-<p>二、QPS：每秒查询率QPS是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准，在因特网上，作为域名系统服务器的机器的性能经常用每秒查询率来衡量。<br>对应fetches/sec，即每秒的响应请求数，也即是最大的吞吐能力。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2018/12/31/TPS和QPS区别/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-JWT实现用户认证原理与实现[golang]" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/12/28/JWT实现用户认证原理与实现[golang]/">JWT实现用户认证原理与实现[golang]</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/12/28/JWT实现用户认证原理与实现[golang]/">
-            <time datetime="2018-12-28T05:48:20.000Z" itemprop="datePublished">2018-12-28</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/mac/">mac</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/golang/">golang</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="1-JWT标准规范"><a href="#1-JWT标准规范" class="headerlink" title="1 JWT标准规范"></a>1 JWT标准规范</h1><p>JWT（JSON Web Token）是一个非常轻巧的规范。这个规范允许我们使用JWT在用户和服务器之间传递安全可靠的信息。</p>
-<p>一个JWT由三部分组成，头部、载荷与签名。</p>
-<p>JWT原理类似我们加盖公章或手写签名的的过程，合同上写了很多条款，不是随便一张纸随便写啥都可以的，必须要一些证明，比如签名，比如盖章。JWT就是通过附加签名，保证传输过来的信息是真的，而不是伪造的。</p>
-<h1 id="头部："><a href="#头部：" class="headerlink" title="头部："></a>头部：</h1><p>用于说明签名的加密算法等，下面类型的json经过base64编码后得到JWT头部 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;typ&quot;: &quot;JWT&quot;,</span><br><span class="line">  &quot;alg&quot;: &quot;HS256&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="载荷："><a href="#载荷：" class="headerlink" title="载荷："></a>载荷：</h1><p>包含生成Token时间，过期时间，以及一些身份标识,标准定义了6个字段，载荷json经过base64编码后得到JWT的载荷：</p>
-<ul>
-<li>sub: 该JWT所面向的用户</li>
-<li>iss: 该JWT的签发者</li>
-<li>iat(issued at): 在什么时候签发的token</li>
-<li>exp(expires): token什么时候过期</li>
-<li>nbf(not before)：token在此时间之前不能被接收处理</li>
-<li>jti：JWT ID为web token提供唯一标识</li>
-</ul>
-<h2 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;sub&quot;: &quot;1&quot;,</span><br><span class="line">    &quot;iss&quot;: &quot;http://localhost:8000/user/sign_up&quot;,</span><br><span class="line">    &quot;iat&quot;: 1451888119,</span><br><span class="line">    &quot;exp&quot;: 1454516119,</span><br><span class="line">    &quot;nbf&quot;: 1451888119,</span><br><span class="line">    &quot;jti&quot;: &quot;37c107e4609ddbcc9c096ea5ee76c667&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="签名："><a href="#签名：" class="headerlink" title="签名："></a>签名：</h1><p>将头部和载荷用’.’号连接，再加上一串密钥，经过头部声明的加密算法加密后得到签名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">HMACSHA256(</span><br><span class="line">    base64UrlEncode(header) + &quot;.&quot; +</span><br><span class="line">    base64UrlEncode(payload),</span><br><span class="line">    secret</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<h1 id="JWT-Token"><a href="#JWT-Token" class="headerlink" title="JWT Token"></a>JWT Token</h1><p>Token=头部+’.’+载荷+’.’+签名</p>
-<h1 id="2-代码实现"><a href="#2-代码实现" class="headerlink" title="2 代码实现"></a>2 代码实现</h1><p>实现代码来之开源项目<a href="https://github.com/dgrijalva/jwt-go" target="_blank" rel="noopener">https://github.com/dgrijalva/jwt-go</a></p>
-<h1 id="使用例子"><a href="#使用例子" class="headerlink" title="使用例子"></a>使用例子</h1><h1 id="Token生成："><a href="#Token生成：" class="headerlink" title="Token生成："></a>Token生成：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var(</span><br><span class="line">	key []byte = []byte(&quot;Hello World！This is secret!&quot;)</span><br><span class="line">)</span><br><span class="line">// 产生json web token</span><br><span class="line">func GenToken() string &#123;</span><br><span class="line">	claims := &amp;jwt.StandardClaims&#123;</span><br><span class="line">		NotBefore: int64(time.Now().Unix()),</span><br><span class="line">		ExpiresAt: int64(time.Now().Unix() + 1000),</span><br><span class="line">		Issuer:    &quot;Bitch&quot;,</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)</span><br><span class="line">	ss, err := token.SignedString(key)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		logs.Error(err)</span><br><span class="line">		return &quot;&quot;</span><br><span class="line">	&#125;</span><br><span class="line">	return ss</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="检验Token："><a href="#检验Token：" class="headerlink" title="检验Token："></a>检验Token：</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 校验token是否有效</span><br><span class="line">func CheckToken(token string) bool &#123;</span><br><span class="line">	_, err := jwt.Parse(token, func(*jwt.Token) (interface&#123;&#125;, error) &#123;</span><br><span class="line">		return key, nil</span><br><span class="line">	&#125;)</span><br><span class="line">	if err != nil &#123;</span><br><span class="line">		fmt.Println(&quot;parase with claims failed.&quot;, err)</span><br><span class="line">		return false</span><br><span class="line">	&#125;</span><br><span class="line">	return true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="基本数据结构"><a href="#基本数据结构" class="headerlink" title="基本数据结构"></a>基本数据结构</h1><p>上面是签名的使用例子，下面分析签名的源码实现，首先看下数据结构Token，包含了我们标准中说道的三部分：头部，载荷和签名，此外还带了一个用于存储生成token的字段Raw和校验标识符Valid</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// A JWT Token.  Different fields will be used depending on whether you&apos;re</span><br><span class="line">// creating or parsing/verifying a token.</span><br><span class="line">type Token struct &#123;</span><br><span class="line">	Raw       string                 // The raw token.  Populated when you Parse a token</span><br><span class="line">	Method    SigningMethod          // The signing method used or to be used</span><br><span class="line">	Header    map[string]interface&#123;&#125; // The first segment of the token</span><br><span class="line">	Claims    Claims                 // The second segment of the token</span><br><span class="line">	Signature string                 // The third segment of the token.  Populated when you Parse a token</span><br><span class="line">	Valid     bool                   // Is the token valid?  Populated when you Parse/Verify a token</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>看下载荷，多了一个字段Audience</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// Structured version of Claims Section, as referenced at</span><br><span class="line">// https://tools.ietf.org/html/rfc7519#section-4.1</span><br><span class="line">// See examples for how to use this with your own claim types</span><br><span class="line">type StandardClaims struct &#123;</span><br><span class="line">	Audience  string `json:&quot;aud,omitempty&quot;`</span><br><span class="line">	ExpiresAt int64  `json:&quot;exp,omitempty&quot;`</span><br><span class="line">	Id        string `json:&quot;jti,omitempty&quot;`</span><br><span class="line">	IssuedAt  int64  `json:&quot;iat,omitempty&quot;`</span><br><span class="line">	Issuer    string `json:&quot;iss,omitempty&quot;`</span><br><span class="line">	NotBefore int64  `json:&quot;nbf,omitempty&quot;`</span><br><span class="line">	Subject   string `json:&quot;sub,omitempty&quot;`</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="API介绍"><a href="#API介绍" class="headerlink" title="API介绍"></a>API介绍</h1><h3 id="初始化API"><a href="#初始化API" class="headerlink" title="初始化API"></a>初始化API</h3><h4 id="提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象"><a href="#提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象" class="headerlink" title="提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象"></a>提供了两个API，一个只需提供加密方法，一个需要提供加密方法和载荷结构对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// Create a new Token.  Takes a signing method</span><br><span class="line">func New(method SigningMethod) *Token &#123;</span><br><span class="line">	return NewWithClaims(method, MapClaims&#123;&#125;)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func NewWithClaims(method SigningMethod, claims Claims) *Token &#123;</span><br><span class="line">	return &amp;Token&#123;</span><br><span class="line">		Header: map[string]interface&#123;&#125;&#123;</span><br><span class="line">			&quot;typ&quot;: &quot;JWT&quot;,</span><br><span class="line">			&quot;alg&quot;: method.Alg(),</span><br><span class="line">		&#125;,</span><br><span class="line">		Claims: claims,</span><br><span class="line">		Method: method,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="生成签名API"><a href="#生成签名API" class="headerlink" title="生成签名API"></a>生成签名API</h1><p>如标准所说，主要是将头部和载荷部分的结构对象转化为json格式，然后用base64编码，然后用’.’号连接，然后使用指定加密方法生成签名，再与前面的头部和载荷用’.’号连接</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// Get the complete, signed token</span><br><span class="line">func (t *Token) SignedString(key interface&#123;&#125;) (string, error) &#123;</span><br><span class="line">	var sig, sstr string</span><br><span class="line">	var err error</span><br><span class="line">	//把头部和载荷转化为json格式，base64编码之后用&apos;.&apos;号连接起来</span><br><span class="line">	if sstr, err = t.SigningString(); err != nil &#123;</span><br><span class="line">		return &quot;&quot;, err</span><br><span class="line">	&#125;</span><br><span class="line">	//使用指定的加密方法生成签名</span><br><span class="line">	if sig, err = t.Method.Sign(sstr, key); err != nil &#123;</span><br><span class="line">		return &quot;&quot;, err</span><br><span class="line">	&#125;</span><br><span class="line">	return strings.Join([]string&#123;sstr, sig&#125;, &quot;.&quot;), nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>头部和载荷数据结构对象的处理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// Generate the signing string.  This is the</span><br><span class="line">// most expensive part of the whole deal.  Unless you</span><br><span class="line">// need this for something special, just go straight for</span><br><span class="line">// the SignedString.</span><br><span class="line">func (t *Token) SigningString() (string, error) &#123;</span><br><span class="line">	var err error</span><br><span class="line">	parts := make([]string, 2)</span><br><span class="line">	for i, _ := range parts &#123;</span><br><span class="line">		var jsonValue []byte</span><br><span class="line">		if i == 0 &#123;</span><br><span class="line">			if jsonValue, err = json.Marshal(t.Header); err != nil &#123;</span><br><span class="line">				return &quot;&quot;, err</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			if jsonValue, err = json.Marshal(t.Claims); err != nil &#123;</span><br><span class="line">				return &quot;&quot;, err</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"> </span><br><span class="line">		parts[i] = EncodeSegment(jsonValue)</span><br><span class="line">	&#125;</span><br><span class="line">	return strings.Join(parts, &quot;.&quot;), nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="校验API"><a href="#校验API" class="headerlink" title="校验API"></a>校验API</h1><p>检验Token基本就是生成Token的逆过程了，也提供了两个API：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">// Parse, validate, and return a token.</span><br><span class="line">// keyFunc will receive the parsed token and should return the key for validating.</span><br><span class="line">// If everything is kosher, err will be nil</span><br><span class="line">func Parse(tokenString string, keyFunc Keyfunc) (*Token, error) &#123;</span><br><span class="line">	return new(Parser).Parse(tokenString, keyFunc)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">func ParseWithClaims(tokenString string, claims Claims, keyFunc Keyfunc) (*Token, error) &#123;</span><br><span class="line">	return new(Parser).ParseWithClaims(tokenString, claims, keyFunc)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2018/12/28/JWT实现用户认证原理与实现[golang]/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+        <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
     </nav>
 </section>
             
@@ -670,6 +708,25 @@
                             <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
                             <p class="item-title"><a href="/2021/05/31/mac flutter 支持多个版本配置/" class="title">mac flutter 支持多个版本配置</a></p>
                             <p class="item-date"><time datetime="2021-05-31T01:47:42.000Z" itemprop="datePublished">2021-05-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2020/09/11/深入详解Apk编译打包流程/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Android/">Android</a></p>
+                            <p class="item-title"><a href="/2020/09/11/深入详解Apk编译打包流程/" class="title">深入详解Apk编译打包流程</a></p>
+                            <p class="item-date"><time datetime="2020-09-11T04:13:18.000Z" itemprop="datePublished">2020-09-11</time></p>
                         </div>
                     </li>
                 
@@ -714,7 +771,7 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2019/10/31/androidmvp架构模式/" class="thumbnail">
+                            <a href="/2019/12/21/粘性事件的EventBus/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -724,28 +781,9 @@
                         </div>
                         
                         <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
-                            <p class="item-title"><a href="/2019/10/31/androidmvp架构模式/" class="title">androidMVP架构模式</a></p>
-                            <p class="item-date"><time datetime="2019-10-31T08:47:42.000Z" itemprop="datePublished">2019-10-31</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/09/30/什么是Handler的同步屏障机制/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
-                            <p class="item-title"><a href="/2019/09/30/什么是Handler的同步屏障机制/" class="title">Handler的同步屏障机制</a></p>
-                            <p class="item-date"><time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time></p>
+                            <p class="item-category"><a class="article-category-link" href="/categories/EventBus/">EventBus</a></p>
+                            <p class="item-title"><a href="/2019/12/21/粘性事件的EventBus/" class="title">粘性事件的EventBus</a></p>
+                            <p class="item-date"><time datetime="2019-12-21T09:22:18.000Z" itemprop="datePublished">2019-12-21</time></p>
                         </div>
                     </li>
                 
@@ -758,7 +796,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/EventBus/">EventBus</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -767,7 +805,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -776,7 +814,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">39</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flutter/">flutter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">39</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flutter/">flutter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -785,7 +823,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/flutter/" style="font-size: 10px;">flutter</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+            <a href="/tags/Android/" style="font-size: 16px;">Android</a> <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/dagger2/" style="font-size: 12px;">dagger2</a> <a href="/tags/flutter/" style="font-size: 10px;">flutter</a> <a href="/tags/git/" style="font-size: 18px;">git</a> <a href="/tags/glide/" style="font-size: 16px;">glide</a> <a href="/tags/go/" style="font-size: 18px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 12px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 16px;">hexo</a> <a href="/tags/https/" style="font-size: 12px;">https</a> <a href="/tags/ios/" style="font-size: 12px;">ios</a> <a href="/tags/java/" style="font-size: 12px;">java</a> <a href="/tags/linxu/" style="font-size: 12px;">linxu</a> <a href="/tags/mac/" style="font-size: 12px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 14px;">mvp</a> <a href="/tags/offce/" style="font-size: 12px;">offce</a> <a href="/tags/resume/" style="font-size: 12px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 12px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 12px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 12px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 14px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/文字/" style="font-size: 12px;">文字</a> <a href="/tags/歌曲/" style="font-size: 12px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 14px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
         </div>
     </div>
 
