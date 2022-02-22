@@ -283,7 +283,7 @@
 
 
 
-    <article id="post-mac android studio 几个文件夹路径" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-android os文件的兼容和适配" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -291,7 +291,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2017/11/08/mac android studio 几个文件夹路径/">mac android studio 几个文件夹夹路径</a>
+            <a class="article-title" href="/2017/11/08/android os文件的兼容和适配/">Android SO文件的兼容和适配</a>
         </h1>
     
 
@@ -300,7 +300,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/11/08/mac android studio 几个文件夹路径/">
+        <a href="/2017/11/08/android os文件的兼容和适配/">
             <time datetime="2017-11-08T08:03:12.000Z" itemprop="datePublished">2017-11-08</time>
         </a>
     </div>
@@ -309,13 +309,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android-studio/">android studio</a>
+        <a class="article-category-link" href="/categories/android/">android</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/mac/">mac</a>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/https/">https</a>
     </div>
 
                     </div>
@@ -325,17 +325,22 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            
-            <h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>在mac资源目录下保存的的目录地址</p>
-<p>gradle 关系文件</p>
-<p>~/.gradle</p>
-<p>Android 模拟器(AVDs) and *.keystore 文件</p>
-<p>~/.android</p>
-<p>Android SDK 工具</p>
-<p>~/Library/Android*</p>
-<p>完全移除android studio终端中执行下列命令</p>
-<p>rm -Rf /Applications/Android\ Studio.app<br>rm -Rf ~/Library/Preferences/AndroidStudio<em><br>rm -Rf ~/Library/Preferences/com.google.android.studio.plist<br>rm -Rf ~/Library/Application\ Support/AndroidStudio</em><br>rm -Rf ~/Library/Logs/AndroidStudio<em><br>rm -Rf ~/Library/Caches/AndroidStudio</em></p>
-
+            <p></p><h1 id="如何查看自己手机的架构？"><a href="#如何查看自己手机的架构？" class="headerlink" title="如何查看自己手机的架构？"></a>如何查看自己手机的架构？</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell getprop ro.product.cpu.abi</span><br></pre></td></tr></table></figure>
+<h1 id="adb查看不同机型的CPU信息"><a href="#adb查看不同机型的CPU信息" class="headerlink" title="adb查看不同机型的CPU信息"></a>adb查看不同机型的CPU信息</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell cat  /proc/cpuinfo</span><br></pre></td></tr></table></figure>
+<p>其中<br>processor: 表示第几个核。<br>Features：表示当前CPU所支持的特性，比如neon，vfp等。<br>CPU architecture：7表示arm-v7，8表示arm-v8</p>
+<h1 id="2-cpu架构与so兼容"><a href="#2-cpu架构与so兼容" class="headerlink" title="2 cpu架构与so兼容"></a>2 cpu架构与so兼容</h1><p>对于一个cpu是arm64-v8a架构的手机，它运行app时，进入jnilibs去读取库文件时，先看有没有arm64-v8a文件夹，如果没有该文件夹，去找armeabi-v7a文件夹，如果没有，再去找armeabi文件夹，如果连这个文件夹也没有，就抛出异常。<br>注意：这里说的是文件夹，即如果有arm64-v8a文件夹，那么就去找特定名称的.so文件，如果没有找到想要的.so文件，不会再往下（armeabi-v7a文件夹）找了，而是直接抛出异常。</p>
+<p>现在大部分Android机型CPU都是armeabi-v7a和arm64-v8架构，而他们又是向下兼容，因此，仅适配一种CPU架构就能满足绝大部分要求，这样就能最大限度减少APK的大小。</p>
+<h1 id="方案一：只适配armeabi"><a href="#方案一：只适配armeabi" class="headerlink" title="方案一：只适配armeabi"></a>方案一：只适配armeabi</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ndk &#123;</span><br><span class="line">        abiFilters &apos;armeabi&apos;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>优点：基本上适配了全部CPU架构（除了淘汰的mips和mips_64）。<br>缺点：性能低，相当于在绝大多数手机上都是需要辅助ABI或动态转码来兼容。</p>
+<h1 id="方案二：只适配-armeabi-v7a"><a href="#方案二：只适配-armeabi-v7a" class="headerlink" title="方案二：只适配 armeabi-v7a"></a>方案二：只适配 armeabi-v7a</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ndk &#123;</span><br><span class="line">        abiFilters &apos;armeabi-v7a&apos;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>同方案一，只是又筛掉了一部分老旧设备,在性能和兼容二者中比较平衡。</p>
+<h1 id="方案三：只适配-arm64-v8a"><a href="#方案三：只适配-arm64-v8a" class="headerlink" title="方案三：只适配 arm64-v8a"></a>方案三：只适配 arm64-v8a</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ndk &#123;</span><br><span class="line">        abiFilters &apos;arm64-v8a&apos;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>优点：性能最佳<br>缺点：只能运行在arm64-v8上，要放弃部分老旧设备用户。</p>
+<h1 id="Android-SO文件的兼容和适配"><a href="#Android-SO文件的兼容和适配" class="headerlink" title="Android SO文件的兼容和适配"></a>Android SO文件的兼容和适配</h1><p>开发Android应用时，有时候Java层的编码不能满足实现需求，就需要到C/C++实现后生成SO文件，再用System.loadLibrary()加载进行调用，这里成为JNI层的实现。常见的场景如：加解密算法，音视频编解码等。在生成SO文件时，需要考虑适配市面上不同手机CPU架构，而生成支持不同平台的SO文件进行兼容。目前Android共支持七种不同类型的CPU架构，分别是：ARMv5，ARMv7 (从2010年起)，x86 (从2011年起)，MIPS (从2012年起)，ARMv8，MIPS64和x86_64 (从2014年起)。如果你要完美兼容所有类型的手机，理论上是要在的libs目录下放置各个架构平台的SO文件。<br><img src="/2017/11/08/android os文件的兼容和适配/../../../../images/v2-01f76f20234a9b75e2944c28f52a4200_720w.png" alt="Alt text"></p>
+<p>  这样一来，虽然可以兼容所有机型，但你的项目体积也会变得非常庞大。是否一定需要带入这么多SO文件去兼容呢？答案是否定的。<br></p><p></p>
+            <p class="article-more-link">
+                <a href="/2017/11/08/android os文件的兼容和适配/#more">查看更多</a>
+            </p>
         
         </div>
         <footer class="article-footer">
@@ -347,7 +352,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2017/11/08/mac android studio 几个文件夹路径/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2017/11/08/android os文件的兼容和适配/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -424,7 +429,7 @@
 
 
 
-    <article id="post-android os文件的兼容和适配" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-mac android studio 几个文件夹路径" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -432,7 +437,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2017/11/08/android os文件的兼容和适配/">Android SO文件的兼容和适配</a>
+            <a class="article-title" href="/2017/11/08/mac android studio 几个文件夹路径/">mac android studio 几个文件夹夹路径</a>
         </h1>
     
 
@@ -441,7 +446,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/11/08/android os文件的兼容和适配/">
+        <a href="/2017/11/08/mac android studio 几个文件夹路径/">
             <time datetime="2017-11-08T08:03:12.000Z" itemprop="datePublished">2017-11-08</time>
         </a>
     </div>
@@ -450,13 +455,13 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
+        <a class="article-category-link" href="/categories/android-studio/">android studio</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/https/">https</a>
+        <a class="tag-link" href="/tags/mac/">mac</a>
     </div>
 
                     </div>
@@ -466,22 +471,17 @@
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p></p><h1 id="如何查看自己手机的架构？"><a href="#如何查看自己手机的架构？" class="headerlink" title="如何查看自己手机的架构？"></a>如何查看自己手机的架构？</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell getprop ro.product.cpu.abi</span><br></pre></td></tr></table></figure>
-<h1 id="adb查看不同机型的CPU信息"><a href="#adb查看不同机型的CPU信息" class="headerlink" title="adb查看不同机型的CPU信息"></a>adb查看不同机型的CPU信息</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell cat  /proc/cpuinfo</span><br></pre></td></tr></table></figure>
-<p>其中<br>processor: 表示第几个核。<br>Features：表示当前CPU所支持的特性，比如neon，vfp等。<br>CPU architecture：7表示arm-v7，8表示arm-v8</p>
-<h1 id="2-cpu架构与so兼容"><a href="#2-cpu架构与so兼容" class="headerlink" title="2 cpu架构与so兼容"></a>2 cpu架构与so兼容</h1><p>对于一个cpu是arm64-v8a架构的手机，它运行app时，进入jnilibs去读取库文件时，先看有没有arm64-v8a文件夹，如果没有该文件夹，去找armeabi-v7a文件夹，如果没有，再去找armeabi文件夹，如果连这个文件夹也没有，就抛出异常。<br>注意：这里说的是文件夹，即如果有arm64-v8a文件夹，那么就去找特定名称的.so文件，如果没有找到想要的.so文件，不会再往下（armeabi-v7a文件夹）找了，而是直接抛出异常。</p>
-<p>现在大部分Android机型CPU都是armeabi-v7a和arm64-v8架构，而他们又是向下兼容，因此，仅适配一种CPU架构就能满足绝大部分要求，这样就能最大限度减少APK的大小。</p>
-<h1 id="方案一：只适配armeabi"><a href="#方案一：只适配armeabi" class="headerlink" title="方案一：只适配armeabi"></a>方案一：只适配armeabi</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ndk &#123;</span><br><span class="line">        abiFilters &apos;armeabi&apos;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>优点：基本上适配了全部CPU架构（除了淘汰的mips和mips_64）。<br>缺点：性能低，相当于在绝大多数手机上都是需要辅助ABI或动态转码来兼容。</p>
-<h1 id="方案二：只适配-armeabi-v7a"><a href="#方案二：只适配-armeabi-v7a" class="headerlink" title="方案二：只适配 armeabi-v7a"></a>方案二：只适配 armeabi-v7a</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ndk &#123;</span><br><span class="line">        abiFilters &apos;armeabi-v7a&apos;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>同方案一，只是又筛掉了一部分老旧设备,在性能和兼容二者中比较平衡。</p>
-<h1 id="方案三：只适配-arm64-v8a"><a href="#方案三：只适配-arm64-v8a" class="headerlink" title="方案三：只适配 arm64-v8a"></a>方案三：只适配 arm64-v8a</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ndk &#123;</span><br><span class="line">        abiFilters &apos;arm64-v8a&apos;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>优点：性能最佳<br>缺点：只能运行在arm64-v8上，要放弃部分老旧设备用户。</p>
-<h1 id="Android-SO文件的兼容和适配"><a href="#Android-SO文件的兼容和适配" class="headerlink" title="Android SO文件的兼容和适配"></a>Android SO文件的兼容和适配</h1><p>开发Android应用时，有时候Java层的编码不能满足实现需求，就需要到C/C++实现后生成SO文件，再用System.loadLibrary()加载进行调用，这里成为JNI层的实现。常见的场景如：加解密算法，音视频编解码等。在生成SO文件时，需要考虑适配市面上不同手机CPU架构，而生成支持不同平台的SO文件进行兼容。目前Android共支持七种不同类型的CPU架构，分别是：ARMv5，ARMv7 (从2010年起)，x86 (从2011年起)，MIPS (从2012年起)，ARMv8，MIPS64和x86_64 (从2014年起)。如果你要完美兼容所有类型的手机，理论上是要在的libs目录下放置各个架构平台的SO文件。<br><img src="/2017/11/08/android os文件的兼容和适配/../../../../images/v2-01f76f20234a9b75e2944c28f52a4200_720w.png" alt="Alt text"></p>
-<p>  这样一来，虽然可以兼容所有机型，但你的项目体积也会变得非常庞大。是否一定需要带入这么多SO文件去兼容呢？答案是否定的。<br></p><p></p>
-            <p class="article-more-link">
-                <a href="/2017/11/08/android os文件的兼容和适配/#more">查看更多</a>
-            </p>
+            
+            <h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>在mac资源目录下保存的的目录地址</p>
+<p>gradle 关系文件</p>
+<p>~/.gradle</p>
+<p>Android 模拟器(AVDs) and *.keystore 文件</p>
+<p>~/.android</p>
+<p>Android SDK 工具</p>
+<p>~/Library/Android*</p>
+<p>完全移除android studio终端中执行下列命令</p>
+<p>rm -Rf /Applications/Android\ Studio.app<br>rm -Rf ~/Library/Preferences/AndroidStudio<em><br>rm -Rf ~/Library/Preferences/com.google.android.studio.plist<br>rm -Rf ~/Library/Application\ Support/AndroidStudio</em><br>rm -Rf ~/Library/Logs/AndroidStudio<em><br>rm -Rf ~/Library/Caches/AndroidStudio</em></p>
+
         
         </div>
         <footer class="article-footer">
@@ -493,7 +493,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2017/11/08/android os文件的兼容和适配/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2017/11/08/mac android studio 几个文件夹路径/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -586,25 +586,6 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2022/04/25/kotlin Android  day/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/kotlin/">kotlin</a></p>
-                            <p class="item-title"><a href="/2022/04/25/kotlin Android  day/" class="title">kotlin Android day</a></p>
-                            <p class="item-date"><time datetime="2022-04-25T03:13:18.000Z" itemprop="datePublished">2022-04-25</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2021/05/31/mac flutter 支持多个版本配置/" class="thumbnail">
     
     
@@ -618,6 +599,25 @@
                             <p class="item-category"><a class="article-category-link" href="/categories/android/">android</a></p>
                             <p class="item-title"><a href="/2021/05/31/mac flutter 支持多个版本配置/" class="title">mac flutter 支持多个版本配置</a></p>
                             <p class="item-date"><time datetime="2021-05-31T01:47:42.000Z" itemprop="datePublished">2021-05-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2021/04/25/kotlin Android  day/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/kotlin/">kotlin</a></p>
+                            <p class="item-title"><a href="/2021/04/25/kotlin Android  day/" class="title">kotlin Android day</a></p>
+                            <p class="item-date"><time datetime="2021-04-25T03:13:18.000Z" itemprop="datePublished">2021-04-25</time></p>
                         </div>
                     </li>
                 
@@ -696,7 +696,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">四月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
