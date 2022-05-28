@@ -212,75 +212,6 @@
 
             
             <section id="main">
-    <article id="post-sync.WaitGroup使用说明" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/10/05/sync.WaitGroup使用说明/">Go sync包 WaitGroup使用</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2018/10/05/sync.WaitGroup使用说明/">
-            <time datetime="2018-10-05T08:30:12.000Z" itemprop="datePublished">2018-10-05</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/go/">go</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/go/">go</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>sync.WaitGroup用途：<br>它能够一直等到所有的goroutine执行完成，<br>并且阻塞主线程的执行，直到所有的goroutine执行完成<br>注意：它们的执行结果有没有顺序的，调度器不能保证多个goroutine执行次序，且进程退出时不会等待它们结束。</p>
-<p>waiGroup共有三个方法：Add(delta int)Done()Wait()<br>Add:添加或者减少等待goroutine的数量<br>Done：相当于Add(-1)<br>Wait:执行阻塞，知道直到所有的WaitGroutine数量变成0</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var wg sync.WaitGroup</span><br><span class="line">	for i := 0; i &gt; 5; i = i + 1 &#123;</span><br><span class="line">		wg.Add(1)</span><br><span class="line">		go func(n int) &#123;</span><br><span class="line">			defer wg.Add(-1)</span><br><span class="line">			EchoNumber(n)</span><br><span class="line"></span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br><span class="line">func EchoNumber(i int) &#123;</span><br><span class="line">	time.Sleep(3e9)</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>golang中的同步是通过sync.WaitGroup来实现的，<br>WaitGroup的功能：它实现了一个类似队列的结构，<br>可以一直向队列添加任务，当任务完成后便从队列中删除，<br>如果队列中的任务没有完全完成，可以通过Wait()函数来出发阻塞，<br>防止程序继续进行，直到所有的队列任务都完成为止。<br>WaitGroup的特点是Wait()可以用来阻塞直到队列中的所有任务都完成才解除阻塞，<br>而不需要Sleep一个固定的时间来等待，但是其缺点是无法指定固定的goroutine数目，<br>可能通过使用channel解决此问题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var waitgroup sync.WaitGroup</span><br><span class="line"></span><br><span class="line">func Afunction(shownum int) &#123;</span><br><span class="line"></span><br><span class="line">	fmt.Println(shownum)</span><br><span class="line">	//任务队列，将任务队列中的任务数量-1，其实.Done就是.Add(-1)</span><br><span class="line">	waitgroup.Done()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i := 0; i &lt; 10; i++ &#123;</span><br><span class="line">		//每创建一个goroutine，就把任务队列中的任务的数量+1</span><br><span class="line">		waitgroup.Add(1)</span><br><span class="line">		go Afunction(i)</span><br><span class="line">	&#125;</span><br><span class="line">	//.Wait()这里发生阻塞，直到队列中所有的任务结束就会解除阻塞</span><br><span class="line">	waitgroup.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2018/10/05/sync.WaitGroup使用说明/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <article id="post-Go sync包 WaitGroup使用" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -341,6 +272,75 @@
             
     
         <a href="http://b.nearby.ren/2018/10/05/Go sync包 WaitGroup使用/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-sync.WaitGroup使用说明" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/10/05/sync.WaitGroup使用说明/">Go sync包 WaitGroup使用</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2018/10/05/sync.WaitGroup使用说明/">
+            <time datetime="2018-10-05T08:30:12.000Z" itemprop="datePublished">2018-10-05</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/go/">go</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/go/">go</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>sync.WaitGroup用途：<br>它能够一直等到所有的goroutine执行完成，<br>并且阻塞主线程的执行，直到所有的goroutine执行完成<br>注意：它们的执行结果有没有顺序的，调度器不能保证多个goroutine执行次序，且进程退出时不会等待它们结束。</p>
+<p>waiGroup共有三个方法：Add(delta int)Done()Wait()<br>Add:添加或者减少等待goroutine的数量<br>Done：相当于Add(-1)<br>Wait:执行阻塞，知道直到所有的WaitGroutine数量变成0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">	&quot;time&quot;</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var wg sync.WaitGroup</span><br><span class="line">	for i := 0; i &gt; 5; i = i + 1 &#123;</span><br><span class="line">		wg.Add(1)</span><br><span class="line">		go func(n int) &#123;</span><br><span class="line">			defer wg.Add(-1)</span><br><span class="line">			EchoNumber(n)</span><br><span class="line"></span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	wg.Wait()</span><br><span class="line">&#125;</span><br><span class="line">func EchoNumber(i int) &#123;</span><br><span class="line">	time.Sleep(3e9)</span><br><span class="line">	fmt.Println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>golang中的同步是通过sync.WaitGroup来实现的，<br>WaitGroup的功能：它实现了一个类似队列的结构，<br>可以一直向队列添加任务，当任务完成后便从队列中删除，<br>如果队列中的任务没有完全完成，可以通过Wait()函数来出发阻塞，<br>防止程序继续进行，直到所有的队列任务都完成为止。<br>WaitGroup的特点是Wait()可以用来阻塞直到队列中的所有任务都完成才解除阻塞，<br>而不需要Sleep一个固定的时间来等待，但是其缺点是无法指定固定的goroutine数目，<br>可能通过使用channel解决此问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;sync&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var waitgroup sync.WaitGroup</span><br><span class="line"></span><br><span class="line">func Afunction(shownum int) &#123;</span><br><span class="line"></span><br><span class="line">	fmt.Println(shownum)</span><br><span class="line">	//任务队列，将任务队列中的任务数量-1，其实.Done就是.Add(-1)</span><br><span class="line">	waitgroup.Done()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	for i := 0; i &lt; 10; i++ &#123;</span><br><span class="line">		//每创建一个goroutine，就把任务队列中的任务的数量+1</span><br><span class="line">		waitgroup.Add(1)</span><br><span class="line">		go Afunction(i)</span><br><span class="line">	&#125;</span><br><span class="line">	//.Wait()这里发生阻塞，直到队列中所有的任务结束就会解除阻塞</span><br><span class="line">	waitgroup.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2018/10/05/sync.WaitGroup使用说明/#comments" class="article-comment-link">评论</a>
     
 
         </footer>

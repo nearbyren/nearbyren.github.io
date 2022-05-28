@@ -518,7 +518,7 @@
     
     <entry>
       <title>Go sync包 WaitGroup使用</title>
-      <link href="/2018/10/05/sync.WaitGroup%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"/>
+      <link href="/2018/10/05/Go%20sync%E5%8C%85%20WaitGroup%E4%BD%BF%E7%94%A8/"/>
       <content type="html"><![CDATA[<p>sync.WaitGroup用途：<br>它能够一直等到所有的goroutine执行完成，<br>并且阻塞主线程的执行，直到所有的goroutine执行完成<br>注意：它们的执行结果有没有顺序的，调度器不能保证多个goroutine执行次序，且进程退出时不会等待它们结束。</p><p>waiGroup共有三个方法：Add(delta int)Done()Wait()<br>Add:添加或者减少等待goroutine的数量<br>Done：相当于Add(-1)<br>Wait:执行阻塞，知道直到所有的WaitGroutine数量变成0</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;sync&quot;</span><br><span class="line">&quot;time&quot;</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">var wg sync.WaitGroup</span><br><span class="line">for i := 0; i &gt; 5; i = i + 1 &#123;</span><br><span class="line">wg.Add(1)</span><br><span class="line">go func(n int) &#123;</span><br><span class="line">defer wg.Add(-1)</span><br><span class="line">EchoNumber(n)</span><br><span class="line"></span><br><span class="line">&#125;(i)</span><br><span class="line">&#125;</span><br><span class="line">wg.Wait()</span><br><span class="line">&#125;</span><br><span class="line">func EchoNumber(i int) &#123;</span><br><span class="line">time.Sleep(3e9)</span><br><span class="line">fmt.Println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>golang中的同步是通过sync.WaitGroup来实现的，<br>WaitGroup的功能：它实现了一个类似队列的结构，<br>可以一直向队列添加任务，当任务完成后便从队列中删除，<br>如果队列中的任务没有完全完成，可以通过Wait()函数来出发阻塞，<br>防止程序继续进行，直到所有的队列任务都完成为止。<br>WaitGroup的特点是Wait()可以用来阻塞直到队列中的所有任务都完成才解除阻塞，<br>而不需要Sleep一个固定的时间来等待，但是其缺点是无法指定固定的goroutine数目，<br>可能通过使用channel解决此问题。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">&quot;sync&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var waitgroup sync.WaitGroup</span><br><span class="line"></span><br><span class="line">func Afunction(shownum int) &#123;</span><br><span class="line"></span><br><span class="line">fmt.Println(shownum)</span><br><span class="line">//任务队列，将任务队列中的任务数量-1，其实.Done就是.Add(-1)</span><br><span class="line">waitgroup.Done()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">for i := 0; i &lt; 10; i++ &#123;</span><br><span class="line">//每创建一个goroutine，就把任务队列中的任务的数量+1</span><br><span class="line">waitgroup.Add(1)</span><br><span class="line">go Afunction(i)</span><br><span class="line">&#125;</span><br><span class="line">//.Wait()这里发生阻塞，直到队列中所有的任务结束就会解除阻塞</span><br><span class="line">waitgroup.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       
       <categories>
@@ -538,7 +538,7 @@
     
     <entry>
       <title>Go sync包 WaitGroup使用</title>
-      <link href="/2018/10/05/Go%20sync%E5%8C%85%20WaitGroup%E4%BD%BF%E7%94%A8/"/>
+      <link href="/2018/10/05/sync.WaitGroup%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"/>
       <content type="html"><![CDATA[<p>sync.WaitGroup用途：<br>它能够一直等到所有的goroutine执行完成，<br>并且阻塞主线程的执行，直到所有的goroutine执行完成<br>注意：它们的执行结果有没有顺序的，调度器不能保证多个goroutine执行次序，且进程退出时不会等待它们结束。</p><p>waiGroup共有三个方法：Add(delta int)Done()Wait()<br>Add:添加或者减少等待goroutine的数量<br>Done：相当于Add(-1)<br>Wait:执行阻塞，知道直到所有的WaitGroutine数量变成0</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;sync&quot;</span><br><span class="line">&quot;time&quot;</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">var wg sync.WaitGroup</span><br><span class="line">for i := 0; i &gt; 5; i = i + 1 &#123;</span><br><span class="line">wg.Add(1)</span><br><span class="line">go func(n int) &#123;</span><br><span class="line">defer wg.Add(-1)</span><br><span class="line">EchoNumber(n)</span><br><span class="line"></span><br><span class="line">&#125;(i)</span><br><span class="line">&#125;</span><br><span class="line">wg.Wait()</span><br><span class="line">&#125;</span><br><span class="line">func EchoNumber(i int) &#123;</span><br><span class="line">time.Sleep(3e9)</span><br><span class="line">fmt.Println(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>golang中的同步是通过sync.WaitGroup来实现的，<br>WaitGroup的功能：它实现了一个类似队列的结构，<br>可以一直向队列添加任务，当任务完成后便从队列中删除，<br>如果队列中的任务没有完全完成，可以通过Wait()函数来出发阻塞，<br>防止程序继续进行，直到所有的队列任务都完成为止。<br>WaitGroup的特点是Wait()可以用来阻塞直到队列中的所有任务都完成才解除阻塞，<br>而不需要Sleep一个固定的时间来等待，但是其缺点是无法指定固定的goroutine数目，<br>可能通过使用channel解决此问题。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">&quot;fmt&quot;</span><br><span class="line">&quot;sync&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">var waitgroup sync.WaitGroup</span><br><span class="line"></span><br><span class="line">func Afunction(shownum int) &#123;</span><br><span class="line"></span><br><span class="line">fmt.Println(shownum)</span><br><span class="line">//任务队列，将任务队列中的任务数量-1，其实.Done就是.Add(-1)</span><br><span class="line">waitgroup.Done()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">for i := 0; i &lt; 10; i++ &#123;</span><br><span class="line">//每创建一个goroutine，就把任务队列中的任务的数量+1</span><br><span class="line">waitgroup.Add(1)</span><br><span class="line">go Afunction(i)</span><br><span class="line">&#125;</span><br><span class="line">//.Wait()这里发生阻塞，直到队列中所有的任务结束就会解除阻塞</span><br><span class="line">waitgroup.Wait()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       
       <categories>
@@ -805,26 +805,6 @@
     </entry>
     
     <entry>
-      <title>vue 目录解析</title>
-      <link href="/2017/11/08/vue%20%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/"/>
-      <content type="html"><![CDATA[<h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>├── build/                      # webpack config files / webpack 配置文件<br>│   └── …<br>├── config/<br>│   ├── index.js                # main project config / 项目主要配置<br>│   └── …<br>├── src/                        # 主要的项目开发文件都在这个目录下：<br>│   ├── main.js                 # app entry file / 应用入口文件<br>│   ├── App.vue                 # main app component / App 父组件<br>│   ├── components/             # ui components / 可复用的 ui 组件<br>│   │   └── …<br>│   ├── assets/                 # module assets (processed by webpack) / 模块资源（经过 webpack 处理，如文件合并，图片压缩等）<br>│   │   └── …<br>│   ├── page/                   ## 以页面为单位的 .vue 文件<br>│   │   ├── index.vue           ## 一级 router-view，顶部导航栏和左侧侧边导航栏<br>│   │   ├── 404.vue             ## 404 页面<br>│   │   ├── menu1/              ## 二级 router-view，导航切换后的页面内容<br>│   │   │   └── …<br>│   │   └── menu2/              ## 按照菜单项创建文件夹对文件进行组织管理<br>│   │       └── …<br>│   └── router/<br>│       └── index.js            # 路由配置文件<br>├── static/                     # pure static assets (directly copied) / 纯静态资源（直接拷贝使用，不经过 webpack 处理）<br>├── .babelrc                    # babel config<br>├── .eslintrc.js                # eslint config<br>├── .editorconfig               # editor config<br>├── index.html                  # index.html template<br>├── package.json                # build scripts and dependencies<br>└── …</p><p>关闭Eslint：<br>build/webpack.base.conf.js<br>module: {<br>    rules: [<br>      // {<br>      //   test: /.(js|vue)$/,<br>      //   loader: ‘eslint-loader’,<br>      //   enforce: “pre”,<br>      //   include: [resolve(‘src’), resolve(‘test’)],<br>      //   options: {<br>      //     formatter: require(‘eslint-friendly-formatter’)<br>      //   }<br>      // },<br>      {<br>        test: /.vue$/,<br>        loader: ‘vue-loader’,<br>        options: vueLoaderConfig<br>      },<br>      …<br>    ]<br>  },</p>]]></content>
-      
-      <categories>
-          
-          <category> web </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> web </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>mac android studio 几个文件夹夹路径</title>
       <link href="/2017/11/08/mac%20android%20studio%20%E5%87%A0%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E8%B7%AF%E5%BE%84/"/>
       <content type="html"><![CDATA[<h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>在mac资源目录下保存的的目录地址</p><p>gradle 关系文件</p><p>~/.gradle</p><p>Android 模拟器(AVDs) and *.keystore 文件</p><p>~/.android</p><p>Android SDK 工具</p><p>~/Library/Android*</p><p>完全移除android studio终端中执行下列命令</p><p>rm -Rf /Applications/Android\ Studio.app<br>rm -Rf ~/Library/Preferences/AndroidStudio<em><br>rm -Rf ~/Library/Preferences/com.google.android.studio.plist<br>rm -Rf ~/Library/Application\ Support/AndroidStudio</em><br>rm -Rf ~/Library/Logs/AndroidStudio<em><br>rm -Rf ~/Library/Caches/AndroidStudio</em></p>]]></content>
@@ -839,6 +819,26 @@
         <tags>
             
             <tag> mac </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>vue 目录解析</title>
+      <link href="/2017/11/08/vue%20%E7%9B%AE%E5%BD%95%E8%A7%A3%E6%9E%90/"/>
+      <content type="html"><![CDATA[<h1 id="vue-目录解析"><a href="#vue-目录解析" class="headerlink" title="vue 目录解析"></a>vue 目录解析</h1><p>├── build/                      # webpack config files / webpack 配置文件<br>│   └── …<br>├── config/<br>│   ├── index.js                # main project config / 项目主要配置<br>│   └── …<br>├── src/                        # 主要的项目开发文件都在这个目录下：<br>│   ├── main.js                 # app entry file / 应用入口文件<br>│   ├── App.vue                 # main app component / App 父组件<br>│   ├── components/             # ui components / 可复用的 ui 组件<br>│   │   └── …<br>│   ├── assets/                 # module assets (processed by webpack) / 模块资源（经过 webpack 处理，如文件合并，图片压缩等）<br>│   │   └── …<br>│   ├── page/                   ## 以页面为单位的 .vue 文件<br>│   │   ├── index.vue           ## 一级 router-view，顶部导航栏和左侧侧边导航栏<br>│   │   ├── 404.vue             ## 404 页面<br>│   │   ├── menu1/              ## 二级 router-view，导航切换后的页面内容<br>│   │   │   └── …<br>│   │   └── menu2/              ## 按照菜单项创建文件夹对文件进行组织管理<br>│   │       └── …<br>│   └── router/<br>│       └── index.js            # 路由配置文件<br>├── static/                     # pure static assets (directly copied) / 纯静态资源（直接拷贝使用，不经过 webpack 处理）<br>├── .babelrc                    # babel config<br>├── .eslintrc.js                # eslint config<br>├── .editorconfig               # editor config<br>├── index.html                  # index.html template<br>├── package.json                # build scripts and dependencies<br>└── …</p><p>关闭Eslint：<br>build/webpack.base.conf.js<br>module: {<br>    rules: [<br>      // {<br>      //   test: /.(js|vue)$/,<br>      //   loader: ‘eslint-loader’,<br>      //   enforce: “pre”,<br>      //   include: [resolve(‘src’), resolve(‘test’)],<br>      //   options: {<br>      //     formatter: require(‘eslint-friendly-formatter’)<br>      //   }<br>      // },<br>      {<br>        test: /.vue$/,<br>        loader: ‘vue-loader’,<br>        options: vueLoaderConfig<br>      },<br>      …<br>    ]<br>  },</p>]]></content>
+      
+      <categories>
+          
+          <category> web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> web </tag>
             
         </tags>
       
@@ -1615,6 +1615,26 @@
     </entry>
     
     <entry>
+      <title>Android Studio --“Cannot resolve symbol” 解决办法</title>
+      <link href="/2016/06/17/Android%20Studio%20--%E2%80%9CCannot%20resolve%20symbol%E2%80%9D%20%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+      <content type="html"><![CDATA[<p>Android Studio 无法识别同一个 package 里的其他类，将其显示为红色，但是 compile 没有问题。鼠标放上去后显示 “Cannot resolve symbol XXX”，重启 Android Studio，重新 sync gradle，Clean build 都没有用。</p><p>多半是因为 Android Studio 之前发生了错误，某些 setting 出了问题。解决方法如下：<br>点击菜单中的 “File” -&gt; “Sync Project with Gradle Files”语法就会正确的高亮了。<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>]]></content>
+      
+      <categories>
+          
+          <category> android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> android </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Android应用防止被截图或者录屏</title>
       <link href="/2016/06/17/Android%E5%BA%94%E7%94%A8%E9%98%B2%E6%AD%A2%E8%A2%AB%E6%88%AA%E5%9B%BE%E6%88%96%E8%80%85%E5%BD%95%E5%B1%8F/"/>
       <content type="html"><![CDATA[<p> Activity创建时设置WindowManager.LayoutParams.FLAG_SECURE属性，该属性能防止屏幕被截图和录制。以下为修复代码示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class DemoActivity extends Activity &#123;</span><br><span class="line">       @Override</span><br><span class="line">       public void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">           super.onCreate(savedInstanceState);</span><br><span class="line">           getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);</span><br><span class="line">           setContentView(R.layout.main);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p><p>即在Activity onCreate方法中，setContenView调用前设置getWindow().setFlags(LayoutParams.FLAG_SECURE, LayoutParams.FLAG_SECURE);若是所有Activity需要设置该属性，那么可以在BaseActivity中设置，然后其他Activity继承即可</p>]]></content>
@@ -1653,26 +1673,6 @@
             <tag> android </tag>
             
             <tag> glide </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>Android Studio --“Cannot resolve symbol” 解决办法</title>
-      <link href="/2016/06/17/Android%20Studio%20--%E2%80%9CCannot%20resolve%20symbol%E2%80%9D%20%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
-      <content type="html"><![CDATA[<p>Android Studio 无法识别同一个 package 里的其他类，将其显示为红色，但是 compile 没有问题。鼠标放上去后显示 “Cannot resolve symbol XXX”，重启 Android Studio，重新 sync gradle，Clean build 都没有用。</p><p>多半是因为 Android Studio 之前发生了错误，某些 setting 出了问题。解决方法如下：<br>点击菜单中的 “File” -&gt; “Sync Project with Gradle Files”语法就会正确的高亮了。<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>]]></content>
-      
-      <categories>
-          
-          <category> android </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> android </tag>
             
         </tags>
       

@@ -212,7 +212,7 @@
 
             
             <section id="main">
-    <article id="post-Android Studio --“Cannot resolve symbol” 解决办法" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Android之Glide缓存" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -220,7 +220,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/06/17/Android Studio --“Cannot resolve symbol” 解决办法/">Android Studio --“Cannot resolve symbol” 解决办法</a>
+            <a class="article-title" href="/2016/06/17/Android之Glide缓存/">Android之Glide缓存</a>
         </h1>
     
 
@@ -229,7 +229,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/06/17/Android Studio --“Cannot resolve symbol” 解决办法/">
+        <a href="/2016/06/17/Android之Glide缓存/">
             <time datetime="2016-06-17T12:31:28.000Z" itemprop="datePublished">2016-06-17</time>
         </a>
     </div>
@@ -244,7 +244,7 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/glide/">glide</a>
     </div>
 
                     </div>
@@ -255,8 +255,89 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>Android Studio 无法识别同一个 package 里的其他类，将其显示为红色，但是 compile 没有问题。鼠标放上去后显示 “Cannot resolve symbol XXX”，重启 Android Studio，重新 sync gradle，Clean build 都没有用。</p>
-<p>多半是因为 Android Studio 之前发生了错误，某些 setting 出了问题。解决方法如下：<br>点击菜单中的 “File” -&gt; “Sync Project with Gradle Files”语法就会正确的高亮了。<br>点击菜单中的 “File” -&gt; “Invalidate Caches / Restart”，然后点击对话框中的 “Invalidate and Restart”，清空 cache 并且重启。语法就会正确的高亮了。</p>
+            <p><strong>GlideModule使用</strong>：<br>　　GlideModule 是一个抽象方法，全局改变 Glide 行为的一个方式，通过全局GlideModule 配置Glide，用GlideBuilder设置选项，用Glide注册ModelLoader等。</p>
+<ol>
+<li><p>自定义一个GlideModule<br>public class MyGlideModule implements GlideModule {<br>@Override public void applyOptions (Context context, GlideBuilder builder){</p>
+<p>　　}<br>}<br>@Override public void registerComponents(Context context, Glide glide){</p>
+<p>　　}<br>}</p>
+</li>
+<li><p>&lt; mainfest …&gt;<br>　　&lt; application …&gt;<br>　　 　　&lt; meta-date<br>　　　　　android:name=”com.mypackage.MyGlideModule”<br>　　　　　android:value=”GlideModule” /&gt;<br>　　　&lt; / application&gt;<br>　&lt; / manifest&gt;</p>
+</li>
+<li><p>添加混淆处理<br>　　-keepnames class com.mypackage.MyGlideModule<br>　　# or more generally:<br>　　#-keep public class * implements com.bumptech.glide.module.GlideModule</p>
+</li>
+<li><p>多个GlideModule冲突问题<br>　　GlideModule不能指定调用顺序，所以应该避免不同的GlideModule之间有冲突的选项设置，可以考虑将所有的设置都放到一个GlideModule里面，或者排除掉某个manifest文件的某个Module，代码如下：<br>&lt; meta-data android:name=”com.mypackage.MyGlideModule” tools:node=”remove” / &gt;</p>
+</li>
+</ol>
+<p><strong>GlideBuilder设置选项：</strong></p>
+<ol>
+<li>设置Glide内存缓存大小<br>　　int maxMemory = (int)Runtime.getRuntime().maxMemory();//获取系统分配给应用的总内存大小<br>int memoryCacheSize = maxMemory / 8 ;//设置图片内存缓存占用八分之一<br>//设置缓存大小<br>builder.setMemoryCache(new LruResourceCache(memoryCacheSize));</li>
+</ol>
+<p>　获取默认的内存使用计算函数<br>　MemorySizeCalculator calculator = new MemorySizeCalcylator(context);<br>　int defauleMemoryCacheSize = calculator.getMemoryCacheSize();<br>　int defaultBitmapPoolSize = calculator.getBitmapPoolSize();
+　</p>
+<ol>
+<li><p>设置Glide磁盘缓存大小<br>　　File cacheDir = context.getExternalCacheDir();//指定的是数据缓存地址<br>　　int disCacheSize = 1024 <em> 1024 </em>30 ;//最多可以缓存多少字节的数据<br>　　//设置磁盘缓存大小<br>　　builder.setDiskCache(new DiskLruCacheFactory(cacheDir.getPath(),”glide”,diskCacheSize));<br>也可以通过如下两种方式<br>//存放在data/data/xxxx/cache/<br>builder.setDiskCache(new InternalCacheDiskCacheFactory(context, “glide”, diskCacheSize));<br>//存放在外置文件浏览器<br>builder.setDiskCache(new ExternalCacheDiskCacheFactory(context, “glide”, diskCacheSize));</p>
+</li>
+<li><p>设置图片解码格式<br>//设置图片解码格式<br>builder.setDecodeFormat(DecodeFormat.PREFER_ARGB_8888);</p>
+</li>
+<li><p>设置缓存内存大小<br>//设置BitmapPool缓存内存大小<br>builder.setBitmapPool(new LruBitmapPool(memoryCacheSize));</p>
+</li>
+</ol>
+<ol>
+<li>设置一个用来检索cache中没有的Resource的ExecutorService<br>为了使缩略图请求正确工作，实现类必须把请求根据Priority优先级排好序。<br>builder.setDiskCacheService(ExecutorService service);<br>builder.setResizeService(ExecutorService service);</li>
+</ol>
+<p><strong>使用ModelLoader自定义数据源</strong>：<br>例如我们使用了七牛云存储，要根据不同的要求请求不同尺寸不同质量的图片，这时我们就可以使用自定义数据源</p>
+<ol>
+<li>定义处理URL接口</li>
+</ol>
+<p>public interface IDataModel {</p>
+<p>　　String buildDataModelUrl (int width , int height );</p>
+<p>}</p>
+<ol>
+<li><p>实现处理URL接口</p>
+<p>public class JpgDataModel implements IDataModel {</p>
+<p>　　private String dataModelUrl ;</p>
+<p>　　public JpgDataModel (String dataModelUrl){<br>　　<br>　　 　　this.dataModelUrl = dataModelUrl;</p>
+</li>
+</ol>
+<p>　　}</p>
+<p>　　@Override<br>　　public String buildDataModelUrl(int width , int height ){</p>
+<p> 　　 　　return String.format(<br>  　　 　　“%s?imageView2/1/w/%d/h/%d/format/jpg”,<br>  　　 　　dataModelUrl, width, height);<br> 　　 　　} 　　<br> 　　}    </p>
+<p>  public class WebpDataModel implements IDataModel {</p>
+<p> 　　private String dataModelUrl ;</p>
+<p> 　　public WebpDataModel (String dataModelUrl){<br> 　　<br>  　　 　　this.dataModelUrl = dataModelUrl;</p>
+<p>　　}</p>
+<p>　　@Override<br>　　public String buildDataModelUrl(int width , int height ){</p>
+<p> 　　 　　return String.format(<br>  　　 　　“%s?imageView2/1/w/%d/h/%d/format/webp”,<br>  　　 　　dataModelUrl, width, height);<br> 　　 　　} 　　<br> 　　}    </p>
+<ol>
+<li><p>实现ModelLoader</p>
+<p>public class MyDataLoader extends BaseGlideUrlLoader<idatamodel> {<br> public MyDataLoader(Context context) {</idatamodel></p>
+<p> 　super(context);</p>
+<p>}</p>
+<p>public MyDataLoader(ModelLoader<glideurl, inputstream=""> urlLoader) {</glideurl,></p>
+<p>　super(urlLoader, null);</p>
+<p>}</p>
+<p>@Override<br>protected String getUrl(IDataModel model, int width, int height) {<br>　<br>　　return model.buildDataModelUrl(width, height);</p>
+<p>}</p>
+<p>/<em>*
+ </em>/<br>public static class Factory implements ModelLoaderFactory<idatamodel, inputstream=""> {<br>　 @Override<br>　 public ModelLoader<idatamodel, inputstream=""> build(Context context, GenericLoaderFactory factories) {<br>　　<br>　　return new MyDataLoader(factories.buildModelLoader(GlideUrl.class, InputStream.class));<br>　<br>　　　}<br>　　@Override<br>　　public void teardown() {<br>　　}<br>　}<br>}</idatamodel,></idatamodel,></p>
+</li>
+<li><p>根据不同的要求采用不同的策略加载图片</p>
+<p>　　//加载jpg图片<br>　　Glide.with(this).using(new MyDataLoader(this)).load(new JpgDataModel(imageUrl)).into(imageView);<br>　　//加载webp图片<br>　　Glide.with(this).using(new MyDataLoader(this)).load(new WebpDataModel(imageUrl)).into(imageView);</p>
+</li>
+<li><p>如何跳过.using()</p>
+</li>
+</ol>
+<p>　public class MyGlideModule implements GlideModule {<br>　　<br>　　　@Override<br>　　　public void registerComponents(Context context, Glide glide) {<br>　　　　glide.register(IDataModel.class, InputStream.class, new MyUrlLoader.Factory());<br>　<br>　　}<br>　}</p>
+<p>　　上面的实现跳过using()</p>
+<p>　　//加载jpg图片<br>　　Glide.with(this).load(new JpgDataModel(imageUrl)).into(imageView);<br>　　//加载webp图片<br>　　Glide.with(this).load(new WebpDataModel(imageUrl)).into(imageView);</p>
+<p>　　使用signature()实现自定义cacheKey：<br>　　Glide 以 url、viewwidth、viewheight、屏幕的分辨率等做为联合key，官方api中没有提供删除图片缓存的函数，官方提供了signature()方法，将一个附加的数据加入到缓存key当中，多媒体存储数据，可用MediaStoreSignature类作为标识符，会将文件的修改时间、mimeType等信息作为cacheKey的一部分，通过改变key来实现图片失效相当于软删除。</p>
+<p>　1.使用StringSignature</p>
+<p>　Glide.with(this).load(yourFileDataModel).signature(new StringSignature(“1.0.0”)).into(imageView);</p>
+<p>　2.使用MediaStoreSignature </p>
+<p>　Glide.with(this) .load(mediaStoreUri).signature(new MediaStoreSignature(mimeType, dateModified, orientation)).into(view);</p>
+<p>　3.使用自定义Signature</p>
+<p>　public class IntegerVersionSignature implements Key {<br>    　　　private int currentVersion;<br>    　　　public IntegerVersionSignature(int currentVersion) {<br>    　　　　　this.currentVersion = currentVersion;<br>　　}<br>　@Override<br>　public boolean equals(Object o) {<br>　　　if (o instanceof IntegerVersionSignature) {<br>　　　　IntegerVersionSignature other = (IntegerVersionSignature) o;<br>　　　　return currentVersion = other.currentVersion;<br>　　　}<br>　　　return false;<br>　}<br>  @Override<br>  public int hashCode() {<br>  　return currentVersion;<br>　}<br>　@Override<br>　public void updateDiskCacheKey(MessageDigest md) {<br>　<br>　　messageDigest.update(ByteBuffer.allocate(Integer.SIZE)<br>.putInt(signature).array());</p>
+<p>　}<br>}</p>
 
         
         </div>
@@ -269,7 +350,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2016/06/17/Android Studio --“Cannot resolve symbol” 解决办法/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2016/06/17/Android之Glide缓存/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
