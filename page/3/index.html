@@ -159,7 +159,7 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                102
+                105
                 <span>文章</span>
             </div>
             <div class="article-info-block">
@@ -212,6 +212,299 @@
 
             
             <section id="main">
+    <article id="post-android 网络优化" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2020/03/31/android 网络优化/">android 网络优化</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2020/03/31/android 网络优化/">
+            <time datetime="2020-03-31T01:12:23.000Z" itemprop="datePublished">2020-03-31</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/性能优化/">性能优化</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>随着移动网络的不断升级，客户端的网络传输由3G进化到Wifi、4G，且Wifi场景越来越多。虽然网络环境在变好，但也对网络的应用提出了更高的要求，会发现很多大厂都十分重视网络指标，如果技术人员不加以控制，在弱网、体验、包括服务器带宽、流浪方面都会造成不同程度的损失。</p>
+<h1 id="网络指标"><a href="#网络指标" class="headerlink" title="网络指标"></a>网络指标</h1><p>流量<br>网络第一个影响的app指标当然是流量，在手机设置界面可以清楚查看到每个 app 耗费的流量，极端情况下会造成用户卸载。</p>
+<h1 id="电量"><a href="#电量" class="headerlink" title="电量"></a>电量</h1><p>频繁的网络请求和网络时常是引发电量的主要原因，每次发送请求都会激活电信号，同样耗电也会对用户产生恶略的影响，甚至卸载。</p>
+<h1 id="用户体验"><a href="#用户体验" class="headerlink" title="用户体验"></a>用户体验</h1><p>一些网络框架会优化处理内部线程池，但线程池毕竟有限，网络请求过多或请求数据包体大，就会造成网络阻塞，也就是一些用户所谓的卡顿，在弱网方面可能表现更差，所以网络框架的好坏直接影响着整个app的用户体验。</p>
+<h1 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h1><p>网络安全同样是网络优化中十分重要的一部分，怎样防止被第三方窃听/篡改或冒充，防止运营商劫持，同时又不影响性能，没有安全体系的网络架构同样会对服务端或者客户端造成直接或间接的影响。</p>
+<h1 id="网络监控"><a href="#网络监控" class="headerlink" title="网络监控"></a>网络监控</h1><p>Network Monitor<br>Network Monitor Android Studio自带的网络监测工具，可以看出时间段之内的网络请求数量及访问速率。</p>
+<p><img src="/2020/03/31/android 网络优化/../../../../images/iShot2021-10-0310.25.47.png" alt="Alt text"></p>
+<h1 id="Charles-抓包工具"><a href="#Charles-抓包工具" class="headerlink" title="Charles 抓包工具"></a>Charles 抓包工具</h1><p>本人更习惯于使用 charles 进行网络监控，这可以查看更多的数据指标，查看请求request、response 更加直观。</p>
+<p><img src="/2020/03/31/android 网络优化/../../../../images/iShot2021-10-0310.31.53.png" alt="Alt text"></p>
+<h1 id="网络优化"><a href="#网络优化" class="headerlink" title="网络优化"></a>网络优化</h1><p>本人觉得网络优化主要从以下几个方面入手：</p>
+<p>1.请求速度<br>2.链接成功率<br>3.流量消耗<br>4.安全策略</p>
+<h1 id="网络请求过程："><a href="#网络请求过程：" class="headerlink" title="网络请求过程："></a>网络请求过程：</h1><p>1.DNS 解析，请求DNS服务器，获取IP地址<br>2.建立连接，包括 tcp 三次握手、安全协议<br>3.发送和接收数据，解码数据</p>
+<h1 id="优化DNS解析"><a href="#优化DNS解析" class="headerlink" title="优化DNS解析"></a>优化DNS解析</h1><p>1.DNS解析在网路错误中占比较高，使用IP直连方式替代DNS服务器解析，可以减少域名解析几百毫秒的时间消耗。</p>
+<h1 id="连接池复用"><a href="#连接池复用" class="headerlink" title="连接池复用"></a>连接池复用</h1><p>keep-alive HTTP 协议里有个 keep-alive，HTTP1.1默认开启，一定程度上缓解了每次请求都要进行TCP三次握手建立连接的耗时。原理是请求完成后不立即释放连接，而是放入连接池中，若这时有另一个请求要发出，请求的域名和端口是一样的，就直接拿出连接池中的连接进行发送和接收数据，少了建立连接的耗时。</p>
+<h1 id="数据压缩"><a href="#数据压缩" class="headerlink" title="数据压缩"></a>数据压缩</h1><p>目前比较成熟的方案未 GZIP 压缩，正常情况下压缩率均值能打包 30-50之间，可以极大的提升传输速度和节省流量，必要是可以使用 Protocol Buffer 替换 JSON 。</p>
+<h1 id="弱网优化"><a href="#弱网优化" class="headerlink" title="弱网优化"></a>弱网优化</h1><p>弱网优化，在弱网时要是制定合适的超时时间，控制网络并发，合并打包请求，调优TCP参数，使用TCP优化算法。<br>对服务端的TCP协议参数进行调优，以及开启各种优化算法，使得适合业务特性和移动端网络环境，包括RTO初始值，混合慢启动，TLP，F-RTO等。<br>针对弱网的这些细致优化暂未成为标准，开源网络库 mars 有实现可以借鉴，若有需要可以使用。</p>
+<h1 id="网络安全"><a href="#网络安全" class="headerlink" title="网络安全"></a>网络安全</h1><p>1.采用 Https 双向认证<br>2.参数加密校验，防窃听/篡改或冒充<br>3.加密秘钥保护，采用 so 方式进行秘钥提取</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2020/03/31/android 网络优化/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-View绘制主要要讲什么" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/12/30/View绘制主要要讲什么/">View绘制主要要讲什么</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/12/30/View绘制主要要讲什么/">
+            <time datetime="2019-12-30T03:50:25.000Z" itemprop="datePublished">2019-12-30</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/android/">android</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/android/">android</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h1 id="View的绘制流程是程序开发的必备知识，也是面试经常会问到知识"><a href="#View的绘制流程是程序开发的必备知识，也是面试经常会问到知识" class="headerlink" title="View的绘制流程是程序开发的必备知识，也是面试经常会问到知识"></a>View的绘制流程是程序开发的必备知识，也是面试经常会问到知识</h1><ul>
+<li>View绘制如下图<br><img src="/2019/12/30/View绘制主要要讲什么/../../../../images/25222288-0f49881c84a47af3.webp" alt="Alt text"></li>
+</ul>
+<p>简单回答就是 measure，layout，draw 分别对应测量，布局，绘制三个过程。<br>涉及到更深的知识就会引申到Handler，同步屏障，View 的事件传递，甚至 activity 的启动过程。</p>
+<h1 id="什么是-ViewRootImpl"><a href="#什么是-ViewRootImpl" class="headerlink" title="什么是 ViewRootImpl"></a>什么是 ViewRootImpl</h1><p>相比 Viewgroup 和 View，ViewRootImpl 可能更为陌生，实际开发中我们基本用不到它。那么</p>
+<p>从结构上来看，ViewRootImpl 和 ViewGroup 其实是一种东西</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public final class ViewRootImpl implements ViewParent,</span><br><span class="line">        View.AttachInfo.Callbacks, ThreadedRenderer.DrawCallbacks &#123;&#125;</span><br><span class="line">public abstract class ViewGroup extends View </span><br><span class="line">        implements ViewParent, ViewManager &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>它们都继承了 ViewParent。ViewParent 是一个接口，定义了一些父 View 的基本行为，比如 requestlayout，getparent 等。不同的是，ViewRootImpl 并不会像 ViewGroup 一样被真正绘制在屏幕上。在 activity 中，它是专门用来绘制 DecorView 的，核心方法是 setView</p>
+<ul>
+<li>“activity，window，View 三者之间的关系是什么？”</li>
+</ul>
+<p><img src="/2019/12/30/View绘制主要要讲什么/../../../../images/25222288-2f699c1ecb3e373e.webp" alt="Alt text"></p>
+<p>如图所示，window 是 activity 里的一个实例变量，本质是一个接口，唯一的实现类是 PhoneWindow。</p>
+<p>activity 的 setContentView 方法实际上是就是交给 phonewindow 去做的。window 和 View 的关系可以类比为显示器和显示的内容。</p>
+<p>每个 activity 都有一个“显示器” window，“显示的内容”就是 DecorView。这个“显示器”定义了一些方法来决定如何显示内容。比如 setTitleColor setTitle 是设置导航栏的颜色和 title , setAllowReturnTransitionOverlap 设置进/出场动画等等。</p>
+<p>所以 window 是 activity 的一个成员变量，window 和 View 是“显示器”和“显示内容”的关系。</p>
+<p>这就是他们的关系</p>
+<p>在整个 activity 的生命周期中，setContentView 是在 onCreate 中调用的，它实现了对资源文件的解析，完成了 xml 文件到 View 的转化。那么 View 真正开始绘制是在哪个生命周期呢？</p>
+<ul>
+<li>答案是 onResume 结束后</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">    public void handleResumeActivity(IBinder token, boolean finalStateRequest, boolean isForward,</span><br><span class="line">            String reason) &#123;</span><br><span class="line">        // If we are getting ready to gc after going to the background, well</span><br><span class="line">        // we are back active so skip it.</span><br><span class="line">        unscheduleGcIdler();</span><br><span class="line">        mSomeActivitiesChanged = true;</span><br><span class="line"></span><br><span class="line">        // 1. 执行Activity的onResume方法</span><br><span class="line">        final ActivityClientRecord r = performResumeActivity(token, finalStateRequest, reason);</span><br><span class="line">        if (r == null) &#123;</span><br><span class="line">            // We didn&apos;t actually resume the activity, so skipping any follow-up actions.</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line">        if (mActivitiesToBeDestroyed.containsKey(token)) &#123;</span><br><span class="line">            // Although the activity is resumed, it is going to be destroyed. So the following</span><br><span class="line">            // UI operations are unnecessary and also prevents exception because its token may</span><br><span class="line">            // be gone that window manager cannot recognize it. All necessary cleanup actions</span><br><span class="line">            // performed below will be done while handling destruction.</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        final Activity a = r.activity;</span><br><span class="line"></span><br><span class="line">        if (localLOGV) &#123;</span><br><span class="line">            Slog.v(TAG, &quot;Resume &quot; + r + &quot; started activity: &quot; + a.mStartedActivity</span><br><span class="line">                    + &quot;, hideForNow: &quot; + r.hideForNow + &quot;, finished: &quot; + a.mFinished);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        final int forwardBit = isForward</span><br><span class="line">                ? WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION : 0;</span><br><span class="line"></span><br><span class="line">        // If the window hasn&apos;t yet been added to the window manager,</span><br><span class="line">        // and this guy didn&apos;t finish itself or start another activity,</span><br><span class="line">        // then go ahead and add the window.</span><br><span class="line">        boolean willBeVisible = !a.mStartedActivity;</span><br><span class="line">        if (!willBeVisible) &#123;</span><br><span class="line">            try &#123;</span><br><span class="line">                willBeVisible = ActivityTaskManager.getService().willActivityBeVisible(</span><br><span class="line">                        a.getActivityToken());</span><br><span class="line">            &#125; catch (RemoteException e) &#123;</span><br><span class="line">                throw e.rethrowFromSystemServer();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        if (r.window == null &amp;&amp; !a.mFinished &amp;&amp; willBeVisible) &#123;</span><br><span class="line">            // 2. 获取window</span><br><span class="line">            r.window = r.activity.getWindow();</span><br><span class="line">            // 3. 获取DecorView</span><br><span class="line">            View decor = r.window.getDecorView();</span><br><span class="line">            decor.setVisibility(View.INVISIBLE);</span><br><span class="line">            // 4.获取Activity的WindowManager</span><br><span class="line">            ViewManager wm = a.getWindowManager();</span><br><span class="line">            WindowManager.LayoutParams l = r.window.getAttributes();</span><br><span class="line">            a.mDecor = decor;</span><br><span class="line">            l.type = WindowManager.LayoutParams.TYPE_BASE_APPLICATION;</span><br><span class="line">            l.softInputMode |= forwardBit;</span><br><span class="line">            if (r.mPreserveWindow) &#123;</span><br><span class="line">                a.mWindowAdded = true;</span><br><span class="line">                r.mPreserveWindow = false;</span><br><span class="line">                // Normally the ViewRoot sets up callbacks with the Activity</span><br><span class="line">                // in addView-&gt;ViewRootImpl#setView. If we are instead reusing</span><br><span class="line">                // the decor view we have to notify the view root that the</span><br><span class="line">                // callbacks may have changed.</span><br><span class="line">                ViewRootImpl impl = decor.getViewRootImpl();</span><br><span class="line">                if (impl != null) &#123;</span><br><span class="line">                    impl.notifyChildRebuilt();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            if (a.mVisibleFromClient) &#123;</span><br><span class="line">                if (!a.mWindowAdded) &#123;</span><br><span class="line">                    a.mWindowAdded = true;</span><br><span class="line">                    // 5.调用WindowManager的addView方法</span><br><span class="line">                    wm.addView(decor, l);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    // The activity will get a callback for this &#123;@link LayoutParams&#125; change</span><br><span class="line">                    // earlier. However, at that time the decor will not be set (this is set</span><br><span class="line">                    // in this method), so no action will be taken. This call ensures the</span><br><span class="line">                    // callback occurs with the decor set.</span><br><span class="line">                    a.onWindowAttributesChanged(l);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            // If the window has already been added, but during resume</span><br><span class="line">            // we started another activity, then don&apos;t yet make the</span><br><span class="line">            // window visible.</span><br><span class="line">        &#125; else if (!willBeVisible) &#123;</span><br><span class="line">            if (localLOGV) Slog.v(TAG, &quot;Launch &quot; + r + &quot; mStartedActivity set&quot;);</span><br><span class="line">            r.hideForNow = true;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        // Get rid of anything left hanging around.</span><br><span class="line">        cleanUpPendingRemoveWindows(r, false /* force */);</span><br><span class="line"></span><br><span class="line">        // The window is now visible if it has been added, we are not</span><br><span class="line">        // simply finishing, and we are not starting another activity.</span><br><span class="line">        if (!r.activity.mFinished &amp;&amp; willBeVisible &amp;&amp; r.activity.mDecor != null &amp;&amp; !r.hideForNow) &#123;</span><br><span class="line">            if (r.newConfig != null) &#123;</span><br><span class="line">                performConfigurationChangedForActivity(r, r.newConfig);</span><br><span class="line">                if (DEBUG_CONFIGURATION) &#123;</span><br><span class="line">                    Slog.v(TAG, &quot;Resuming activity &quot; + r.activityInfo.name + &quot; with newConfig &quot;</span><br><span class="line">                            + r.activity.mCurrentConfig);</span><br><span class="line">                &#125;</span><br><span class="line">                r.newConfig = null;</span><br><span class="line">            &#125;</span><br><span class="line">            if (localLOGV) Slog.v(TAG, &quot;Resuming &quot; + r + &quot; with isForward=&quot; + isForward);</span><br><span class="line">            ViewRootImpl impl = r.window.getDecorView().getViewRootImpl();</span><br><span class="line">            WindowManager.LayoutParams l = impl != null</span><br><span class="line">                    ? impl.mWindowAttributes : r.window.getAttributes();</span><br><span class="line">            if ((l.softInputMode</span><br><span class="line">                    &amp; WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION)</span><br><span class="line">                    != forwardBit) &#123;</span><br><span class="line">                l.softInputMode = (l.softInputMode</span><br><span class="line">                        &amp; (~WindowManager.LayoutParams.SOFT_INPUT_IS_FORWARD_NAVIGATION))</span><br><span class="line">                        | forwardBit;</span><br><span class="line">                if (r.activity.mVisibleFromClient) &#123;</span><br><span class="line">                    ViewManager wm = a.getWindowManager();</span><br><span class="line">                    View decor = r.window.getDecorView();</span><br><span class="line">                    wm.updateViewLayout(decor, l);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            r.activity.mVisibleFromServer = true;</span><br><span class="line">            mNumVisibleActivities++;</span><br><span class="line">            if (r.activity.mVisibleFromClient) &#123;</span><br><span class="line">                r.activity.makeVisible();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        r.nextIdle = mNewActivities;</span><br><span class="line">        mNewActivities = r;</span><br><span class="line">        if (localLOGV) Slog.v(TAG, &quot;Scheduling idle handler for &quot; + r);</span><br><span class="line">        Looper.myQueue().addIdleHandler(new Idler());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    public void addView(View view, ViewGroup.LayoutParams params,</span><br><span class="line">            Display display, Window parentWindow, int userId) &#123;</span><br><span class="line">        if (view == null) &#123;</span><br><span class="line">            throw new IllegalArgumentException(&quot;view must not be null&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if (display == null) &#123;</span><br><span class="line">            throw new IllegalArgumentException(&quot;display must not be null&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        if (!(params instanceof WindowManager.LayoutParams)) &#123;</span><br><span class="line">            throw new IllegalArgumentException(&quot;Params must be WindowManager.LayoutParams&quot;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        final WindowManager.LayoutParams wparams = (WindowManager.LayoutParams) params;</span><br><span class="line">        if (parentWindow != null) &#123;</span><br><span class="line">            parentWindow.adjustLayoutParamsForSubWindow(wparams);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            // If there&apos;s no parent, then hardware acceleration for this view is</span><br><span class="line">            // set from the application&apos;s hardware acceleration setting.</span><br><span class="line">            final Context context = view.getContext();</span><br><span class="line">            if (context != null</span><br><span class="line">                    &amp;&amp; (context.getApplicationInfo().flags</span><br><span class="line">                            &amp; ApplicationInfo.FLAG_HARDWARE_ACCELERATED) != 0) &#123;</span><br><span class="line">                wparams.flags |= WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        ViewRootImpl root;</span><br><span class="line">        View panelParentView = null;</span><br><span class="line"></span><br><span class="line">        synchronized (mLock) &#123;</span><br><span class="line">            // Start watching for system property changes.</span><br><span class="line">            if (mSystemPropertyUpdater == null) &#123;</span><br><span class="line">                mSystemPropertyUpdater = new Runnable() &#123;</span><br><span class="line">                    @Override public void run() &#123;</span><br><span class="line">                        synchronized (mLock) &#123;</span><br><span class="line">                            for (int i = mRoots.size() - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">                                mRoots.get(i).loadSystemProperties();</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;;</span><br><span class="line">                SystemProperties.addChangeCallback(mSystemPropertyUpdater);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            int index = findViewLocked(view, false);</span><br><span class="line">            if (index &gt;= 0) &#123;</span><br><span class="line">                if (mDyingViews.contains(view)) &#123;</span><br><span class="line">                    // Don&apos;t wait for MSG_DIE to make it&apos;s way through root&apos;s queue.</span><br><span class="line">                    mRoots.get(index).doDie();</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    throw new IllegalStateException(&quot;View &quot; + view</span><br><span class="line">                            + &quot; has already been added to the window manager.&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                // The previous removeView() had not completed executing. Now it has.</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            // If this is a panel window, then find the window it is being</span><br><span class="line">            // attached to for future reference.</span><br><span class="line">            if (wparams.type &gt;= WindowManager.LayoutParams.FIRST_SUB_WINDOW &amp;&amp;</span><br><span class="line">                    wparams.type &lt;= WindowManager.LayoutParams.LAST_SUB_WINDOW) &#123;</span><br><span class="line">                final int count = mViews.size();</span><br><span class="line">                for (int i = 0; i &lt; count; i++) &#123;</span><br><span class="line">                    if (mRoots.get(i).mWindow.asBinder() == wparams.token) &#123;</span><br><span class="line">                        panelParentView = mViews.get(i);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            root = new ViewRootImpl(view.getContext(), display);</span><br><span class="line"></span><br><span class="line">            view.setLayoutParams(wparams);</span><br><span class="line"></span><br><span class="line">            mViews.add(view);</span><br><span class="line">            mRoots.add(root);</span><br><span class="line">            mParams.add(wparams);</span><br><span class="line"></span><br><span class="line">            // do this last because it fires off messages to start doing things</span><br><span class="line">            try &#123;</span><br><span class="line">                // 6.调用viewRootImpl的setView方法</span><br><span class="line">                root.setView(view, wparams, panelParentView, userId);</span><br><span class="line">            &#125; catch (RuntimeException e) &#123;</span><br><span class="line">                // BadTokenException or InvalidDisplayException, clean up.</span><br><span class="line">                if (index &gt;= 0) &#123;</span><br><span class="line">                    removeViewLocked(index, true);</span><br><span class="line">                &#125;</span><br><span class="line">                throw e;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>从源码中可以看到，onResume 之后，ActivityThread 通过调用 activity 中 windowmanager 的 addView 方法，将 decorView 传入到 ViewRootImpl 的 setView 方法中，通过 setView 来完成 View 的绘制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">//接收的参数ViewRootImpl#setView 这里入参是DecorView</span><br><span class="line">public void setView(View view, WindowManager.LayoutParams attrs, View panelParentView,</span><br><span class="line">        int userId) &#123;</span><br><span class="line">            ....</span><br><span class="line">            // Schedule the first layout -before- adding to the window</span><br><span class="line">            // manager, to make sure we do the relayout before receiving</span><br><span class="line">            // any other events from the system.</span><br><span class="line">            //检查绘制的的线程是不是创建View的线程 绘制View</span><br><span class="line">            requestLayout();</span><br><span class="line">            ....</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line">public void requestLayout() &#123;</span><br><span class="line">    if (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">        //线程检查</span><br><span class="line">        checkThread();</span><br><span class="line">        mLayoutRequested = true;</span><br><span class="line">        //开始绘制</span><br><span class="line">        scheduleTraversals();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@UnsupportedAppUsage</span><br><span class="line">void scheduleTraversals() &#123;</span><br><span class="line">    if (!mTraversalScheduled) &#123;</span><br><span class="line">        mTraversalScheduled = true;</span><br><span class="line">        //获取内存屏障</span><br><span class="line">        mTraversalBarrier = mHandler.getLooper().getQueue().postSyncBarrier();</span><br><span class="line">        //执行绘制任务 mTraversalBarrier</span><br><span class="line">        mChoreographer.postCallback(</span><br><span class="line">                Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);</span><br><span class="line">        notifyRendererOfFramePending();</span><br><span class="line">        pokeDrawLockIfNeeded();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void doTraversal() &#123;</span><br><span class="line">    if (mTraversalScheduled) &#123;</span><br><span class="line">        mTraversalScheduled = false;</span><br><span class="line">        //移除内存屏障</span><br><span class="line">        mHandler.getLooper().getQueue().removeSyncBarrier(mTraversalBarrier);</span><br><span class="line"></span><br><span class="line">        if (mProfile) &#123;</span><br><span class="line">            Debug.startMethodTracing(&quot;ViewAncestor&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">        //开始绘制 依次调用performMeasure performLayout performDraw</span><br><span class="line">        performTraversals();</span><br><span class="line"></span><br><span class="line">        if (mProfile) &#123;</span><br><span class="line">            Debug.stopMethodTracing();</span><br><span class="line">            mProfile = false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>简单来说 setView 做了三件事</li>
+</ul>
+<ol>
+<li><p>检查绘制的线程是不是创建 View 的线程。这里可以引申出一个问题，View 的绘制必须在主线程吗？</p>
+</li>
+<li><p>通过内存屏障保证绘制 View 的任务是最优先的</p>
+</li>
+<li><p>调用 performTraversals 完成 measure，layout，draw 的绘制</p>
+</li>
+</ol>
+<p>看到这里，ViewRootImpl 的绘制基本就完成了。其实这也是面试官希望听到的内容。考察的是面试者对 View 绘制体系的理解。</p>
+<p>后续 ViewGroup 和 View 的绘制其实是 performTraversals 对整个 ViewTree 的绘制。他们的关系可以用下面这张图表示</p>
+<p><img src="/2019/12/30/View绘制主要要讲什么/../../../../images/25222288-5514a7569242ba6f.webp" alt="Alt text"></p>
+<h1 id="那为什么我在-onCreate-中调用-View-post-方法可以得到-View-的宽高呢"><a href="#那为什么我在-onCreate-中调用-View-post-方法可以得到-View-的宽高呢" class="headerlink" title="那为什么我在 onCreate 中调用 View.post 方法可以得到 View 的宽高呢?"></a>那为什么我在 onCreate 中调用 View.post 方法可以得到 View 的宽高呢?</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public boolean post(Runnable action) &#123;</span><br><span class="line">    final AttachInfo attachInfo = mAttachInfo;</span><br><span class="line">    if (attachInfo != null) &#123;</span><br><span class="line">        return attachInfo.mHandler.post(action);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Postpone the runnable until we know on which thread it needs to run.</span><br><span class="line">    // Assume that the runnable will be successfully placed after attach.</span><br><span class="line">    getRunQueue().post(action);</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>View.post 会判断当前 View 是否已经被添加到 window 上。如果添加了则立即执行 runnable，如果没有被添加则先放到一个队列中存储起来，等添加到 window 上时再执行。</p>
+<p>而 View 被测量完成后才会 attachToWindow。所以当 post 的 runnable 执行时，View 已经绘制完成了。</p>
+<h1 id="MeasureSpec-的理解"><a href="#MeasureSpec-的理解" class="headerlink" title="MeasureSpec 的理解"></a>MeasureSpec 的理解</h1><ul>
+<li>说说什么是 MeasureSpec？为什么测量宽高要用它作为参数呢？</li>
+</ul>
+<p>View 的大小不仅仅取决于自身的宽高，还取决于父 View 的大小和测量模式。一个 200200 的父 View 是不可能容纳一个 300300 的子 View 的，父 View 的 wrap_content 和 match_content 也会影响子 View 的大小。</p>
+<p>所以 View 的 measure 函数其实应该有 4 个参数：父 View 的宽，父 View 的高，宽的测量模式，高的测量模式。</p>
+<p>Android 这里用了一个巧妙的设计，用一个 Int 值来表示宽/高的测量模式和大小。一个 int 有 32 位，前 2 位表示测量 MODE，后 30 位表示 SIZE。</p>
+<p>为什么要用 2 位表示 MODE 呢？因为 MODE 只有 3 种呀，UNSPECIFIED，EXACTLY，AT_MOST 。</p>
+<ul>
+<li>使用这个 View 时宽高传入 wrap_content，结果会怎么样？</li>
+</ul>
+<p>当我们自定义一个 View 时，如果继承的是 View，measure 方法走的就是 View 默认的逻辑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;</span><br><span class="line">    setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),</span><br><span class="line">            getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static int getDefaultSize(int size, int measureSpec) &#123;</span><br><span class="line">    int result = size;</span><br><span class="line">    int specMode = MeasureSpec.getMode(measureSpec);</span><br><span class="line">    int specSize = MeasureSpec.getSize(measureSpec);</span><br><span class="line"></span><br><span class="line">    switch (specMode) &#123;</span><br><span class="line">    case MeasureSpec.UNSPECIFIED:</span><br><span class="line">        result = size;</span><br><span class="line">        break;</span><br><span class="line">    case MeasureSpec.AT_MOST:</span><br><span class="line">    case MeasureSpec.EXACTLY:</span><br><span class="line">        result = specSize;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以当我们自定义 View 时，如果没有对 MODE 做处理，设置 wrap_content 和 match_content 结果其实是一样的，View 的宽高都是取父 View 的宽高。</p>
+<ul>
+<li>invaliate 和 requestlayout 方法的区别?</li>
+</ul>
+<p>ViewRootImpl 作为顶级 View 负责 View 的绘制。所以简单来说，requestlayout 和 invaliate 最终都会向上回溯调用到 ViewRootImpl 的 postTranversals 方法来绘制 View。</p>
+<p>不同的是 requestlayout 会绘制 View 的 measure，layout 和 draw 过程。invaliate 因为只添加了绘制 draw 的标志位，只会绘制 draw 过程。</p>
+<ul>
+<li>实现一下 findViewbyid 的过程?</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">View findViewById(int id)&#123;</span><br><span class="line">    if(mId == id)return  this;</span><br><span class="line">    if(mVIew instanceof ViewGroup)&#123;</span><br><span class="line">        int childrenCount = getChildrenCount();</span><br><span class="line">        for(int i = 0; i&lt;childrenCount;i++)&#123;</span><br><span class="line">            View v = getchildAt(i)&#123;</span><br><span class="line">                v = v.findViewById(id);</span><br><span class="line">                if(v !=null)&#123;</span><br><span class="line">                    return  v;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2019/12/30/View绘制主要要讲什么/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-粘性事件的EventBus" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2019/12/21/粘性事件的EventBus/">粘性事件的EventBus</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2019/12/21/粘性事件的EventBus/">
+            <time datetime="2019-12-21T09:22:18.000Z" itemprop="datePublished">2019-12-21</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/EventBus/">EventBus</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>下午赶去公司解决了电台业务首次语音搜台后(用到服务,但只出一个独立的Activity,主界面并没有打开)不能听歌识曲的问题.</p>
+<p>排查到最后,去识别的消息确实是发出去了,但是却没有收到,没有收到消息当然不会响应.最后,消息是通过EventBus.getDefault.post(xx)发出的,一定是发送和接收出现问题.</p>
+<p>推测该问题是由于主界面还未创建,用于接收的EventBus还未注册,即发布者发了消息,但订阅者还未产生(一般消息的处理逻辑是先注册订阅,后接收),这样没有收到消息当然无法响应操作.</p>
+<p>了解到,EventBus是支持发送黏性事件的。</p>
+<h1 id="粘性事件"><a href="#粘性事件" class="headerlink" title="粘性事件?"></a>粘性事件?</h1><p>何为黏性事件呢？简单讲，就是在发送事件之后再订阅该事件也能收到该事件。Android中就有这样的实例，也就是Sticky Broadcast，即粘性广播。正常情况下如果发送者发送了某个广播，而接收者在这个广播发送后才注册自己的Receiver，这时接收者便无法接收到 刚才的广播，为此Android引入了StickyBroadcast，在广播发送结束后会保存刚刚发送的广播（Intent），这样当接收者注册完 Receiver后就可以接收到刚才已经发布的广播。这就使得我们可以预先处理一些事件，让有消费者时再把这些事件投递给消费者.</p>
+<p>EventBus也提供了这样的功能，有所不同是EventBus会存储所有的Sticky事件，如果某个事件在不需要再存储则需要手动进行移除。用户通过Sticky的形式发布事件，而消费者也需要通过Sticky的形式进行注册，当然这种注册除了可以接收 Sticky事件之外和常规的注册功能是一样的，其他类型的事件也会被正常处理。</p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>发布和接收粘性事件一般有如下几步:</p>
+<p>1、粘性事件的发布:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EventBus.getDefault().postSticky(&quot;nearby&quot;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Subscribe(threadMode = ThreadMode.MAIN, sticky = true)</span><br><span class="line">    public void receiveSoundRecongnizedmsg(String insType) &#123;</span><br><span class="line">        if (&quot;nearby&quot;.equals(insType)) &#123;</span><br><span class="line">            soundRecognizeCtrl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>剩下的操作就和普通事件一样注册和反注册即可.</p>
+<h1 id="手动获取和移除粘性事件（Getting-and-Removing-sticky-Events-manually）"><a href="#手动获取和移除粘性事件（Getting-and-Removing-sticky-Events-manually）" class="headerlink" title="手动获取和移除粘性事件（Getting and Removing sticky Events manually）"></a>手动获取和移除粘性事件（Getting and Removing sticky Events manually）</h1><p>正如你之前看到的，最近发布的粘性事件在其新订阅者注册后将会自动传递给新订阅者。但有时可能更方便手动检查粘性事件。有时我们也需要移除粘性事件，以免它在传递下去。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MessageEvent stickyEvent = EventBus.getDefault().getStickyEvent(MessageEvent.class);</span><br><span class="line">if(stickyEvent != null) &#123;</span><br><span class="line">    EventBus.getDefault().removeStickyEvent(stickyEvent);</span><br><span class="line">　　//TODO</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>removeStickyEvent 会返回之前持有的粘性事件。</p>
+<p>于是,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MessageEvent stickyEvent = EventBus.getDefault().removeStickyEvent(MessageEvent.class);</span><br><span class="line">if(stickyEvent != null) &#123;</span><br><span class="line">　　//TODO</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h1><p>我们要把一个Event发送到一个还没有初始化的Activity/Fragment，即尚未订阅事件。那么如果只是简单的post一个事件，那么是无法收到的，这时候，你需要用到粘性事件,它可以帮你解决这类问题.</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>对于EventBus3.0来说,我还只是知道如何简单的使用,是知其然,不知其所以然,它是一个比较强大的事件总线库,后续会看下源码,慢慢分析一下,消息是如何发送和接收的.</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+            
+    
+        <a href="http://b.nearby.ren/2019/12/21/粘性事件的EventBus/#comments" class="article-comment-link">评论</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-Android 查看手机设备CPU架构信息" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -362,282 +655,6 @@
 
 
 
-    <article id="post-androidmvp架构模式" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2019/10/31/androidmvp架构模式/">androidMVP架构模式</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2019/10/31/androidmvp架构模式/">
-            <time datetime="2019-10-31T08:47:42.000Z" itemprop="datePublished">2019-10-31</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>, <a class="tag-link" href="/tags/mvp/">mvp</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>android MVP模式在Android项目中的使用</p>
-<p>在开发当中我们会涉及到一些架构模式，对于初级程序员来说是很陌生，但是对于中级过渡高级的程序员来说是非常重要需要了解的模式。首先我们先了解有哪些架构模式：不管都前端，移动端，后端都会涉及到这三种：MVC、MVP、MVVM。<br>概念：什么是MVP<br>MVP是模型(Model)、视图(View)、主持人(Presenter)的缩写,分别代表项目中3个不同的模块。<br>模型(Model):负责处理数据的加载或者存储，比如从网络或者本地数据库获取数据等；<br>视图(View):负责界面数据的展示，与用户进行交互；<br>主持人(Presenter):相当于协调者，是模型与视图之间的桥梁，将模型与视图分离开来。</p>
-<p>如下图所示，View与Model并不直接交互，而是使用Presenter作为View与Model之间的桥梁。其中Presenter中同时持有View层以及Model层的Interface的引用，而View层持有Presenter层Ineterface的引用。当View层某个界面需要展示展示某些数据的时候，首先会调用Presenter层的某个接口，然后Presneter层会调用Model层请求数据，当Model层数据加载成功之后会调用Presenter层的回调方法通知Presenter层数据加载完毕，最后Presneter层再调用View层的接口将加载后的数据展示给用户。这就是Mvp模式的整个核心过程。<br><img src="/2019/10/31/androidmvp架构模式/../../../../images/420264-20151223222959015-298327306.png" alt="Alt text"></p>
-<p>这样分层的好处就是大大减少了Model与View层之间的耦合度。一方面可以使得View层和Model层单独开发与测试，互不依赖。另一方面Model层可以封装复用，可以极大的减少代码量。当然，Mvp还有其他的一些优点。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">1.View层</span><br><span class="line">  View层首页数据展示模块的组件是Activity，里面有一个RecycleView 布局如下：</span><br><span class="line"></span><br><span class="line">  &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="line">   &lt;android.support.v7.widget.RecyclerView</span><br><span class="line">          xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;</span><br><span class="line">          xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;</span><br><span class="line">          android:id=&quot;@+id/recycle_view&quot;</span><br><span class="line">          android:layout_width=&quot;match_parent&quot;</span><br><span class="line">          android:layout_height=&quot;wrap_content&quot;</span><br><span class="line">          android:scrollbars=&quot;vertical&quot;</span><br><span class="line">          app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;</span><br><span class="line">          android:paddingTop=&quot;@dimen/card_margin&quot;&gt;</span><br><span class="line">      &lt;/android.support.v7.widget.RecyclerView&gt;</span><br></pre></td></tr></table></figure>
-<p>首页列表模块主要展示从网络获取的首页列表信息，view层的接口大概需要如下方法：<br>(1)请求数据的过程中需要提示‘正在加载’的反馈信息给用户<br>(2)加载数据成功后，将加载得到的数据填充到RecycleView展示给用户<br>(3)加载数据成功后，将提示‘正在加载’反馈信息取消掉<br>(4)若加载数据失败，如网络连接、则需要给用户提示信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//业务接口</span><br><span class="line">   public interface HomeContract &#123;</span><br><span class="line">       interface View &#123;</span><br><span class="line">          void onLoading();</span><br><span class="line">          void onError(String error);</span><br><span class="line">          void updateUI(XXX xxx);</span><br><span class="line">          void ToastMessage(String message);</span><br><span class="line">       &#125;</span><br><span class="line">       interface Action extends IPresenter &#123;</span><br><span class="line">           void requestHome(XXX... xxx);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   //业务处理请求</span><br><span class="line">   public class HomePresenter implements HomeContract.Action&#123;</span><br><span class="line">           HomeContract.view view;</span><br><span class="line">           public HomePresenter(HomeContract.view view)&#123;</span><br><span class="line">                   this.view =view;</span><br><span class="line">           &#125;</span><br><span class="line">           @Override</span><br><span class="line">           pubublic void requestHome(XXX... xxx)&#123;</span><br><span class="line">                   //请求网络数据处理业务层</span><br><span class="line">                   view.onLoading();</span><br><span class="line">                   view.onError();</span><br><span class="line">                   view.updateUI();</span><br><span class="line">                   view.ToastMessage();</span><br><span class="line">           &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>首页列表Activity中实现上述接口：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class HomeActivity extends AppCompatActivity implements HomeContract.view &#123;</span><br><span class="line">      HomeContract.Action action;</span><br><span class="line">        @Override</span><br><span class="line">        public void onLoading()&#123;</span><br><span class="line">                //提示加载信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onError(String error)&#123;</span><br><span class="line">                //加载错误ui</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void updateUI(XXX xxx)&#123;</span><br><span class="line">                //更新UI数据</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void ToastMessage(String message)&#123;</span><br><span class="line">               //网络请求结束提示信息</span><br><span class="line">        &#125;</span><br><span class="line">        @Override</span><br><span class="line">        public void onCreate(@Nullable Bundle savedInstanceState)&#123;</span><br><span class="line">            super.onCreate(savedInstanceState);</span><br><span class="line">            action = new HomePresenter(this);</span><br><span class="line">            action.requestHome(xx);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>当用户打开首页界面时，就请求网络获取数据，初始化Presenter引用实例，调用Presenter层的requestHome接口，业务处理完毕后，调用相应的onLoading()、onError()、updateUI()、ToastMessage()方法处理不同逻辑。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2019/10/31/androidmvp架构模式/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-什么是Handler的同步屏障机制" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2019/09/30/什么是Handler的同步屏障机制/">Handler的同步屏障机制</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2019/09/30/什么是Handler的同步屏障机制/">
-            <time datetime="2019-09-30T05:50:25.000Z" itemprop="datePublished">2019-09-30</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/android/">android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/android/">android</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <ul>
-<li>对于Handler机制，想必大家都已经非常熟悉了吧，从迈进Android开发这扇大门的时候，就不停的研究和使用它，同样的这也是Android系统架构的精髓之一。然而在我们使用的时候，往往会忽略掉一些不常见却又很重要的内容，今天就来讲一讲经常被忽略的同步屏障以及异步消息。</li>
-</ul>
-<h1 id="制流程中窥视handler同步屏障"><a href="#制流程中窥视handler同步屏障" class="headerlink" title="制流程中窥视handler同步屏障"></a>制流程中窥视handler同步屏障</h1><p>为了引出今天的主题，我们先来看看ui的渲染流程吧。在Android的绘制流程中，ViewRootImpl这个类发挥了非常重要的作用，首先我们看一下这个类中比较重要的一个方法requestLayout(),<br>下面开始按这个思路分析源码，直接从入口开始：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void requestLayout() &#123;</span><br><span class="line">    if (!mHandlingLayoutInLayoutRequest) &#123;</span><br><span class="line">        //校验主线程</span><br><span class="line">        checkThread();</span><br><span class="line">        mLayoutRequested = true;</span><br><span class="line">        //调用这个方法启动绘制流程</span><br><span class="line">        scheduleTraversals();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>requestLayout()中会通过checkThread()方法检查发起布局请求的线程是否为主线程（校验ViewRootImpl构造时记录的mThread， 和当前线程是否一致），之后，在调用scheduleTraversals()的时候 postSyncBarrier添加同步消息屏障</p>
-<p>requestLayout()中会通过checkThread()方法检查发起布局请求的线程是否为主线程（校验ViewRootImpl构造时记录的mThread， 和当前线程是否一致），之后，在调用scheduleTraversals()的时候 postSyncBarrier添加同步消息屏障</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">@UnsupportedAppUsage</span><br><span class="line">    void scheduleTraversals() &#123;</span><br><span class="line">        if (!mTraversalScheduled) &#123;</span><br><span class="line">            mTraversalScheduled = true;</span><br><span class="line">            //1. 往主线程的Handler对应的MessageQueue发送一个同步屏障消息</span><br><span class="line">            mTraversalBarrier = mHandler.getLooper().getQueue().postSyncBarrier();</span><br><span class="line">            //2.将mTraversalRunnable保存到Choreographer中</span><br><span class="line">            mChoreographer.postCallback(</span><br><span class="line">                    Choreographer.CALLBACK_TRAVERSAL, mTraversalRunnable, null);</span><br><span class="line">            if (!mUnbufferedInputDispatch) &#123;</span><br><span class="line">                scheduleConsumeBatchedInput();</span><br><span class="line">            &#125;</span><br><span class="line">            notifyRendererOfFramePending();</span><br><span class="line">            pokeDrawLockIfNeeded();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">    ...</span><br><span class="line">     //在doTraversal方法中移除同步消息屏障</span><br><span class="line">     void doTraversal() &#123;</span><br><span class="line">        if (mTraversalScheduled) &#123;</span><br><span class="line">            mTraversalScheduled = false;</span><br><span class="line">            //移除同步屏障</span><br><span class="line">            mHandler.getLooper().getQueue().removeSyncBarrier(mTraversalBarrier);</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>在这个方法中，涉及到三个比较重要的信息</p>
-<ul>
-<li>mTraversalRunnable</li>
-<li>Choreographer编舞者</li>
-<li>同步屏障消息</li>
-</ul>
-<ol>
-<li><p>首先看mTraversalRunnable，它的作用就是从ViewRootImpl 从上往下执行performMeasure、performLayout、performDraw。</p>
-</li>
-<li><p>Choreographer主要是为了配合Vsync信号，给上层app的渲染提供一个稳定的Message处理时机，也就是Vsync信号到来时，系统通过对Vsync信号的调整，来控制每一帧绘制操作的时机。当Vsync信号到来时，会往主线程的MessageQueue中插入一条异步消息，由于在scheduleTraversals中给MessageQueue中插入了同步屏障消息，那么当执行到同步屏障时，会取出异步消息执行。</p>
-</li>
-</ol>
-<p>看下Choreography中插入消息的方法是如何实现的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private void postCallbackDelayedInternal(int callbackType,</span><br><span class="line">            Object action, Object token, long delayMillis) &#123;</span><br><span class="line">        synchronized (mLock) &#123;</span><br><span class="line">            ...</span><br><span class="line">            if (dueTime &lt;= now) &#123;</span><br><span class="line">                scheduleFrameLocked(now);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                Message msg = mHandler.obtainMessage(MSG_DO_SCHEDULE_CALLBACK, action);</span><br><span class="line">                msg.arg1 = callbackType;</span><br><span class="line">                //设置为异步消息</span><br><span class="line">                msg.setAsynchronous(true);</span><br><span class="line">                mHandler.sendMessageAtTime(msg, dueTime);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>通过以上的分析，我们知道了，在刷新ui的时候原来会有这么多的参与者，但是那些什么同步消息、异步消息、消息屏障又是些什么东西呢？接下来我们就来研究一下。</p>
-<h1 id="何为同步屏障？"><a href="#何为同步屏障？" class="headerlink" title="何为同步屏障？"></a>何为同步屏障？</h1><p>message分类</p>
-<p>Handler的message分为三种</p>
-<ul>
-<li>同步消息</li>
-<li>异步消息</li>
-<li>屏障消息</li>
-</ul>
-<p>通常我们使用handler发送消息，都是使用默认的构造函数构造handler，然后使用send方法发送。这样发送的消息都是普通消息也就是同步消息，发出去的消息就会在MessageQueue中排队。异步消息正常情况下跟同步消息没有区别，只有在设置了同步屏障之后，才会出现差异。</p>
-<p>同步屏障就是在消息队列中插入一个屏障，插入之后，所有的同步消息都会被屏蔽，不能被执行，但是异步消息却不受影响，可以继续执行。</p>
-<h1 id="插入消息屏障"><a href="#插入消息屏障" class="headerlink" title="插入消息屏障"></a>插入消息屏障</h1><p>正常插入消息会调用enqueueMessage方法，同时将handler赋值给message的target。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//将消息插入消息队列</span><br><span class="line">private boolean enqueueMessage(@NonNull MessageQueue queue, @NonNull Message msg,</span><br><span class="line">        long uptimeMillis) &#123;</span><br><span class="line">    msg.target = this;</span><br><span class="line">    msg.workSourceUid = ThreadLocalWorkSource.getUid();</span><br><span class="line">    //进行判断是否将消息设置为异步消息</span><br><span class="line">    if (mAsynchronous) &#123;</span><br><span class="line">        msg.setAsynchronous(true);</span><br><span class="line">    &#125;</span><br><span class="line">    return queue.enqueueMessage(msg, uptimeMillis);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在MessageQueue中进行判断，如果target为空也就是这个message没有对应的handler则会报异常。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">boolean enqueueMessage(Message msg, long when) &#123;</span><br><span class="line">       if (msg.target == null) &#123;</span><br><span class="line">           throw new IllegalArgumentException(&quot;Message must have a target.&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       if (msg.isInUse()) &#123;</span><br><span class="line">           throw new IllegalStateException(msg + &quot; This message is already in use.&quot;);</span><br><span class="line">       &#125;</span><br><span class="line">       ...</span><br><span class="line">       // 如果需要唤醒，则唤醒</span><br><span class="line">       if (needWake) &#123;</span><br><span class="line">           nativeWake(mPtr);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-<p>通过MessageQueue的postSyncBarrier方法插入屏障，message的target属性为null</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">private int postSyncBarrier(long when) &#123;</span><br><span class="line">      </span><br><span class="line">       synchronized (this) &#123;</span><br><span class="line">           final int token = mNextBarrierToken++;</span><br><span class="line">           //msg没有为target属性赋值</span><br><span class="line">           final Message msg = Message.obtain();</span><br><span class="line">           ...</span><br><span class="line">           //根据时间插入到MessageQueue中</span><br><span class="line">           if (when != 0) &#123;</span><br><span class="line">               while (p != null &amp;&amp; p.when &lt;= when) &#123;</span><br><span class="line">                   prev = p;</span><br><span class="line">                   p = p.next;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           if (prev != null) &#123; // invariant: p == prev.next</span><br><span class="line">               msg.next = p;</span><br><span class="line">               prev.next = msg;</span><br><span class="line">           &#125; else &#123;</span><br><span class="line">               msg.next = p;</span><br><span class="line">               mMessages = msg;</span><br><span class="line">           &#125;</span><br><span class="line">           //返回一个序号，通过它可以对屏障消息进行撤销</span><br><span class="line">           return token;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<p>经过以上的操作，我们可以总结出</p>
-<ul>
-<li>屏障消息和普通消息的区别是屏障消息没有target属性，普通消息有target属性是因为要将消息分发给target指向的handler处理</li>
-<li>屏障消息会插入到MessageQueue中合适的位置，这个消息以后的普通消息将被屏蔽</li>
-<li>postSyncBarrier返回一个int类型的数值，通过这个数值可以撤销屏障</li>
-<li>postSyncBarrier方法是私有的，如果我们想调用它就得使用反射</li>
-<li>插入普通消息会唤醒消息队列，但是插入屏障不会</li>
-</ul>
-<h1 id="如何发送异步消息"><a href="#如何发送异步消息" class="headerlink" title="如何发送异步消息"></a>如何发送异步消息</h1><p>通常我们发送的都是普通消息，如果想发送异步消息</p>
-<ul>
-<li>可以在创建handler时使用如下的构造器中的一种，同时将async参数设置为true，这样这个handler发送的消息就都是异步消息了。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public Handler(boolean async) &#123;</span><br><span class="line">    this(null, async);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Handler(@NonNull Looper looper, @Nullable Callback callback) &#123;</span><br><span class="line">    this(looper, callback, false);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public Handler(@Nullable Callback callback, boolean async) &#123;</span><br><span class="line">    ...</span><br><span class="line">    mLooper = Looper.myLooper();</span><br><span class="line">    if (mLooper == null) &#123;</span><br><span class="line">        throw new RuntimeException(</span><br><span class="line">            &quot;Can&apos;t create handler inside thread &quot; + Thread.currentThread()</span><br><span class="line">                    + &quot; that has not called Looper.prepare()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    mQueue = mLooper.mQueue;</span><br><span class="line">    mCallback = callback;</span><br><span class="line">    mAsynchronous = async;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>除了这种方式还可以直接设置消息的类型为异步消息</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void setAsynchronous(boolean async) &#123;</span><br><span class="line">       if (async) &#123;</span><br><span class="line">           flags |= FLAG_ASYNCHRONOUS;</span><br><span class="line">       &#125; else &#123;</span><br><span class="line">           flags &amp;= ~FLAG_ASYNCHRONOUS;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<h1 id="消息处理的过程"><a href="#消息处理的过程" class="headerlink" title="消息处理的过程"></a>消息处理的过程</h1><p>MessageQueue是通过next方法来遍历消息的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">@UnsupportedAppUsage</span><br><span class="line">    Message next() &#123;</span><br><span class="line">        for (;;) &#123;</span><br><span class="line">            nativePollOnce(ptr, nextPollTimeoutMillis);</span><br><span class="line">            synchronized (this) &#123;</span><br><span class="line">                Message msg = mMessages;</span><br><span class="line">                //如果msg.target为空，也就是说是一个同步屏障消息，则进入这个判断里面</span><br><span class="line">                if (msg != null &amp;&amp; msg.target == null) &#123;</span><br><span class="line">                    // Stalled by a barrier.  Find the next asynchronous message in the queue.</span><br><span class="line">                    //在这个while循环中，找到最近的一个异步消息</span><br><span class="line">                    do &#123;</span><br><span class="line">                        prevMsg = msg;</span><br><span class="line">                        msg = msg.next;</span><br><span class="line">                    &#125; while (msg != null &amp;&amp; !msg.isAsynchronous());</span><br><span class="line">                &#125;</span><br><span class="line">                //找到了异步消息</span><br><span class="line">                if (msg != null) &#123;</span><br><span class="line">                    //如果消息的处理时间小于当前时间 则等待</span><br><span class="line">                    if (now &lt; msg.when) &#123;</span><br><span class="line">                        // Next message is not ready.  Set a timeout to wake up when it is ready.</span><br><span class="line">                        nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // Got a message.</span><br><span class="line">                        //处理消息</span><br><span class="line">                        mBlocked = false;</span><br><span class="line">                        //将异步消息移除</span><br><span class="line">                        if (prevMsg != null) &#123;</span><br><span class="line">                            prevMsg.next = msg.next;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            mMessages = msg.next;</span><br><span class="line">                        &#125;</span><br><span class="line">                        msg.next = null;</span><br><span class="line">                        if (DEBUG) Log.v(TAG, &quot;Returning message: &quot; + msg);</span><br><span class="line">                        msg.markInUse();</span><br><span class="line">                        //返回异步消息</span><br><span class="line">                        return msg;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    // No more messages.</span><br><span class="line">                    //没有找到异步消息则进入阻塞状态，等待被唤醒</span><br><span class="line">                    nextPollTimeoutMillis = -1;</span><br><span class="line">                &#125;</span><br><span class="line">                ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>在这段代码中，可以看到，处理过程中会先判断此消息是否为屏障消息，如果是屏障消息，则去循环遍历，直到寻找到异步消息为止。通过这种方式跳过了普通消息，直接执行异步消息。也就是说同步屏障为handler消息机制提供了一种优先级策略，异步消息的优先级要高于同步消息。</p>
-<p>另外需要注意的是：同步屏障不会自动移除，使用完成之后需要手动移除，不然会造成同步消息无法处理。也就是上边提到的，通过removeSyncBarrier(int token)方法进行移除，token就是之前添加屏障时返回的token。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void removeSyncBarrier(int token)&#123;&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通过以上的分析，想必对于handler消息机制中的几种不同的消息有了一个更深入的了解了吧，对于绘制流程中，为什么要发送一个同步屏障并且发送异步消息，应该心中也有了答案，不错，就是为了让保证在vsync信号到来时，异步任务可以优先执行，从而绘制任务可以被及时执行，避免造成界面卡顿。</li>
-</ul>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2019/09/30/什么是Handler的同步屏障机制/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-getLocationInWindow和getLocationOnScreen的区别" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2019/09/21/getLocationInWindow和getLocationOnScreen的区别/">getLocationInWindow和getLocationOnScreen的区别</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2019/09/21/getLocationInWindow和getLocationOnScreen的区别/">
-            <time datetime="2019-09-21T04:13:18.000Z" itemprop="datePublished">2019-09-21</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Android/">Android</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <h1 id="一个控件在其父窗口中的坐标位置"><a href="#一个控件在其父窗口中的坐标位置" class="headerlink" title="一个控件在其父窗口中的坐标位置"></a>一个控件在其父窗口中的坐标位置</h1><p>View.getLocationInWindow(int[] location)</p>
-<p>一个控件在其整个屏幕上的坐标位置<br>View.getLocationOnScreen(int[] location)</p>
-<p><img src="/2019/09/21/getLocationInWindow和getLocationOnScreen的区别/../../../../images/iShot2021-10-2221.37.01.png" alt="Alt text"></p>
-<p>getLocationInWindow是以B为原点的C的坐标<br>getLocationOnScreen以A为原点。<br>下面是getLocationOnScreen示例</p>
-<h1 id="下面是getLocationOnScreen示例"><a href="#下面是getLocationOnScreen示例" class="headerlink" title="下面是getLocationOnScreen示例"></a>下面是getLocationOnScreen示例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start = (Button) findViewById(R.id.start);</span><br><span class="line">int []location=new int[2];</span><br><span class="line">start.getLocationOnScreen(location);</span><br><span class="line">int x=location[0];//获取当前位置的横坐标</span><br><span class="line">int y=location[1];//获取当前位置的纵坐标</span><br></pre></td></tr></table></figure>
-<h1 id="getLocationOnScreen-的源码"><a href="#getLocationOnScreen-的源码" class="headerlink" title="getLocationOnScreen 的源码"></a>getLocationOnScreen 的源码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public void getLocationOnScreen(@Size(2) int[] outLocation) &#123;</span><br><span class="line">    getLocationInWindow(outLocation);</span><br><span class="line"></span><br><span class="line">    final AttachInfo info = mAttachInfo;</span><br><span class="line">    if (info != null) &#123;</span><br><span class="line">        outLocation[0] += info.mWindowLeft;</span><br><span class="line">        outLocation[1] += info.mWindowTop;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="下面是getLocationInWindow示例"><a href="#下面是getLocationInWindow示例" class="headerlink" title="下面是getLocationInWindow示例"></a>下面是getLocationInWindow示例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start = (Button) findViewById(R.id.start);</span><br><span class="line">int []location=new int[2];</span><br><span class="line">start.getLocationInWindow(location);</span><br><span class="line">int x=location[0];//获取当前位置的横坐标</span><br><span class="line">int y=location[1];//获取当前位置的纵坐标</span><br></pre></td></tr></table></figure>
-<h1 id="getLocationInWindow-的源码"><a href="#getLocationInWindow-的源码" class="headerlink" title="getLocationInWindow 的源码"></a>getLocationInWindow 的源码</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">public void getLocationInWindow(@Size(2) int[] outLocation) &#123;</span><br><span class="line">    if (outLocation == null || outLocation.length &lt; 2) &#123;</span><br><span class="line">        throw new IllegalArgumentException(&quot;outLocation must be an array of two integers&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    outLocation[0] = 0;</span><br><span class="line">    outLocation[1] = 0;</span><br><span class="line"></span><br><span class="line">    transformFromViewToWindowSpace(outLocation);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public void transformFromViewToWindowSpace(@Size(2) int[] inOutLocation) &#123;</span><br><span class="line">     if (inOutLocation == null || inOutLocation.length &lt; 2) &#123;</span><br><span class="line">         throw new IllegalArgumentException(&quot;inOutLocation must be an array of two integers&quot;);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     if (mAttachInfo == null) &#123;</span><br><span class="line">         // When the view is not attached to a window, this method does not make sense</span><br><span class="line">         inOutLocation[0] = inOutLocation[1] = 0;</span><br><span class="line">         return;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     float position[] = mAttachInfo.mTmpTransformLocation;</span><br><span class="line">     position[0] = inOutLocation[0];</span><br><span class="line">     position[1] = inOutLocation[1];</span><br><span class="line"></span><br><span class="line">     if (!hasIdentityMatrix()) &#123;</span><br><span class="line">         getMatrix().mapPoints(position);</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     position[0] += mLeft;</span><br><span class="line">     position[1] += mTop;</span><br><span class="line"></span><br><span class="line">     ViewParent viewParent = mParent;</span><br><span class="line">     while (viewParent instanceof View) &#123;</span><br><span class="line">         final View view = (View) viewParent;</span><br><span class="line"></span><br><span class="line">         position[0] -= view.mScrollX;</span><br><span class="line">         position[1] -= view.mScrollY;</span><br><span class="line"></span><br><span class="line">         if (!view.hasIdentityMatrix()) &#123;</span><br><span class="line">             view.getMatrix().mapPoints(position);</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">         position[0] += view.mLeft;</span><br><span class="line">         position[1] += view.mTop;</span><br><span class="line"></span><br><span class="line">         viewParent = view.mParent;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">     if (viewParent instanceof ViewRootImpl) &#123;</span><br><span class="line">         // *cough*</span><br><span class="line">         final ViewRootImpl vr = (ViewRootImpl) viewParent;</span><br><span class="line">         position[1] -= vr.mCurScrollY;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     inOutLocation[0] = Math.round(position[0]);</span><br><span class="line">     inOutLocation[1] = Math.round(position[1]);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-            
-    
-        <a href="http://b.nearby.ren/2019/09/21/getLocationInWindow和getLocationOnScreen的区别/#comments" class="article-comment-link">评论</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
     <nav id="page-nav">
         <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
     </nav>
@@ -650,6 +667,63 @@
         <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2023/09/30/kotlin集合/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/kotlin/">kotlin</a></p>
+                            <p class="item-title"><a href="/2023/09/30/kotlin集合/" class="title">Kotlin 集合</a></p>
+                            <p class="item-date"><time datetime="2023-09-30T04:20:20.000Z" itemprop="datePublished">2023-09-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2023/09/30/kotlin data class 和 class 区别/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/kotlin/">kotlin</a></p>
+                            <p class="item-title"><a href="/2023/09/30/kotlin data class 和 class 区别/" class="title">kotlin data class 和 class 区别</a></p>
+                            <p class="item-date"><time datetime="2023-09-30T04:13:18.000Z" itemprop="datePublished">2023-09-30</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2022/11/08/ensd架构图/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2022/11/08/ensd架构图/" class="title">ensd架构图</a></p>
+                            <p class="item-date"><time datetime="2022-11-08T08:03:12.000Z" itemprop="datePublished">2022-11-08</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -689,63 +763,6 @@
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2021/04/25/kotlin Android  day/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/kotlin/">kotlin</a></p>
-                            <p class="item-title"><a href="/2021/04/25/kotlin Android  day/" class="title">kotlin Android day</a></p>
-                            <p class="item-date"><time datetime="2021-04-25T03:13:18.000Z" itemprop="datePublished">2021-04-25</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2020/11/05/Android gradle依赖冲突解决办法/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/gradle/">gradle</a></p>
-                            <p class="item-title"><a href="/2020/11/05/Android gradle依赖冲突解决办法/" class="title">Android gradle依赖冲突解决办法</a></p>
-                            <p class="item-date"><time datetime="2020-11-05T04:20:11.000Z" itemprop="datePublished">2020-11-05</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2020/10/17/Android 7.0以上 charles OpenSSLhttps抓包/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/charles/">charles</a></p>
-                            <p class="item-title"><a href="/2020/10/17/Android 7.0以上 charles OpenSSLhttps抓包/" class="title">Android 7.0以上 charles OpenSSLhttps抓包</a></p>
-                            <p class="item-date"><time datetime="2020-10-17T13:31:28.000Z" itemprop="datePublished">2020-10-17</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -755,7 +772,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">分类</h3>
         <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/EventBus/">EventBus</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Fragment/">Fragment</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bug/">bug</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/charles/">charles</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kotlin/">kotlin</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/性能优化/">性能优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/EventBus/">EventBus</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Fragment/">Fragment</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/RecyclerView/">RecyclerView</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">30</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android-studio/">android studio</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/apk/">apk</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/bug/">bug</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/charles/">charles</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/dagger2/">dagger2</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/flutter/">flutter</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/go/">go</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gradle/">gradle</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kotlin/">kotlin</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linxu/">linxu</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mac/">mac</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/markdown/">markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mvp/">mvp</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/offce/">offce</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/resume/">resume</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/rxjava/">rxjava</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tinker/">tinker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/vuforia/">vuforia</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/延迟搜索/">延迟搜索</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/性能优化/">性能优化</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/文字/">文字</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/软件/">软件</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/适配/">适配</a><span class="category-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -764,7 +781,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/09/">九月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">五月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">十一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">十月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">九月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li></ul>
         </div>
     </div>
 
@@ -773,7 +790,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">46</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/charles/">charles</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flutter/">flutter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Leakcanary/">Leakcanary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac-Linux/">Mac/Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a><span class="tag-list-count">46</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android-studio/">android studio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/">bug</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/charles/">charles</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dagger2/">dagger2</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flutter/">flutter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/glide/">glide</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/go/">go</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/">golang</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/h5/">h5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/https/">https</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ios/">ios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kotlin/">kotlin</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linxu/">linxu</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac/">mac</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mvp/">mvp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/offce/">offce</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/resume/">resume</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxandroid/">rxandroid</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rxjava/">rxjava</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/service/">service</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/view/">view</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vuforia/">vuforia</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/延迟/">延迟</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文字/">文字</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/歌曲/">歌曲</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/直播/">直播</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/笔录/">笔录</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/软件名词/">软件名词</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -782,7 +799,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Android/" style="font-size: 16.67px;">Android</a> <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/flutter/" style="font-size: 10px;">flutter</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 16.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/kotlin/" style="font-size: 10px;">kotlin</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
+            <a href="/tags/Android/" style="font-size: 16.67px;">Android</a> <a href="/tags/Leakcanary/" style="font-size: 10px;">Leakcanary</a> <a href="/tags/Mac-Linux/" style="font-size: 10px;">Mac/Linux</a> <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/android-studio/" style="font-size: 10px;">android studio</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/charles/" style="font-size: 10px;">charles</a> <a href="/tags/dagger2/" style="font-size: 11.67px;">dagger2</a> <a href="/tags/flutter/" style="font-size: 10px;">flutter</a> <a href="/tags/git/" style="font-size: 16.67px;">git</a> <a href="/tags/glide/" style="font-size: 15px;">glide</a> <a href="/tags/go/" style="font-size: 18.33px;">go</a> <a href="/tags/golang/" style="font-size: 10px;">golang</a> <a href="/tags/gradle/" style="font-size: 16.67px;">gradle</a> <a href="/tags/h5/" style="font-size: 10px;">h5</a> <a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/https/" style="font-size: 11.67px;">https</a> <a href="/tags/ios/" style="font-size: 11.67px;">ios</a> <a href="/tags/java/" style="font-size: 11.67px;">java</a> <a href="/tags/kotlin/" style="font-size: 13.33px;">kotlin</a> <a href="/tags/linxu/" style="font-size: 11.67px;">linxu</a> <a href="/tags/mac/" style="font-size: 11.67px;">mac</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/mvp/" style="font-size: 13.33px;">mvp</a> <a href="/tags/offce/" style="font-size: 11.67px;">offce</a> <a href="/tags/resume/" style="font-size: 11.67px;">resume</a> <a href="/tags/rxandroid/" style="font-size: 11.67px;">rxandroid</a> <a href="/tags/rxjava/" style="font-size: 11.67px;">rxjava</a> <a href="/tags/service/" style="font-size: 10px;">service</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/view/" style="font-size: 11.67px;">view</a> <a href="/tags/vuforia/" style="font-size: 10px;">vuforia</a> <a href="/tags/web/" style="font-size: 13.33px;">web</a> <a href="/tags/延迟/" style="font-size: 10px;">延迟</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/文字/" style="font-size: 11.67px;">文字</a> <a href="/tags/歌曲/" style="font-size: 11.67px;">歌曲</a> <a href="/tags/直播/" style="font-size: 10px;">直播</a> <a href="/tags/笔录/" style="font-size: 13.33px;">笔录</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/设计模式/" style="font-size: 13.33px;">设计模式</a> <a href="/tags/软件名词/" style="font-size: 10px;">软件名词</a>
         </div>
     </div>
 
@@ -810,7 +827,7 @@
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2022 阿荣<br>
+            &copy; 2023 阿荣<br>
             <!-- <a href="http://github.com/ppoffice">ppoffice</a>     
             主题 - <a href="http://hexo.io/" target="_blank">Hexo</a> -->  
              <a href="#" target="_blank">人生如逆旅  &phi; 我亦是行人 </a>
