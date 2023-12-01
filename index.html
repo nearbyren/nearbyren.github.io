@@ -375,7 +375,7 @@
 
 
 
-    <article id="post-ensd架构图" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-组件化架构图" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -383,7 +383,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2021/06/08/ensd架构图/">组件化架构图</a>
+            <a class="article-title" href="/2021/06/08/组件化架构图/">组件化架构图</a>
         </h1>
     
 
@@ -392,7 +392,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2021/06/08/ensd架构图/">
+        <a href="/2021/06/08/组件化架构图/">
             <time datetime="2021-06-08T08:03:12.000Z" itemprop="datePublished">2021-06-08</time>
         </a>
     </div>
@@ -408,8 +408,8 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>ejiayou_android 是单一工程模式，所有业务功能都是集中在同一个工程里实现的，业务模块以package方式进行组织。</p>
-<p><img src="/2021/06/08/ensd架构图/../../../../images/11893582-fe77fbe3e9b188bc.webp" alt="单一工程"></p>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>xx_android 是单一工程模式，所有业务功能都是集中在同一个工程里实现的，业务模块以package方式进行组织。</p>
+<p><img src="/2021/06/08/组件化架构图/../../../../images/11893582-.webp" alt="单一工程"></p>
 <ol>
 <li>合代码经常发生冲突。</li>
 <li>代码严重耦合，新人学习成本高，迭代和维护成本大，功能经常发生衰退。</li>
@@ -423,10 +423,10 @@
 <li>毋庸置疑业务模块之间也需要相互依赖。例如：‘首页’、‘订单’、‘我的’、‘优惠券’、都需要跳转到‘油站详情’的，必须依赖‘油站详情’，而‘油站详情’需要选择优惠券能力，也得需要依赖‘优惠券’。</li>
 <li>那么模块之间的存在复杂的依赖关系。</li>
 </ol>
-<p><img src="/2021/06/08/ensd架构图/../../../../images/11893582-fe77fbe3e9b188bc.webp" alt="模块化"></p>
+<p><img src="/2021/06/08/组件化架构图/../../../../images/11893582-.webp" alt="模块化"></p>
 <p>模块化 在各个业务功能比较独立的情况下是比较合理的，但多个模块中肯定会有页面跳转、数据传递、方法调用 等情况，所以必然存在以上这种依赖关系，即模块间有着高耦合度。 高耦合度 加上 代码量大，就极易出现上面提到的那些问题了，严重影响了团队的开发效率及质量。</p>
 <h2 id="2-组件化"><a href="#2-组件化" class="headerlink" title="2. 组件化"></a>2. 组件化</h2><p>   组件化，去除模块间的耦合，使得每个业务模块可以独立当做App存在，对于其他模块没有直接的依赖关系。 此时业务模块就成为了业务组件。<br>   除了业务组件，还有抽离出来的业务基础组件，是提供给业务组件使用，但不是独立的业务，例如分享组件、广告组件；还有基础组件，即单独的基础功能，与业务无关，例如 图片加载、网络请求等。</p>
-<p><img src="/2021/06/08/ensd架构图/../../../../images/11893582-fe77fbe3e9b188bc.webp" alt="组件化"></p>
+<p><img src="/2021/06/08/组件化架构图/../../../../images/11893582-.webp" alt="组件化"></p>
 <ol>
 <li>组件依赖关系上层依赖下层，修改频率是上层高于下层</li>
 <li>基础组件是通用基础能力，修改频率相对于低，作为sdk提供所有的项目集成使用。</li>
@@ -437,7 +437,7 @@
 <h1 id="组件开发规范"><a href="#组件开发规范" class="headerlink" title="组件开发规范"></a>组件开发规范</h1><ul>
 <li>规范1：资源命名规则</li>
 </ul>
-<p><img src="/2021/06/08/ensd架构图/../../../../images/11893582-fe77fbe3e9b188bc.webp" alt="展示项目资源图"></p>
+<p><img src="/2021/06/08/组件化架构图/../../../../images/11893582-.webp" alt="展示项目资源图"></p>
 <ol>
 <li><p>所有的资源文件名称都需要以业务组件名前缀命名，需要注意不能与其他组件前缀冲突，例如业务组件名为：’login’，则相关资源文件命名例子:</p>
 <ul>
@@ -462,7 +462,7 @@
 </ol>
 </li>
 </ul>
-<p><img src="/2021/06/08/ensd架构图/../../../../images/11893582-fe77fbe3e9b188bc.webp" alt="展示暴露服务api"></p>
+<p><img src="/2021/06/08/组件化架构图/../../../../images/11893582-.webp" alt="展示暴露服务api"></p>
 <ul>
 <li>暴露组件，只存放服务接口、服务接口相关的实体类、路由信息、Fragment的获取、便于服务调用uitl等。</li>
 <li>服务调用方只依赖服务提供方的报露组件，接口的具体实现由服务方与调用相互协调后，提供工具让调用方直接调用。如home_module依赖login_export，而不是home_module依赖login_module。</li>
@@ -512,7 +512,7 @@
 
             
     
-        <a href="http://b.nearby.ren/2021/06/08/ensd架构图/#comments" class="article-comment-link">评论</a>
+        <a href="http://b.nearby.ren/2021/06/08/组件化架构图/#comments" class="article-comment-link">评论</a>
     
 
         </footer>
@@ -741,7 +741,7 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2021/06/08/ensd架构图/" class="thumbnail">
+                            <a href="/2021/06/08/组件化架构图/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -752,7 +752,7 @@
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2021/06/08/ensd架构图/" class="title">组件化架构图</a></p>
+                            <p class="item-title"><a href="/2021/06/08/组件化架构图/" class="title">组件化架构图</a></p>
                             <p class="item-date"><time datetime="2021-06-08T08:03:12.000Z" itemprop="datePublished">2021-06-08</time></p>
                         </div>
                     </li>
